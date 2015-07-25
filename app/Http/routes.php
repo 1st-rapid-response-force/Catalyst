@@ -11,6 +11,25 @@
 |
 */
 
+
+//Frontend
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.home');
 });
+Route::get('/home', function () {
+    return view('frontend.home');
+});
+
+Route::get('enlistment', 'EnlistmentController@index');
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::get('auth/validate', 'Auth\AuthController@validateLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getLogin');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+//Backend
+

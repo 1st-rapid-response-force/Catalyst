@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use App\Group;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,8 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(UserTableSeeder::class);
-
+        $this->call(CatalystSeeder::class);
+        $this->call(CatalystRankSeeder::class);
+        $this->call(CatalystGroupsSeeder::class);
+        $this->call(CatalystAssignmentsSeeder::class);
         Model::reguard();
     }
 }

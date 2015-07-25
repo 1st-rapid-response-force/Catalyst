@@ -16,6 +16,9 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->bigInteger('steam_id');
+            $table->unsignedInteger('application_id');
+            $table->unsignedInteger('vpf_id');
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();

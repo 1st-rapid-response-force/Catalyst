@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use Validator;
+use Auth;
+use App\User;
+use App\Role;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+    protected $redirectPath = '/';
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -44,7 +49,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'steam_id' => 'required',
         ]);
     }
 
@@ -59,7 +64,46 @@ class AuthController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'steam_id' => $data['steam_id'],
+            'password' => bcrypt(str_random(40)),
         ]);
     }
+
+    public function getLogin()
+    {
+        return view('frontend.auth.login');
+    }
+    public function validateLogin()
+    {
+        $steam_id = \SteamLogin::validate();
+
+        $user = User::where('steam_id',$steam_id)->first();
+        if (is_null($user)) {
+            return view('frontend.auth.register')->with('steam_id',$steam_id);
+        } else {
+            Auth::login($user);
+            return redirect('/');
+        }
+    }
+    public function getLogout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+    public function postRegister(Request $request)
+    {
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'steam_id' => $request->steam_id,
+            'password' => bcrypt(str_random(40)),
+        ]);
+        $role = Role::where('name','user')->first();
+        $user->attachRole($role);
+
+        Auth::login($user);
+        return redirect('/');
+
+    }
+
 }

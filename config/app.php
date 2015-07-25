@@ -144,6 +144,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Third Party Service Providers
+         */
+        'Ehesp\SteamLogin\Laravel\SteamLoginServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider',
     ],
 
     /*
@@ -191,7 +196,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-
+        'SteamLogin' => 'Ehesp\SteamLogin\Laravel\Facades\SteamLogin',
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
     ],
 
 ];
