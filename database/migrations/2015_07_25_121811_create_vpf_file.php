@@ -20,7 +20,7 @@ class CreateVpfFile extends Migration
             $table->unsignedInteger('rank_id')->default('1');
             $table->string('status');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->on_delete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

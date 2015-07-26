@@ -34,9 +34,17 @@ class EnlistmentController extends Controller
      */
     public function create($mos)
     {
+        //Check if user already has an application
+        $user = \Auth::user();
+        if(!is_null($user->application_id))
+        {
+            \Notification::warning('You have already submitted an application');
+            return redirect('/enlistment/my-application');
+        }
+
+        //Need to implement Assignment Logic
         $assignmentCheck = VPF::where('assignment_id',$mos)->first();
 
-        //return $assignmentCheck;
 
         if (is_null($assignmentCheck))
         {
@@ -153,6 +161,7 @@ class EnlistmentController extends Controller
         // User must either have officer permission or be the owner of the application
         if (($user->can(['officer-permission'])))
         {
+            \Notification::infoInstant('Officer - Application View - You are viewing an applicants enlistment paperwork.');
             return view('frontend.enlistment.show')->with('app',$app);
         } else {
             \Log::info('User attempted to access officer tier information - applications.', ['id'=> $user->id]);

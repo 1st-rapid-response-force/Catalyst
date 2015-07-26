@@ -22,13 +22,11 @@ class CatalystSeeder extends Seeder
     {
         ////////////////////////// ADMIN USERS
         $admin = User::create([
-            'name' => 'George Rodriguez',
             'email' => 'rodriguez.guillermo.a42@gmail.com',
             'steam_id' => '76561198011615406',
             'password' => bcrypt(str_random(40)),
         ]);
         $admin2 = User::create([
-            'name' => 'Alexander Striker',
             'email' => 'alex@countercraft.net',
             'steam_id' => '76561198021531457',
             'password' => bcrypt(str_random(40)),
@@ -134,6 +132,7 @@ class CatalystSeeder extends Seeder
         $rod->agreement_ranks = 1;
         $rod->signature = 'Guillermo Rodriguez';
         $rod->signature_date = \Carbon\Carbon::now()->toDateTimeString();
+        $rod->processed_statement = 'No Statement, Accepted';
         $rod->save();
 
         $striker = new Application;
@@ -156,6 +155,7 @@ class CatalystSeeder extends Seeder
         $striker->agreement_ranks = 1;
         $striker->signature = 'Alexander Striker';
         $striker->signature_date = \Carbon\Carbon::now()->toDateTimeString();
+        $striker->processed_statement = 'No Statement, Accepted';
         $striker->save();
 
         //Personnel File Creation

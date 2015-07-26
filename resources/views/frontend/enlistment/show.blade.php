@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('css-top')
-    <link rel="stylesheet" type="text/css" href="/css/gridforms.css">
+    <link rel="stylesheet" type="text/css" href="/backend/css/gridforms.css">
 @endsection
 
 @section('content')
@@ -162,12 +162,24 @@
                                     <input type="text" name="processed_signature" readonly value="{{$app->processed_signature}}">
                                 </div>
                             </div>
-                            <div data-row-span="3">
-                                <div data-field-span="2">
+                            <div data-row-span="2">
+                                <div data-field-span="1">
                                     <label>STATUS</label>
-                                    <input type="text" name="status" readonly value="{{$app->status}}">
+                                    <div style="margin: auto;">
+                                        @if(($app->status == 'Under Review'))
+                                            <img height="200" width="200" class="img-responsive" src="/frontend/images/under_review.jpg">
+                                        @endif
+                                        @if(($app->status == 'Accepted'))
+                                            <img height="200" width="200" src="/frontend/images/approved.gif">
+                                        @endif
+                                        @if(($app->status == 'Rejected'))
+                                            <img height="150" width="400" src="/frontend/images/rejected.png">
+                                        @endif
+                                    </div>
                                 </div>
                                 <div data-field-span="1">
+                                    <label>Statement</label>
+                                    <textarea readonly cols="5">{{$app->processed_statement}}</textarea>
                                 </div>
                             </div>
                         </fieldset>
@@ -179,5 +191,5 @@
 @endsection
 
 @section('js-bottom')
-    <script type="text/javascript" src="/js/gridforms.js"></script>
+    <script type="text/javascript" src="/backend/js/gridforms.js"></script>
 @endsection

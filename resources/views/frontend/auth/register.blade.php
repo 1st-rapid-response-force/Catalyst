@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('css-top')
-    <link rel="stylesheet" type="text/css" href="/css/gridforms.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/gridforms.css">
 @endsection
 
 @section('content')
@@ -15,12 +15,6 @@
             <fieldset>
                 <legend>Basic Information</legend>
                 <div data-row-span="4">
-                    <div data-field-span="4" data-field-error="Full Name">
-                        <label>Name</label>
-                        <input type="text" name="name" required>
-                    </div>
-                </div>
-                <div data-row-span="4">
                     <div data-field-span="4" data-field-error="Please enter a valid email address">
                         <label>E-mail</label>
                         <input type="email" name="email" required>
@@ -29,8 +23,8 @@
                 <div data-row-span="2">
                     <div data-field-span="1">
                         <label>Would you like to receive email updates?</label>
-                        <label><input type="radio" name="okEmail" checked> YES</label> &nbsp;
-                        <label><input type="radio" name="okEmail"> NO</label> &nbsp;
+                        <label><input type="radio" name="okEmail" value="true" checked> YES</label> &nbsp;
+                        <label><input type="radio" name="okEmail" value="false"> NO</label> &nbsp;
                     </div>
                     <div data-field-span="1">
                         <label>Steam ID</label>
@@ -49,5 +43,5 @@
 @endsection
 
 @section('js-bottom')
-    <script type="text/javascript" src="/js/gridforms.js"></script>
+    <script type="text/javascript" src="/frontend/js/gridforms.js"></script>
 @endsection

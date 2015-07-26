@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('css-top')
-    <link rel="stylesheet" type="text/css" href="/css/gridforms.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/gridforms.css">
 @endsection
 
 @section('content')
@@ -17,14 +17,14 @@
         <h3>Available Assignments</h3>
         <div class="text-center">
             <div class="row">
-                <div class="col-lg-4"><a href=""><img src="/images/140x140.jpg" alt="Placeholder" class="img-rounded"><br>Special Forces</a></div>
-                <div class="col-lg-4"><a href=""><img src="/images/140x140.jpg" alt="Placeholder" class="img-rounded"><br>Motorized Infantry</a></div>
-                <div class="col-lg-4"><a href=""><img src="/images/140x140.jpg" alt="Placeholder" class="img-rounded"><br>Mechanized Forces</a></div>
+                <div class="col-lg-4"><a href=""><img src="/frontend/images/140x140.jpg" alt="Placeholder" class="img-rounded"><br>Special Forces</a></div>
+                <div class="col-lg-4"><a href=""><img src="/frontend/images/140x140.jpg" alt="Placeholder" class="img-rounded"><br>Motorized Infantry</a></div>
+                <div class="col-lg-4"><a href=""><img src="/frontend/images/140x140.jpg" alt="Placeholder" class="img-rounded"><br>Mechanized Forces</a></div>
             </div>
         </div>
     </div>
 @endsection
 
 @section('js-bottom')
-    <script type="text/javascript" src="/js/gridforms.js"></script>
+    <script type="text/javascript" src="/frontend/js/gridforms.js"></script>
 @endsection

@@ -55,10 +55,10 @@
     @yield('content')
 
 <!-- jQuery Version 1.11.1 -->
-<script src="/js/jquery.js"></script>
+<script src="/frontend/js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/js/bootstrap.min.js"></script>
+<script src="/frontend/js/bootstrap.min.js"></script>
 @yield('js-bottom')
 </body>
 

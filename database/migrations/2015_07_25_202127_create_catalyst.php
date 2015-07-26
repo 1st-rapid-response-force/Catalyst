@@ -31,7 +31,7 @@ class CreateCatalyst extends Migration
             $table->timestamp('counselor_sig_date');
             $table->timestamps();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
         Schema::create('dcs', function(Blueprint $table)
         {
@@ -49,7 +49,7 @@ class CreateCatalyst extends Migration
             $table->dateTime('assessment_date')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
         Schema::create('ncs', function(Blueprint $table)
         {
@@ -69,7 +69,7 @@ class CreateCatalyst extends Migration
             $table->timestamp('approval_date');
             $table->timestamps();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
         Schema::create('vcs', function(Blueprint $table)
         {
@@ -83,7 +83,7 @@ class CreateCatalyst extends Migration
             $table->text('summary_interaction');
             $table->timestamps();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
 
         // PERSONNEL FILE
@@ -94,7 +94,7 @@ class CreateCatalyst extends Migration
             $table->integer('model_type')->unsigned();
             $table->timestamps();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
         Schema::create('promotions', function(Blueprint $table)
         {
@@ -105,7 +105,7 @@ class CreateCatalyst extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
         Schema::create('teamspeak', function(Blueprint $table)
         {
@@ -115,7 +115,7 @@ class CreateCatalyst extends Migration
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->unique('uuid');
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
 
         // GENERAL PERSONAL FILE
@@ -183,7 +183,7 @@ class CreateCatalyst extends Migration
             $table->text('note');
             $table->timestamps();
             $table->engine = 'InnoDB';
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
 
         //JOIN TABLES
@@ -194,8 +194,8 @@ class CreateCatalyst extends Migration
             $table->date('date_awarded');
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'award_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
-            $table->foreign('award_id')->references('id')->on('awards')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
+            $table->foreign('award_id')->references('id')->on('awards')->onDelete('cascade');
         });
 
         Schema::create('vpf_operations', function(Blueprint $table)
@@ -205,8 +205,8 @@ class CreateCatalyst extends Migration
             $table->date('date_attended');
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'operation_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
-            $table->foreign('operation_id')->references('id')->on('operations')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
+            $table->foreign('operation_id')->references('id')->on('operations')->onDelete('cascade');
         });
 
         Schema::create('vpf_qualifications', function(Blueprint $table)
@@ -216,8 +216,8 @@ class CreateCatalyst extends Migration
             $table->date('date_awarded');
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'qualification_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
-            $table->foreign('qualification_id')->references('id')->on('qualifications')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
+            $table->foreign('qualification_id')->references('id')->on('qualifications')->onDelete('cascade');
         });
 
         Schema::create('vpf_ribbons', function(Blueprint $table)
@@ -227,8 +227,8 @@ class CreateCatalyst extends Migration
             $table->date('date_awarded');
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'ribbon_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
-            $table->foreign('ribbon_id')->references('id')->on('ribbons')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
+            $table->foreign('ribbon_id')->references('id')->on('ribbons')->onDelete('cascade');
         });
 
         Schema::create('vpf_schools', function(Blueprint $table)
@@ -238,8 +238,8 @@ class CreateCatalyst extends Migration
             $table->date('date_attended');
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'school_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->on_delete('cascade');
-            $table->foreign('school_id')->references('id')->on('schools')->on_delete('cascade');
+            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
     }
 

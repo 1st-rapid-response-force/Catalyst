@@ -8,7 +8,7 @@
                 <li><a href="#"><i class="fa fa-file-text-o"></i> My Loadout</a></li>
                 <li role="separator" class="divider"></li>
                 @if(Auth::user()->hasRole(['officer','superadmin']))
-                <li><a href="#"><i class="fa fa-lock"></i> Officer Panel</a></li>
+                <li><a href="/admin/"><i class="fa fa-lock"></i> Officer Panel</a></li>
                 @endif
             <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>

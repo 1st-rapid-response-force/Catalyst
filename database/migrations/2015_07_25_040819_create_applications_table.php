@@ -38,8 +38,9 @@ class CreateApplicationsTable extends Migration
             $table->string('processed_paygrade')->default('E-5');
             $table->string('processed_unitname')->default('Command Element');
             $table->string('processed_signature')->default('Jennifer Reilly');
+            $table->string('processed_statement')->default('No statement, application is being processed');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->on_delete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

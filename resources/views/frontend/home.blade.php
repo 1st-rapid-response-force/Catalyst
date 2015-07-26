@@ -21,7 +21,7 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h4>Ranks with Meaning</h4></div>
-                    <div class="panel-body" style="height:282px;">
+                    <div class="panel-body" style="height:290px;">
                         We use a rank structure based on the US Army to create a rich experience and atmosphere.
                         <br />
                         <br />
@@ -38,7 +38,7 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h4>Well Planned Content</h4></div>
-                    <div class="panel-body" style="height:282px;">
+                    <div class="panel-body" style="height:290px;">
                         The key to success and enjoyment in an ARMA unit is great, regular gameplay in a consistent environment.
                         <br />
                         <br />
@@ -54,7 +54,7 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h4>Authentic Structure</h4></div>
-                    <div class="panel-body" style="height:282px;">
+                    <div class="panel-body" style="height:290px;">
                         We believe that there is value in the metagame that MILSIM provides.
                         <br />
                         <br />
@@ -83,19 +83,25 @@
         <div class="row">
             <div class="col-xs-12">
                 <ul class="nav nav-pills" style="display:flex;justify-content:center;">
-                    <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">11B - Infantryman</a></li>
-                    <li class="hidden-xs"><a href="#profile" data-toggle="tab" aria-expanded="false">15B(B1/2) - Transport Airframe Weapons Sergeant</a></li>
-                    <li class="hidden-xs"><a href="#profile" data-toggle="tab" aria-expanded="false">57A - Simulation Operations Officer</a></li>
-                    <li class="hidden-xs"><a href="#profile" data-toggle="tab" aria-expanded="false">25C - Radio Operator</a></li>
-                    <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">15Q - Air Traffic Control Specialist </a></li>
-                    <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">17Z - Reconnaissance Element Commander</a></li>
+                    <li class="active"><a href="#11b-description" data-toggle="tab" aria-expanded="true">11B - Infantryman</a></li>
+                    <li class="hidden-xs"><a href="#15b-description" data-toggle="tab" aria-expanded="false">15B(B1/2) - Transport Airframe Weapons Sergeant</a></li>
+                    <li class="hidden-xs"><a href="#57a-description" data-toggle="tab" aria-expanded="false">57A - Simulation Operations Officer</a></li>
+                    <li class="hidden-xs"><a href="#25c-description" data-toggle="tab" aria-expanded="false">25C - Radio Operator</a></li>
+                    <li class=""><a href="#15q-description" data-toggle="tab" aria-expanded="false">15Q - Air Traffic Control Specialist </a></li>
+                    <li class=""><a href="#17z-description" data-toggle="tab" aria-expanded="false">17Z - Reconnaissance Element Commander</a></li>
                 </ul>
 
                 <div id="myTabContent" class="tab-content">
-                    <div class="tab-pane fade active in" id="home">
+                    <div class="tab-pane fade active in" id="11b-description">
                         <div class="well well-lg">
                             <p>
                                 11Bs make up the bulk of the RRF's fighting force. Well trained in open warfare, out 11Bs are deployed across a variety of elements, including Airborne, Air Assualt, Mechanized, Motorized and Amphibious groups.
+                            </p>
+                            <p>
+                                Many 11Bs choose never to progress further into the unit as they find that the role provides a great all round experience that is not overly time consuming.
+                            </p>
+                            <p>
+                                Out 11Bs are trained to some of the highest standards in the ARMA verse to show teamwork and discipline, whilst not operating at a level that requires enthusiast level time commitments.
                             </p>
                             <p>
                                 11Bs are essential to completing any objective that the RRF is assigned, normally utilizing firepower and overwhelming force tactics to complete their objective in coordination with other elements.
@@ -103,7 +109,7 @@
                             <a href="#" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile">
+                    <div class="tab-pane fade" id="15b-description">
                         <div class="well well-lg">
                             <p>
                                 15Bs are Weapons Sergeants on our Airframes. The (B1/2) designator identifies this as a position on one of our medium or heavy transport airframes, the the UH-60 and the CH-47 respectively.
@@ -121,13 +127,80 @@
                             <a href="#" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="dropdown1">
-                        <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+                    <div class="tab-pane fade" id="57a-description">
+                        <div class="well well-lg">
+                            <p>
+                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                            </p>
+                            <p>
+                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
+                            </p>
+                            <p>
+                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
+                            </p>
+                            <p>
+                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
+                            </p>
+
+                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                        </div>
                     </div>
-                    <div class="tab-pane fade" id="dropdown2">
-                        <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+                    <div class="tab-pane fade" id="25c-description">
+                        <div class="well well-lg">
+                            <p>
+                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                            </p>
+                            <p>
+                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
+                            </p>
+                            <p>
+                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
+                            </p>
+                            <p>
+                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
+                            </p>
+
+                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="15q-description">
+                        <div class="well well-lg">
+                            <p>
+                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                            </p>
+                            <p>
+                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
+                            </p>
+                            <p>
+                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
+                            </p>
+                            <p>
+                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
+                            </p>
+
+                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="17z-description">
+                        <div class="well well-lg">
+                            <p>
+                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                            </p>
+                            <p>
+                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
+                            </p>
+                            <p>
+                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
+                            </p>
+                            <p>
+                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
+                            </p>
+
+                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

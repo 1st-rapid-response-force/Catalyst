@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('css-top')
-    <link rel="stylesheet" type="text/css" href="/css/gridforms.css">
+    <link rel="stylesheet" type="text/css" href="/backend/css/gridforms.css">
 @endsection
 
 @section('content')
@@ -151,7 +151,6 @@
                             <input type="hidden" name="user_id" value="{{$user->id}}">
                             <input class="btn btn-primary" type="submit">
                         </div>
-
                     </fieldset>
                 </form>
             </div>
@@ -160,5 +159,5 @@
 @endsection
 
 @section('js-bottom')
-    <script type="text/javascript" src="/js/gridforms.js"></script>
+    <script type="text/javascript" src="/backend/js/gridforms.js"></script>
 @endsection

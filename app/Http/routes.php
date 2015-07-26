@@ -26,7 +26,7 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('enlistment', 'EnlistmentController@index');
         Route::get('enlistment/apply/{mos}', 'EnlistmentController@create');
         Route::get('enlistment/my-application', 'EnlistmentController@show');
-        Route::get('enlistment/view/{id}', 'EnlistmentController@showApp');
+        Route::get('enlistment/view/{id}',['as'=>'enlistment.view','uses'=>'EnlistmentController@showApp']);
         Route::post('enlistment/store', 'EnlistmentController@store');
         Route::get('enlistment/success', 'EnlistmentController@success');
     });
@@ -45,8 +45,24 @@ Route::group(['namespace' => 'Frontend'], function()
 
 });
 
-Route::group(['namespace' => 'Backend'], function()
-{
+Route::group(['namespace' => 'Backend',
+    'prefix' => 'admin',
+    'middleware' => ['auth', 'admin']], function() {
+
+    Route::get('/', function () {
+        return view('backend.dashboard');
+    });
+    Route::get('dashboard', function () {
+        return redirect('/admin/');
+    });
+    Route::resource('members', 'UserController');
+
+    Route::post('applications/approve',['as'=>'admin.applications.approve','uses'=>'ApplicationsController@approve']);
+    Route::post('applications/reject',['as'=>'admin.applications.reject','uses'=>'ApplicationsController@reject']);
+    Route::get('applications/accepted-apps',['as'=>'admin.applications.accepted','uses'=>'ApplicationsController@accepted']);
+    Route::get('applications/rejected-apps',['as'=>'admin.applications.rejected','uses'=>'ApplicationsController@rejected']);
+    Route::resource('applications', 'ApplicationsController');
+
 });
 
 

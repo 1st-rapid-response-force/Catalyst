@@ -1,0 +1,9 @@
+.catalyst-background {
+    background-image: url("/backend/img/background.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #000000;
+}
+.logo-text {
+    color: #ffffff;
+}

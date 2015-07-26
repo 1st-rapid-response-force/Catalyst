@@ -94,10 +94,10 @@ class AuthController extends Controller
     public function postRegister(Request $request)
     {
         $user = User::create([
-            'name' => $request->name,
             'email' => $request->email,
             'steam_id' => $request->steam_id,
             'password' => bcrypt(str_random(40)),
+            'okEmail' => $request->okEmail,
         ]);
         $role = Role::where('name','user')->first();
         $user->attachRole($role);
