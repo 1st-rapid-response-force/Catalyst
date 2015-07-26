@@ -8,7 +8,9 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "ehesp/steam-login": "~1.0.1",
-        "zizaco/entrust": "dev-laravel-5"
+        "zizaco/entrust": "dev-laravel-5",
+        "edvinaskrucas/notification": "5.*",
+        "hieu-le/active": "~2.0"
 
     },
     "require-dev": {

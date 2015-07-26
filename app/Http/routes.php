@@ -11,25 +11,48 @@
 |
 */
 
+Route::group(['namespace' => 'Frontend'], function()
+{
+    Route::get('/', function () {
+        return view('frontend.home');
+    });
+    Route::get('/home', function () {
+        return redirect('/');
+    });
 
-//Frontend
-Route::get('/', function () {
-    return view('frontend.home');
+    Route::group(['middleware' => 'auth'], function()
+    {
+        //Enlistment
+        Route::get('enlistment', 'EnlistmentController@index');
+        Route::get('enlistment/apply/{mos}', 'EnlistmentController@create');
+        Route::get('enlistment/my-application', 'EnlistmentController@show');
+        Route::get('enlistment/view/{id}', 'EnlistmentController@showApp');
+        Route::post('enlistment/store', 'EnlistmentController@store');
+        Route::get('enlistment/success', 'EnlistmentController@success');
+    });
+
+    // Authentication routes...
+    Route::get('login', 'Auth\AuthController@getLogin');
+    Route::get('logout', 'Auth\AuthController@getLogout');
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+    Route::get('auth/validate', 'Auth\AuthController@validateLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+    // Registration routes...
+    Route::get('auth/register', 'Auth\AuthController@getLogin');
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+
 });
-Route::get('/home', function () {
-    return view('frontend.home');
+
+Route::group(['namespace' => 'Backend'], function()
+{
 });
 
-Route::get('enlistment', 'EnlistmentController@index');
 
-// Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::get('auth/validate', 'Auth\AuthController@validateLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-// Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getLogin');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-//Backend
+
+
+
 

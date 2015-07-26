@@ -127,13 +127,13 @@ class CatalystSeeder extends Seeder
         $rod->milsim_grouplist = '7th Cav, 23rd Gaming Division, 34th Gaming Division, 8th SOF';
         $rod->milsim_highestrank = 'Colonel';
         $rod->milsim_previoustraining = 'Basic Training, AIT 1, AIT 2 - Airframe, Infantry, Radio, Navigation, Warrior Leader Training';
-        $rod->milsim_depature = '7th Cav - Did not agree with policies and leadership, the rest where unit collapses';
+        $rod->milsim_depature = '7th Cav - Did not agree with policies and leadership, the rest were unit collapses';
         $rod->agreement_milsim = 1;
         $rod->agreement_guidelines = 1;
         $rod->agreement_orders = 1;
         $rod->agreement_ranks = 1;
         $rod->signature = 'Guillermo Rodriguez';
-        $rod->signature_date = time();
+        $rod->signature_date = \Carbon\Carbon::now()->toDateTimeString();
         $rod->save();
 
         $striker = new Application;
@@ -155,7 +155,7 @@ class CatalystSeeder extends Seeder
         $striker->agreement_orders = 1;
         $striker->agreement_ranks = 1;
         $striker->signature = 'Alexander Striker';
-        $striker->signature_date = time();
+        $striker->signature_date = \Carbon\Carbon::now()->toDateTimeString();
         $striker->save();
 
         //Personnel File Creation

@@ -16,7 +16,7 @@ class CreateApplicationsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->string('status')->default('Submitted for Processing');
+            $table->string('status')->default('Under Review');
             $table->string('first_name');
             $table->string('last_name');
             $table->unsignedInteger('age');

@@ -18,6 +18,7 @@ class CreateAssignmentsTable extends Migration
             $table->integer('group_id')->default('1');
             $table->string('name');
             $table->string('mos');
+            $table->boolean('entry_level')->default(false);
             $table->timestamps();
 
         });

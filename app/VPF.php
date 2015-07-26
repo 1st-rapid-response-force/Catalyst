@@ -13,6 +13,11 @@ class VPF extends Model
      */
     protected $table = 'vpf';
 
+    public function __toString()
+    {
+        return $this->rank->abbreviation.'. '.$this->user->application->last_name.'.'.$this->user->application->first_name[0];
+    }
+
     /**
      * Returns User
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

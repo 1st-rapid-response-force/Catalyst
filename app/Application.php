@@ -15,6 +15,11 @@ class Application extends Model
 
     public function user()
     {
-        return belongTo('App\User');
+        return $this->belongsTo('App\User');
+    }
+
+    public function assignment()
+    {
+        return $this->belongsTo('App\Assignment');
     }
 }

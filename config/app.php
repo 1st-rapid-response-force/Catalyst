@@ -149,6 +149,8 @@ return [
          */
         'Ehesp\SteamLogin\Laravel\SteamLoginServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
+        'Krucas\Notification\NotificationServiceProvider',
+        'HieuLe\Active\ActiveServiceProvider',
     ],
 
     /*
@@ -198,6 +200,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'SteamLogin' => 'Ehesp\SteamLogin\Laravel\Facades\SteamLogin',
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+        'Notification' => 'Krucas\Notification\Facades\Notification',
+        'Active' => 'HieuLe\Active\Facades\Active',
     ],
 
 ];

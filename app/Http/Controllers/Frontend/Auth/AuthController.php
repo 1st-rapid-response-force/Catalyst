@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Frontend\Auth;
 
 use Validator;
 use Auth;
@@ -82,6 +82,7 @@ class AuthController extends Controller
             return view('frontend.auth.register')->with('steam_id',$steam_id);
         } else {
             Auth::login($user);
+            \Log::info('User has logged in.', ['id'=> $user->id]);
             return redirect('/');
         }
     }
