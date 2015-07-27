@@ -21,4 +21,9 @@ class Assignment extends Model
     {
         return $this->belongsTo('App\Group');
     }
+
+    public function MOS()
+    {
+        return $this->belongsTo('App\MOS');
+    }
 }

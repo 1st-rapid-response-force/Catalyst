@@ -15,9 +15,9 @@ class CreateAssignmentsTable extends Migration
         Schema::create('assignments', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('group_id')->default('1');
+            $table->unsignedInteger('group_id')->default('1');
+            $table->unsignedInteger('mos_id')->default('1');
             $table->string('name');
-            $table->string('mos');
             $table->boolean('entry_level')->default(false);
             $table->timestamps();
 

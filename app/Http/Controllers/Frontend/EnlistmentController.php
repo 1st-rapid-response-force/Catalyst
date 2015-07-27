@@ -21,7 +21,8 @@ class EnlistmentController extends Controller
     public function index()
     {
 
-        //dd($availableForEnlistment);
+        $assignments = $this->AssignmentList();
+        dd($assignments);
 
         $user = \Auth::user();
         return view('frontend.enlistment.index')->with('user',$user);
@@ -176,21 +177,24 @@ class EnlistmentController extends Controller
      * Compiles a list of all available assignments based on available and those marked as initial assignments
      * @return \Illuminate\Support\Collection
      */
-    private function compileAssignmentList()
+    private function AssignmentList()
     {
         $assignments = Assignment::all();
         $availableForEnlistment = collect();
+        $mos = collect();
 
         foreach($assignments as $assignment)
         {
             //Check if anyone else has this ID
             $assignmentCheck = VPF::where('assignment_id',$assignment->id)->first();
             //If No One has it, add the model to a collection
-            if (is_null($assignmentCheck)) {
+            if (is_null($assignmentCheck) && ($assignment->entry_level == 1)) {
                 $availableForEnlistment->push($assignment);
             }
         }
+        $unique = $availableForEnlistment->shuffle()->unique('mos');
 
-        return $availableForEnlistment;
+        //Returns a list of (kinda) unique MOS that are available to the user and displays them for the user.
+        return $unique;
     }
 }

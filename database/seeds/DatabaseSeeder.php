@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CatalystRankSeeder::class);
         $this->call(CatalystGroupsSeeder::class);
         $this->call(CatalystAssignmentsSeeder::class);
+        $this->call(CatalystMOSSeeder::class);
         Model::reguard();
     }
 }
