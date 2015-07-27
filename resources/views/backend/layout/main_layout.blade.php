@@ -22,10 +22,6 @@
     <link href="/backend/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- Site Styling -->
     <link href="/backend/css/catalyst.css" rel="stylesheet" type="text/css" />
-    <!-- jQuery 2.1.4 -->
-    <script src="/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="/backend/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     @yield('scripts-css-header')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -94,15 +90,19 @@
         <strong>Copyright &copy; 2015 <a href="https://milsim-united.com">Milsim-United.com</a>.</strong> All rights reserved.
     </footer>
 </div><!-- ./wrapper -->
-@yield('page-script')
-@yield('page-script-include')
+
+<!-- jQuery 2.1.4 -->
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js" type="text/javascript"></script>
+<!-- Bootstrap 3.3.2 JS -->
+<script src="/backend/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <!-- SlimScroll -->
 <script src="/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
 <!-- AdminLTE App -->
 <script src="/backend/js/app.min.js" type="text/javascript"></script>
-
+@yield('page-script-include')
+@yield('page-script')
 @yield('modal')
 </body>
 </html>

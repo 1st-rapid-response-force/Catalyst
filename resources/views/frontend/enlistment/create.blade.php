@@ -2,6 +2,8 @@
 
 @section('css-top')
     <link rel="stylesheet" type="text/css" href="/backend/css/gridforms.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/datepicker/datepicker3.css">
+    <script type="text/javascript" src="/plugins/datepicker/bootstrap-datepicker.js"></script>
 @endsection
 
 @section('content')
@@ -44,8 +46,8 @@
                         </div>
                         <div data-row-span="3">
                             <div data-field-span="1">
-                                <label>AGE</label>
-                                <input type="text" name="age" required>
+                                <label>DATE OF BIRTH</label>
+                                <input type="text" id="dob" name="dob" placeholder="MM/DD/YYYY">
                             </div>
                             <div data-field-span="2">
                                 <label>Nationality</label>
@@ -65,7 +67,8 @@
                         <div data-row-span="1">
                             <div data-field-span="1">
                                 <label>REQUESTED ASSIGNMENT</label>
-                                <input type="text" name="assignment_id" readonly value="{{$mos->mos.' - '.$mos->name}}">
+                                <input type="hidden" name="assignment_id" value="{{$mos->id}}">
+                                <input type="text" name="assignment" readonly value="{{$mos->mos.' - '.$mos->name}}">
                             </div>
                         </div>
                         <BR>
@@ -159,5 +162,11 @@
 @endsection
 
 @section('js-bottom')
-    <script type="text/javascript" src="/backend/js/gridforms.js"></script>
+    <script type="text/javascript" src="/frontend/js/gridforms.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#dob').datepicker({});
+        });
+
+    </script>
 @endsection

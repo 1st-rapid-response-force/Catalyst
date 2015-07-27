@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('css-top')
-    <link rel="stylesheet" type="text/css" href="/backend/css/gridforms.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/gridforms.css">
 @endsection
 
 @section('content')
@@ -37,8 +37,8 @@
                             </div>
                             <div data-row-span="3">
                                 <div data-field-span="1">
-                                    <label>AGE</label>
-                                    <input type="text" name="age" placeholder="18" readonly value="{{$app->age}}">
+                                    <label>DATE OF BIRTH</label>
+                                    <input type="text" id="dob" name="dob" placeholder="01/01/2000" readonly value="{{ date('m/d/Y', strtotime($app->dob)) }}">
                                 </div>
                                 <div data-field-span="2">
                                     <label>Nationality</label>
@@ -144,7 +144,7 @@
                             <p>Section to be filled out by Command Element Office.<p>
                             <div data-row-span="3">
                                 <div data-field-span="2">
-                                    <label>SIGNATURE</label>
+                                    <label>NAME</label>
                                     <input type="text" name="processed_name" readonly value="{{$app->processed_name}}">
                                 </div>
                                 <div data-field-span="1">
@@ -162,20 +162,43 @@
                                     <input type="text" name="processed_signature" readonly value="{{$app->processed_signature}}">
                                 </div>
                             </div>
+                            <br>
+                            @if((($app->status == 'Accepted') || ($app->status == 'Rejected')))
+                                <legend>E. ENLISTMENT DECISION BY COMMAND</legend>
+                                <p>Section to be filled out by member of the Officer Corp with authority to accept or reject applications.<p>
+                                <div data-row-span="3">
+                                    <div data-field-span="2">
+                                        <label>NAME</label>
+                                        <input type="text" name="decision_name" readonly value="{{$app->decision_name}}">
+                                    </div>
+                                    <div data-field-span="1">
+                                        <label>Pay Grade</label>
+                                        <input type="text" name="decision_paygrade" readonly value="{{$app->decision_paygrade}}">
+                                    </div>
+                                </div>
+                                <div data-row-span="2">
+                                    <div data-field-span="1">
+                                        <label>Unit Name</label>
+                                        <input type="text" name="processed_unitname" readonly value="{{$app->decision_unitname}}">
+                                    </div>
+                                    <div data-field-span="1">
+                                        <label>Signature</label>
+                                        <input type="text" name="processed_signature" readonly value="{{$app->decision_signature}}">
+                                    </div>
+                                </div>
+                            @endif
                             <div data-row-span="2">
                                 <div data-field-span="1">
                                     <label>STATUS</label>
-                                    <div style="margin: auto;">
-                                        @if(($app->status == 'Under Review'))
-                                            <img height="200" width="200" class="img-responsive" src="/frontend/images/under_review.jpg">
-                                        @endif
-                                        @if(($app->status == 'Accepted'))
-                                            <img height="200" width="200" src="/frontend/images/approved.gif">
-                                        @endif
-                                        @if(($app->status == 'Rejected'))
-                                            <img height="150" width="400" src="/frontend/images/rejected.png">
-                                        @endif
-                                    </div>
+                                    @if(($app->status == 'Under Review'))
+                                        <img height="200" width="200" style="transform: rotate(3deg);display: block;margin-left: auto;margin-right: auto;" src="/frontend/images/under_review.jpg">
+                                    @endif
+                                    @if(($app->status == 'Accepted'))
+                                        <img height="200" width="200" style="transform: rotate(45deg);display: block;margin-left: auto;margin-right: auto;" src="/frontend/images/approved.gif">
+                                    @endif
+                                    @if(($app->status == 'Rejected'))
+                                        <img height="150" width="400" style="transform: rotate(7deg);display: block;margin-left: auto;margin-right: auto;" src="/frontend/images/rejected.png">
+                                    @endif
                                 </div>
                                 <div data-field-span="1">
                                     <label>Statement</label>
@@ -191,5 +214,5 @@
 @endsection
 
 @section('js-bottom')
-    <script type="text/javascript" src="/backend/js/gridforms.js"></script>
+    <script type="text/javascript" src="/frontend/js/gridforms.js"></script>
 @endsection

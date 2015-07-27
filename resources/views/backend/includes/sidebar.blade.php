@@ -30,8 +30,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li> <a href="/admin/members"><i class="fa fa-users"></i> <span>Members Management</span></a></li>
-                    <li> <a href="/admin/applications"><i class="fa fa-folder"></i> <span>Applications</span></a></li>
+                    <li> <a href="{{route('admin.users.index')}}"><i class="fa fa-users"></i> <span>Members Management</span></a></li>
+                    <li> <a href="{{route('admin.enlistments.index')}}"><i class="fa fa-folder"></i> <span>Enlistment Manager</span></a></li>
                     <li> <a href="/admin/promotions"><i class="fa fa-child"></i> <span>Promotions</span></a></li>
                 </ul>
             </li>

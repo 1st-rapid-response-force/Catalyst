@@ -5,10 +5,8 @@
 @section('sub-title','Unit Manager')
 
 @section('scripts-css-header')
-    <!-- Calendar -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.css" rel="stylesheet" type="text/css" />
-    <script src="/backend/js/moment.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
+        <!-- Calendar -->
+        <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -120,7 +118,8 @@
 @endsection
 
 @section('page-script-include')
-
+    <script src="/backend/js/moment.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
 @endsection
 
 

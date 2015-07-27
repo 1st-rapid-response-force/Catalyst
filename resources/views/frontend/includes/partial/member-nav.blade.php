@@ -1,6 +1,6 @@
 @if(\Auth::user())
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> {{Auth::user()->vpf}}<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->vpf}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
                 <li><a href="#"><i class="fa fa-folder-open"></i> Virtual Personnel File</a></li>
                 <li><a href="#"><i class="fa fa-users"></i> My Squad</a></li>

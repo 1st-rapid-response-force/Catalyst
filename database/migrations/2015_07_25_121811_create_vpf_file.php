@@ -15,8 +15,10 @@ class CreateVpfFile extends Migration
         Schema::create('vpf', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->unsignedInteger('user_id')->default('1');
-            $table->unsignedInteger('assignment_id')->default('1');
+            $table->unsignedInteger('assignment_id')->nullable();
             $table->unsignedInteger('rank_id')->default('1');
             $table->string('status');
             $table->timestamps();

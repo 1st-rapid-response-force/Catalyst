@@ -22,12 +22,12 @@ class CatalystSeeder extends Seeder
     {
         ////////////////////////// ADMIN USERS
         $admin = User::create([
-            'email' => 'rodriguez.guillermo.a42@gmail.com',
+            'email' => 'rodriguez.g@1st-rrf.com',
             'steam_id' => '76561198011615406',
             'password' => bcrypt(str_random(40)),
         ]);
         $admin2 = User::create([
-            'email' => 'alex@countercraft.net',
+            'email' => 'striker.a@1st-rrf.com',
             'steam_id' => '76561198021531457',
             'password' => bcrypt(str_random(40)),
         ]);
@@ -117,7 +117,7 @@ class CatalystSeeder extends Seeder
         $rod->status = 'Accepted';
         $rod->first_name = 'George';
         $rod->last_name = 'Rodriguez';
-        $rod->age = 20;
+        $rod->dob = '1995-04-29';
         $rod->nationality = 'United States';
         $rod->assignment_id = 2;
         $rod->milsim_experience = 1;
@@ -140,7 +140,7 @@ class CatalystSeeder extends Seeder
         $striker->status = 'Accepted';
         $striker->first_name = 'Alexander';
         $striker->last_name = 'Striker';
-        $striker->age = 19;
+        $striker->dob = '1995-08-13';
         $striker->nationality = 'United Kingdom';
         $striker->assignment_id = 3;
         $striker->milsim_experience = 1;
@@ -160,6 +160,8 @@ class CatalystSeeder extends Seeder
 
         //Personnel File Creation
         $rod_personnel = new VPF;
+        $rod_personnel->first_name = 'George';
+        $rod_personnel->last_name = 'Rodriguez';
         $rod_personnel->user_id = $admin->id;
         $rod_personnel->assignment_id = 1;
         $rod_personnel->rank_id = 21;
@@ -171,6 +173,8 @@ class CatalystSeeder extends Seeder
         $admin->save();
 
         $striker_personnel = new VPF;
+        $striker_personnel->first_name = 'Alexander';
+        $striker_personnel->last_name = 'Striker';
         $striker_personnel->user_id = $admin2->id;
         $striker_personnel->assignment_id = 2;
         $striker_personnel->rank_id = 19;

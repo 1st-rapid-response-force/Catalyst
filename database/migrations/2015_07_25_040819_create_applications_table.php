@@ -19,7 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->string('status')->default('Under Review');
             $table->string('first_name');
             $table->string('last_name');
-            $table->unsignedInteger('age');
+            $table->date('dob');
             $table->string('nationality');
             $table->unsignedInteger('assignment_id')->default('1');
             $table->boolean('milsim_experience')->default('0');
@@ -38,8 +38,14 @@ class CreateApplicationsTable extends Migration
             $table->string('processed_paygrade')->default('E-5');
             $table->string('processed_unitname')->default('Command Element');
             $table->string('processed_signature')->default('Jennifer Reilly');
-            $table->string('processed_statement')->default('No statement, application is being processed');
+            $table->string('processed_statement')->default('');
+            $table->string('decision_name')->default('');
+            $table->string('decision_paygrade')->default('');
+            $table->string('decision_unitname')->default('');
+            $table->string('decision_signature')->default('');
+            $table->timestamp('decision_date');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });

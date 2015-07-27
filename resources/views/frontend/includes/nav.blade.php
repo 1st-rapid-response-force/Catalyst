@@ -15,25 +15,25 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="{{ Active::pattern('/')}}">
-                    <a href="/" ><i class="fa fa-home"></i> Home</a>
+                    <a href="/" >Home</a>
                 </li>
                 <li class="{{ Active::pattern('about')}}">
-                    <a href="#"><i class="fa fa-info-circle"></i> About</a>
+                    <a href="#">About</a>
                 </li>
                 <li class="{{ Active::pattern('servers')}}">
-                    <a href="#"><i class="fa fa-server"></i> Servers</a>
+                    <a href="#">Servers</a>
                 </li>
                 <li class="{{ Active::pattern('structure-assignments')}}">
-                    <a href="#"><i class="fa fa-sitemap"></i> Structure and Assignments</a>
+                    <a href="#">Structure and Assignments</a>
                 </li>
                 @if(Auth::user())
                     @if(is_null(Auth::user()->application_id))
                         <li class="{{ Active::pattern('enlistment')}}">
-                            <a href="/enlistment"><i class="fa fa-file"></i> Enlistment</a>
+                            <a href="/enlistment">Enlistment</a>
                         </li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file"></i> Enlistment<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Enlistment<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li class="{{ Active::pattern('enlistment/*')}}"><a href="/enlistment/my-application">My Application</a></li>
                             </ul>
@@ -41,10 +41,10 @@
                     @endif
                 @endif
                 <li class="{{ Active::pattern('faq')}}">
-                    <a href="#"><i class="fa fa-question-circle"></i> FAQ</a>
+                    <a href="#">FAQ</a>
                 </li>
                 <li class="{{ Active::pattern('contact-us')}}">
-                    <a href="#"><i class="fa fa-envelope-o"></i> Contact</a>
+                    <a href="#">Contact</a>
                 </li>
                 @if(Auth::user())
                     @if(Auth::user()->hasRole('user'))

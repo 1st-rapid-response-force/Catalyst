@@ -73,7 +73,7 @@ class EnlistmentController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'steam_id' => '',
-            'age' => 'required|integer',
+            'dob' => 'required|date',
             'nationality' => 'required',
             'email' => 'required|email',
             'assignment_id' => 'required',
@@ -93,11 +93,13 @@ class EnlistmentController extends Controller
 
         $user = User::find($request->user_id);
 
+        $time= new \Datetime($request->dob);
+
         $app = new Application;
         $app->user_id = $request->user_id;
-        $app->first_name = $request->first_name;
-        $app->last_name = $request->last_name;
-        $app->age = $request->age;
+        $app->first_name = ucfirst(strtolower($request->first_name));
+        $app->last_name = ucfirst(strtolower($request->last_name));
+        $app->dob = $time->format('Y-m-d H:i:s');
         $app->nationality = $request->nationality;
         $app->assignment_id = $request->assignment_id;
         $app->milsim_experience = $request->milsim_experience;
@@ -110,7 +112,7 @@ class EnlistmentController extends Controller
         $app->agreement_guidelines = $request->agreement_guidelines;
         $app->agreement_orders = $request->agreement_orders;
         $app->agreement_ranks = $request->agreement_ranks;
-        $app->signature = $request->signature;
+        $app->signature = ucwords(strtolower($request->signature));
         $app->signature_date = $request->signature_date;
         $app->save();
 
@@ -138,7 +140,6 @@ class EnlistmentController extends Controller
         }
 
         $app = Application::find($user->application->id);
-        // User must either have officer permission or be the owner of the application
         if ($user->id == $app->user->id)
         {
             return view('frontend.enlistment.show')->with('app',$app);

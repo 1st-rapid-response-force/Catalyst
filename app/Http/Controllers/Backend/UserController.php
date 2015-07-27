@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('backend.members.index')->with('users',$users);
+        return view('backend.users.index')->with('users',$users);
     }
 
     /**
@@ -30,7 +30,7 @@ class UserController extends Controller
     public function create()
     {
         \Notification::warningInstant('Member creation only establishes a user in our system for Steam Login, they will STILL NEED to file an application and go through the enlistment process.');
-        return view('backend.members.create');
+        return view('backend.users.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class UserController extends Controller
         $user->attachRole($role);
 
         \Notification::success('User was created successfully');
-        return redirect('/admin/members');
+        return redirect('/admin/users');
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return redirect('admin/members');
+        return redirect('admin/users');
     }
 
     /**
@@ -90,7 +90,7 @@ class UserController extends Controller
         {
             array_push($user_roles,$role->id);
         }
-        return view('backend.members.edit')
+        return view('backend.users.edit')
             ->with('user',$user)
             ->with('roles',$roles)
             ->with('user_roles',$user_roles);
@@ -115,8 +115,19 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->steam_id = $request->steam_id;
-        if ($request->has('application_id')) $user->application_id = $request->application_id;
-        if ($request->has('vpf_id')) $user->vpf_id = $request->vpf_id;
+        //////////// ALLOW TO NULLIFY USERS
+        if (($request->application_id == 0)) {
+            $user->application_id = NULL;
+        } else {
+            $user->application_id = $request->vpf_id;
+        }
+
+        if (($request->vpf_id == 0)) {
+            $user->vpf_id = NULL;
+        } else {
+            $user->vpf_id = $request->vpf_id;
+        }
+
         $user->email = $request->email;
         $user->save();
 
@@ -133,7 +144,7 @@ class UserController extends Controller
         }
 
         \Notification::success('User was updated successfully');
-        return redirect('/admin/members');
+        return redirect('/admin/users');
     }
 
     /**
@@ -147,6 +158,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         \Notification::success('User Deleted Successfully');
-        return redirect('admin/members');
+        return redirect('admin/users');
     }
 }
