@@ -66,7 +66,7 @@
                 <div data-row-span="1">
                     <div data-field-span="1">
                         <label>REQUESTED ASSIGNMENT</label>
-                        <input type="text" name="assignment" readonly value="{{$app->assignment->mos.' - '.$app->assignment->name}}">
+                        <input type="text" name="assignment" readonly value="{{$app->mos->mos.' - '.$app->mos->name}}">
                     </div>
                 </div>
                 <BR>
@@ -170,8 +170,8 @@
                         <input type="text" name="processed_signature" readonly value="{{$app->processed_signature}}">
                     </div>
                 </div>
-                <br>
                 @if((($app->status == 'Accepted') || ($app->status == 'Rejected')))
+                    <br>
                     <legend>E. ENLISTMENT DECISION BY COMMAND</legend>
                     <p>Section to be filled out by member of the Officer Corp with authority to accept or reject applications.<p>
                     <div data-row-span="3">

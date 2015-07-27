@@ -41,8 +41,7 @@
                 <td class="visible-lg">{!! $app->created_at->diffForHumans() !!}</td>
                 <td class="visible-lg">{!! $app->updated_at->diffForHumans() !!}</td>
                 <td><a href="{{route('admin.enlistments.show', $app->id)}}" class="btn btn-xs btn-success"><i class="fa fa-folder-open" data-toggle="tooltip" data-placement="top" title="View"></i></a>
-                    <a href="{{route('admin.enlistments.edit', $app->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
-                    <a href="{{ route('admin.enlistments.destroy',array($app->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>
+                    <a href="{{ route('admin.enlistments.destroy',array($app->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to archive this application. The users assignments, rank, and roles will be reset?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Archive Application"></i></a>
                 </td>
             </tr>
         @endforeach

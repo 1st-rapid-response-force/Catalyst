@@ -9,7 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="/backend/js/rails.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="/backend/css/gridforms.css">
-    <link rel="stylesheet" type="text/css" href="/plugins/datepicker/datepicker3.css">
+    <!-- Select2 -->
+    <link href="/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -68,7 +69,7 @@
                 <div data-row-span="1">
                     <div data-field-span="1">
                         <label>REQUESTED ASSIGNMENT</label>
-                        <input type="text" name="assignment" readonly value="{{$app->assignment->mos.' - '.$app->assignment->name}}">
+                        <input type="text" name="assignment" readonly value="{{$app->mos->mos.' - '.$app->mos->name}}">
                     </div>
                 </div>
                 <BR>
@@ -207,7 +208,7 @@
     <script type="text/javascript" src="/backend/js/gridforms.js"></script>
 
     <!-- Modal -->
-    <div class="modal fade" id="approve" tabindex="-1" role="dialog" aria-labelledby="approveLabel">
+    <div class="modal fade" id="approve" role="dialog" aria-labelledby="approveLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -217,6 +218,16 @@
                 <div class="modal-body">
                     <form action="{{ route('admin.enlistments.approve',array($app->id)) }}" method="post">
                         <textarea name="statement" class="form-control" rows="3" placeholder="Provide a brief statement regarding the decision (will be shown to user)"></textarea>
+                        <br>
+                        <p>You will need to assign this member an assignment, The user selected the following MOS</p>
+                        <div class="form-group">
+                            <input id="assignment" class="form-control" type="text" name="mos_selected" readonly value="{{$app->mos->name}}">
+                        </div>
+                        <select name="assignment_id" class="form-control select2" style="width: 100%;">
+                            @foreach($assignments as $assign)
+                                <option value="{{$assign->id}}">{{$assign->mos->mos.' - '.$assign->name.' - '.$assign->group->name}}</option>
+                            @endforeach
+                        </select>
                         {!! csrf_field() !!}
                 </div>
                 <div class="modal-footer">
@@ -228,7 +239,7 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="reject" tabindex="-1" role="dialog" aria-labelledby="rejectLabel">
+    <div class="modal fade" id="reject" role="dialog" aria-labelledby="rejectLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -249,4 +260,12 @@
         </div>
     </div>
 
+    <!-- Select2 -->
+    <script src="/plugins/select2/select2.full.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            //Initialize Select2 Elements
+            $('select').select2();
+        });
+    </script>
 @endsection

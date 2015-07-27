@@ -714,31 +714,37 @@ class CatalystAssignmentsSeeder extends Seeder
         $assignment = new Assignment;
         $assignment->group_id = $group12->id;
         $assignment->name = 'Infantry Support Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = $group12->id;
         $assignment->name = 'Infantry Support Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = $group12->id;
         $assignment->name = 'Infantry Support Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = $group12->id;
         $assignment->name = 'Infantry Support Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = $group12->id;
         $assignment->name = 'Vehicle Maintenance Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = $group12->id;
         $assignment->name = 'Vehicle Maintenance Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;

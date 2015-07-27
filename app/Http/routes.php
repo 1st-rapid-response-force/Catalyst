@@ -24,7 +24,7 @@ Route::group(['namespace' => 'Frontend'], function()
     {
         //Enlistment
         Route::get('enlistment', 'EnlistmentController@index');
-        Route::get('enlistment/apply/{mos}', 'EnlistmentController@create');
+        Route::get('enlistment/apply/{mos}',['as'=>'enlistments.create','uses'=> 'EnlistmentController@create']);
         Route::get('enlistment/my-application', 'EnlistmentController@show');
         Route::post('enlistment/store', 'EnlistmentController@store');
         Route::get('enlistment/success', 'EnlistmentController@success');

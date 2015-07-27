@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Application;
-use App\ApplicationsArchive;
+use App\Assignment;
 use App\VPF;
 use App\User;
 use App\Role;
@@ -25,27 +25,6 @@ class ApplicationsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -54,7 +33,6 @@ class ApplicationsController extends Controller
     public function show($id)
     {
         $app = Application::findOrFail($id);
-        $user = \Auth::user();
         return view('backend.applications.show')->with('app',$app);
 
     }
@@ -68,8 +46,18 @@ class ApplicationsController extends Controller
     public function edit($id)
     {
         $app = Application::findOrFail($id);
-        $user = \Auth::user();
-        return view('backend.applications.edit')->with('app',$app);
+        //Read only check
+        if(!($app->status == 'Under Review'))
+        {
+            \Notification::warning('Application is read only');
+            return redirect('/admin/enlistments/'.$id);
+        }
+
+        // Get all assignments that are available
+        $assignments = $this->AssignmentList();
+        return view('backend.applications.edit')
+            ->with('app',$app)
+            ->with('assignments',$assignments);
     }
 
     /**
@@ -81,7 +69,19 @@ class ApplicationsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $app = Application::find($id);
+
+        //Read only CHECK to prevent editing
+        if(!($app->status == 'Under Review'))
+        {
+            \Notification::warning('Application is read only');
+            return redirect('/admin/enlistments/'.$id);
+        }
+
+        // Pull User Making the Modification
         $filingUser = \Auth::User();
+
+        // Validate the form
         $this->validate($request, [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -106,8 +106,11 @@ class ApplicationsController extends Controller
             'processed_unitname' => 'required',
             'processed_signature' => 'required'
         ]);
+
+        //Convert the time for database storage
         $time= new \Datetime($request->dob);
 
+        //Update Application
         $app = Application::find($id);
         $app->user_id = $request->user_id;
         $app->first_name = ucfirst(strtolower($request->first_name));
@@ -131,27 +134,38 @@ class ApplicationsController extends Controller
         $app->processed_unitname = $request->processed_unitname;
         $app->processed_signature = $request->processed_signature;
         $app->save();
+
+        //Log change
         \Log::info('Application Modified', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);
 
-
+        //Return user to Edit View
         \Notification::success('Enlistment form has been updated.');
-        return redirect('/admin/enlistments/'.$id);
+        return redirect('/admin/enlistments/'.$id.'/edit');
     }
 
     public function approve(Request $request, $id)
     {
+        // Pull User Making the Modification
         $filingUser = \Auth::User();
 
+        //Find the application and add Enlistment Decision based on User making the Approval
         $app = Application::find($id);
         $app->status = 'Accepted';
         $app->decision_name = $filingUser->vpf->last_name.', '.$filingUser->vpf->first_name;
         $app->decision_paygrade = $filingUser->vpf->rank->pay_grade;
-        $app->decision_unitname = '1st Rapid Response Force Command Element';
+        $app->decision_unitname = '1st Rapid Response Force - Command Element';
         $app->decision_signature = $filingUser->vpf->first_name.' '.$filingUser->vpf->last_name;
         $app->decision_date = \Carbon\Carbon::now()->toDateTimeString();
         $app->processed_statement = $request->statement;
 
-
+        /*
+         * Logic Check - the system will now determine if the user already has a Virtual Personnel File
+         * VPF doesn't exist - create one with the assignment position given by the approving party - assignment_id is assigned
+         * VPF exists - update previous one with new assignment id, set rank to PV1 (re-enlistments)
+         *
+         * This is the first section were the assignment_id is introduced as the officer will select the best possible position
+         * for the member
+         */
         //Find VPF or create new
         if(is_null($app->user->vpf_id))
         {
@@ -159,24 +173,26 @@ class ApplicationsController extends Controller
             $vpf->first_name = $app->first_name;
             $vpf->last_name = $app->last_name;
             $vpf->user_id = $app->user->id;
-            $vpf->assignment_id = $app->assignment_id;
+            $vpf->assignment_id = $request->assignment_id;
             $vpf->rank_id = '2';
             $vpf->status = 'Active';
             $vpf->save();
+
+            //First time associate of VPF file with user
+            $app->user->vpf_id = $vpf->id;
         } else {
             $vpf = VPF::find($app->user->vpf_id);
             $vpf->first_name = $app->first_name;
             $vpf->first_name = $app->last_name;
             $vpf->user_id = $app->user->id;
-            $vpf->assignment_id = $app->assignment_id;
+            $vpf->assignment_id = $request->assignment_id;
             $vpf->rank_id = '2';
             $vpf->status = 'Active';
             $vpf->save();
         }
-        //Associate New Personnel File to User
-        $app->user->vpf_id = $vpf->id;
 
-        // Deal with Roles - Ghetto Style
+
+        // Purge Roles and reassign base member role
         foreach($app->user->roles as $role)
         {
             $getRole = Role::find($role->id);
@@ -184,8 +200,14 @@ class ApplicationsController extends Controller
         }
         $memberRole = Role::where('name','member')->first();
         $app->user->attachRole($memberRole);
+
+        //Sync all changes
         $app->push();
+
+        //Log action by Approving member
         \Log::info('Application Accepted', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);
+
+        //Redirect user and notify them that the file is read only
         \Notification::success('Accepted Member, form has been set to read only and user has been notified.');
         return redirect('/admin/enlistments/'.$id);
 
@@ -195,6 +217,7 @@ class ApplicationsController extends Controller
     {
         $filingUser = \Auth::User();
 
+        //Find the application and add Enlistment Decision based on User making the Approval
         $app = Application::find($id);
         $app->status = 'Rejected';
         $app->decision_name = $filingUser->vpf->last_name.', '.$filingUser->vpf->first_name;
@@ -205,6 +228,15 @@ class ApplicationsController extends Controller
         $app->processed_statement = $request->statement;
         $app->save();
 
+        /*
+         * Logic Check -
+         * New Applicants - no VPF has every been created, meaning no clean up is needed
+         * Re-enlisting members - VPF file exists, however they would have been discharged losing all access and roles
+         * this would mean that since the application is not reassigning any permissions, they would remain discharged.
+         * and per Policy, we would retain their file
+         */
+
+        //Redirect User
         \Log::info('Application Rejected', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);
         \Notification::success('Rejected Member, form has been set to read only and user has been notified.');
         return redirect('/admin/enlistments/'.$id);
@@ -242,41 +274,72 @@ class ApplicationsController extends Controller
      */
     public function destroy($id)
     {
+        // Pull User Making the Modification
         $filingUser = \Auth::User();
+
+        //Pull information relating to both users
         $app = Application::find($id);
+        $oldapp = $app->id;
         $user = User::find($app->user->id);
 
-        //Reset User Model
+        /*
+         * Logic Check -
+         * Deleting the application any actions taken by completing it are reversed
+         * This means roles are reversed
+         * - Assignment ID in the VPF is NULLED - if user has a VFD (accepted or reenlistment)
+         * - Application ID in the User model is NULLED
+         * - Application is archived (soft delete)
+         */
+
+        // Purge Roles and reassign base member role
+        foreach($user->roles as $role)
+        {
+            $getRole = Role::find($role->id);
+            $user->detachRole($getRole);
+        }
+        $userRole = Role::where('name','user')->first();
+        $user->attachRole($userRole);
+
+        // Clear the application_id to allow user to refile his/her enlistment paperwork
         $user->application_id = NULL;
 
-        //If an application was destroyed the user either
-        // Left and rejoined
-        // Messed up his application
-        // Reenlisted
-        // Meaning the assignment if they for some reason have an assignment (already accepted, it needs to be cleared)
+
+        // Determine if vpf_id exists, if so clear it
         if (!is_null($user->vpf_id))
         {
             $user->vpf->assignment_id = NULL;
         }
+
+        //Log action by Approving member
         $user->push();
-
-        // Deal with Roles - Ghetto Style
-        foreach($app->user->roles as $role)
-        {
-            $getRole = Role::find($role->id);
-            $app->user->detachRole($getRole);
-        }
-
-        //Reset Permissions to User
-        $memberRole = Role::where('name','user')->first();
-        $app->user->attachRole($memberRole);
         $app->delete();
 
-        \Log::info('Application Deleted', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);
+        //Redirect user to index and notify them of the changes
+        \Log::info('Application Deleted', ['user_id'=> $filingUser->id, 'app_id'=>$oldapp]);
         \Notification::success('Application has been archived, user can refile.');
         return redirect('/admin/enlistments/');
+    }
+    /**
+     * Compiles a list of all available assignments based on available and those marked as initial assignments
+     * @return \Illuminate\Support\Collection
+     */
+    private function AssignmentList()
+    {
+        //Variable Declaration
+        $assignments = Assignment::all();
+        $availableForEnlistment = collect();
 
-
-
+        //Iterate through all assignments to determine all available Assignments
+        foreach($assignments as $assignment)
+        {
+            //Check if anyone else has this ID
+            $assignmentCheck = VPF::where('assignment_id',$assignment->id)->first();
+            //If No One has it, add the model to a collection
+            if (is_null($assignmentCheck) && ($assignment->entry_level == 1)) {
+                $availableForEnlistment->push($assignment);
+            }
+        }
+        //Return list of unique MOS's, lets return a collection of MOS models for the page
+        return $availableForEnlistment;
     }
 }

@@ -27,8 +27,8 @@ class Application extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function assignment()
+    public function mos()
     {
-        return $this->belongsTo('App\Assignment');
+        return $this->belongsTo('App\MOS');
     }
 }

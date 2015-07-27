@@ -119,7 +119,7 @@ class CatalystSeeder extends Seeder
         $rod->last_name = 'Rodriguez';
         $rod->dob = '1995-04-29';
         $rod->nationality = 'United States';
-        $rod->assignment_id = 2;
+        $rod->mos_id = 1;
         $rod->milsim_experience = 1;
         $rod->milsim_badconduct = 0;
         $rod->milsim_grouplist = '7th Cav, 23rd Gaming Division, 34th Gaming Division, 8th SOF';
@@ -142,7 +142,7 @@ class CatalystSeeder extends Seeder
         $striker->last_name = 'Striker';
         $striker->dob = '1995-08-13';
         $striker->nationality = 'United Kingdom';
-        $striker->assignment_id = 3;
+        $striker->mos_id = 3;
         $striker->milsim_experience = 1;
         $striker->milsim_badconduct = 0;
         $striker->milsim_grouplist = '23rd Gaming Division, 34th Gaming Division, 8th SOF';

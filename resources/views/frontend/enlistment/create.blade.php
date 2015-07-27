@@ -67,8 +67,8 @@
                         <div data-row-span="1">
                             <div data-field-span="1">
                                 <label>REQUESTED ASSIGNMENT</label>
-                                <input type="hidden" name="assignment_id" value="{{$mos->id}}">
-                                <input type="text" name="assignment" readonly value="{{$mos->mos.' - '.$mos->name}}">
+                                <input type="hidden" name="mos_id" value="{{$mos->id}}">
+                                <input type="text" name="mos" readonly value="{{$mos->mos.' - '.$mos->name}}">
                             </div>
                         </div>
                         <BR>

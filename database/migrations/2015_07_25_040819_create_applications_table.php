@@ -21,7 +21,7 @@ class CreateApplicationsTable extends Migration
             $table->string('last_name');
             $table->date('dob');
             $table->string('nationality');
-            $table->unsignedInteger('assignment_id')->default('1');
+            $table->unsignedInteger('mos_id')->default('1');
             $table->boolean('milsim_experience')->default('0');
             $table->boolean('milsim_badconduct')->default('0');
             $table->text('milsim_grouplist')->default('');

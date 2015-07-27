@@ -22,7 +22,7 @@ class Assignment extends Model
         return $this->belongsTo('App\Group');
     }
 
-    public function MOS()
+    public function mos()
     {
         return $this->belongsTo('App\MOS');
     }

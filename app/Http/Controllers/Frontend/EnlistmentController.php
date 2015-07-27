@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\MOS;
 use App\User;
 use App\Application;
 use App\Assignment;
@@ -21,11 +22,12 @@ class EnlistmentController extends Controller
     public function index()
     {
 
-        $assignments = $this->AssignmentList();
-        dd($assignments);
+        $mos = $this->AssignmentList();
 
         $user = \Auth::user();
-        return view('frontend.enlistment.index')->with('user',$user);
+        return view('frontend.enlistment.index')
+            ->with('user',$user)
+            ->with('availMOSs',$mos);
     }
 
     /**
@@ -37,29 +39,27 @@ class EnlistmentController extends Controller
     {
         //Check if user already has an application
         $user = \Auth::user();
+        $mos = MOS::find($mos);
+        $availableMOS = $this->AssignmentList();
+
+        // User has no application
         if(!is_null($user->application_id))
         {
             \Notification::warning('You have already submitted an application');
             return redirect('/enlistment/my-application');
         }
 
-        //Need to implement Assignment Logic
-        $assignmentCheck = VPF::where('assignment_id',$mos)->first();
-
-
-        if (is_null($assignmentCheck))
+        // User is apply for a locked MOS
+        if(!$availableMOS->contains($mos))
         {
-            $user = \Auth::user();
-            $mos = Assignment::find($mos);
-            return view('frontend.enlistment.create')
-                ->with('user',$user)
-                ->with('mos',$mos);
-        } else {
-            \Notification::error('Assignment is unavailable, please select another assignment');
+            \Notification::error('This MOS is not available. Select one from the available list.');
             return redirect('/enlistment/');
         }
 
-
+        $user = \Auth::user();
+        return view('frontend.enlistment.create')
+            ->with('user',$user)
+            ->with('mos',$mos);
     }
 
     /**
@@ -77,7 +77,7 @@ class EnlistmentController extends Controller
             'dob' => 'required|date',
             'nationality' => 'required',
             'email' => 'required|email',
-            'assignment_id' => 'required',
+            'mos_id' => 'required',
             'milsim_experience' => 'required',
             'milsim_badconduct' => 'required',
             'milsim_grouplist' => '',
@@ -92,17 +92,31 @@ class EnlistmentController extends Controller
             'signature_date' => 'required',
         ]);
 
+        // Final Check to ensure that user didn't modify the values OR the MOS was filled during his application
+        $mos = MOS::find($request->mos_id);
+        $availableMOS = $this->AssignmentList();
+
+        // User is apply for a locked MOS
+        if(!$availableMOS->contains($mos))
+        {
+            \Notification::error('This MOS is not available. Select one from the available list.');
+            return redirect('/enlistment/');
+        }
+
+        //Find the user
         $user = User::find($request->user_id);
 
+        //Convert the time for database storage
         $time= new \Datetime($request->dob);
 
+        //Create the Application
         $app = new Application;
         $app->user_id = $request->user_id;
         $app->first_name = ucfirst(strtolower($request->first_name));
         $app->last_name = ucfirst(strtolower($request->last_name));
         $app->dob = $time->format('Y-m-d H:i:s');
         $app->nationality = $request->nationality;
-        $app->assignment_id = $request->assignment_id;
+        $app->mos_id = $request->mos_id;
         $app->milsim_experience = $request->milsim_experience;
         $app->milsim_badconduct = $request->milsim_badconduct;
         $app->milsim_grouplist = $request->milsim_grouplist;
@@ -117,10 +131,12 @@ class EnlistmentController extends Controller
         $app->signature_date = $request->signature_date;
         $app->save();
 
+        //Update User Model by providing the Application ID
         $user->application_id = $app->id;
         $user->save();
 
 
+        //Redirect to Application
         \Notification::success('Application has been filed. It is in the process of being reviewed. You can check the status of your application via this page. You will also receive email updates. The current status of the application can be found in section D.');
         return redirect('/enlistment/my-application');
     }
@@ -134,12 +150,15 @@ class EnlistmentController extends Controller
     public function show()
     {
         $user = \Auth::user();
+
+        //Error Handling - No Application
         if(is_null($user->application_id))
         {
             \Notification::warning('You have not filed an enlistment application.');
             return redirect('/enlistment');
         }
 
+        // Pull App and display and ensure that user is view his own application
         $app = Application::find($user->application->id);
         if ($user->id == $app->user->id)
         {
@@ -150,39 +169,17 @@ class EnlistmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function showApp($id)
-    {
-        $app = Application::findOrFail($id);
-        $user = \Auth::user();
-
-        // User must either have officer permission or be the owner of the application
-        if (($user->can(['officer-permission'])))
-        {
-            \Notification::infoInstant('Officer - Application View - You are viewing an applicants enlistment paperwork.');
-            return view('frontend.enlistment.show')->with('app',$app);
-        } else {
-            \Log::info('User attempted to access officer tier information - applications.', ['id'=> $user->id]);
-            \Notification::error('You do not have permission to view this page');
-            return redirect('/');
-        }
-    }
-
-
-    /**
-     * Compiles a list of all available assignments based on available and those marked as initial assignments
+     * Compiles a list of all available MOSs based on available and those marked as initial assignments
      * @return \Illuminate\Support\Collection
      */
     private function AssignmentList()
     {
+        //Variable Declaration
         $assignments = Assignment::all();
         $availableForEnlistment = collect();
         $mos = collect();
 
+        //Iterate through all assignments to determine all available Assignments
         foreach($assignments as $assignment)
         {
             //Check if anyone else has this ID
@@ -192,9 +189,17 @@ class EnlistmentController extends Controller
                 $availableForEnlistment->push($assignment);
             }
         }
-        $unique = $availableForEnlistment->shuffle()->unique('mos');
+        //Return list of unique MOS's, lets return a collection of MOS models for the page
+        $unique = $availableForEnlistment->unique('mos_id');
 
-        //Returns a list of (kinda) unique MOS that are available to the user and displays them for the user.
-        return $unique;
+        //Assemble MOS that are available
+        foreach($unique as $assign)
+        {
+            $mosModel = MOS::find($assign->mos_id);
+            $mos->push($mosModel);
+        }
+
+        //Returns a collection of MOS's that are currently available
+        return $mos;
     }
 }
