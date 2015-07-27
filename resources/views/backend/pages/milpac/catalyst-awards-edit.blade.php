@@ -24,48 +24,7 @@
             </div>
         </div>
         <div class="box-body">
-            <form class="form-horizontal" action="{{ route('admin.awards.update',array($award->id)) }}" method="post" enctype="multipart/form-data">
-                <input name="_method" type="hidden" value="PUT">
-                <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Award Name: &nbsp</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" name="name" value="{{$award->name}}" placeholder="Name of Award">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="description" class="col-sm-2 control-label">Description of Award: &nbsp</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="description" name="description" value="{{$award->description}}" placeholder="Brief Description">
-                    </div>
-                </div>
-                @if (\Setting::get('catalyst.enablePromotionPoints') == 'true')
-                <div class="form-group">
-                    <label for="description" class="col-sm-2 control-label">Promotions Points: &nbsp</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" id="promotionPoints" name="promotionPoints" value="{{$award->promotionPoints}}" placeholder="Promotion Points Awarded for Award">
-                    </div>
-                </div>
-                @endif
-                <div class="form-group">
-                    <label for="img" class="col-sm-2 control-label">Upload new Image: &nbsp</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" id="img" name="img">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="img" class="col-sm-2 control-label">Current Image: &nbsp</label>
-                    <div class="col-sm-10">
-                        <img src="{{$award->public_image}}">
-                    </div>
-                </div>
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <br>
-                <div class="pull-right">
-                    <a class="btn btn-danger" href="{{ route('admin.awards.index') }}">Cancel</a>
-                    <input class="btn btn-primary" type="submit">
-                </div>
 
-            </form>
 
         </div><!-- /.box-body -->
     </div><!-- /.box -->

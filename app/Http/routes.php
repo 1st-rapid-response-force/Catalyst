@@ -10,7 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+//Utility
+Route::get('images/{type}/{image}', 'ImageController@show');
 
+//Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
     Route::get('/', function () {
@@ -61,6 +64,11 @@ Route::group(['namespace' => 'Backend',
     Route::get('enlistments/accepted-apps',['as'=>'admin.enlistments.accepted','uses'=>'ApplicationsController@accepted']);
     Route::get('enlistments/rejected-apps',['as'=>'admin.enlistments.rejected','uses'=>'ApplicationsController@rejected']);
     Route::resource('enlistments', 'ApplicationsController');
+
+    Route::resource('ribbons', 'RibbonsController');
+    Route::resource('qualifications', 'QualificationsController');
+    Route::resource('schools', 'SchoolsController');
+    Route::resource('operations', 'OperationsController');
 
 });
 

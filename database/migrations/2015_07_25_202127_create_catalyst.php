@@ -123,7 +123,8 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->dateTime('date');
             $table->integer('promotionPoints')->default(0);
@@ -134,7 +135,8 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->date('date');
             $table->integer('promotionPoints')->default(0);
@@ -145,7 +147,8 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->integer('promotionPoints')->default(0);
             $table->timestamps();
@@ -155,7 +158,8 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->text('docs');
             $table->text('videos');
