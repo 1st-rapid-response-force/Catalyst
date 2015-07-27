@@ -53,15 +53,6 @@ class VPF extends Model
     }
 
     /**
-     * Returns all Awards
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
-     */
-    public function awards()
-    {
-        return $this->belongsToMany('App\Award');
-    }
-
-    /**
      * Returns all Operations
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */

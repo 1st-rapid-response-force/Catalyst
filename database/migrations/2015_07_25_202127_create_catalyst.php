@@ -119,16 +119,6 @@ class CreateCatalyst extends Migration
         });
 
         // GENERAL PERSONAL FILE
-        Schema::create('awards', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('image');
-            $table->text('description');
-            $table->integer('promotionPoints')->default(0);
-            $table->timestamps();
-            $table->engine = 'InnoDB';
-        });
         Schema::create('operations', function(Blueprint $table)
         {
             $table->increments('id');
@@ -187,16 +177,6 @@ class CreateCatalyst extends Migration
         });
 
         //JOIN TABLES
-        Schema::create('vpf_awards', function(Blueprint $table)
-        {
-            $table->unsignedInteger('vpf_id');
-            $table->unsignedInteger('award_id');
-            $table->date('date_awarded');
-            $table->engine = 'InnoDB';
-            $table->primary(['vpf_id', 'award_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
-            $table->foreign('award_id')->references('id')->on('awards')->onDelete('cascade');
-        });
 
         Schema::create('vpf_operations', function(Blueprint $table)
         {
@@ -250,7 +230,6 @@ class CreateCatalyst extends Migration
      */
     public function down()
     {
-        Schema::drop('vpf_awards');
         Schema::drop('vpf_operations');
         Schema::drop('vpf_qualifications');
         Schema::drop('vpf_ribbons');
@@ -262,7 +241,6 @@ class CreateCatalyst extends Migration
         Schema::drop('promotion_points');
         Schema::drop('promotions');
         Schema::drop('teamspeak');
-        Schema::drop('awards');
         Schema::drop('operations');
         Schema::drop('qualifications');
         Schema::drop('ribbons');
