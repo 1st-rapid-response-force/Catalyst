@@ -47,15 +47,14 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>General MILPAC</span>
+                    <i class="fa fa-folder"></i> <span>Virtual Personnel File</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li> <a href="/admin/awards"><i class="fa fa-trophy"></i> <span>Awards</span></a></li>
-                    <li> <a href="/admin/qualifications"><i class="fa fa-check-square-o"></i> <span>Qualifications</span></a></li>
-                    <li> <a href="/admin/ribbons"><i class="fa fa-align-justify"></i> <span>Ribbons</span></a></li>
-                    <li> <a href="/admin/operations"><i class="fa fa-calendar"></i> <span>Operations</span></a></li>
-                    <li> <a href="/admin/training-school"><i class="fa fa-university"></i> <span>Training & Schools</span></a></li>
+                    <li> <a href="{{route('admin.qualifications.index')}}"><i class="fa fa-check-square-o"></i> <span>Qualifications</span></a></li>
+                    <li> <a href="{{route('admin.ribbons.index')}}"><i class="fa fa-align-justify"></i> <span>Ribbons</span></a></li>
+                    <li> <a href="{{route('admin.operations.index')}}"><i class="fa fa-calendar"></i> <span>Operations</span></a></li>
+                    <li> <a href="{{route('admin.schools.index')}}"><i class="fa fa-university"></i> <span>Schools</span></a></li>
                 </ul>
             </li>
             <li class="treeview">

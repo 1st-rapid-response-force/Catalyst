@@ -18,7 +18,8 @@ class CreateRanksTable extends Migration
             $table->string('abbreviation');
             $table->string('name');
             $table->string('pay_grade');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->integer('promotionPointsRequired')->default(0);
             $table->integer('tigRequired')->default(0);
             $table->string('trainingRequired');

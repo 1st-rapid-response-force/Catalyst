@@ -11,6 +11,13 @@
 |
 */
 
+//Utility
+Route::get('images/{image}', 'ImageController@show');
+Route::get('images/{image}/full', 'ImageController@show');
+Route::get('images/{image}/limited', 'ImageController@show');
+
+
+//Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
     Route::get('/', function () {
@@ -20,6 +27,14 @@ Route::group(['namespace' => 'Frontend'], function()
         return redirect('/');
     });
 
+    Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
+
+    Route::get('about', 'PagesController@about');
+    Route::get('servers', 'PagesController@servers');
+    Route::get('structure-assignments', 'PagesController@structureAndAssignments');
+    Route::get('faq', 'PagesController@faq');
+    Route::get('contact-us', 'PagesController@contact');
+
     Route::group(['middleware' => 'auth'], function()
     {
         //Enlistment
@@ -28,6 +43,13 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('enlistment/my-application', 'EnlistmentController@show');
         Route::post('enlistment/store', 'EnlistmentController@store');
         Route::get('enlistment/success', 'EnlistmentController@success');
+    });
+
+    Route::group(['middleware' => ['auth','member']], function()
+    {
+        //Member only section
+        Route::get('/virtual-personnel-file', 'VPFController@index');
+
     });
 
     // Authentication routes...
@@ -61,6 +83,12 @@ Route::group(['namespace' => 'Backend',
     Route::get('enlistments/accepted-apps',['as'=>'admin.enlistments.accepted','uses'=>'ApplicationsController@accepted']);
     Route::get('enlistments/rejected-apps',['as'=>'admin.enlistments.rejected','uses'=>'ApplicationsController@rejected']);
     Route::resource('enlistments', 'ApplicationsController');
+
+    Route::resource('ribbons', 'RibbonsController');
+    Route::resource('qualifications', 'QualificationsController');
+    Route::resource('schools', 'SchoolsController');
+    Route::resource('operations', 'OperationsController');
+    Route::resource('ranks', 'RanksController');
 
 });
 

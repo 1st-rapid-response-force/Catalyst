@@ -10,7 +10,9 @@
         "ehesp/steam-login": "~1.0.1",
         "zizaco/entrust": "dev-laravel-5",
         "edvinaskrucas/notification": "5.*",
-        "hieu-le/active": "~2.0"
+        "hieu-le/active": "~2.0",
+        "jrm2k6/cloudder": "0.2.*",
+        "intervention/image": "^2.3"
 
     },
     "require-dev": {
