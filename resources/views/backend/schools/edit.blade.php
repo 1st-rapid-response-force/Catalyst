@@ -52,7 +52,7 @@
             <div class="col-sm-10">
                 <input type="file" class="form-control" id="img" name="img">
                 @if (!($school->storage_image == 'false'))
-                    <span id="helpBlock" class="help-block"><a href="{{$school->public_image}}" target="_blank">View current School image</a></span>
+                    <span id="helpBlock" class="help-block"><a href="/images/{{$school->public_image}}" target="_blank">View current School image</a></span>
                 @else
                     <span id="helpBlock" class="help-block">There is no School Image uploaded.</span>
                 @endif

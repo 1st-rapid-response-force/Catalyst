@@ -33,7 +33,7 @@
                 {!! $school->description !!}
                 @if (!($school->storage_image == 'false'))
                     <div class="text-center">
-                            <img class="img-responsive" src="{{$school->public_image}}">
+                            <img class="img-responsive" src="/images/{{$school->public_image}}/limited">
                     </div>
                 @endif
             </div>

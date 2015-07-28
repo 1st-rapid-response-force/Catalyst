@@ -30,7 +30,7 @@ class ImageServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'App\Repositories\Image\ImageRepositoryContract',
-            'App\Repositories\Image\FlysystemImageRepository'
+            'App\Repositories\Image\CloudImageRepository'
         );
     }
 }

@@ -8,19 +8,17 @@ interface ImageRepositoryContract {
 
     /**
      * @param $model
-     * @param $type
      * @param $image
      * @return mixed
      */
-    public function store($model,$type,$image);
+    public function store($model,$image);
 
     /**
      * @param $model
-     * @param $type
      * @param $image
      * @return mixed
      */
-    public function update($model,$type,$image);
+    public function update($model,$image);
 
     /**
      * @param $model
@@ -29,10 +27,9 @@ interface ImageRepositoryContract {
     public function delete($model);
 
     /**
-     * @param $type
-     * @param $id
+     * @param $model
      * @return mixed
      */
-    public function show($type,$id);
+    public function show($model);
 
 }

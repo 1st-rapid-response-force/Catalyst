@@ -24,7 +24,7 @@
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">Operation Name: &nbsp</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Name of Operation" value="{{$operation->name}}">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name " value="{{$operation->name}}">
             </div>
         </div>
         <div class="form-group">
@@ -58,7 +58,7 @@
             <div class="col-sm-10">
                 <input type="file" class="form-control" id="img" name="img">
                 @if (!($operation->storage_image == 'false'))
-                    <span id="helpBlock" class="help-block"><a href="{{$operation->public_image}}" target="_blank">View current operation image</a></span>
+                    <span id="helpBlock" class="help-block"><a href="/images/{{$operation->public_image}}" target="_blank">View current operation image</a></span>
                 @else
                     <span id="helpBlock" class="help-block">There is no Operation Image uploaded.</span>
                 @endif

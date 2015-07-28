@@ -79,14 +79,14 @@ class SchoolsController extends Controller
         // Call Save Image Method Controller to Upload Image if an image is uploaded
         if($request->hasFile('img'))
         {
-            if(!$this->image->store($school,'schools',$request->file('img'))) {
+            if(!$this->image->store($school,$request->file('img'))) {
                 \Notification::error('Unable to upload school image, reverting changes');
                 School::destroy($school->id);
             }
         } else {
             // If user has decided to not upload an image, a placeholder (however will not be displayed)
             $school->storage_image = 'false';
-            $school->public_image = '/img/placeholder.png';
+            $school->public_image = 'placeholder.png';
             $school->save();
         }
         \Notification::success('School added successfully');
@@ -146,14 +146,14 @@ class SchoolsController extends Controller
         {
             $this->image->delete($school);
             $school->storage_image = 'false';
-            $school->public_image = '/img/placeholder.png';
+            $school->public_image = 'placeholder.png';
         }
 
         // If the update has a file deal with files first
         if($request->hasFile('img'))
         {
             //Deal with Image update
-            $this->image->update($school,'schools',$request->File('img'));
+            $this->image->update($school,$request->File('img'));
         }
 
         $school->name = $request->name;

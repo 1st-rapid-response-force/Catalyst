@@ -27,16 +27,14 @@ class ImageController extends Controller
     }
 
     /**
-     * @param $type
      * @param $id
      * @return mixed
      */
-    public function show($type,$id)
+    public function show($id)
     {
-        $content = $this->image->show($type,$id);
-        return response($content, 200)->header('Content-Type', 'image/png');
+
+        $content = $this->image->show($id,'thumb');
+        $img = file_get_contents($content);
+        return response($img, 200)->header('Content-Type', 'image/png');
     }
-
-
-
 }

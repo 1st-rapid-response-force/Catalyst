@@ -39,7 +39,7 @@
         <div class="form-group">
             <label for="img" class="col-sm-2 control-label">Current Image: &nbsp</label>
             <div class="col-sm-10">
-                <img src="{{$qualification->public_image}}">
+                <img src="/images/{{$qualification->public_image}}">
             </div>
         </div>
         <div class="form-group">

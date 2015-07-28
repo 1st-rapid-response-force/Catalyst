@@ -79,11 +79,11 @@ class OperationsController extends Controller
         // Call Save Image Method Controller to Upload Image if an image is uploaded
         if($request->hasFile('img'))
         {
-            $this->image->store($operation,'operations',$request->file('img'));
+            $this->image->store($operation,$request->file('img'));
         } else {
             // If user has decided to not upload an image, a placeholder (however will not be displayed)
             $operation->storage_image = 'false';
-            $operation->public_image = '/img/placeholder.png';
+            $operation->public_image = 'placeholder.png';
             $operation->save();
         }
         return redirect('/admin/operations');
@@ -144,14 +144,14 @@ class OperationsController extends Controller
         {
             $this->image->delete($operation);
             $operation->storage_image = 'false';
-            $operation->public_image = '/img/placeholder.png';
+            $operation->public_image = 'placeholder.png';
         }
 
         // If the update has a file deal with files first
         if($request->hasFile('img'))
         {
             //Deal with Image update
-            $this->image->update($operation,'operations',$request->File('img'));
+            $this->image->update($operation,$request->File('img'));
         }
 
         $operation->name = $request->name;

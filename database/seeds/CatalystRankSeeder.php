@@ -2,9 +2,24 @@
 
 use Illuminate\Database\Seeder;
 use App\Rank;
+use App\Repositories\Image\ImageRepositoryContract;
 
 class CatalystRankSeeder extends Seeder
 {
+    /**
+     * @var ImageRepositoryContract
+     */
+    protected $image;
+
+    /**
+     * Construct Controller
+     * @param ImageRepositoryContract $image
+     */
+    public function __construct(ImageRepositoryContract $image)
+    {
+        $this->image = $image;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -17,8 +32,9 @@ class CatalystRankSeeder extends Seeder
         $rank = new Rank;
         $rank->abbreviation = '';
         $rank->name = '';
+        $rank->storage_image = 'false';
+        $rank->public_image = 'placeholder.png';
         $rank->pay_grade = 'None';
-        $rank->image = '/images/ranks/blank.png';
         $rank->promotionPointsRequired = 0;
         $rank->tigRequired = 0;
         $rank->trainingRequired = '';
@@ -27,12 +43,14 @@ class CatalystRankSeeder extends Seeder
         $rank->teamspeakGroup = 0;
         $rank->save();
 
+
         // 2
         $rank = new Rank;
         $rank->abbreviation = 'PV1';
         $rank->name = 'Private';
         $rank->pay_grade = 'E-1';
-        $rank->image = '/images/ranks/private.png';
+        $rank->storage_image = 'false';
+        $rank->public_image = 'placeholder.png';
         $rank->promotionPointsRequired = 0;
         $rank->tigRequired = 0;
         $rank->trainingRequired = '';
@@ -46,7 +64,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'PV2';
         $rank->name = 'Private';
         $rank->pay_grade = 'E-2';
-        $rank->image = '/images/ranks/private.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-02.svg_pweytg';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -60,7 +79,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'PFC';
         $rank->name = 'Private';
         $rank->pay_grade = 'E-3';
-        $rank->image = '/images/ranks/private_first_class.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-04a.svg_zebvlv';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -74,7 +94,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'SPC';
         $rank->name = 'Specialist';
         $rank->pay_grade = 'E-4';
-        $rank->image = '/images/ranks/specialist.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-04b.svg_t8fmps';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -88,7 +109,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CPL';
         $rank->name = 'Corporal';
         $rank->pay_grade = 'E-4';
-        $rank->image = '/images/ranks/corporal.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-04a.svg_zebvlv';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -102,7 +124,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'SGT';
         $rank->name = 'Sergeant';
         $rank->pay_grade = 'E-5';
-        $rank->image = '/images/ranks/sergeant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-05.svg_lkrkki';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -116,7 +139,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'SSG';
         $rank->name = 'Staff Sergeant';
         $rank->pay_grade = 'E-6';
-        $rank->image = '/images/ranks/staff_sergeant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-06.svg_niatde';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -130,7 +154,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'SFC';
         $rank->name = 'Sergeant First Class';
         $rank->pay_grade = 'E-7';
-        $rank->image = '/images/ranks/staff_sergeant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-07.svg_fkux2a';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -144,7 +169,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'MSG';
         $rank->name = 'Master Sergeant';
         $rank->pay_grade = 'E-8';
-        $rank->image = '/images/ranks/master_sergeant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-08b.svg_ownybx';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -158,7 +184,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = '1SG';
         $rank->name = 'First Sergeant';
         $rank->pay_grade = 'E-8';
-        $rank->image = '/images/ranks/first_sergeant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-08a.svg_zn2fhp';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -172,7 +199,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'SGM';
         $rank->name = 'Sergeant Major';
         $rank->pay_grade = 'E-9';
-        $rank->image = '/images/ranks/sergeant_major.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-09c.svg_vaskj9';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -186,7 +214,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CSM';
         $rank->name = 'Command Sergeant Major';
         $rank->pay_grade = 'E-9';
-        $rank->image = '/images/ranks/command_sergeant_major.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'Army-USA-OR-09b.svg_x46qma';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -200,7 +229,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'WO1';
         $rank->name = 'Warrant Officer 1';
         $rank->pay_grade = 'W-1';
-        $rank->image = '/images/ranks/warrant_officer_1.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '40px-US-Army-WO1.svg_hbmiqt';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -214,7 +244,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CW2';
         $rank->name = 'Chief Warrant Officer 2';
         $rank->pay_grade = 'W-2';
-        $rank->image = '/images/ranks/chief_warrant_officer_2.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '40px-US-Army-CW2.svg_px1z3a';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -228,7 +259,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CW3';
         $rank->name = 'Chief Warrant Officer 3';
         $rank->pay_grade = 'W-3';
-        $rank->image = '/images/ranks/chief_warrant_officer_3.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '40px-US-Army-CW3.svg_qv4id5';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -242,7 +274,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CW4';
         $rank->name = 'Chief Warrant Officer 4';
         $rank->pay_grade = 'W-4';
-        $rank->image = '/images/ranks/chief_warrant_officer_4.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '40px-US-Army-CW4.svg_vnkhgm';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -256,7 +289,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CW5';
         $rank->name = 'Chief Warrant Officer 5';
         $rank->pay_grade = 'W-4';
-        $rank->image = '/images/ranks/chief_warrant_officer_5.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '40px-US-Army-CW5.svg_noaupu';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -270,7 +304,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = '2LT';
         $rank->name = 'Second Lieutenant';
         $rank->pay_grade = 'O-1';
-        $rank->image = '/images/ranks/second_lieutenant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'US-O1_insignia.svg_bofxgw';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -284,7 +319,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = '1LT';
         $rank->name = 'First Lieutenant';
         $rank->pay_grade = 'O-2';
-        $rank->image = '/images/ranks/first_lieutenant.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = 'US-O2_insignia.svg_ay1eoy';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -298,7 +334,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'CPT';
         $rank->name = 'Captain';
         $rank->pay_grade = 'O-3';
-        $rank->image = '/images/ranks/captain.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '534px-US-O3_insignia.svg_zh0epw';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -312,7 +349,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'MAJ';
         $rank->name = 'Major';
         $rank->pay_grade = 'O-4';
-        $rank->image = '/images/ranks/major.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '500px-US-O4_insignia.svg_gkjmjm';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -326,7 +364,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'LTC';
         $rank->name = 'Lieutenant Colonel';
         $rank->pay_grade = 'O-5';
-        $rank->image = '/images/ranks/lieutenant_colonel.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '500px-US-O5_insignia.svg_fkwydq';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';
@@ -340,7 +379,8 @@ class CatalystRankSeeder extends Seeder
         $rank->abbreviation = 'COL';
         $rank->name = 'Colonel';
         $rank->pay_grade = 'O-6';
-        $rank->image = '/images/ranks/colonel.png';
+        $rank->storage_image = 'true';
+        $rank->public_image = '800px-US-O6_insignia.svg_tmomgx';
         $rank->promotionPointsRequired = 10;
         $rank->tigRequired = 30;
         $rank->trainingRequired = '';

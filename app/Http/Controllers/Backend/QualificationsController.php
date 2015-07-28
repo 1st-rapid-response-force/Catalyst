@@ -70,7 +70,7 @@ class QualificationsController extends Controller
         $qualification->promotionPoints = $request->promotionPoints;
         $qualification->save();
 
-        if(!$this->image->store($qualification,'qualifications',$request->file('img'))) {
+        if(!$this->image->store($qualification,$request->file('img'))) {
             \Notification::error('Unable to upload image, reverting changes');
             Qualification::destroy($qualification->id);
         }
@@ -124,7 +124,7 @@ class QualificationsController extends Controller
         ]);
 
         //If the update has a file deal with files first
-        if($request->hasFile('img')) $this->image->update($qualification,'qualifications',$request->file('img'));
+        if($request->hasFile('img')) $this->image->update($qualification,$request->file('img'));
 
         // Update Model
         $qualification->name = $request->name;

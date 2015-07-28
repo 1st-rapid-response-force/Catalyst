@@ -70,7 +70,7 @@ class RibbonsController extends Controller
         $ribbon->promotionPoints = $request->promotionPoints;
         $ribbon->save();
 
-        if(!$this->image->store($ribbon,'ribbons',$request->file('img')))
+        if(!$this->image->store($ribbon,$request->file('img')))
         {
             \Notification::error('Unable to upload image, reverting changes');
             Ribbon::destroy($ribbon->id);
@@ -124,7 +124,7 @@ class RibbonsController extends Controller
 
 
         //If the update has a file deal with files first
-        if($request->hasFile('img')) $this->image->update($ribbon,'ribbons',$request->file('img'));
+        if($request->hasFile('img')) $this->image->update($ribbon,$request->file('img'));
 
         // Update Model
         $ribbon->name = $request->name;

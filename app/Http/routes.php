@@ -11,7 +11,16 @@
 |
 */
 //Utility
-Route::get('images/{type}/{image}', 'ImageController@show');
+Route::get('images/{image}', 'ImageController@show');
+Route::get('images/{image}/full', 'ImageController@show');
+Route::get('images/{image}/limited', 'ImageController@show');
+Route::get('test', function () {
+    $storagePath = url().'img/seeder/ranks/60px-US-O5_insignia.svg.png';
+
+    //Upload to Cloud
+    $image = Cloudder::upload($storagePath);
+    return $image;
+});
 
 //Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
@@ -69,6 +78,7 @@ Route::group(['namespace' => 'Backend',
     Route::resource('qualifications', 'QualificationsController');
     Route::resource('schools', 'SchoolsController');
     Route::resource('operations', 'OperationsController');
+    Route::resource('ranks', 'RanksController');
 
 });
 

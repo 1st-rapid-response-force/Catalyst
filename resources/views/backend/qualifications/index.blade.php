@@ -18,7 +18,7 @@
 @section('content')
     <p>The following are the qualifications that have been set up in the unit.</p>
     <h4>Administrative Options</h4>
-    <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#newQualifications">New Ribbon</button>
+    <p><button type="button" class="btn btn-success" data-toggle="modal" data-target="#newQualifications">New Qualification</button>
     </p>
     <hr>
     <br>
@@ -36,7 +36,7 @@
             <tbody>
             @foreach($qualifications as $qualification)
                 <tr>
-                    <td><img src="{{$qualification->public_image}}"></td>
+                    <td><img src="/images/{{$qualification->public_image}}"></td>
                     <td>{{$qualification->name}}</td>
                     <td>{{$qualification->description}}</td>
                     <td>{{$qualification->promotionPoints}}</td>
