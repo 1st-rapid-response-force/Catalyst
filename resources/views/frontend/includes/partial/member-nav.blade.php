@@ -1,11 +1,12 @@
 @if(\Auth::user())
+    <?php $user = \Auth::user(); ?>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->vpf}}<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$user->vpf->rank->abbreviation.'. '.$user->vpf->last_name.'.'.$user->vpf->first_name[0]}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-folder-open"></i> Virtual Personnel File</a></li>
-                <li><a href="#"><i class="fa fa-users"></i> My Squad</a></li>
-                <li><a href="#"><i class="fa fa-inbox"></i> My Inbox</a></li>
-                <li><a href="#"><i class="fa fa-file-text-o"></i> My Loadout</a></li>
+                <li><a href="/virtual-personnel-file"><i class="fa fa-folder-open"></i> Virtual Personnel File</a></li>
+                <li><a href="/my-squad"><i class="fa fa-users"></i> My Squad</a></li>
+                <li><a href="/my-inbox"><i class="fa fa-inbox"></i> My Inbox</a></li>
+                <li><a href="/my-loadout"><i class="fa fa-file-text-o"></i> My Loadout</a></li>
                 <li role="separator" class="divider"></li>
                 @if(Auth::user()->hasRole(['officer','superadmin']))
                 <li><a href="/admin/"><i class="fa fa-lock"></i> Officer Panel</a></li>

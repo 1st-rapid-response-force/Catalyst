@@ -102,6 +102,13 @@ class AuthController extends Controller
         $role = Role::where('name','user')->first();
         $user->attachRole($role);
 
+        Mail::later(5, 'emails.welcome', $data, function($message)
+        {
+            $message->to('foo@example.com', 'John Smith')->subject('Welcome!');
+        });
+
+
+
         Auth::login($user);
         return redirect('/');
 

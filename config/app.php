@@ -153,6 +153,7 @@ return [
         'Krucas\Notification\NotificationServiceProvider',
         'HieuLe\Active\ActiveServiceProvider',
         'JD\Cloudder\CloudderServiceProvider',
+        'Intervention\Image\ImageServiceProvider',
     ],
 
     /*
@@ -205,6 +206,7 @@ return [
         'Notification' => 'Krucas\Notification\Facades\Notification',
         'Active' => 'HieuLe\Active\Facades\Active',
         'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
+        'Image' => 'Intervention\Image\Facades\Image'
     ],
 
 ];
