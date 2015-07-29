@@ -154,6 +154,8 @@ return [
         'HieuLe\Active\ActiveServiceProvider',
         'JD\Cloudder\CloudderServiceProvider',
         'Intervention\Image\ImageServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
     ],
 
     /*
@@ -206,7 +208,9 @@ return [
         'Notification' => 'Krucas\Notification\Facades\Notification',
         'Active' => 'HieuLe\Active\Facades\Active',
         'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
-        'Image' => 'Intervention\Image\Facades\Image'
+        'Image' => 'Intervention\Image\Facades\Image',
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
     ],
 
 ];

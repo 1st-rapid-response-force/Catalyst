@@ -8,9 +8,23 @@ use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Repositories\Image\ImageRepositoryContract;
+
 
 class VPFController extends Controller
 {
+    /**
+     * @var ImageRepositoryContract
+     */
+    protected $image;
+
+    /**
+     * @param ImageRepositoryContract $image
+     */
+    public function __construct(ImageRepositoryContract $image){
+        $this->image = $image;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +60,73 @@ class VPFController extends Controller
         //
     }
 
+    public function showFaces()
+    {
+        $user = \Auth::user();
+        $faces_array = [
+            ['id'=> 0,'file'=>'/frontend/images/faces/'.'default_face.png','name' => 'Default Face'],
+            ['id'=> 1,'file'=>'/frontend/images/faces/'.'athanasiadas.png','name' => 'Athanasiadas'],
+            ['id'=> 2,'file'=>'/frontend/images/faces/'.'bahadur.png','name' => 'Bahadur'],
+            ['id'=> 3,'file'=>'/frontend/images/faces/'.'baros.png','name' => 'Baros'],
+            ['id'=> 4,'file'=>'/frontend/images/faces/'.'bayh.png','name' => 'Bayh'],
+            ['id'=> 5,'file'=>'/frontend/images/faces/'.'burr.png','name' => 'Burr'],
+            ['id'=> 6,'file'=>'/frontend/images/faces/'.'byrne.png','name' => 'Byrne'],
+            ['id'=> 7,'file'=>'/frontend/images/faces/'.'campbell.png','name' => 'Campbell'],
+            ['id'=> 8,'file'=>'/frontend/images/faces/'.'christou.png','name' => 'Christou'],
+            ['id'=> 9,'file'=>'/frontend/images/faces/'.'coburns.png','name' => 'Coburns'],
+            ['id'=> 10,'file'=>'/frontend/images/faces/'.'collins.png','name' => 'Collins'],
+            ['id'=> 11,'file'=>'/frontend/images/faces/'.'constantinou.png','name' => 'Constantinou'],
+            ['id'=> 12,'file'=>'/frontend/images/faces/'.'costas.png','name' => 'Costas'],
+            ['id'=> 13,'file'=>'/frontend/images/faces/'.'dayton.png','name' => 'Dayton'],
+            ['id'=> 14,'file'=>'/frontend/images/faces/'.'dorgan.png','name' => 'Dorgan'],
+            ['id'=> 15,'file'=>'/frontend/images/faces/'.'doukas.png','name' => 'Doukas'],
+            ['id'=> 16,'file'=>'/frontend/images/faces/'.'gikas.png','name' => 'Gikas'],
+            ['id'=> 17,'file'=>'/frontend/images/faces/'.'halliwell.png','name' => 'Halliwell'],
+            ['id'=> 18,'file'=>'/frontend/images/faces/'.'hasan.png','name' => 'Hasan'],
+            ['id'=> 19,'file'=>'/frontend/images/faces/'.'jalai.png','name' => 'Jalai'],
+            ['id'=> 20,'file'=>'/frontend/images/faces/'.'jeoung.png','name' => 'Jeoung'],
+            ['id'=> 21,'file'=>'/frontend/images/faces/'.'jesus.png','name' => 'Jesus'],
+            ['id'=> 22,'file'=>'/frontend/images/faces/'.'johnson.png','name' => 'Johnson'],
+            ['id'=> 23,'file'=>'/frontend/images/faces/'.'kanelloupou.png','name' => 'Kenelloupou'],
+            ['id'=> 24,'file'=>'/frontend/images/faces/'.'kelly.png','name' => 'Kelly'],
+            ['id'=> 25,'file'=>'/frontend/images/faces/'.'kirby.png','name' => 'Kirby'],
+            ['id'=> 26,'file'=>'/frontend/images/faces/'.'martinez.png','name' => 'Martinez'],
+            ['id'=> 27,'file'=>'/frontend/images/faces/'.'obrien.png','name' => 'O\'Brian'],
+            ['id'=> 28,'file'=>'/frontend/images/faces/'.'oconnor.png','name' => 'O\'Connor'],
+            ['id'=> 29,'file'=>'/frontend/images/faces/'.'osullivan.png','name' => 'O\'Sullivan'],
+            ['id'=> 30,'file'=>'/frontend/images/faces/'.'reed.png','name' => 'Reed'],
+            ['id'=> 31,'file'=>'/frontend/images/faces/'.'sabet.png','name' => 'Sabet'],
+            ['id'=> 32,'file'=>'/frontend/images/faces/'.'santorum.png','name' => 'Santorum'],
+            ['id'=> 33,'file'=>'/frontend/images/faces/'. 'savalas.png','name' => 'Savalas'],
+            ['id'=> 34,'file'=>'/frontend/images/faces/'.'smith.png','name' => 'Smith'],
+            ['id'=> 35,'file'=>'/frontend/images/faces/'.'snowe.png','name' => 'Snowe'],
+            ['id'=> 36,'file'=>'/frontend/images/faces/'.'tung.png','name' => 'Tung'],
+            ['id'=> 37,'file'=>'/frontend/images/faces/'.'walsh.png','name' => 'Walsh'],
+            ['id'=> 38,'file'=>'/frontend/images/faces/'.'williams.png','name' => 'Williams'],
+            ['id'=> 39,'file'=>'/frontend/images/faces/'.'ximi.png','name' => 'Ximi'],
+        ];
+        return view('frontend.vpf.faces')
+            ->with('user',$user)
+            ->with('faces',$faces_array);
+    }
 
+    public function saveFace(Request $request)
+    {
+        $user = \Auth::user();
+        $user->vpf->face_id = $request->face_id;
+        $user->push();
+
+        \Notification::success('Face has been updated.');
+        return redirect('/virtual-personnel-file/');
+
+    }
+
+
+    /**
+     * Returns the CAC Card
+     * @param $steam_id
+     * @return mixed
+     */
     public function buildCACCard($steam_id)
     {
         $user = User::where('steam_id','=',$steam_id)->first();
@@ -62,7 +142,7 @@ class VPFController extends Controller
             'campbell.png',
             'christou.png',
             'coburns.png',
-            'collns.png',
+            'collins.png',
             'constantinou.png',
             'costas.png',
             'dayton.png',
@@ -138,6 +218,37 @@ class VPFController extends Controller
 
         // output
         return $img;
-
     }
+
+    public function buildAvatar($steam_id)
+    {
+        $images = public_path().'/frontend/images/avatars/';
+        $user = User::where('steam_id','=',$steam_id)->first();
+
+        if($user->vpf->rank->public_image == 'placeholder.png')
+        {
+            $rankImg = \Image::canvas(1, 1);
+        } else {
+            $rank = \Cloudder::show($user->vpf->rank->public_image, ['width' => '112','height'=>'110','crop'=>'fit']);
+            $rankImg = \Image::make($rank);
+        }
+
+        $img = \Image::canvas(160,160)
+            ->insert($images.'background.png')
+            ->insert($rankImg,'center',0,28);
+
+
+        // create response and add encoded image data
+        $img = \Response::make($img->encode('png'));
+
+        // set content-type
+        $img->header('Content-Type', 'image/png');
+
+        // output
+        return $img;
+    }
+
+
+
+
 }

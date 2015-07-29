@@ -17,6 +17,9 @@ Route::get('images/{image}/full', 'ImageController@show');
 Route::get('images/{image}/limited', 'ImageController@show');
 
 
+
+
+
 //Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
@@ -27,7 +30,10 @@ Route::group(['namespace' => 'Frontend'], function()
         return redirect('/');
     });
 
+
+
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
+    Route::get('avatar/{steam_id}', 'VPFController@buildAvatar');
 
     Route::get('about', 'PagesController@about');
     Route::get('servers', 'PagesController@servers');
@@ -48,7 +54,19 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::group(['middleware' => ['auth','member']], function()
     {
         //Member only section
-        Route::get('/virtual-personnel-file', 'VPFController@index');
+        Route::get('/virtual-personnel-file',['as' => 'vpf', 'uses' => 'VPFController@index']);
+        Route::get('/virtual-personnel-file/faces',['as' => 'vpf.faces', 'uses' => 'VPFController@showFace']);
+        Route::post('/virtual-personnel-file/faces',['as' => 'vpf.faces.update', 'uses' => 'VPFController@saveFace']);
+
+        //MyInbox
+        Route::get('/my-inbox', ['as' => 'inbox', 'uses' => 'myInboxController@index']);
+        Route::get('/my-inbox/create', ['as' => 'inbox.create', 'uses' => 'myInboxController@create']);
+        Route::post('/my-inbox', ['as' => 'inbox.store', 'uses' => 'myInboxController@store']);
+        Route::get('/my-inbox/{id}', ['as' => 'inbox.show', 'uses' => 'myInboxController@show']);
+        Route::put('/my-inbox/{id}', ['as' => 'inbox.update', 'uses' => 'myInboxController@update']);
+        //Auto-Complete
+        Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
+
 
     });
 

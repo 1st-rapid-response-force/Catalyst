@@ -12,7 +12,9 @@
         "edvinaskrucas/notification": "5.*",
         "hieu-le/active": "~2.0",
         "jrm2k6/cloudder": "0.2.*",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "cmgmyr/messenger": "~2.0",
+        "laravelcollective/html": "~5.0"
 
     },
     "require-dev": {

@@ -1,6 +1,8 @@
 @extends('frontend.layouts.master')
 
 @section('css-top')
+    <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @section('content')
@@ -62,16 +64,46 @@
             <div>
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+                    <li role="presentation" class="active"><a href="#serviceHistory" aria-controls="serviceHistory" role="tab" data-toggle="tab">Service History</a></li>
+                    <li role="presentation"><a href="#forms" aria-controls="forms" role="tab" data-toggle="tab">Forms</a></li>
                     <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">...</div>
-                    <div role="tabpanel" class="tab-pane" id="profile">...</div>
+                    <div role="tabpanel" class="tab-pane active" id="serviceHistory">
+                        <br>
+                        <table class="table table-bordered table-hover" id="serviceHistoryTable">
+                            <thead>
+                            <th>Date:</th>
+                            <th>Note:</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>04/29/1995</td>
+                                    <td>For outstanding service completing Basic Training</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div role="tabpanel" class="tab-pane active" id="formHistory">
+                            <br>
+                            <table class="table table-bordered table-hover" id="formHistoryTable">
+                                <thead>
+                                <th>Date:</th>
+                                <th>Note:</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>04/29/1995</td>
+                                    <td>For outstanding service completing Basic Training</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="messages">...</div>
                     <div role="tabpanel" class="tab-pane" id="settings">...</div>
                 </div>
@@ -81,4 +113,12 @@
 @endsection
 
 @section('js-bottom')
+    <script type="text/javascript">
+        $(function () {
+            $("#serviceHistoryTable").DataTable();
+            $("#serviceHistoryTable").DataTable();
+        });
+    </script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
 @endsection

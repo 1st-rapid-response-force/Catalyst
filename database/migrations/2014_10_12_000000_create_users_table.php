@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('vpf_id') ->nullable();
             $table->string('password', 60);
             $table->boolean('okEmail')->default(true);
+            $table->enum('notify', ['y', 'n'])->default('y');
             $table->rememberToken();
             $table->timestamps();
         });

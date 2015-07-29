@@ -1,7 +1,6 @@
 @if(\Auth::user())
-    <?php $user = \Auth::user(); ?>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$user->vpf->rank->abbreviation.'. '.$user->vpf->last_name.'.'.$user->vpf->first_name[0]}}<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{\Auth::user()->vpf}}<span class="caret"></span></a>
         <ul class="dropdown-menu">
                 <li><a href="/virtual-personnel-file"><i class="fa fa-folder-open"></i> Virtual Personnel File</a></li>
                 <li><a href="/my-squad"><i class="fa fa-users"></i> My Squad</a></li>
