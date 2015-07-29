@@ -32,6 +32,13 @@ class ImageController extends Controller
      */
     public function show($id)
     {
+        if($id == 'placeholder.png')
+        {
+            $img = \Image::canvas(1, 1);
+            $img = \Response::make($img->encode('png'));
+            $img->header('Content-Type', 'image/png');
+            return $img;
+        }
 
         $content = $this->image->show($id,'thumb');
         $img = file_get_contents($content);

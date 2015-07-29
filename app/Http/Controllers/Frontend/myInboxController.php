@@ -83,6 +83,51 @@ class myInboxController extends Controller
         return view('frontend.my-inbox.create')->with('user',$user);
     }
     /**
+     * Edit Message
+     *
+     * @return mixed
+     */
+    public function editMessage($id)
+    {
+        $user = \Auth::user();
+
+        try {
+            $message = Message::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            Session::flash('error_message', 'The message was not found.');
+            return redirect('/my-inbox');
+        }
+
+        if(!($user->id == $message->user->id))
+        {
+            Session::flash('error_message', 'You cannot edit a message that is not yours.');
+            return redirect('/my-inbox');
+        }
+
+        return view('frontend.my-inbox.edit-message')
+            ->with('user',$user)
+            ->with('message',$message)
+            ->with('thread',$message->thread);
+    }
+    /**
+     * Edit Message
+     *
+     * @return mixed
+     */
+    public function editMessageSave(Request $request,$id)
+    {
+        $user = \Auth::user();
+        try {
+            $message = Message::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            Session::flash('error_message', 'The message was not found.');
+            return redirect('/my-inbox');
+        }
+        $message->body = $request->body;
+        $message->save();
+        return redirect('/my-inbox/'.$message->thread->id);
+    }
+    /**
      * Stores a new message thread
      *
      * @return mixed
@@ -120,7 +165,7 @@ class myInboxController extends Controller
             $thread->addParticipants($recipients);
         }
 
-        return redirect('my-inbox');
+        return redirect('/my-inbox/'.$thread->id);
     }
     /**
      * Adds a new message to a current thread / Add Participants

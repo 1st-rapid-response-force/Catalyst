@@ -23,7 +23,6 @@
             <div class="box-body no-padding">
                 <div class="mailbox-controls">
                     <!-- Check all button -->
-                    <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
                     <div class="btn-group">
                         <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-trash-o"></i></button>
                     </div><!-- /.btn-group -->
@@ -32,7 +31,7 @@
                     <table class="table table-hover table-striped">
                         <tr>
                             <td></td>
-                            <td class="mailbox-name">Composer</td>
+                            <td class="mailbox-name">Creator</td>
                             <td class="mailbox-subject">Subject</td>
                             <td class="mailbox-date">Last Response</td>
                         </tr>
