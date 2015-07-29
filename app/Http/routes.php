@@ -29,6 +29,9 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/home', function () {
         return redirect('/');
     });
+    Route::get('/test', function () {
+
+    });
 
 
 
@@ -64,6 +67,7 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::post('/my-inbox', ['as' => 'inbox.store', 'uses' => 'myInboxController@store']);
         Route::get('/my-inbox/{id}', ['as' => 'inbox.show', 'uses' => 'myInboxController@show']);
         Route::put('/my-inbox/{id}', ['as' => 'inbox.update', 'uses' => 'myInboxController@update']);
+        Route::post('/my-inbox/delete', ['as' => 'inbox.removeThreads', 'uses' => 'myInboxController@deleteInboxThreads']);
         //Auto-Complete
         Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
 

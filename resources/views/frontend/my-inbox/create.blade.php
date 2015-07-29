@@ -51,8 +51,10 @@
 @section('js-bottom-mail')
     <script type="text/javascript" src="/plugins/tokeninput/src/jquery.tokeninput.js"></script>
     <script type="text/javascript" src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <script src="/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            CKEDITOR.replace( 'message');
             $("#autocomplete").tokenInput("/autocomplete/users", {
                 theme: "facebook"
             });

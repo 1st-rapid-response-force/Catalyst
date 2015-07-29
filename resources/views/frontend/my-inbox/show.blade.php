@@ -33,15 +33,15 @@
         </div>
     @endforeach
     <br>
-    <form>
+    {!! Form::open(['route' => ['inbox.update', $thread->id], 'method' => 'PUT']) !!}
         <div class="form-group">
             <input type="text" id="autocomplete" name="recipents" />
         </div>
         <div class="form-group">
+            <input type="hidden" name="action" value="addUsers">
                 <input type="submit" class="btn btn-xs btn-success" value="Add Participants">
         </div>
-
-    </form>
+    {!! Form::close() !!}
     <hr>
 
 @endsection
@@ -53,15 +53,6 @@
                 <h3 class="box-title">Inbox</h3>
             </div><!-- /.box-header -->
             <div class="box-body no-padding">
-                <div class="mailbox-controls">
-                    <!-- Check all button -->
-                    <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                    </div><!-- /.btn-group -->
-                </div>
                 <div class="table-responsive mailbox-messages">
                     <h1>{!! $thread->subject !!}</h1>
 
@@ -76,10 +67,12 @@
                                 <div class="text-muted"><small>Posted {!! $message->created_at->diffForHumans() !!}</small></div>
                             </div>
                         </div>
+                        <hr>
                     @endforeach
 
                     <h2>Add a new message</h2>
                     {!! Form::open(['route' => ['inbox.update', $thread->id], 'method' => 'PUT']) !!}
+                    <input type="hidden" name="action" value="AddReply">
                             <!-- Message Form Input -->
                     <div class="form-group">
                         {!! Form::textarea('message', null, ['class' => 'form-control']) !!}
@@ -93,14 +86,12 @@
                 </div><!-- /.mail-box-messages -->
             </div><!-- /.box-body -->
             <div class="box-footer no-padding">
-                <div class="mailbox-controls">
-                    <!-- Check all button -->
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                    </div><!-- /.btn-group -->
-                </div>
+                <div class="btn-group">
+                    {!! Form::open(['route' => ['inbox.removeThreads']]) !!}
+                    <input type="hidden" value="{{$thread->id}}" name="delete">
+                    <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                    {!! Form::close() !!}
+                </div><!-- /.btn-group -->
             </div>
         </div><!-- /. box -->
 @endsection
@@ -108,12 +99,14 @@
 @section('js-bottom-mail')
     <script type="text/javascript" src="/plugins/tokeninput/src/jquery.tokeninput.js"></script>
     <script type="text/javascript" src="/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <script src="/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            CKEDITOR.replace( 'message');
             $("#autocomplete").tokenInput("/autocomplete/users", {
                 theme: "facebook"
             });
-            $("ul").css({"width":"100%"});
+            $("ul.token-input-list-facebook").css({"width":"100%"});
         });
     </script>
     <link href="/plugins/tokeninput/styles/token-input-facebook.css" rel="stylesheet" type="text/css" />

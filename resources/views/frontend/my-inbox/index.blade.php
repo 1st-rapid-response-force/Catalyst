@@ -15,6 +15,7 @@
 @endsection
 
 @section('content-mail')
+    {!! Form::open(['route' => ['inbox.removeThreads']]) !!}
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Inbox</h3>
@@ -24,9 +25,7 @@
                     <!-- Check all button -->
                     <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
                     <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                        <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-trash-o"></i></button>
                     </div><!-- /.btn-group -->
                 </div>
                 <div class="table-responsive mailbox-messages">
@@ -40,8 +39,8 @@
                         <tbody>
                         @if($threads->count() > 0)
                         @foreach($threads as $thread)
-                            <tr>
-                                <td><input type="checkbox" /></td>
+                            <tr class="{{($thread->isUnread($user->id) == true) ? 'info' : ''}}">
+                                <td><input type="checkbox" name="delete[{{$thread->id}}]" value="{{$thread->id}}"/></td>
                                 <td class="mailbox-name"><img class="img-circle" style="max-height: 30px; max-width: 30px;" src="/avatar/{{$thread->creator()->steam_id}}">  <a href="{{route('inbox.show',$thread->id)}}">{{$thread->creator()->vpf}}</a></td>
                                 <td class="mailbox-subject">{{$thread->subject}}</td>
                                 <td class="mailbox-date">{{$thread->latestMessage->user->vpf}}<br> {{$thread->latestMessage->updated_at->diffForHumans()}}</td>
@@ -54,22 +53,17 @@
                             @endif
                         </tbody>
                     </table><!-- /.table -->
+                    {!! Form::close() !!}
+                    <div class="text-center">
+                        {!! $threads->render() !!}
+                    </div>
                 </div><!-- /.mail-box-messages -->
             </div><!-- /.box-body -->
-            <div class="box-footer no-padding">
-                <div class="mailbox-controls">
-                    <!-- Check all button -->
-                    <div class="btn-group">
-                        <button class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                        <button class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                    </div><!-- /.btn-group -->
-                </div>
-            </div>
         </div><!-- /. box -->
     </div>
 
 @endsection
 
 @section('js-bottom-mail')
+    <script src="/backend/js/rails.js" type="text/javascript"></script>
 @endsection

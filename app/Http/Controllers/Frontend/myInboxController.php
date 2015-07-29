@@ -27,9 +27,9 @@ class myInboxController extends Controller
         $user = Auth::user();
         $currentUserId = Auth::user()->id;
         // All threads, ignore deleted/archived participants
-        $threads = Thread::getAllLatest()->get();
+        $threads = Thread::getAllLatest()->paginate(30);
         // All threads that user is participating in
-        // $threads = Thread::forUser($currentUserId)->latest('updated_at')->get();
+        $threads = Thread::forUser($currentUserId)->latest('updated_at')->paginate(30);;
         // All threads that user is participating in, with new messages
         // $threads = Thread::forUserWithNewMessages($currentUserId)->latest('updated_at')->get();
         return view('frontend.my-inbox.index', compact('threads', 'currentUserId'))
@@ -44,22 +44,32 @@ class myInboxController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+
+
         try {
             $thread = Thread::findOrFail($id);
         } catch (ModelNotFoundException $e) {
             Session::flash('error_message', 'The thread with ID: ' . $id . ' was not found.');
-            return redirect('messages');
+            return redirect('/my-inbox');
         }
-        // show current user in list if not a current participant
-        // $users = User::whereNotIn('id', $thread->participantsUserIds())->get();
-        // don't show the current user in list
-        $userId = Auth::user()->id;
-        $users = User::whereNotIn('id', $thread->participantsUserIds($userId))->get();
-        $thread->markAsRead($userId);
-        return view('frontend.my-inbox.show')
-            ->with('user',$user)
-            ->with('thread',$thread)
-            ->with('users',$users);
+        if($thread->hasParticipant(Auth::id())){
+            $thread->markAsRead($user->id);
+
+            // show current user in list if not a current participant
+            // $users = User::whereNotIn('id', $thread->participantsUserIds())->get();
+            // don't show the current user in list
+            $users = User::whereNotIn('id', $thread->participantsUserIds($user->id))->get();
+            $thread->markAsRead($user->id);
+            return view('frontend.my-inbox.show')
+                ->with('user',$user)
+                ->with('thread',$thread)
+                ->with('users',$users);
+        }else{
+            Session::flash('error_message', 'Conversation not found');
+
+            return redirect('/my-inbox');
+        }
+
     }
     /**
      * Creates a new message thread
@@ -113,12 +123,12 @@ class myInboxController extends Controller
         return redirect('my-inbox');
     }
     /**
-     * Adds a new message to a current thread
+     * Adds a new message to a current thread / Add Participants
      *
      * @param $id
      * @return mixed
      */
-    public function update($id)
+    public function update(Request $request,$id)
     {
         try {
             $thread = Thread::findOrFail($id);
@@ -126,28 +136,53 @@ class myInboxController extends Controller
             Session::flash('error_message', 'The thread with ID: ' . $id . ' was not found.');
             return redirect('my-inbox');
         }
-        $thread->activateAllParticipants();
-        // Message
-        Message::create(
-            [
-                'thread_id' => $thread->id,
-                'user_id'   => Auth::id(),
-                'body'      => Input::get('message'),
-            ]
-        );
-        // Add replier as a participant
-        $participant = Participant::firstOrCreate(
-            [
-                'thread_id' => $thread->id,
-                'user_id'   => Auth::user()->id
-            ]
-        );
-        $participant->last_read = new Carbon;
-        $participant->save();
-        // Recipients
-        if (Input::has('recipients')) {
-            $thread->addParticipants(Input::get('recipients'));
+
+        //Participant add or reply?
+        if($request->action == 'addUsers')
+        {
+            $recipients = explode(',',$request->recipents);
+            // Recipients
+            if (\Request::has('recipents')) {
+                $thread->addParticipants($recipients);
+            }
+        } else {
+            $thread->activateAllParticipants();
+            // Message
+            Message::create(
+                [
+                    'thread_id' => $thread->id,
+                    'user_id'   => Auth::id(),
+                    'body'      => Input::get('message'),
+                ]
+            );
+            // Add replier as a participant
+            $participant = Participant::firstOrCreate(
+                [
+                    'thread_id' => $thread->id,
+                    'user_id'   => Auth::user()->id
+                ]
+            );
+            $participant->last_read = new Carbon;
+            $participant->save();
         }
         return redirect('my-inbox/' . $id);
     }
+
+    /**
+     * Deals with deletion of threads
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function deleteInboxThreads(Request $request)
+    {
+        $user = \Auth::user();
+
+        $user->threads()->detach($request->delete);
+
+        \Notification::success('You have left these conversations');
+        return redirect('/my-inbox');
+
+    }
+
 }
