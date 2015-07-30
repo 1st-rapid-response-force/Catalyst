@@ -13,13 +13,15 @@ class Qualification extends Model
      */
     protected $table = 'qualifications';
 
+    protected $guarded = [];
+
     /**
      * Returns Virtual Personnel File
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function VPF()
     {
-        return $this->belongsToMany('VPF', 'VPF_qualifications', 'vpf_id', 'qualification_id')->withPivot('date_awarded');
+        return $this->belongsToMany('App\VPF', 'qualifications_vpf', 'qualification_id', 'vpf_id')->withPivot('date_awarded');
     }
 
     /**

@@ -33,9 +33,22 @@ class VPFController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $buildProfile = collect($user->service);
+        $forms = collect();
+
+
+        $buildProfile = collect(
+            ['serviceHistory'=>$user->vpf->serviceHistory,
+                'ribbons'=>$user->vpf->ribbons,
+                'qualifications'=>$user->vpf->qualifications,
+                'operations'=>$user->vpf->operations,
+                'schools'=>$user->vpf->schools,
+                'forms'=> [$forms->merge([$user->vpf->article15,$user->vpf->vcs,$user->vpf->ncs,$user->vpf->dcs])],
+            ]);
+
+        dd($buildProfile);
         return view('frontend.vpf.index')
-            ->with('user',$user);
+            ->with('user',$user)
+            ->with('profile',$buildProfile);
     }
 
     /**

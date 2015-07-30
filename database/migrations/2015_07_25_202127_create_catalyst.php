@@ -20,7 +20,7 @@ class CreateCatalyst extends Migration
             $table->string('name');
             $table->string('grade');
             $table->string('military_id');
-            $table->date('current_date');
+            $table->string('current_date')->default(time());
             $table->text('misconduct');
             $table->string('plea');
             $table->text('plan_of_action');
@@ -38,7 +38,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('name');
-            $table->string('rank');
+            $table->string('grade');
             $table->string('date')->default(time());
             $table->string('organization')->default('1st Rapid Response Force');
             $table->string('counselor_name');
@@ -56,7 +56,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('name');
-            $table->string('rank');
+            $table->string('grade');
             $table->string('date')->default(time());
             $table->string('organization')->default('1st Rapid Response Force');
             $table->string('counselor_name');
@@ -76,7 +76,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('name');
-            $table->string('rank');
+            $table->string('grade');
             $table->string('date')->default(time());
             $table->string('organization')->default('1st Rapid Response Force');
             $table->string('counselor_name');
@@ -182,7 +182,7 @@ class CreateCatalyst extends Migration
 
         //JOIN TABLES
 
-        Schema::create('vpf_operations', function(Blueprint $table)
+        Schema::create('operations_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('operation_id');
@@ -193,7 +193,7 @@ class CreateCatalyst extends Migration
             $table->foreign('operation_id')->references('id')->on('operations')->onDelete('cascade');
         });
 
-        Schema::create('vpf_qualifications', function(Blueprint $table)
+        Schema::create('qualifications_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('qualification_id');
@@ -204,7 +204,7 @@ class CreateCatalyst extends Migration
             $table->foreign('qualification_id')->references('id')->on('qualifications')->onDelete('cascade');
         });
 
-        Schema::create('vpf_ribbons', function(Blueprint $table)
+        Schema::create('ribbons_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('ribbon_id');
@@ -215,7 +215,7 @@ class CreateCatalyst extends Migration
             $table->foreign('ribbon_id')->references('id')->on('ribbons')->onDelete('cascade');
         });
 
-        Schema::create('vpf_schools', function(Blueprint $table)
+        Schema::create('schools_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('school_id');
@@ -234,10 +234,10 @@ class CreateCatalyst extends Migration
      */
     public function down()
     {
-        Schema::drop('vpf_operations');
-        Schema::drop('vpf_qualifications');
-        Schema::drop('vpf_ribbons');
-        Schema::drop('vpf_schools');
+        Schema::drop('operations_vpf');
+        Schema::drop('qualifications_vpf');
+        Schema::drop('ribbons_vpf');
+        Schema::drop('schools_vpf');
         Schema::drop('article15');
         Schema::drop('dcs');
         Schema::drop('ncs');
