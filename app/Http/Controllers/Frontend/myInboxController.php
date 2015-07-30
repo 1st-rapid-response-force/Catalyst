@@ -223,11 +223,15 @@ class myInboxController extends Controller
     {
         $user = \Auth::user();
 
-        $user->threads()->detach($request->delete);
+        if(is_Null($request->delete))
+        {
+            \Notification::warning('No Conversations selected');
+        } else {
+            $user->threads()->detach($request->delete);
+            \Notification::success('You have left these conversations');
 
-        \Notification::success('You have left these conversations');
+        }
         return redirect('/my-inbox');
-
     }
 
 }
