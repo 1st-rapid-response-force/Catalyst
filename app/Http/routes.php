@@ -23,9 +23,7 @@ Route::get('images/{image}/limited', 'ImageController@show');
 //Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
-    Route::get('/', function () {
-        return view('frontend.home');
-    });
+
     Route::get('/home', function () {
         return redirect('/');
     });
@@ -38,6 +36,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
     Route::get('avatar/{steam_id}', 'VPFController@buildAvatar');
 
+    Route::get('/', 'PagesController@index');
     Route::get('about', 'PagesController@about');
     Route::get('servers', 'PagesController@servers');
     Route::get('structure-assignments', 'PagesController@structureAndAssignments');
@@ -58,7 +57,7 @@ Route::group(['namespace' => 'Frontend'], function()
     {
         //Member only section
         Route::get('/virtual-personnel-file',['as' => 'vpf', 'uses' => 'VPFController@index']);
-        Route::get('/virtual-personnel-file/faces',['as' => 'vpf.faces', 'uses' => 'VPFController@showFace']);
+        Route::get('/virtual-personnel-file/faces',['as' => 'vpf.faces', 'uses' => 'VPFController@showFaces']);
         Route::post('/virtual-personnel-file/faces',['as' => 'vpf.faces.update', 'uses' => 'VPFController@saveFace']);
 
         //MyInbox

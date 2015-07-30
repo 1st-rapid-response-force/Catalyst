@@ -33,6 +33,7 @@ class VPFController extends Controller
     public function index()
     {
         $user = \Auth::user();
+        $buildProfile = collect($user->service);
         return view('frontend.vpf.index')
             ->with('user',$user);
     }

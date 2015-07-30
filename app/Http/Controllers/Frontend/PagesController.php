@@ -16,7 +16,9 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view('frontend.home');
+        $video = ['/frontend/videos/intro1.mp4','/frontend/videos/intro3.mp4'];
+        $key = array_rand($video,1);
+        return view('frontend.home')->with('video',$video[$key]);
     }
 
     /**
