@@ -169,7 +169,7 @@ class CatalystMOSSeeder extends Seeder
         
 
         $mos = new MOS;
-        $mos->name = 'C130 Logistics Sergeant (Jump Master)';
+        $mos->name = 'C130 Logistics Sergeant';
         $mos->mos = '15B(C3)';
         $mos->rank_limitation_id = $SGT->id;
         $mos->save();

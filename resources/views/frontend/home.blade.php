@@ -14,7 +14,7 @@
     <div class="container hidden-sm hidden-xs" style="height:600px; width:100%;" id="video-wrap">
         <div class="row">
             <div class="col-lg-12" >
-                <div class="text-center"><h1 class="intro">Welcome to MILSIM</h1></div>
+                <div class="text-center"><h1 class="intro">Welcome to 1st Rapid Response Force</h1></div>
 
             </div>
         </div>
