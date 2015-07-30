@@ -219,14 +219,11 @@
                     <form action="{{ route('admin.enlistments.approve',array($app->id)) }}" method="post">
                         <textarea name="statement" class="form-control" rows="3" placeholder="Provide a brief statement regarding the decision (will be shown to user)"></textarea>
                         <br>
-                        <p>You will need to assign this member an assignment, The user selected the following MOS</p>
+                        <p>The user selected the following MOS</p>
                         <div class="form-group">
                             <input id="assignment" class="form-control" type="text" name="mos_selected" readonly value="{{$app->mos->name}}">
                         </div>
-                        <select name="assignment_id" class="form-control select2" style="width: 100%;">
-                            @foreach($assignments as $assign)
-                                <option value="{{$assign->id}}">{{$assign->mos->mos.' - '.$assign->name.' - '.$assign->group->name}}</option>
-                            @endforeach
+                        <p>User will be added a Recruit Assignment, Rank PV1. (if user is reenlisting, modify Rank in VPF accordingly) pending training.</p>
                         </select>
                         {!! csrf_field() !!}
                 </div>

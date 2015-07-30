@@ -256,36 +256,43 @@ class CatalystAssignmentsSeeder extends Seeder
         $assignment = new Assignment;
         $assignment->group_id = 14;
         $assignment->name = 'Infantry Personnel';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 14;
         $assignment->name = 'Infantry Personnel';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 14;
         $assignment->name = 'Infantry Personnel';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 14;
         $assignment->name = 'Infantry Personnel';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 14;
         $assignment->name = 'Infantry Personnel';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 14;
         $assignment->name = 'Infantry Personnel';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 14;
-        $assignment->name = 'Infantry Personnel';
+        $assignment->name = 'Infantry Medic';
+        $assignment->entry_level = true;
         $assignment->save();
 
         //////////////// Squad 2
@@ -789,16 +796,19 @@ class CatalystAssignmentsSeeder extends Seeder
         $assignment = new Assignment;
         $assignment->group_id = 41;
         $assignment->name = 'Infantry Support Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 41;
         $assignment->name = 'Infantry Support Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         $assignment = new Assignment;
         $assignment->group_id = 41;
         $assignment->name = 'Vehicle Maintenance Specialist';
+        $assignment->entry_level = true;
         $assignment->save();
 
         //Team 2

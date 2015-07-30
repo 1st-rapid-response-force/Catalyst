@@ -17,9 +17,13 @@
         <h3>Available Assignments</h3>
         <p>Make pretty later</p>
         <ol>
+            @if(!$availMOSs->count() == 0)
             @foreach($availMOSs as $mos)
                 <li><a href="{{route('enlistments.create', $mos->id)}}">{{$mos->name}}</a></li>
             @endforeach
+            @else
+                <p class="text-center">There are currently no open slots, we will send out an email when more slots become available</p>
+            @endif
         </ol>
     </div>
 @endsection
