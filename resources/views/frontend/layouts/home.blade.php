@@ -49,10 +49,12 @@
 
 <body style="padding-top:40px;padding-bottom:50px; @yield('body-style')">
 
+</div>
 @include('frontend.includes.nav')
-
 @yield('header-image')
 <!-- Page Content -->
+
+    @yield('content-1')
 <div class="container">
     @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -66,12 +68,7 @@
     <br>
     {!! Notification::showAll() !!}
 </div>
-<div class="container">
-    @yield('breadcrumbs')
-</div>
-
-    @yield('content')
-
+@yield('content-2')
 <!-- jQuery Version 1.11.1 -->
 <script src="/frontend/js/jquery.js"></script>
 

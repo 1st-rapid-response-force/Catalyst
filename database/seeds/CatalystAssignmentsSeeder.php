@@ -22,37 +22,37 @@ class CatalystAssignmentsSeeder extends Seeder
 
         $assignment = new Assignment;
         $assignment->group_id = 2;
-        $assignment->name = 'Infantry Commander';
-        $assignment->save();
-
-        $assignment = new Assignment;
-        $assignment->group_id = 2;
-        $assignment->name = 'Infantry Commander';
-        $assignment->save();
-
-        $assignment = new Assignment;
-        $assignment->group_id = 2;
-        $assignment->name = 'Infantry Commander';
-        $assignment->save();
-
-        $assignment = new Assignment;
-        $assignment->group_id = 2;
-        $assignment->name = 'Infantry Commander';
-        $assignment->save();
-
-        $assignment = new Assignment;
-        $assignment->group_id = 2;
-        $assignment->name = 'Infantry Commander';
-        $assignment->save();
-
-        $assignment = new Assignment;
-        $assignment->group_id = 2;
-        $assignment->name = 'Infantry Commander';
-        $assignment->save();
-
-        $assignment = new Assignment;
-        $assignment->group_id = 2;
         $assignment->name = 'Theatre Commander';
+        $assignment->save();
+
+        $assignment = new Assignment;
+        $assignment->group_id = 2;
+        $assignment->name = 'Infantry Commander';
+        $assignment->save();
+
+        $assignment = new Assignment;
+        $assignment->group_id = 2;
+        $assignment->name = 'Infantry Commander';
+        $assignment->save();
+
+        $assignment = new Assignment;
+        $assignment->group_id = 2;
+        $assignment->name = 'Infantry Commander';
+        $assignment->save();
+
+        $assignment = new Assignment;
+        $assignment->group_id = 2;
+        $assignment->name = 'Infantry Commander';
+        $assignment->save();
+
+        $assignment = new Assignment;
+        $assignment->group_id = 2;
+        $assignment->name = 'Infantry Commander';
+        $assignment->save();
+
+        $assignment = new Assignment;
+        $assignment->group_id = 2;
+        $assignment->name = 'Infantry Commander';
         $assignment->save();
 
         $assignment = new Assignment;

@@ -16,7 +16,9 @@ class mySquadController extends Controller
      */
     public function index()
     {
-        //
+        $user = \Auth()->user();
+        return view('frontend.my-squad.index')
+            ->with('user',$user);
     }
 
     /**

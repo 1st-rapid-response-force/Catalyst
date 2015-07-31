@@ -14,7 +14,7 @@
         <li><a href="/">Home</a></li>
         <li><a href="{{route('vpf')}}">{{$user->vpf}}</a></li>
         <li><a href="{{route('inbox')}}">Inbox</a></li>
-        <li class="active">Viewing Message</li>
+        <li class="active">Editing Message</li>
     </ol>
 @endsection
 

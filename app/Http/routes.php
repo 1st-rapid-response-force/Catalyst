@@ -28,7 +28,10 @@ Route::group(['namespace' => 'Frontend'], function()
         return redirect('/');
     });
     Route::get('/test', function () {
-
+        $user = \App\User::find(1);
+        $app = \App\Application::find(1);
+        $user->application()->associate($app);
+        $user->save();
     });
 
 
@@ -42,6 +45,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('structure-assignments', 'PagesController@structureAndAssignments');
     Route::get('faq', 'PagesController@faq');
     Route::get('contact-us', 'PagesController@contact');
+    Route::get('/roster/{id}', 'VPFController@publicView');
 
     Route::group(['middleware' => 'auth'], function()
     {
@@ -56,11 +60,16 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::group(['middleware' => ['auth','member']], function()
     {
         //Member only section
+
+        //VPF
         Route::get('/virtual-personnel-file',['as' => 'vpf', 'uses' => 'VPFController@index']);
         Route::get('/virtual-personnel-file/faces',['as' => 'vpf.faces', 'uses' => 'VPFController@showFaces']);
         Route::post('/virtual-personnel-file/faces',['as' => 'vpf.faces.update', 'uses' => 'VPFController@saveFace']);
+        Route::get('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak', 'uses' => 'VPFController@showTeamspeak']);
+        Route::post('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak.store', 'uses' => 'VPFController@saveTeamspeak']);
+        Route::delete('/virtual-personnel-file/teamspeak/{id}',['as' => 'vpf.teamspeak.delete', 'uses' => 'VPFController@deleteTeamspeak']);
 
-        //MyInbox
+        //My Inbox
         Route::get('/my-inbox', ['as' => 'inbox', 'uses' => 'myInboxController@index']);
         Route::get('/my-inbox/create', ['as' => 'inbox.create', 'uses' => 'myInboxController@create']);
         Route::post('/my-inbox', ['as' => 'inbox.store', 'uses' => 'myInboxController@store']);
@@ -69,6 +78,9 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::post('/my-inbox/delete', ['as' => 'inbox.removeThreads', 'uses' => 'myInboxController@deleteInboxThreads']);
         Route::get('/my-inbox/edit-message/{id}', ['as' => 'inbox.edit.message', 'uses' => 'myInboxController@editMessage']);
         Route::put('/my-inbox/edit-message/{id}', ['as' => 'inbox.edit.message.update', 'uses' => 'myInboxController@editMessageSave']);
+
+        //My Squad
+        Route::get('/my-squad', ['as' => 'squad', 'uses' => 'mySquadController@index']);
 
         //Auto-Complete
         Route::get('autocomplete/users', 'AutoCompleteController@getUsers');

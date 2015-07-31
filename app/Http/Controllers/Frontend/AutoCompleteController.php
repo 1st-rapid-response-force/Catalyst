@@ -11,18 +11,18 @@ use App\Http\Controllers\Controller;
 
 class AutoCompleteController extends Controller
 {
-    public function getUsers()
+    public function getUsers(Request $request)
     {
-        $vpfs = VPF::all();
-        $results = [];
+        $vpfs = VPF::where('first_name','LIKE','%'.$request->q.'%')
+            ->orWhere('last_name','LIKE','%'.$request->q.'%')->get();
+        $results = collect();
         foreach($vpfs as $vpf)
         {
-            $rt = [
-                'id' => $vpf->user->id,
-                'name' => $vpf->__toString(),
-            ];
-            array_push($results,$rt);
+            $rt = ['id' => $vpf->user->id,
+                'name' => $vpf->__toString(),];
+            $results->push($rt);
         }
+
 
 
         return \Response::json($results);

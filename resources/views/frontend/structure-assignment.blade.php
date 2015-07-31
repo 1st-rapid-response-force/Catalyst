@@ -1,7 +1,16 @@
 @extends('frontend.layouts.master')
 
+@section('title', 'Structure and Assignments')
+
 @section('css-top')
     <link rel="stylesheet" href="/plugins/jquery-org/jquery.orgchart.css">
+@endsection
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Structure and Assignment</li>
+    </ol>
 @endsection
 
 @section('content')
@@ -23,7 +32,7 @@
                 <tbody>
                 <tr>
                     @foreach($officerRanks as $rank)
-                        <td><strong>{{$rank->name}}</strong><br>{{$rank->abbreviation}}/small</td>
+                        <td><strong>{{$rank->name}}</strong><br>{{$rank->abbreviation}}</td>
                     @endforeach
                 </tr>
                 </tbody>
@@ -41,7 +50,7 @@
                 <tbody>
                 <tr>
                     @foreach($warrantRanks as $rank)
-                        <td><strong>{{$rank->name}}</strong><br>{{$rank->abbreviation}}/small</td>
+                        <td><strong>{{$rank->name}}</strong><br>{{$rank->abbreviation}}</td>
                     @endforeach
                 </tr>
                 </tbody>
@@ -83,7 +92,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane" id="assignments">
                     <h2>Assignments</h2>
-                    <p>The NATO RRF is designed to scale to a maximum personnel allocation of 150 troops. Every member of the unit will at all times hold a single assignment. Assignments are mutually exclusive positions which have required playtime, training and commitment attributes attached to them. On</p>
+                    <p>The NATO RRF is designed to scale to a maximum personnel allocation of 150 combat troops with several support elements. Every member of the unit will at all times hold a single assignment. Assignments are mutually exclusive positions which have required playtime, training and commitment attributes attached to them. On</p>
                     <h3>1st Rapid Response Force</h3>
                     <div class="row">
                         <div class="col-lg-4">
@@ -91,9 +100,15 @@
                                 @if(!($group->assignments->count() == 0))
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
-                                        <ul>
-                                            <li>{{$assignment->name}}</li>
-                                        </ul>
+                                        @if(!is_null($assignment->member))
+                                            <ul>
+                                                <li><a href="/roster/{{$assignment->member->id}}">{{$assignment->name}} - {{$assignment->member->user->vpf}}</a></li>
+                                            </ul>
+                                        @else
+                                            <ul>
+                                                <li>{{$assignment->name}}</li>
+                                            </ul>
+                                        @endif
                                     @endforeach
                                 @else
                                     <h4><strong>{{$group->name}}</strong></h4>
@@ -105,9 +120,15 @@
                                 @if(!($group->assignments->count() == 0))
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
-                                        <ul>
-                                            <li>{{$assignment->name}}</li>
-                                        </ul>
+                                        @if(!is_null($assignment->member))
+                                            <ul>
+                                                <li><a href="/roster/{{$assignment->member->id}}">{{$assignment->name}} - {{$assignment->member->user->vpf}}</a></li>
+                                            </ul>
+                                        @else
+                                            <ul>
+                                                <li>{{$assignment->name}}</li>
+                                            </ul>
+                                        @endif
                                     @endforeach
                                 @else
                                     <h4><strong>{{$group->name}}</strong></h4>
@@ -119,16 +140,28 @@
                                 @if(!($group->assignments->count() == 0))
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
-                                        <ul>
-                                            <li>{{$assignment->name}}</li>
-                                        </ul>
+                                        @if(!is_null($assignment->member))
+                                            <ul>
+                                                <li><a href="/roster/{{$assignment->member->id}}">{{$assignment->name}} - {{$assignment->member->user->vpf}}</a></li>
+                                            </ul>
+                                        @else
+                                            <ul>
+                                                <li>{{$assignment->name}}</li>
+                                            </ul>
+                                        @endif
                                     @endforeach
                                 @else
                                     <h4><strong>{{$group->name}}</strong></h4>
                                 @endif
                             @endforeach
+                            <h5><strong>Recruits</strong></h5>
+                            <ul>
+                                <li>Recruit</li>
+                            </ul>
                         </div>
                     </div>
+                    <small class="pull-right">This assignment chart is system generated, report any errors via an error report form
+                    </small>
                 </div>
             </div>
         </div>

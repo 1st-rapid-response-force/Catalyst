@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Group;
 use App\Rank;
+use App\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -55,7 +56,7 @@ class PagesController extends Controller
         $officerRanks = Rank::whereIn('id', array(19,20,21,22,23,24))->get();
         $groups1 = Group::whereBetween('id', [2,14])->get();
         $groups2 = Group::whereBetween('id', [15, 25])->get();
-        $groups3 = Group::where('id', '>', 25)->get();
+        $groups3 = Group::whereBetween('id', [26,43])->get();
         return view('frontend.structure-assignment')
             ->with('enlistedRanks',$enlistedRanks)
             ->with('warrantRanks',$warrantRanks)
@@ -83,7 +84,11 @@ class PagesController extends Controller
      */
     public function contact()
     {
-        return view('frontend.contact');
+        $rod = User::find(1);
+        $striker = User::find(2);
+        return view('frontend.contact')
+            ->with('rod',$rod)
+            ->with('striker',$striker);
     }
 
 }

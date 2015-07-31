@@ -1,7 +1,17 @@
 
 @extends('frontend.layouts.master')
 
+@section('title', 'Select Face')
+
 @section('css-top')
+@endsection
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="{{route('vpf')}}">{{$user->vpf}}</a></li>
+        <li class="active">Select Face</li>
+    </ol>
 @endsection
 
 @section('content')

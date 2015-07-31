@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Teamspeak;
+use Notification;
 use Illuminate\Http\Request;
-
 use App\User;
+use App\VPF;
 use App\Http\Requests;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Repositories\Image\ImageRepositoryContract;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 
 class VPFController extends Controller
@@ -33,6 +41,48 @@ class VPFController extends Controller
     public function index()
     {
         $user = \Auth::user();
+        try {
+            VPF::findorFail($user->vpf_id);
+        } catch (ModelNotFoundException $e) {
+            \Notification::error('The Virtual Personnel File was not found.');
+            return redirect('/');
+        }
+
+        $forms = collect();
+        $forms = $forms->merge($user->vpf->article15);
+        $forms = $forms->merge($user->vpf->vcs);
+        $forms = $forms->merge($user->vpf->ncs);
+        $forms = $forms->merge($user->vpf->dcs);
+        $forms = $forms->sortByDesc('created_at');
+
+        $buildProfile = collect(
+            ['serviceHistory'=>$user->vpf->serviceHistory->sortByDesc('date'),
+                'ribbons'=>$user->vpf->ribbons,
+                'qualifications'=>$user->vpf->qualifications,
+                'operations'=>$user->vpf->operations,
+                'schools'=>$user->vpf->schools()->wherePivot('completed', '=','1')->get(),
+                'forms'=> $forms,
+            ]);
+
+        return view('frontend.vpf.index')
+            ->with('user',$user)
+            ->with('profile',$buildProfile);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function publicView($id)
+    {
+        try {
+            $user = User::findorFail($id);
+        } catch (ModelNotFoundException $e) {
+            \Notification::error('The Virtual Personnel File was not found.');
+            return redirect('/');
+        }
+
         $forms = collect();
         $forms = $forms->merge($user->vpf->article15);
         $forms = $forms->merge($user->vpf->vcs);
@@ -48,34 +98,15 @@ class VPFController extends Controller
                 'schools'=>$user->vpf->schools,
                 'forms'=> $forms,
             ]);
-        return view('frontend.vpf.index')
+        return view('frontend.vpf.indexPublic')
             ->with('user',$user)
             ->with('profile',$buildProfile);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
+     * Shows Returns Face Selection Screen
      * @return Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function showFaces()
     {
         $user = \Auth::user();
@@ -126,6 +157,64 @@ class VPFController extends Controller
             ->with('faces',$faces_array);
     }
 
+    public function showTeamspeak()
+    {
+        $user = \Auth::user();
+        return view('frontend.vpf.teamspeak')
+            ->with('user',$user);
+    }
+
+    public function saveTeamspeak(Request $request)
+    {
+        $user = \Auth::user();
+        $this->validate($request, [
+            'description' => 'required|string',
+            'uuid' => 'required|string',
+        ]);
+
+        $ts = new Teamspeak;
+        $ts->description = $request->description;
+        $ts->uuid = $request->uuid;
+
+        try {
+            $user->vpf->teamspeak()->save($ts);
+        } catch (QueryException $e) {
+            \Notification::error('You must have a unique UUID in order to save this value.');
+            return redirect('/virtual-personnel-file/teamspeak');
+        }
+
+        $user->push();
+
+        Notification::success('Teamspeak UUID added successfully');
+        return redirect('/virtual-personnel-file/teamspeak');
+    }
+
+    public function deleteTeamspeak(Request $request, $id)
+    {
+        $user = \Auth::user();
+        try {
+            $ts = Teamspeak::findOrFail($id);
+        } catch (QueryException $e) {
+            \Notification::error('This is not a valid Teamspeak ID to delete.');
+            return redirect('/virtual-personnel-file/teamspeak');
+        }
+
+        //Is this the users id?
+        if(!$ts->vpf_id == $user->vpf->id)
+        {
+            Notification::error('This is not your Teamspeak ID, you cannot delete it! Action has been logged and reported');
+            return redirect('/virtual-personnel-file/teamspeak');
+        }
+
+        $ts->delete();
+        Notification::success('Teamspeak UUID added successfully');
+        return redirect('/virtual-personnel-file/teamspeak');
+    }
+
+    /**
+     * Saves User Selection
+     * @return Response
+     */
     public function saveFace(Request $request)
     {
         $user = \Auth::user();
@@ -236,6 +325,11 @@ class VPFController extends Controller
         return $img;
     }
 
+    /**
+     * Builds Avatar Pict
+     * @param $steam_id
+     * @return mixed
+     */
     public function buildAvatar($steam_id)
     {
         $images = public_path().'/frontend/images/avatars/';

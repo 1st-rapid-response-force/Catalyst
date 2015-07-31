@@ -6,6 +6,14 @@
     <script type="text/javascript" src="/plugins/datepicker/bootstrap-datepicker.js"></script>
 @endsection
 
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/enlistment">Enlistment</a></li>
+        <li class="active">My Application</li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="container">
         <h1>Registration</h1>

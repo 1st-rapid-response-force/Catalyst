@@ -1,6 +1,15 @@
 @extends('frontend.layouts.master')
 
+@section('title', 'FAQs')
+
 @section('css-top')
+@endsection
+
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">FAQs</li>
+    </ol>
 @endsection
 
 @section('content')

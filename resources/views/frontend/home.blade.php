@@ -1,4 +1,6 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.home')
+
+@section('title', 'Home')
 
 @section('css-top')
     <link rel="stylesheet" href="/plugins/bigvideo/css/bigvideo.css">
@@ -23,7 +25,7 @@
 @endsection
 
 
-@section('content')
+@section('content-1')
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -77,10 +79,11 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
-
         <hr />
+        <!-- /.row -->
+        @endsection
 
+        @section('content-2')
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1>Wide Variety of Positions</h1>

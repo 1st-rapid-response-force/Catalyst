@@ -4,6 +4,13 @@
     <link rel="stylesheet" type="text/css" href="/frontend/css/gridforms.css">
 @endsection
 
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Enlistment</li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="container">
         <h1>Enlistment</h1>

@@ -56,7 +56,11 @@
         $(document).ready(function () {
             CKEDITOR.replace( 'message');
             $("#autocomplete").tokenInput("/autocomplete/users", {
-                theme: "facebook"
+                theme: "facebook",
+                preventDuplicates: true,
+                searchDelay: 300,
+                hintText: 'Search by First or Last Name'
+
             });
         });
     </script>

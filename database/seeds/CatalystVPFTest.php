@@ -120,14 +120,67 @@ class CatalystVPFTest extends Seeder
             'assessment_date' => '2015-01-01 00:00:00'
         ]);
 
-
+        /// Service History
+        $user->serviceHistory()->create([
+            'note' => 'Graduated Basic Training Course',
+            'date' => '2015-05-29'
+        ]);
 
         /// Service History
-        //Syncs stuff
-        $user->operations()->sync([1,2]);
-        $user->ribbons()->sync([1,2,3,4]);
-        $user->qualifications()->sync([1,2,3,4]);
-        $user->schools()->sync([1,2]);
+        $user->serviceHistory()->create([
+            'note' => 'Attended Officer Training School',
+            'date' => '2015-06-05'
+        ]);
 
+        /// Service History
+        $user->serviceHistory()->create([
+            'note' => 'Deployed Hindakush',
+            'date' => '2015-06-30'
+        ]);
+
+
+        //Syncs stuff
+        $user->operations()->sync([
+            1 => ['date_attended' => '2015-05-29'],
+            2 => ['date_attended' => '2015-07-03']]
+        );
+        $user->ribbons()->sync([1,2,3,4]);
+        $user->qualifications()->sync([
+            1 => ['date_awarded' => '2015-05-29'],
+            2 => ['date_awarded' => '2015-07-03'],
+            3 => ['date_awarded' => '2015-06-29'],
+            4 => ['date_awarded' => '2015-08-03']]
+        );
+        $user->schools()->sync([
+            1 => ['date_attended' => '2015-05-29'],
+            2 => ['date_attended' => '2015-07-03']
+        ]);
+
+        //////////// FACTORIES YAY
+        //// Members
+        $i = 35;
+        $users = factory(App\User::class, 150)
+            ->create()
+            ->each(function($u) {
+               $app = $u->application()->save(factory(App\Application::class,'acceptedApplicant')->create());
+                $u->application_id = $app->id;
+
+               $vpf = $u->vpf()->save(factory(App\VPF::class,'active')->create(['first_name' => $app->first_name,'last_name'=>$app->last_name]));
+                $u->vpf_id = $vpf->id;
+                $u->save();
+
+            });
+
+        $users = factory(App\User::class, 10)
+            ->create()
+            ->each(function($u) {
+                $app = $u->application()->save(factory(App\Application::class,'acceptedApplicant')->create());
+                $u->application_id = $app->id;
+
+                $vpf = $u->vpf()->save(factory(App\VPF::class,'recruits')->create(['first_name' => $app->first_name,'last_name'=>$app->last_name]));
+                $u->vpf_id = $vpf->id;
+                $u->save();
+
+            });
     }
 }

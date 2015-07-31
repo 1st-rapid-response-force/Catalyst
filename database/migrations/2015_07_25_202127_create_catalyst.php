@@ -18,6 +18,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('form_name')->default('Article 15');
+            $table->string('form_type')->default('article15');
             $table->string('name');
             $table->string('grade');
             $table->string('military_id');
@@ -39,6 +40,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('form_name')->default('Developmental Counseling Statement');
+            $table->string('form_type')->default('dcs');
             $table->string('name');
             $table->string('grade');
             $table->string('date')->default(time());
@@ -58,6 +60,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('form_name')->default('Negative Counseling Statement');
+            $table->string('form_type')->default('ncs');
             $table->string('name');
             $table->string('grade');
             $table->string('date')->default(time());
@@ -79,6 +82,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('form_name')->default('Verbal Counseling Statement');
+            $table->string('form_type')->default('vcs');
             $table->string('name');
             $table->string('grade');
             $table->string('date')->default(time());
@@ -115,6 +119,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('uuid');
+            $table->string('description');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->unique('uuid');
@@ -178,6 +183,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->text('note');
+            $table->date('date');
             $table->unsignedInteger('model_id')->nullable();
             $table->string('model_type')->nullable();
             $table->timestamps();
@@ -224,7 +230,8 @@ class CreateCatalyst extends Migration
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('school_id');
-            $table->date('date_attended');
+            $table->date('date_attended')->nullable();
+            $table->boolean('completed')->default(false);
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'school_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');

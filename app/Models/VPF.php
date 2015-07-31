@@ -87,7 +87,7 @@ class VPF extends Model
      */
     public function schools()
     {
-        return $this->belongsToMany('App\School', 'schools_vpf', 'vpf_id', 'school_id')->withPivot('date_attended');
+        return $this->belongsToMany('App\School', 'schools_vpf', 'vpf_id', 'school_id')->withPivot(['date_attended','completed']);
     }
 
     public function article15()
@@ -149,6 +149,14 @@ class VPF extends Model
         return $this->hasMany('App\PromotionPoints');
     }
 
+    /**
+     * Returns all Service History
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function teamspeak()
+    {
+        return $this->hasMany('App\Teamspeak','vpf_id','id');
+    }
 
 
 }

@@ -17,6 +17,7 @@ class CreateVpfFile extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('searchable')->nullable();
             $table->unsignedInteger('user_id')->default('1');
             $table->unsignedInteger('assignment_id')->nullable();
             $table->unsignedInteger('rank_id')->default('1');
