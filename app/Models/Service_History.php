@@ -21,4 +21,5 @@ class Service_History extends Model
     {
         return $this->belongsTo('App\VPF');
     }
+
 }

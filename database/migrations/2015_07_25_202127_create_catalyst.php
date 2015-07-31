@@ -17,6 +17,7 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Article 15');
             $table->string('name');
             $table->string('grade');
             $table->string('military_id');
@@ -37,6 +38,7 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Developmental Counseling Statement');
             $table->string('name');
             $table->string('grade');
             $table->string('date')->default(time());
@@ -55,6 +57,7 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Negative Counseling Statement');
             $table->string('name');
             $table->string('grade');
             $table->string('date')->default(time());
@@ -75,6 +78,7 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Verbal Counseling Statement');
             $table->string('name');
             $table->string('grade');
             $table->string('date')->default(time());
@@ -90,8 +94,7 @@ class CreateCatalyst extends Migration
         Schema::create('promotion_points', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vpf_id')->unsigned();
-            $table->integer('model_id')->unsigned();
-            $table->integer('model_type')->unsigned();
+            $table->morphs('model');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
@@ -175,6 +178,8 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->text('note');
+            $table->unsignedInteger('model_id')->nullable();
+            $table->string('model_type')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');

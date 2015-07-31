@@ -26,7 +26,6 @@
                         <small><strong>ARMA Name:</strong> {{$face['name']}}</small>
                         <input class="form-control" type="radio" name="face_id" value="{{$face['id']}}" {{($user->vpf->face_id == $face['id']) ? 'checked' : ''}}>
                     </div>
-
                 </div>
 
         <?php if (($i != 0) && (($i % 4) == 0)) echo '</div><div class="row text-center">'; ?>

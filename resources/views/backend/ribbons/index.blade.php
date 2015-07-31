@@ -37,7 +37,7 @@
             <tbody>
             @foreach($ribbons as $ribbon)
                 <tr>
-                    <td><img class="img-responsive" src="/images/{{$ribbon->public_image}}"></td>
+                    <td><img class="img-responsive" src="/images/{{$ribbon->public_image}}/small" class="center-block"></td>
                     <td>{{$ribbon->name}}</td>
                     <td>{{$ribbon->description}}</td>
                     <td>{{$ribbon->promotionPoints}}</td>

@@ -13,8 +13,8 @@
 
 //Utility
 Route::get('images/{image}', 'ImageController@show');
-Route::get('images/{image}/full', 'ImageController@show');
-Route::get('images/{image}/limited', 'ImageController@show');
+Route::get('images/{image}/small', 'ImageController@showSmall');
+
 
 
 

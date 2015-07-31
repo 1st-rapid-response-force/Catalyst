@@ -31,4 +31,5 @@ class School extends Model
     {
         return $this->morphMany('App\PromotionPoints', 'model');
     }
+
 }

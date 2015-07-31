@@ -31,4 +31,6 @@ class Ribbon extends Model
     {
         return $this->morphMany('App\PromotionPoints', 'model');
     }
+
+
 }

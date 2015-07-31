@@ -34,7 +34,11 @@ class VPFController extends Controller
     {
         $user = \Auth::user();
         $forms = collect();
-
+        $forms = $forms->merge($user->vpf->article15);
+        $forms = $forms->merge($user->vpf->vcs);
+        $forms = $forms->merge($user->vpf->ncs);
+        $forms = $forms->merge($user->vpf->dcs);
+        $forms = $forms->sortByDesc('created_at');
 
         $buildProfile = collect(
             ['serviceHistory'=>$user->vpf->serviceHistory,
@@ -42,10 +46,8 @@ class VPFController extends Controller
                 'qualifications'=>$user->vpf->qualifications,
                 'operations'=>$user->vpf->operations,
                 'schools'=>$user->vpf->schools,
-                'forms'=> [$forms->merge([$user->vpf->article15,$user->vpf->vcs,$user->vpf->ncs,$user->vpf->dcs])],
+                'forms'=> $forms,
             ]);
-
-        dd($buildProfile);
         return view('frontend.vpf.index')
             ->with('user',$user)
             ->with('profile',$buildProfile);

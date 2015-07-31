@@ -36,7 +36,7 @@
             <tbody>
             @foreach($qualifications as $qualification)
                 <tr>
-                    <td><img src="/images/{{$qualification->public_image}}"></td>
+                    <td><img src="/images/{{$qualification->public_image}}/small" class="center-block"></td>
                     <td>{{$qualification->name}}</td>
                     <td>{{$qualification->description}}</td>
                     <td>{{$qualification->promotionPoints}}</td>

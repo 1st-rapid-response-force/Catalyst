@@ -46,6 +46,22 @@ class CatalystVPFBase extends Seeder
         $ribbons->promotionPoints = 5;
         $ribbons->save();
 
+        $ribbons = new Ribbon;
+        $ribbons->name = 'Test Ribbon 2';
+        $ribbons->storage_image = 'cloud';
+        $ribbons->public_image  = 'v7qsezjleq9d2o3cgiuj';
+        $ribbons->description  = 'Test Ribbon';
+        $ribbons->promotionPoints = 5;
+        $ribbons->save();
+
+        $ribbons = new Ribbon;
+        $ribbons->name = 'Test Ribbon 3';
+        $ribbons->storage_image = 'cloud';
+        $ribbons->public_image  = 'v7qsezjleq9d2o3cgiuj';
+        $ribbons->description  = 'Test Ribbon';
+        $ribbons->promotionPoints = 5;
+        $ribbons->save();
+
 
         ////////////// REMOVE END
         //////////////////////////////////////////////

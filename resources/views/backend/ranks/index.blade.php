@@ -36,7 +36,7 @@
                 <tbody>
                 @foreach($ranks as $rank)
                     <tr>
-                        <td><img style="max-width: 150px; max-height: 150px;" src="/images/{{$rank->public_image}}"></td>
+                        <td><img style="max-width: 150px; max-height: 150px;" src="/images/{{$rank->public_image}}/small" class="center-block"></td>
                         <td>{{$rank->abbreviation}}</td>
                         <td>{{$rank->name}} | {{$rank->pay_grade}}</td>
                         <td>PP: {{$rank->promotionPointsRequired}} | TIG: {{$rank->tigRequired}}</td>

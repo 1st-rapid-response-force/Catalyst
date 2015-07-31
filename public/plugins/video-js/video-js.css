@@ -34,6 +34,7 @@ The control icons are from a custom font. Each icon corresponds to a character
   outline: 0;
   position: relative;
   cursor: pointer;
+  visibility: hidden;
   padding: 0;
   /* background-color-with-alpha */
   background-color: #333333;
@@ -44,11 +45,13 @@ The control icons are from a custom font. Each icon corresponds to a character
   -webkit-box-shadow: 0 0 2em #ffffff;
   -moz-box-shadow: 0 0 2em #ffffff;
   box-shadow: 0 0 2em #ffffff;
+  visibility: hidden;
 }
 .vjs-default-skin .vjs-slider-handle {
   position: absolute;
   /* Needed for IE6 */
   left: 0;
+  visibility: hidden;
   top: 0;
 }
 .vjs-default-skin .vjs-slider-handle:before {
@@ -60,6 +63,7 @@ The control icons are from a custom font. Each icon corresponds to a character
   text-shadow: 0em 0em 1em #fff;
   position: absolute;
   top: 0;
+  visibility: hidden;
   left: 0;
   /* Rotate the square icon to make a diamond */
   /* transform */
@@ -75,6 +79,7 @@ The default control bar that is a container for most of the controls.
 */
 .vjs-default-skin .vjs-control-bar {
   /* Start hidden */
+  visibility: hidden;
   display: none;
   position: absolute;
   /* Place control bar at the bottom of the player box/video.
@@ -92,6 +97,7 @@ The default control bar that is a container for most of the controls.
 /* Show the control bar only once the video has started playing */
 .vjs-default-skin.vjs-has-started .vjs-control-bar {
   display: block;
+  visibility: hidden;
   /* Visibility needed to make sure things hide in older browsers too. */
 
   visibility: visible;
@@ -115,18 +121,22 @@ The default control bar that is a container for most of the controls.
 }
 .vjs-default-skin.vjs-controls-disabled .vjs-control-bar {
   display: none;
+  visibility: hidden;
 }
 .vjs-default-skin.vjs-using-native-controls .vjs-control-bar {
   display: none;
+  visibility: hidden;
 }
 /* The control bar shouldn't show after an error */
 .vjs-default-skin.vjs-error .vjs-control-bar {
   display: none;
+  visibility: hidden;
 }
 /* Don't hide the control bar if it's audio */
 .vjs-audio.vjs-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
   opacity: 1;
   visibility: visible;
+  visibility: hidden;
 }
 /* IE8 is flakey with fonts, and you have to change the actual content to force
 fonts to show/hide properly.
@@ -148,6 +158,7 @@ fonts to show/hide properly.
   padding: 0;
   height: 3.0em;
   width: 4em;
+  visibility: hidden;
 }
 /* Font button icons */
 .vjs-default-skin .vjs-control:before {

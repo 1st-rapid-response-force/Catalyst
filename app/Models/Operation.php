@@ -30,4 +30,5 @@ class Operation extends Model
     {
         return $this->morphMany('App\PromotionPoints', 'model');
     }
+
 }
