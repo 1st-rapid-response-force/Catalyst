@@ -21,7 +21,7 @@ class School extends Model
      */
     public function VPF()
     {
-        return $this->belongsToMany('App\VPF', 'schools_vpf', 'school_id', 'vpf_id')->withPivot('date_attended');
+        return $this->belongsToMany('App\VPF', 'schools_vpf', 'school_id', 'vpf_id')->withPivot(['date_attended']);
     }
 
     /**

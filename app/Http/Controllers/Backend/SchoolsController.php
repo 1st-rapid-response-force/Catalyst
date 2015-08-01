@@ -59,6 +59,7 @@ class SchoolsController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'img' => 'image',
+            'short_description' => 'required',
             'description' => 'required',
             'docs' => '',
             'videos' => '',
@@ -69,6 +70,7 @@ class SchoolsController extends Controller
         // Create and Process Model
         $school = new School;
         $school->name = $request->name;
+        $school->short_description = $request->short_description;
         $school->description = $request->description;
         $school->docs = $request->docs;
         $school->videos = $request->video;
@@ -157,6 +159,7 @@ class SchoolsController extends Controller
         }
 
         $school->name = $request->name;
+        $school->short_description = $request->short_description;
         $school->description = $request->description;
         $school->docs = $request->docs;
         $school->videos = $request->video;

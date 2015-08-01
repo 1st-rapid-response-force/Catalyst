@@ -58,6 +58,12 @@
                 @endif
             </div>
         </div>
+        <div class="form-group">
+            <label for="shortDescription" class="col-sm-2 control-label">Short Description: &nbsp</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="shortDescription" name="short_description" value="{{$school->short_description}}" placeholder="Short Description for the course.">
+            </div>
+        </div>
         <div>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">

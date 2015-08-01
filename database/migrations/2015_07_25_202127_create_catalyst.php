@@ -168,11 +168,12 @@ class CreateCatalyst extends Migration
             $table->string('name');
             $table->string('storage_image');
             $table->string('public_image');
+            $table->text('short_description');
             $table->text('description');
             $table->text('docs');
             $table->text('videos');
             $table->integer('promotionPoints')->default(0);
-            $table->text('prerequisites');
+            $table->string('prerequisites')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->engine = 'InnoDB';
@@ -197,7 +198,7 @@ class CreateCatalyst extends Migration
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('operation_id');
-            $table->date('date_attended');
+            $table->date('date_attended')->nullable();;
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'operation_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
@@ -208,7 +209,7 @@ class CreateCatalyst extends Migration
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('qualification_id');
-            $table->date('date_awarded');
+            $table->date('date_awarded')->nullable();;
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'qualification_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
@@ -219,7 +220,7 @@ class CreateCatalyst extends Migration
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('ribbon_id');
-            $table->date('date_awarded');
+            $table->date('date_awarded')->nullable();;
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'ribbon_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');

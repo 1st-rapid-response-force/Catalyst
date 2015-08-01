@@ -86,6 +86,9 @@ Route::group(['namespace' => 'Frontend'], function()
             Route::get('/my-squad/announcement/{id}/edit', ['as' => 'squad.announcement.edit', 'uses' => 'mySquadController@editSquadAnnouncement']);
             Route::put('/my-squad/announcement/{id}', ['as' => 'squad.announcement.update', 'uses' => 'mySquadController@updateSquadAnnouncement']);
 
+        //My Training Center
+        Route::get('/my-training', ['as' => 'training', 'uses' => 'myTrainingController@index']);
+
         //Auto-Complete
         Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
 

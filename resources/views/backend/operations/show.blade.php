@@ -23,7 +23,7 @@
     @if (!($operation->storage_image == 'false'))
         <div class="text-center">
             <p>
-                <img class="img-responsive" src="/images/{{$operation->public_image}}/limited">
+                <img class="img-responsive center-block" src="/images/{{$operation->public_image}}/">
             </p>
         </div>
     @endif

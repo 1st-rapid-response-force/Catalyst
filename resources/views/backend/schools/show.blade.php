@@ -30,10 +30,13 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="description-tab">
                 <br>
+                <p>Short Description</p>
+                {{$school->short_description}}
+                <hr>
                 {!! $school->description !!}
                 @if (!($school->storage_image == 'false'))
                     <div class="text-center">
-                            <img class="img-responsive" src="/images/{{$school->public_image}}/limited">
+                            <img class="img-responsive center-block" src="/images/{{$school->public_image}}/">
                     </div>
                 @endif
             </div>

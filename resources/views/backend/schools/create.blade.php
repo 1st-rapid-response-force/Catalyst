@@ -25,12 +25,12 @@
                 <input type="text" class="form-control" id="name" name="name" placeholder="Name of School/Training">
             </div>
         </div>
-            <div class="form-group">
-                <label for="description" class="col-sm-2 control-label">Promotions Points: &nbsp</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="promotionPoints" name="promotionPoints" placeholder="Promotion Points Awarded for School/Training">
-                </div>
+        <div class="form-group">
+            <label for="promotion_points" class="col-sm-2 control-label">Promotions Points: &nbsp</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="promotionPoints" name="promotionPoints" placeholder="Promotion Points Awarded for School/Training">
             </div>
+        </div>
         <div class="form-group">
             <label for="img" class="col-sm-2 control-label">Image: &nbsp</label>
             <div class="col-sm-10">
@@ -48,6 +48,12 @@
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
                 <span id="helpBlock" class="help-block">Courses can be viewed by users in Catalyst if they are published however if a course is not published it is not accessible to users but only to Administrators.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="shortDescription" class="col-sm-2 control-label">Short Description: &nbsp</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="shortDescription" name="short_description" placeholder="Short Description for the course.">
             </div>
         </div>
         <div>

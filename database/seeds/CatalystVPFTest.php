@@ -25,6 +25,52 @@ class CatalystVPFTest extends Seeder
 
         //Fake Article
 
+        //////////////////////////////////////////
+        /// REMOVE THESE BEFORE PRODUCTION, TESTING
+        //Remove Operation before Production Push
+        $operation = new Operation;
+        $operation->name = 'Test Operation';
+        $operation->storage_image = 'false';
+        $operation->public_image  = 'placeholder.png';
+        $operation->description  = '';
+        $operation->date  = '2015-01-01 00:00:00';
+        $operation->promotionPoints = 5;
+        $operation->save();
+
+        $operation = new Operation;
+        $operation->name = 'Test Operation 2';
+        $operation->storage_image = 'false';
+        $operation->public_image  = 'placeholder.png';
+        $operation->description  = '';
+        $operation->date  = '2015-01-05 00:00:00';
+        $operation->promotionPoints = 5;
+        $operation->save();
+
+        $ribbons = new Ribbon;
+        $ribbons->name = 'Test Ribbon';
+        $ribbons->storage_image = 'cloud';
+        $ribbons->public_image  = 'v7qsezjleq9d2o3cgiuj';
+        $ribbons->description  = 'Test Ribbon';
+        $ribbons->promotionPoints = 5;
+        $ribbons->save();
+
+        $ribbons = new Ribbon;
+        $ribbons->name = 'Test Ribbon 2';
+        $ribbons->storage_image = 'cloud';
+        $ribbons->public_image  = 'v7qsezjleq9d2o3cgiuj';
+        $ribbons->description  = 'Test Ribbon';
+        $ribbons->promotionPoints = 5;
+        $ribbons->save();
+
+        $ribbons = new Ribbon;
+        $ribbons->name = 'Test Ribbon 3';
+        $ribbons->storage_image = 'cloud';
+        $ribbons->public_image  = 'v7qsezjleq9d2o3cgiuj';
+        $ribbons->description  = 'Test Ribbon';
+        $ribbons->promotionPoints = 5;
+        $ribbons->save();
+
+
         $user->article15()->create([
             'name' => 'Demo',
             'grade' => 'E-4',
@@ -152,8 +198,8 @@ class CatalystVPFTest extends Seeder
             4 => ['date_awarded' => '2015-08-03']]
         );
         $user->schools()->sync([
-            1 => ['date_attended' => '2015-05-29'],
-            2 => ['date_attended' => '2015-07-03']
+            1 => ['date_attended' => '2015-05-29',
+            'completed' => 1],
         ]);
 
         //////////// FACTORIES YAY
