@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Image\ImageRepositoryContract;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use ErrorException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -41,6 +42,7 @@ class VPFController extends Controller
     public function index()
     {
         $user = \Auth::user();
+        //Exception Checks
         try {
             VPF::findorFail($user->vpf_id);
         } catch (ModelNotFoundException $e) {
@@ -80,7 +82,15 @@ class VPFController extends Controller
             $user = User::findorFail($id);
         } catch (ModelNotFoundException $e) {
             \Notification::error('The Virtual Personnel File was not found.');
-            return redirect('/');
+            return redirect('/structure-assignments');
+        }
+
+        // Get the VPF file
+        try {
+            VPF::findorFail($user->id);
+        } catch (ModelNotFoundException $e) {
+            \Notification::error('The user does not have a VPF File.');
+            return redirect('/structure-assignments');
         }
 
         $forms = collect();
@@ -95,7 +105,7 @@ class VPFController extends Controller
                 'ribbons'=>$user->vpf->ribbons,
                 'qualifications'=>$user->vpf->qualifications,
                 'operations'=>$user->vpf->operations,
-                'schools'=>$user->vpf->schools,
+                'schools'=>$user->vpf->schools()->wherePivot('completed', '=','1')->get(),
                 'forms'=> $forms,
             ]);
         return view('frontend.vpf.indexPublic')

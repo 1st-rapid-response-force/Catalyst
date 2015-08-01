@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\UnitAnnouncements;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
@@ -23,7 +24,23 @@ class Group extends Model
     }
     public function members()
     {
-        return $this->hasManyThrough('App\VPF','App\Assignment','assignment_id','group_id');
-        //return $this->hasManyThrough('App\Assignment','App\PersonnelFile','group_id','assignment_id');
+        return $this->hasManyThrough('App\VPF','App\Assignment','group_id','assignment_id');
     }
+
+    public function announcements()
+    {
+        return $this->hasMany('App\SquadAnnouncements');
+    }
+
+    public function chatter()
+    {
+        return $this->hasMany('App\SquadChatter');
+    }
+
+    public function unitAnnouncements()
+    {
+        $announcements = UnitAnnouncements::all()->sortByDesc('created_at')->take(2);
+        return $announcements;
+    }
+
 }

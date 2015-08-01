@@ -159,6 +159,7 @@ class CatalystVPFTest extends Seeder
         //////////// FACTORIES YAY
         //// Members
         $i = 35;
+        //members
         $users = factory(App\User::class, 150)
             ->create()
             ->each(function($u) {
@@ -170,7 +171,7 @@ class CatalystVPFTest extends Seeder
                 $u->save();
 
             });
-
+        //recruits
         $users = factory(App\User::class, 10)
             ->create()
             ->each(function($u) {
@@ -182,5 +183,38 @@ class CatalystVPFTest extends Seeder
                 $u->save();
 
             });
+
+        //applicant
+        $users = factory(App\User::class, 10)
+            ->create()
+            ->each(function($u) {
+                $app = $u->application()->save(factory(App\Application::class,'applicant')->create());
+                $u->application_id = $app->id;
+                $u->save();
+            });
+
+        //rejected applicants
+        $users = factory(App\User::class, 34)
+            ->create()
+            ->each(function($u) {
+                $app = $u->application()->save(factory(App\Application::class,'rejectedApplicant')->create());
+                $u->application_id = $app->id;
+                $u->save();
+            });
+
+
+        //discharged
+        $users = factory(App\User::class, 26)
+            ->create()
+            ->each(function($u) {
+                $app = $u->application()->save(factory(App\Application::class,'acceptedApplicant')->create());
+                $u->application_id = $app->id;
+
+                $vpf = $u->vpf()->save(factory(App\VPF::class,'discharged')->create(['first_name' => $app->first_name,'last_name'=>$app->last_name]));
+                $u->vpf_id = $vpf->id;
+                $u->save();
+
+            });
+
     }
 }

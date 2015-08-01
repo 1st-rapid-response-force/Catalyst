@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
-                    <div class="panel">
+                    <div class="well well-sm">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-4">
@@ -48,7 +48,7 @@
                 <img src="/cac/{{$user->steam_id}}">
             </div>
             <div class="col-md-5">
-                <div class="panel">
+                <div class="well well-sm">
                     <div class="panel-heading"><h4>Ribbons</h4></div>
                     <div class="panel-body">
                         <div class="row">

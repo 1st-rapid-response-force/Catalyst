@@ -104,7 +104,7 @@ $factory->defineAs(App\VPF::class, 'active', function ($faker) {
         'first_name' => $faker->firstNameMale,
         'last_name' => $faker->lastName,
         'assignment_id' => $faker->unique()->numberBetween(2,155),
-        'rank_id' => $faker->numberBetween(1,8),
+        'rank_id' => $faker->numberBetween(3,8),
         'face_id' => $faker->numberBetween(1,35),
         'status' => 'Active',
     ];

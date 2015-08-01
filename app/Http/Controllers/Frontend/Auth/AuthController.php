@@ -104,7 +104,15 @@ class AuthController extends Controller
 
         Auth::login($user);
         return redirect('/');
+    }
 
+    public function impersonate($id)
+    {
+        $user = User::find($id);
+        Auth::logout();
+        Auth::login($user);
+        \Log::info('User has logged in.', ['id'=> $user->id]);
+        return redirect('/');
     }
 
 }

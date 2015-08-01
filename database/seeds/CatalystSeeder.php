@@ -179,7 +179,7 @@ class CatalystSeeder extends Seeder
         $striker_personnel->user_id = $admin2->id;
         $striker_personnel->assignment_id = 2;
         $striker_personnel->rank_id = 19;
-        $rod_personnel->face_id = 17;
+        $striker_personnel->face_id = 17;
         $striker_personnel->status = 'Active';
         $striker_personnel->save();
 
