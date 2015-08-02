@@ -36,6 +36,7 @@
                     <td>{{$school->name}}</td>
                     <td>{{$school->promotionPoints}}</td>
                     <td>
+                        <a class="btn btn-info" href="{{route('admin.schools.timeDate.index',array($school->id))}}">Time/Date</a>
                         <a class="btn btn-primary" href="{{route('admin.schools.show',array($school->id))}}">View</a>
                         <a class="btn btn-success" href="{{ route('admin.schools.edit',array($school->id)) }}">Edit</a>
                         <a class="btn btn-danger" href="{{ route('admin.schools.destroy',array($school->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a>

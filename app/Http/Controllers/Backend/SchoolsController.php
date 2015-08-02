@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Rank;
 use App\School;
+use App\SchoolTrainingDate;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -44,7 +46,9 @@ class SchoolsController extends Controller
      */
     public function create()
     {
-        return view('backend.schools.create');
+        $ranks = Rank::all();
+        return view('backend.schools.create')
+            ->with('ranks',$ranks);
     }
 
     /**
@@ -72,6 +76,8 @@ class SchoolsController extends Controller
         $school->name = $request->name;
         $school->short_description = $request->short_description;
         $school->description = $request->description;
+        $school->prerequisites = $request->prerequisites;
+        $school->minimumRankRequired = $request->minimumRankRequired;
         $school->docs = $request->docs;
         $school->videos = $request->video;
         $school->published = $request->published;
@@ -109,6 +115,32 @@ class SchoolsController extends Controller
             ->with('school',$school);
     }
 
+    public function indexTimeDate($id)
+    {
+        $school = School::find($id);
+        return view('backend.schools.indexTimeDate')
+            ->with('school',$school);
+    }
+
+    public function addTimeDate(Request $request,$id)
+    {
+        $time= new \Datetime($request->date.' '.$request->time);
+        $test = new SchoolTrainingDate;
+        $test->school_id = $id;
+        $test->date = $time->format('Y-m-d H:i:s');
+        $test->save();
+        \Notification::success('Time/Date to school added successfully');
+        return redirect('/admin/schools/time-date/'.$id);
+    }
+
+    public function deleteTimeDate($school_id,$id)
+    {
+        $date = SchoolTrainingDate::find($id);
+        $date->delete();
+        \Notification::success('Time/Date has been removed added successfully');
+        return redirect('/admin/schools/time-date/'.$school_id);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -118,8 +150,12 @@ class SchoolsController extends Controller
     public function edit($id)
     {
         $school = School::find($id);
+        $json = $this->prePopulatePrerequisites($school->prerequisites);
+        $ranks = Rank::all();
         return view('backend.schools.edit')
-            ->with('school',$school);
+            ->with('school',$school)
+            ->with('ranks',$ranks)
+            ->with('json',$json);
     }
 
     /**
@@ -163,6 +199,8 @@ class SchoolsController extends Controller
         $school->description = $request->description;
         $school->docs = $request->docs;
         $school->videos = $request->video;
+        $school->prerequisites = $request->prerequisites;
+        $school->minimumRankRequired = $request->minimumRankRequired;
         $school->published = $request->published;
         $school->promotionPoints = $request->promotionPoints;
         $school->save();
@@ -189,5 +227,24 @@ class SchoolsController extends Controller
 
         \Notification::success('School deleted successfully.');
         return redirect('/admin/schools');
+    }
+
+
+    private function prePopulatePrerequisites($prerequisites)
+    {
+        $array = explode(',',$prerequisites);
+        $schools= School::findMany($array);
+
+        if($schools->isEmpty())
+            return false;
+        $results = collect();
+        foreach($schools as $school)
+        {
+            $rt = ['id' => $school->id,
+                'name' => $school->name,];
+            $results->push($rt);
+        }
+
+        return $results->toJson();
     }
 }

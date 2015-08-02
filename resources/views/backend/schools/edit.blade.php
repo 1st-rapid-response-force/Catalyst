@@ -1,12 +1,13 @@
 @extends('backend.layout.main_layout')
 
-@section('title','Ribbon Manager')
+@section('title','School Manager')
 
 @section('sub-title','Admin')
 
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="/plugins/tokeninput/styles/token-input-facebook.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -32,6 +33,23 @@
                     <input type="number" class="form-control" id="promotionPoints" name="promotionPoints" placeholder="Promotion Points Awarded for School/Training" value="{{$school->promotionPoints}}">
                 </div>
             </div>
+        <div class="form-group">
+            <label for="prerequisites" class="col-sm-2 control-label">Prerequisite Courses: &nbsp</label>
+            <div class="col-sm-10">
+                <input type="text" id="autocomplete" name="prerequisites" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="minimumRankRequired" class="col-sm-2 control-label">Minimum Rank Required: &nbsp</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="minimumRankRequired">
+                    <option value="1">No Rank Requirement</option>
+                    @foreach($ranks as $rank)
+                        <option value="{{$rank->id}}" {{($school->minimumRankRequired == $rank->id) ? 'selected' : ''}}>{{$rank->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">Publish Course: &nbsp</label>
             <label class="radio-inline">
@@ -99,18 +117,29 @@
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/plugins/tokeninput/src/jquery.tokeninput.js"></script>
+    <script type="text/javascript" src="/plugins/jQueryUI/jquery-ui.min.js"></script>
     <script type="text/javascript">
         $(function () {
             CKEDITOR.replace( 'description');
             CKEDITOR.replace( 'docs');
             CKEDITOR.replace( 'video');
+            $("#autocomplete").tokenInput("/admin/autocomplete/courses", {
+                theme: "facebook",
+                preventDuplicates: true,
+                searchDelay: 300,
+                hintText: 'Search by Course Name',
+                @if($json)
+                prePopulate:
+                    {!! $json !!}
+                @endif
+            });
         });
     </script>
-
 @endsection
 
 @section('page-script-include')
-    <script src="/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script src="/plugins/ckeditor-admin/ckeditor.js" type="text/javascript"></script>
 @endsection
 
 

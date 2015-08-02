@@ -158,5 +158,13 @@ class VPF extends Model
         return $this->hasMany('App\Teamspeak','vpf_id','id');
     }
 
+    /**
+     * Returns all Training Dates user has signed up for
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schoolTrainingDate()
+    {
+        return $this->belongsToMany('App\SchoolTrainingDate', 'school_training_date_user', 'vpf_id', 'school_date_id');
+    }
 
 }

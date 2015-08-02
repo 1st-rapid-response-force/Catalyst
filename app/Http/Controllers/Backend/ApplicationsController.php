@@ -203,6 +203,11 @@ class ApplicationsController extends Controller
         $memberRole = Role::where('name','member')->first();
         $app->user->attachRole($memberRole);
 
+        //Add user to Basic Training Course
+        $vpf->schools()->sync([
+            1 => ['completed' => 0],
+        ]);
+
         //Sync all changes
         $app->push();
 

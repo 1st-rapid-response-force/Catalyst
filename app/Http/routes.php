@@ -30,6 +30,12 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('', function () {
         \Auth()->login(4);
     });
+    Route::get('/test', function () {
+        $test = \App\VPF::find(1);
+        dd($test
+            ->schoolTrainingDate);
+    });
+
     Route::get('/test/{id}', 'Auth\AuthController@impersonate');
 
 
@@ -88,6 +94,12 @@ Route::group(['namespace' => 'Frontend'], function()
 
         //My Training Center
         Route::get('/my-training', ['as' => 'training', 'uses' => 'myTrainingController@index']);
+        Route::get('/my-training/{id}', ['as' => 'training.show', 'uses' => 'myTrainingController@show']);
+        Route::post('/my-training/enroll/{id}', ['as' => 'training.enroll', 'uses' => 'myTrainingController@enrollClass']);
+        Route::put('/my-training/enroll/{id}', ['as' => 'training.date.signup', 'uses' => 'myTrainingController@signupDate']);
+        Route::delete('/my-training/date/{id}', ['as' => 'training.date.destroy', 'uses' => 'myTrainingController@cancelDate']);
+
+
 
         //Auto-Complete
         Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
@@ -129,9 +141,15 @@ Route::group(['namespace' => 'Backend',
 
     Route::resource('ribbons', 'RibbonsController');
     Route::resource('qualifications', 'QualificationsController');
+
+    Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
+    Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);
+    Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);
     Route::resource('schools', 'SchoolsController');
     Route::resource('operations', 'OperationsController');
     Route::resource('ranks', 'RanksController');
+
+    Route::get('autocomplete/courses', 'AutoCompleteController@getCourses');
 
 });
 

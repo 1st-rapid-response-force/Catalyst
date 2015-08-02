@@ -43,30 +43,31 @@
             </div>
             <div class="col-lg-6">
                 <div class="well">
-                    <h3>Completed Courses</h3>
-                    <p>Theses are the courses you have completed.</p>
-                    @if($coursesCompleted->count() > 0)
-                        @foreach($coursesCompleted as $course)
+                    <h3>Upcoming Class Sessions</h3>
+                    <p>These are the class sessions you have signed up for.</p>
+                    <p>For reference the current UTC time is {{\Carbon\Carbon::now()->toDayDateTimeString()}}</p>
+                    @if($dates->count() > 0)
+                        @foreach($dates as $date)
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="/roster/1">
-                                        <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="/images/{{$course->public_image}}/small" alt="School">
-                                    </a>
+                                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/frontend/images/appointment.png" alt="School">
                                 </div>
                                 <div class="media-body">
-                                    <h5 class="media-heading"><a href="/my-training/{{$course->id}}"><h4>{{$course->name}}</h4></a></h5>
-                                    <p>{{$course->short_description}}</p>
+                                    <h5 class="media-heading"><a href="/my-training/{{$date->school->id}}"><h4>{{$date->school->name}}</h4></a></h5>
+                                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}}</p>
+                                    <small>Class starts in {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->diffForHumans()}}</small>
                                 </div>
                             </div>
                         @endforeach
                     @else
-                        <p>You are not completed any courses.</p>
+                        <p>No appointments found, you are currently no scheduled or the dates are in the past.</p>
                     @endif
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="well">
                     <h3>Eligible Courses</h3>
                     <p>You are eligible to enroll in the following courses, you many only have 2 active courses at a time.</p>
@@ -86,6 +87,29 @@
                         @endforeach
                     @else
                         <p>You are not eligible for any courses.</p>
+                    @endif
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="well">
+                    <h3>Completed Courses</h3>
+                    <p>Theses are the courses you have completed.</p>
+                    @if($coursesCompleted->count() > 0)
+                        @foreach($coursesCompleted as $course)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="/roster/1">
+                                        <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="/images/{{$course->public_image}}/small" alt="School">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><a href="/my-training/{{$course->id}}"><h4>{{$course->name}}</h4></a></h5>
+                                    <p>{{$course->short_description}}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>You are not completed any courses.</p>
                     @endif
                 </div>
             </div>

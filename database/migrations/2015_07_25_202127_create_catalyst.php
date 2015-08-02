@@ -174,6 +174,7 @@ class CreateCatalyst extends Migration
             $table->text('videos');
             $table->integer('promotionPoints')->default(0);
             $table->string('prerequisites')->nullable();
+            $table->unsignedInteger('minimumRankRequired')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->engine = 'InnoDB';
