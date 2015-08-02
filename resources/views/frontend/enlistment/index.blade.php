@@ -4,6 +4,13 @@
     <link rel="stylesheet" type="text/css" href="/frontend/css/gridforms.css">
 @endsection
 
+@section('breadcrumbs')
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Enlistment</li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="container">
         <h1>Enlistment</h1>
@@ -17,9 +24,13 @@
         <h3>Available Assignments</h3>
         <p>Make pretty later</p>
         <ol>
+            @if(!$availMOSs->count() == 0)
             @foreach($availMOSs as $mos)
                 <li><a href="{{route('enlistments.create', $mos->id)}}">{{$mos->name}}</a></li>
             @endforeach
+            @else
+                <p class="text-center">There are currently no open slots, we will send out an email when more slots become available</p>
+            @endif
         </ol>
     </div>
 @endsection

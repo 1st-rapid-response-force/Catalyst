@@ -1,4 +1,5 @@
 <!-- Navigation -->
+<!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -9,7 +10,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">1st RRF</a>
+            <a class="navbar-brand" href="#">
+                <img src="/frontend/images/logo.png" alt="">
+            </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -18,13 +21,13 @@
                     <a href="/" >Home</a>
                 </li>
                 <li class="{{ Active::pattern('about')}}">
-                    <a href="#">About</a>
+                    <a href="/about">About</a>
                 </li>
                 <li class="{{ Active::pattern('servers')}}">
-                    <a href="#">Servers</a>
+                    <a href="/servers">Servers</a>
                 </li>
                 <li class="{{ Active::pattern('structure-assignments')}}">
-                    <a href="#">Structure and Assignments</a>
+                    <a href="/structure-assignments">Structure and Assignments</a>
                 </li>
                 @if(Auth::user())
                     @if(is_null(Auth::user()->application_id))
@@ -41,10 +44,10 @@
                     @endif
                 @endif
                 <li class="{{ Active::pattern('faq')}}">
-                    <a href="#">FAQ</a>
+                    <a href="/faq">FAQ</a>
                 </li>
                 <li class="{{ Active::pattern('contact-us')}}">
-                    <a href="#">Contact</a>
+                    <a href="/contact-us">Contact</a>
                 </li>
                 @if(Auth::user())
                     @if(Auth::user()->hasRole('user'))

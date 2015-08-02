@@ -13,12 +13,14 @@ class Operation extends Model
      */
     protected $table = 'operations';
 
+    protected $guarded = [];
+
     /**
      * Returns Virtual Personnel File
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function VPF(){
-        return $this->belongsToMany('VPF', 'VPF_operations', 'vpf_id', 'operation_id')->withPivot('date_attended');
+        return $this->belongsToMany('App\VPF', 'operations_vpf', 'operation_id', 'vpf_id')->withPivot('date_attended');
     }
 
     /**
@@ -28,4 +30,5 @@ class Operation extends Model
     {
         return $this->morphMany('App\PromotionPoints', 'model');
     }
+
 }

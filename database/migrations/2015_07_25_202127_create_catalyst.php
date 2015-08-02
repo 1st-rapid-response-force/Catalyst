@@ -17,10 +17,12 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Article 15');
+            $table->string('form_type')->default('article15');
             $table->string('name');
             $table->string('grade');
             $table->string('military_id');
-            $table->date('current_date');
+            $table->string('current_date')->default(time());
             $table->text('misconduct');
             $table->string('plea');
             $table->text('plan_of_action');
@@ -37,8 +39,10 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Developmental Counseling Statement');
+            $table->string('form_type')->default('dcs');
             $table->string('name');
-            $table->string('rank');
+            $table->string('grade');
             $table->string('date')->default(time());
             $table->string('organization')->default('1st Rapid Response Force');
             $table->string('counselor_name');
@@ -55,8 +59,10 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Negative Counseling Statement');
+            $table->string('form_type')->default('ncs');
             $table->string('name');
-            $table->string('rank');
+            $table->string('grade');
             $table->string('date')->default(time());
             $table->string('organization')->default('1st Rapid Response Force');
             $table->string('counselor_name');
@@ -75,8 +81,10 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('form_name')->default('Verbal Counseling Statement');
+            $table->string('form_type')->default('vcs');
             $table->string('name');
-            $table->string('rank');
+            $table->string('grade');
             $table->string('date')->default(time());
             $table->string('organization')->default('1st Rapid Response Force');
             $table->string('counselor_name');
@@ -90,8 +98,7 @@ class CreateCatalyst extends Migration
         Schema::create('promotion_points', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vpf_id')->unsigned();
-            $table->integer('model_id')->unsigned();
-            $table->integer('model_type')->unsigned();
+            $table->morphs('model');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
@@ -112,6 +119,7 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('uuid');
+            $table->string('description');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->unique('uuid');
@@ -119,21 +127,12 @@ class CreateCatalyst extends Migration
         });
 
         // GENERAL PERSONAL FILE
-        Schema::create('awards', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('image');
-            $table->text('description');
-            $table->integer('promotionPoints')->default(0);
-            $table->timestamps();
-            $table->engine = 'InnoDB';
-        });
         Schema::create('operations', function(Blueprint $table)
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->dateTime('date');
             $table->integer('promotionPoints')->default(0);
@@ -144,7 +143,8 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->date('date');
             $table->integer('promotionPoints')->default(0);
@@ -155,7 +155,8 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
             $table->text('description');
             $table->integer('promotionPoints')->default(0);
             $table->timestamps();
@@ -165,12 +166,15 @@ class CreateCatalyst extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('image');
+            $table->string('storage_image');
+            $table->string('public_image');
+            $table->text('short_description');
             $table->text('description');
             $table->text('docs');
             $table->text('videos');
             $table->integer('promotionPoints')->default(0);
-            $table->text('prerequisites');
+            $table->string('prerequisites')->nullable();
+            $table->unsignedInteger('minimumRankRequired')->nullable();
             $table->boolean('published');
             $table->timestamps();
             $table->engine = 'InnoDB';
@@ -181,61 +185,55 @@ class CreateCatalyst extends Migration
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->text('note');
+            $table->date('date');
+            $table->unsignedInteger('model_id')->nullable();
+            $table->string('model_type')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
         });
 
         //JOIN TABLES
-        Schema::create('vpf_awards', function(Blueprint $table)
-        {
-            $table->unsignedInteger('vpf_id');
-            $table->unsignedInteger('award_id');
-            $table->date('date_awarded');
-            $table->engine = 'InnoDB';
-            $table->primary(['vpf_id', 'award_id']);
-            $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
-            $table->foreign('award_id')->references('id')->on('awards')->onDelete('cascade');
-        });
 
-        Schema::create('vpf_operations', function(Blueprint $table)
+        Schema::create('operations_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('operation_id');
-            $table->date('date_attended');
+            $table->date('date_attended')->nullable();;
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'operation_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
             $table->foreign('operation_id')->references('id')->on('operations')->onDelete('cascade');
         });
 
-        Schema::create('vpf_qualifications', function(Blueprint $table)
+        Schema::create('qualifications_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('qualification_id');
-            $table->date('date_awarded');
+            $table->date('date_awarded')->nullable();;
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'qualification_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
             $table->foreign('qualification_id')->references('id')->on('qualifications')->onDelete('cascade');
         });
 
-        Schema::create('vpf_ribbons', function(Blueprint $table)
+        Schema::create('ribbons_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('ribbon_id');
-            $table->date('date_awarded');
+            $table->date('date_awarded')->nullable();;
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'ribbon_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
             $table->foreign('ribbon_id')->references('id')->on('ribbons')->onDelete('cascade');
         });
 
-        Schema::create('vpf_schools', function(Blueprint $table)
+        Schema::create('schools_vpf', function(Blueprint $table)
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('school_id');
-            $table->date('date_attended');
+            $table->date('date_attended')->nullable();
+            $table->boolean('completed')->default(false);
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'school_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
@@ -250,11 +248,10 @@ class CreateCatalyst extends Migration
      */
     public function down()
     {
-        Schema::drop('vpf_awards');
-        Schema::drop('vpf_operations');
-        Schema::drop('vpf_qualifications');
-        Schema::drop('vpf_ribbons');
-        Schema::drop('vpf_schools');
+        Schema::drop('operations_vpf');
+        Schema::drop('qualifications_vpf');
+        Schema::drop('ribbons_vpf');
+        Schema::drop('schools_vpf');
         Schema::drop('article15');
         Schema::drop('dcs');
         Schema::drop('ncs');
@@ -262,7 +259,6 @@ class CreateCatalyst extends Migration
         Schema::drop('promotion_points');
         Schema::drop('promotions');
         Schema::drop('teamspeak');
-        Schema::drop('awards');
         Schema::drop('operations');
         Schema::drop('qualifications');
         Schema::drop('ribbons');

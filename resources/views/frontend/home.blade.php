@@ -1,22 +1,32 @@
-@extends('frontend.layouts.master')
+@extends('frontend.layouts.home')
+
+@section('title', 'Home')
+
+@section('css-top')
+    <link rel="stylesheet" href="/plugins/bigvideo/css/bigvideo.css">
+    <style>
+        .intro {
+            color:white;
+            text-shadow:3px 3px #000000;
+        }
+    </style>
+@endsection
 
 @section('header-image')
-    <div class="row" style="height: 400px;position:relative;background-image:url('http://i.imgur.com/1X7YmJ9.jpg');padding:50px;background-size: cover;">
-        <h1>Combined Arms MILSIM</h1>
-        <h2>Done Right</h2>
+    <div class="container hidden-sm hidden-xs" style="height:600px; width:100%;" id="video-wrap">
+        <div class="row">
+            <div class="col-lg-12" >
+                <div class="text-center"><h1 class="intro">Welcome to 1st Rapid Response Force</h1></div>
+
+            </div>
+        </div>
     </div>
 
 @endsection
-@section('content')
-    <div class="container">
-        <hr />
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h1>Be the Best</h1>
-                <p class="lead">How we do it:</p>
-            </div>
-        </div>
 
+
+@section('content-1')
+    <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default">
@@ -69,10 +79,11 @@
                 </div>
             </div>
         </div>
-        <!-- /.row -->
-
         <hr />
+        <!-- /.row -->
+        @endsection
 
+        @section('content-2')
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h1>Wide Variety of Positions</h1>
@@ -204,5 +215,19 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-bottom')
+    <script>
+        $(function() {
+            var BV = new $.BigVideo({container: $('#video-wrap')});
+            BV.init();
+            BV.show('{{$video}}',{ambient:true});
+        });
+    </script>
+    <script src="/plugins/video-js/video.js"></script>
+
+    <script src="/plugins/bigvideo/lib/bigvideo.js"></script>
+
 @endsection
 

@@ -173,7 +173,8 @@ class ApplicationsController extends Controller
             $vpf->first_name = $app->first_name;
             $vpf->last_name = $app->last_name;
             $vpf->user_id = $app->user->id;
-            $vpf->assignment_id = $request->assignment_id;
+            //// Assigned Recruit Assignment
+            $vpf->assignment_id = 156;
             $vpf->rank_id = '2';
             $vpf->status = 'Active';
             $vpf->save();
@@ -185,7 +186,8 @@ class ApplicationsController extends Controller
             $vpf->first_name = $app->first_name;
             $vpf->first_name = $app->last_name;
             $vpf->user_id = $app->user->id;
-            $vpf->assignment_id = $request->assignment_id;
+            //// Assigned Recruit Assignment
+            $vpf->assignment_id = 156;
             $vpf->rank_id = '2';
             $vpf->status = 'Active';
             $vpf->save();
@@ -200,6 +202,11 @@ class ApplicationsController extends Controller
         }
         $memberRole = Role::where('name','member')->first();
         $app->user->attachRole($memberRole);
+
+        //Add user to Basic Training Course
+        $vpf->schools()->sync([
+            1 => ['completed' => 0],
+        ]);
 
         //Sync all changes
         $app->push();

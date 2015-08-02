@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class VPF extends Model
 {
+    protected $guarded = [];
+
     /**
      * The database table used by the model.
      *
@@ -53,21 +55,12 @@ class VPF extends Model
     }
 
     /**
-     * Returns all Awards
-     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
-     */
-    public function awards()
-    {
-        return $this->belongsToMany('App\Award');
-    }
-
-    /**
      * Returns all Operations
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
     public function operations()
     {
-        return $this->belongsToMany('App\Operation');
+        return $this->belongsToMany('App\Operation', 'operations_vpf', 'vpf_id', 'operation_id')->withPivot('date_attended');
     }
 
     /**
@@ -76,7 +69,7 @@ class VPF extends Model
      */
     public function qualifications()
     {
-        return $this->belongsToMany('App\Qualification');
+        return $this->belongsToMany('App\Qualification', 'qualifications_vpf', 'vpf_id', 'qualification_id')->withPivot('date_awarded');
     }
 
     /**
@@ -85,7 +78,16 @@ class VPF extends Model
      */
     public function ribbons()
     {
-        return $this->belongsToMany('App\Ribbon');
+        return $this->belongsToMany('App\Ribbon', 'ribbons_vpf', 'vpf_id', 'ribbon_id')->withPivot('date_awarded');
+    }
+
+    /**
+     * Returns all Schools
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function schools()
+    {
+        return $this->belongsToMany('App\School', 'schools_vpf', 'vpf_id', 'school_id')->withPivot(['date_attended','completed']);
     }
 
     public function article15()
@@ -147,6 +149,22 @@ class VPF extends Model
         return $this->hasMany('App\PromotionPoints');
     }
 
+    /**
+     * Returns all Service History
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function teamspeak()
+    {
+        return $this->hasMany('App\Teamspeak','vpf_id','id');
+    }
 
+    /**
+     * Returns all Training Dates user has signed up for
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schoolTrainingDate()
+    {
+        return $this->belongsToMany('App\SchoolTrainingDate', 'school_training_date_user', 'vpf_id', 'school_date_id');
+    }
 
 }

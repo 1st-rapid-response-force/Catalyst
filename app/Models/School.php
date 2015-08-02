@@ -13,13 +13,15 @@ class School extends Model
      */
     protected $table = 'schools';
 
+    protected $guarded = [];
+
     /**
      * Returns Virtual Personnel File
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function VPF()
     {
-        return $this->belongsToMany('VPF', 'VPF_schools', 'vpf_id', 'school_id')->withPivot('date_attended');
+        return $this->belongsToMany('App\VPF', 'schools_vpf', 'school_id', 'vpf_id')->withPivot(['date_attended']);
     }
 
     /**
@@ -29,4 +31,14 @@ class School extends Model
     {
         return $this->morphMany('App\PromotionPoints', 'model');
     }
+
+    /**
+     * Returns all School Dates Counseling Statements
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schoolDate()
+    {
+        return $this->hasMany('App\SchoolTrainingDate','school_id','id');
+    }
+
 }

@@ -143,6 +143,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ImageServiceProvider::class,
 
         /*
          * Third Party Service Providers
@@ -151,6 +152,10 @@ return [
         'Zizaco\Entrust\EntrustServiceProvider',
         'Krucas\Notification\NotificationServiceProvider',
         'HieuLe\Active\ActiveServiceProvider',
+        'JD\Cloudder\CloudderServiceProvider',
+        'Intervention\Image\ImageServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
     ],
 
     /*
@@ -202,6 +207,10 @@ return [
         'Entrust' => 'Zizaco\Entrust\EntrustFacade',
         'Notification' => 'Krucas\Notification\Facades\Notification',
         'Active' => 'HieuLe\Active\Facades\Active',
+        'Cloudder' => 'JD\Cloudder\Facades\Cloudder',
+        'Image' => 'Intervention\Image\Facades\Image',
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
     ],
 
 ];

@@ -15,11 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+
         $this->call(CatalystSeeder::class);
         $this->call(CatalystRankSeeder::class);
         $this->call(CatalystGroupsSeeder::class);
         $this->call(CatalystAssignmentsSeeder::class);
         $this->call(CatalystMOSSeeder::class);
+        $this->call(CatalystVPFBase::class);
+
+        $this->call(CatalystVPFTest::class);
         Model::reguard();
     }
 }

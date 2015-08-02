@@ -17,9 +17,11 @@ class CreateVpfFile extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('searchable')->nullable();
             $table->unsignedInteger('user_id')->default('1');
             $table->unsignedInteger('assignment_id')->nullable();
             $table->unsignedInteger('rank_id')->default('1');
+            $table->unsignedInteger('face_id')->default('0');
             $table->string('status');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

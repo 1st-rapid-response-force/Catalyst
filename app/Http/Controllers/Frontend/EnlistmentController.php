@@ -23,7 +23,6 @@ class EnlistmentController extends Controller
     {
 
         $mos = $this->AssignmentList();
-
         $user = \Auth::user();
         return view('frontend.enlistment.index')
             ->with('user',$user)

@@ -115,7 +115,7 @@ class CatalystSeeder extends Seeder
         $rod = new Application;
         $rod->user_id = $admin->id;
         $rod->status = 'Accepted';
-        $rod->first_name = 'George';
+        $rod->first_name = 'Guillermo';
         $rod->last_name = 'Rodriguez';
         $rod->dob = '1995-04-29';
         $rod->nationality = 'United States';
@@ -142,7 +142,7 @@ class CatalystSeeder extends Seeder
         $striker->last_name = 'Striker';
         $striker->dob = '1995-08-13';
         $striker->nationality = 'United Kingdom';
-        $striker->mos_id = 3;
+        $striker->mos_id = 8;
         $striker->milsim_experience = 1;
         $striker->milsim_badconduct = 0;
         $striker->milsim_grouplist = '23rd Gaming Division, 34th Gaming Division, 8th SOF';
@@ -160,12 +160,13 @@ class CatalystSeeder extends Seeder
 
         //Personnel File Creation
         $rod_personnel = new VPF;
-        $rod_personnel->first_name = 'George';
+        $rod_personnel->first_name = 'Guillermo';
         $rod_personnel->last_name = 'Rodriguez';
         $rod_personnel->user_id = $admin->id;
         $rod_personnel->assignment_id = 1;
         $rod_personnel->rank_id = 21;
-        $rod_personnel->status = 'active';
+        $rod_personnel->face_id = 3;
+        $rod_personnel->status = 'Active';
         $rod_personnel->save();
 
         $admin->application_id = $rod->id;
@@ -178,7 +179,8 @@ class CatalystSeeder extends Seeder
         $striker_personnel->user_id = $admin2->id;
         $striker_personnel->assignment_id = 2;
         $striker_personnel->rank_id = 19;
-        $striker_personnel->status = 'active';
+        $striker_personnel->face_id = 17;
+        $striker_personnel->status = 'Active';
         $striker_personnel->save();
 
         $admin2->application_id = $striker->id;

@@ -22,6 +22,11 @@ class Assignment extends Model
         return $this->belongsTo('App\Group');
     }
 
+    public function member()
+    {
+        return $this->hasOne('App\VPF');
+    }
+
     public function mos()
     {
         return $this->belongsTo('App\MOS');
