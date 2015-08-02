@@ -102,28 +102,28 @@ class CatalystGroupsSeeder extends Seeder
         //////////////////// MOTOR
         $motor = new Group;
         $motor->parent_id = 2;
-        $motor->name = 'Motorised Infantry';
+        $motor->name = 'Motorized Infantry';
         $motor->description = '';
         $motor->image = '/images/groups/motor_infantry.png';
         $motor->save();
 
         $group = new Group;
         $group->parent_id = $motor->id;
-        $group->name = 'Motorised Infantry - 1nd Squad';
+        $group->name = 'Motorized Infantry - 1nd Squad';
         $group->description = '';
         $group->image = '/images/groups/motor_infantry.png';
         $group->save();
 
         $group = new Group;
         $group->parent_id = $motor->id;
-        $group->name = 'Motorised Infantry - 2nd Squad';
+        $group->name = 'Motorized Infantry - 2nd Squad';
         $group->description = '';
         $group->image = '/images/groups/motor_infantry.png';
         $group->save();
 
         $group = new Group;
         $group->parent_id = $motor->id;
-        $group->name = 'Motorised Infantry - 3rd Squad';
+        $group->name = 'Motorized Infantry - 3rd Squad';
         $group->description = '';
         $group->image = '/images/groups/motor_infantry.png';
         $group->save();

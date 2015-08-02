@@ -21,7 +21,6 @@
                     <h1>
                         My Inbox
                     </h1>
-                    @yield('breadcrumbs')
                 </section>
                 <!-- Main content -->
                 <section class="content">
