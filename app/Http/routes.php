@@ -30,14 +30,6 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('', function () {
         \Auth()->login(4);
     });
-    Route::get('/test', function () {
-        $test = \App\VPF::find(1);
-        dd($test
-            ->schoolTrainingDate);
-    });
-
-    Route::get('/test/{id}', 'Auth\AuthController@impersonate');
-
 
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
     Route::get('avatar/{steam_id}', 'VPFController@buildAvatar');
