@@ -163,7 +163,7 @@
                     <h4 class="modal-title" id="chatteraddlabel">Add to Squad Chatter</h4>
                 </div>
                 <div class="modal-body">
-                    <form {{route('squad.chatter.create')}} method="POST">
+                    <form action="{{route('squad.chatter.create')}}" method="POST">
                     {!! csrf_field() !!}
                     <div class="form-group">
                         <textarea class="form-control" name="chatter" rows="10" placeholder="Your Chatter Comment" required></textarea>
