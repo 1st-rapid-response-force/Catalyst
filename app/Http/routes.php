@@ -86,15 +86,17 @@ Route::group(['namespace' => 'Frontend'], function()
 
         //My Training Center
         Route::get('/my-training', ['as' => 'training', 'uses' => 'myTrainingController@index']);
-        Route::get('/my-training/{id}', ['as' => 'training.show', 'uses' => 'myTrainingController@show']);
-        Route::post('/my-training/enroll/{id}', ['as' => 'training.enroll', 'uses' => 'myTrainingController@enrollClass']);
-        Route::put('/my-training/enroll/{id}', ['as' => 'training.date.signup', 'uses' => 'myTrainingController@signupDate']);
-        Route::delete('/my-training/date/{id}', ['as' => 'training.date.destroy', 'uses' => 'myTrainingController@cancelDate']);
+            Route::get('/my-training/{id}', ['as' => 'training.show', 'uses' => 'myTrainingController@show']);
+            Route::post('/my-training/enroll/{id}', ['as' => 'training.enroll', 'uses' => 'myTrainingController@enrollClass']);
+            Route::put('/my-training/enroll/{id}', ['as' => 'training.date.signup', 'uses' => 'myTrainingController@signupDate']);
+            Route::delete('/my-training/date/{id}', ['as' => 'training.date.destroy', 'uses' => 'myTrainingController@cancelDate']);
 
+        //My Loadout
+        Route::get('/my-loadout', ['as' => 'loadout', 'uses' => 'myLoadoutController@index']);
 
 
         //Auto-Complete
-        Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
+        Route::get('autocomplete/users', 'myLoadoutController@index');
 
 
     });
