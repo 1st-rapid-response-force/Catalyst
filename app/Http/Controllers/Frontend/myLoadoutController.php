@@ -16,7 +16,10 @@ class myLoadoutController extends Controller
      */
     public function index()
     {
-        //
+        $user = \Auth::user();
+
+        return view('frontend.my-loadout.index')
+            ->with('user',$user);
     }
 
     /**
