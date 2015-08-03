@@ -96,7 +96,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
 
         //Auto-Complete
-        Route::get('autocomplete/users', 'myLoadoutController@index');
+        Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
 
 
     });

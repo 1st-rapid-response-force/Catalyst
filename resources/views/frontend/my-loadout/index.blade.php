@@ -75,4 +75,17 @@
 @endsection
 
 @section('js-bottom')
+    <script>
+        function formatState (state) {
+            if (!state.id) { return state.text; }
+            var $state = $(
+                    '<span><img src="vendor/images/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+            );
+            return $state;
+        };
+
+        $(".js-example-templating").select2({
+            templateResult: formatState
+        });
+    </script>
 @endsection
