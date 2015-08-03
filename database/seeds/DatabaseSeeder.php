@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CatalystAssignmentsSeeder::class);
         $this->call(CatalystMOSSeeder::class);
         $this->call(CatalystVPFBase::class);
-
-        $this->call(CatalystVPFTest::class);
         Model::reguard();
     }
 }
