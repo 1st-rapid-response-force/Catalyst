@@ -106,6 +106,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Empty Item: &nbsp</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="empty">
+                                    <option value="0">False</option>
+                                    <option value="1">True</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="class_name" class="col-sm-2 control-label">Classname: &nbsp</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="class_name" name="class_name" placeholder="Class Name">

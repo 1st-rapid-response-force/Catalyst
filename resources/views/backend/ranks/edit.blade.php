@@ -85,7 +85,7 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br>
         <div class="pull-right">
-            <a class="btn btn-danger" href="{{ route('admin.ribbons.index') }}">Cancel</a>
+            <a class="btn btn-danger" href="{{ route('admin.ranks.index') }}">Cancel</a>
             <input class="btn btn-primary" type="submit">
         </div>
 

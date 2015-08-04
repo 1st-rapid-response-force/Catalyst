@@ -52,6 +52,9 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('contact-us', 'PagesController@contact');
     Route::get('/roster/{id}', 'VPFController@publicView');
 
+    // API
+    Route::get('api/loadout/{steam_id}', 'APIController@getLoadout');
+
     Route::group(['middleware' => 'auth'], function()
     {
         //Enlistment

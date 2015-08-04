@@ -73,6 +73,7 @@ class LoadoutsController extends Controller
         $loadout->name = $request->name;
         $loadout->category = $request->category;
         $loadout->class_name = $request->class_name;
+        $loadout->empty = $request->empty;
         $loadout->qualification_id = $request->qualification_id;
         $loadout->save();
 
@@ -140,6 +141,7 @@ class LoadoutsController extends Controller
         $loadout->name = $request->name;
         $loadout->category = $request->category;
         $loadout->class_name = $request->class_name;
+        $loadout->empty = $request->empty;
         $loadout->qualification_id = $request->qualification_id;
         $loadout->save();
 
