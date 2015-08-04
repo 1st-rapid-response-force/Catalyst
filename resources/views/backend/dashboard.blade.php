@@ -33,7 +33,7 @@
                 <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Active Members</span>
-                    <span class="info-box-number">35</span>
+                    <span class="info-box-number">{{$members}}</span>
                     <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -42,8 +42,8 @@
             <div class="info-box">
                 <span class="info-box-icon bg-yellow"><i class="fa fa-folder"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Applications</span>
-                    <span class="info-box-number">2</span>
+                    <span class="info-box-text">Active Applications</span>
+                    <span class="info-box-number">{{$applications}}</span>
                     <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -65,7 +65,7 @@
                 <span class="info-box-icon bg-orange"><i class="fa fa-server"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Server Status</span>
-                    <span class="info-box-number">All Servers Running</span>
+                    <span class="info-box-number">NO STATUS</span>
                     <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->

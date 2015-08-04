@@ -7,6 +7,7 @@
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -23,13 +24,14 @@
     <hr>
     @if (count($ranks) != 0)
         @if (count($ranks) != 0)
-            <table id="ribbons" class="table table-bordered table-hover">
+            <table id="table" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Image</th>
                     <th>Abbreviation</th>
                     <th>Name - Paygrade</th>
                     <th>Requirements</th>
+                    <td>Weight</td>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -56,9 +58,17 @@
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
-    @endsection
+    <script src="/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#table").DataTable();
+        });
+    </script>
+@endsection
 
-    @section('page-script-include')
+@section('page-script-include')
+
             <!-- Modal -->
     <div class="modal fade" id="newRank" tabindex="-1" role="dialog" aria-labelledby="newRankModal">
         <div class="modal-dialog" role="document">
@@ -137,6 +147,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 

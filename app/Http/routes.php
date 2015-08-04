@@ -31,6 +31,16 @@ Route::group(['namespace' => 'Frontend'], function()
         return redirect('/');
     });
 
+    Route::get('test', function () {
+        $vpf= \App\VPF::find(1);
+        //Add Service History
+        $vpf->serviceHistory()->create([
+            'note' => 'Enlisted in the 1st Rapid Response Force',
+            'date'=> Carbon\Carbon::now()
+        ]);
+    });
+
+
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
     Route::get('avatar/{steam_id}', 'VPFController@buildAvatar');
 
@@ -120,9 +130,7 @@ Route::group(['namespace' => 'Backend',
     'prefix' => 'admin',
     'middleware' => ['auth', 'admin']], function() {
 
-    Route::get('/', function () {
-        return view('backend.dashboard');
-    });
+    Route::get('/',['as'=>'dashboard','uses'=>'AdminController@index']);
     Route::get('dashboard', function () {
         return redirect('/admin/');
     });

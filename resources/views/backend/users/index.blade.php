@@ -7,6 +7,7 @@
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -16,7 +17,7 @@
 
 @section('content')
     @include('backend.users.partials.header-buttons')
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="user">
         <thead>
         <tr>
             <th>ID</th>
@@ -56,9 +57,16 @@
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
 @endsection
 
 @section('page-script-include')
+    <script type="text/javascript">
+        $(function () {
+            $("#user").DataTable();
+        });
+    </script>
 @endsection
 
 
