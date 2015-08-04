@@ -17,8 +17,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         if ($env == 'production')
         {
-            $this->call(AddMOSImage::class);
-            $this->call(CatalystLoadouts::class);
+
         }
 
         if ($env == 'local')
@@ -29,6 +28,8 @@ class DatabaseSeeder extends Seeder
             $this->call(CatalystAssignmentsSeeder::class);
             $this->call(CatalystMOSSeeder::class);
             $this->call(CatalystVPFBase::class);
+            $this->call(AddMOSImage::class);
+            $this->call(CatalystLoadouts::class);
             $this->call(AddMOSImage::class);
             $this->call(CatalystLoadouts::class);
         }

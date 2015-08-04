@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#uniformCollapse" aria-expanded="false" aria-controls="collapseExample">
-                    Goggles
+                    Uniform
                 </a><br><br>
                 <div class="collapse" id="uniformCollapse">
                     <div class="well">
