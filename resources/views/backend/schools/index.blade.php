@@ -7,6 +7,7 @@
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -22,7 +23,7 @@
     <hr>
     <br>
     @if (count($schools) != 0)
-        <table id="training" class="table table-bordered table-hover">
+        <table id="table" class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th>School Name</th>
@@ -51,6 +52,13 @@
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#table").DataTable();
+        });
+    </script>
 @endsection
 
 @section('page-script-include')

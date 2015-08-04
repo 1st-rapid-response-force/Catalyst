@@ -4,10 +4,10 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="/backend/img/user.png" class="img-circle" alt="User Image" />
+                <img src="/avatar/{{\Auth::User()->steam_id}}" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p>CPT. Rodriguez.G</p>
+                <p>{{\Auth::User()->vpf}}</p>
             </div>
         </div>
         <!-- search form -->

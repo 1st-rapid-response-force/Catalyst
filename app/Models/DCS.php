@@ -12,6 +12,7 @@ class DCS extends Model
      * @var string
      */
     protected $table = 'dcs';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File

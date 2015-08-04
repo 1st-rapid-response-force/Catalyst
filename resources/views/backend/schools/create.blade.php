@@ -101,7 +101,7 @@
         <br>
         <div class="pull-right">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <a class="btn btn-danger" href="/admin/training-school/">Cancel</a>
+            <a class="btn btn-danger" href="/admin/schools">Cancel</a>
             <input class="btn btn-primary" type="submit">
         </div>
     </form>

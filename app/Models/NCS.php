@@ -12,6 +12,7 @@ class NCS extends Model
      * @var string
      */
     protected $table = 'ncs';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File

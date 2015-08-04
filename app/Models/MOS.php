@@ -12,6 +12,7 @@ class MOS extends Model
      * @var string
      */
     protected $table = 'mos';
+    protected $guarded = [];
 
     public function assignments()
     {

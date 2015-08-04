@@ -7,7 +7,7 @@
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -20,7 +20,7 @@
     <p>Showing Applications that have been rejected" - You can view, and approve applications from this page.</p>
     <hr>
     @if($apps->count() > 0)
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="table">
         <thead>
         <tr>
             <th>ID</th>
@@ -56,9 +56,15 @@
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
 @endsection
 
 @section('page-script-include')
+    <script type="text/javascript">
+        $(function () {
+            $("#table").DataTable();
+        });
+    </script>
 @endsection
-
 

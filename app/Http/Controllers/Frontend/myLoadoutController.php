@@ -240,7 +240,7 @@ class myLoadoutController extends Controller
                 'value' => $item->id,
                 'selected'=>$equipped,
                 'description'=>$description,
-                'imageSrc'=>'/images/'.$item->public_image.'/small'
+                'imageSrc'=> $item->showSmall()
             ]);
             $targetFormatted->push($col);
         }

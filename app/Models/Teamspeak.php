@@ -12,6 +12,7 @@ class Teamspeak extends Model
      * @var string
      */
     protected $table = 'teamspeak';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File

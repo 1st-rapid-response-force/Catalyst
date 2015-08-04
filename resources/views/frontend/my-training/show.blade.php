@@ -19,7 +19,7 @@
 @section('content')
     <div class="container">
         <h1>My Training - {{$user->vpf}} - {{$school->name}}</h1>
-        <p><img class="center-block" src="/images/{{$school->public_image}}"></p>
+        <p><img class="center-block" src="{{$school->show()}}"></p>
         <hr>
         <div class="row">
             <div class="col-lg-12">

@@ -7,6 +7,7 @@
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -24,7 +25,7 @@
 <br>
 @if (count($loadouts) != 0)
     @if (count($loadouts) != 0)
-        <table id="ribbons" class="table table-bordered table-hover">
+        <table id="table" class="table table-bordered table-hover" >
             <thead>
             <tr>
                 <th>Image</th>
@@ -56,6 +57,13 @@
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#table").DataTable();
+        });
+    </script>
 @endsection
 
 @section('page-script-include')
@@ -98,6 +106,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Empty Item: &nbsp</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="empty">
+                                    <option value="0">False</option>
+                                    <option value="1">True</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="class_name" class="col-sm-2 control-label">Classname: &nbsp</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="class_name" name="class_name" placeholder="Class Name">
@@ -129,6 +146,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 
 

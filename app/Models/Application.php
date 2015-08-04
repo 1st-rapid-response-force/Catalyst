@@ -14,6 +14,7 @@ class Application extends Model
      * @var string
      */
     protected $table = 'applications';
+    protected $guarded = [];
 
     /**
      * The attributes that should be mutated to dates.

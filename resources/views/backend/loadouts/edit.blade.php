@@ -53,6 +53,15 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Empty Item: &nbsp</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="empty">
+                    <option {{($loadout->empty == 0) ? 'selected' : ''}} value="0">False</option>
+                    <option {{($loadout->empty == 1) ? 'selected' : ''}} value="1">True</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="name" class="col-sm-2 control-label">Required Qualification: &nbsp</label>
             <div class="col-sm-10">
                 <select class="form-control" name="qualification_id">

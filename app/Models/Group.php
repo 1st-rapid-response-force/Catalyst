@@ -13,6 +13,7 @@ class Group extends Model
      * @var string
      */
     protected $table = 'groups';
+    protected $guarded = [];
 
     /**
      * The Assignments the group has

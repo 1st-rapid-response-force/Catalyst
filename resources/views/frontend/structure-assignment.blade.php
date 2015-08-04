@@ -26,7 +26,7 @@
             <table class="table table-bordered table-hover" id="ranks">
                 <thead>
                 @foreach($officerRanks as $rank)
-                    <th ><img style="max-width: 100px; max-height: 100px;" class="center-block" src="/images/{{$rank->public_image}}/small"></th>
+                    <th ><img style="max-width: 100px; max-height: 100px;" class="center-block" src="{{$rank->showSmall()}}"></th>
                 @endforeach
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
             <table class="table table-bordered table-hover" id="ranks">
                 <thead>
                 @foreach($warrantRanks as $rank)
-                    <th><img style="max-width: 100px; max-height: 100px;" class="center-block" src="/images/{{$rank->public_image}}/small"></th>
+                    <th><img style="max-width: 100px; max-height: 100px;" class="center-block" src="{{$rank->showSmall()}}"></th>
                 @endforeach
                 </thead>
                 <tbody>
@@ -62,7 +62,7 @@
             <table class="table table-bordered table-hover" id="ranks">
                 <thead>
                 @foreach($enlistedRanks as $rank)
-                    <th><img style="max-width: 100px; max-height: 100px;" class="center-block" src="/images/{{$rank->public_image}}/small"></th>
+                    <th><img style="max-width: 100px; max-height: 100px;" class="center-block" src="{{$rank->showSmall()}}"></th>
                 @endforeach
                 </thead>
                 <tbody>
