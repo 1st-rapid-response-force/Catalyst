@@ -90,13 +90,6 @@
 
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <img class="center-block" src="{{$user->vpf->assignment->mos->image}}">
-                <div class="text-center"><h4>{{$user->vpf->assignment->mos->name}}</h4></div>
-            </div>
-            <div class="col-lg-4 well">
-                <h3>Uniform & Aesthetics</h3>
                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#nightVisionCollapse" aria-expanded="false" aria-controls="collapseExample">
                     Nightvision
                 </a><br><br>
@@ -118,27 +111,6 @@
 
                     </div>
                 </div>
-                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#helmetCollapse" aria-expanded="false" aria-controls="collapseExample">
-                    Helmet
-                </a><br><br>
-                <div class="collapse" id="helmetCollapse">
-                    <div class="well">
-                        @foreach($helmet as $loadout)
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this weapon? - <input type="radio" name="helmet" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
-                                </div>
-                            </div>
-                        @endforeach
-
-                    </div>
-                </div>
                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#gogglesCollapse" aria-expanded="false" aria-controls="collapseExample">
                     Goggles
                 </a><br><br>
@@ -154,6 +126,35 @@
                                 <div class="media-body">
                                     <h5 class="media-heading">{{$loadout['text']}}</h5>
                                     <p><small>Select this weapon? - <input type="radio" name="goggles" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <img class="center-block" src="{{$user->vpf->assignment->mos->image}}">
+                <div class="text-center"><h4>{{$user->vpf->assignment->mos->name}}</h4></div>
+            </div>
+            <div class="col-lg-4 well">
+                <h3>Uniform & Aesthetics</h3>
+
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#helmetCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Helmet
+                </a><br><br>
+                <div class="collapse" id="helmetCollapse">
+                    <div class="well">
+                        @foreach($helmet as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="helmet" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
                                 </div>
                             </div>
                         @endforeach

@@ -25,7 +25,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <img style="max-width: 100px; max-height: 100px" src="/images/{{$user->vpf->rank->public_image}}/small" class="center-block">
+                                    <img style="max-width: 100px; max-height: 100px" src="{{$user->vpf->rank->showSmall()}}" class="center-block">
                                 </div>
                                 <div class="col-lg-8">
                                     <h3>{{$user->vpf->rank->name.' '.$user->vpf->rank->pay_grade}}</h3>
@@ -55,7 +55,7 @@
                         <?php $i = 3; ?>
                         @foreach($profile['ribbons'] as $image)
                             <div class="col-lg-4">
-                                <img style="width: 125px; height:35px;" src="/images/{{$image->public_image}}">
+                                <img style="width: 125px; height:35px;" src="{{$image->showSmall()}}">
                                 <small>{{$image->name}}</small>
                             </div>
                             <?php if (($i != 0) && (($i % 1) == 1)) echo '</div><div class="row text-center">'; ?>
@@ -131,7 +131,7 @@
                                     @foreach($profile['qualifications'] as $qualification)
                                         <div class="media">
                                             <div class="media-left">
-                                                <img class="media-object" style="max-height: 75px; max-width: 75px" src="/images/{{$qualification->public_image}}/small" alt="{{$qualification->name}}">
+                                                <img class="media-object" style="max-height: 75px; max-width: 75px" src="{{$qualification->showSmall()}}" alt="{{$qualification->name}}">
                                             </div>
                                             <div class="media-body">
                                                 <h4 class="media-heading">{{$qualification->name}}</h4>

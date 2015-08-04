@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', 'Roster - '.$user->vpf)
+@section('title', 'My Virtual Personnel File')
 
 @section('css-top')
     <link href="/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
@@ -10,14 +10,13 @@
 @section('breadcrumbs')
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li><a href="/structure-assignments">Structure and Assignments</a></li>
         <li class="active">{{$user->vpf}}</li>
     </ol>
 @endsection
 
 @section('content')
     <div class="container">
-        <h1>Virtual Personnel File - {{$user->vpf}} <small>- Public File</small></h1>
+        <h1>Virtual Personnel File - {{$user->vpf}} - <small>Public</small></h1>
         <div class="text-center">
             <div class="row">
                 <div class="col-md-4">
@@ -26,10 +25,10 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <img style="max-width: 100px; max-height: 100px" src="/images/{{$user->vpf->rank->public_image}}/small" class="center-block">
+                                        <img style="max-width: 100px; max-height: 100px" src="{{$user->vpf->rank->showSmall()}}" class="center-block">
                                     </div>
                                     <div class="col-lg-8">
-                                        <h3>{{$user->vpf->rank->name.'  '.$user->vpf->rank->pay_grade}}</h3>
+                                        <h3>{{$user->vpf->rank->name.' '.$user->vpf->rank->pay_grade}}</h3>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -54,7 +53,7 @@
                                 <?php $i = 3; ?>
                                 @foreach($profile['ribbons'] as $image)
                                     <div class="col-lg-4">
-                                        <img style="width: 125px; height:35px;" src="/images/{{$image->public_image}}">
+                                        <img style="width: 125px; height:35px;" src="{{$image->showSmall()}}">
                                         <small>{{$image->name}}</small>
                                     </div>
                                     <?php if (($i != 0) && (($i % 1) == 1)) echo '</div><div class="row text-center">'; ?>
@@ -129,11 +128,11 @@
                                     @foreach($profile['qualifications'] as $qualification)
                                         <div class="media">
                                             <div class="media-left">
-                                                <img class="media-object" style="max-height: 75px; max-width: 75px" src="/images/{{$qualification->public_image}}/small" alt="{{$qualification->name}}">
+                                                <img class="media-object" style="max-height: 75px; max-width: 75px" src="{{$qualification->showSmall()}}" alt="{{$qualification->name}}">
                                             </div>
                                             <div class="media-body">
                                                 <h4 class="media-heading">{{$qualification->name}}</h4>
-                                                {{$qualification->description}}Awarded on {{\Carbon\Carbon::createFromFormat('Y-m-d',$qualification->pivot->date_awarded)->toFormattedDateString()}}
+                                                {{$qualification->description}}<br>Awarded on {{\Carbon\Carbon::createFromFormat('Y-m-d',$qualification->pivot->date_awarded)->toFormattedDateString()}}
                                             </div>
                                         </div>
                                     @endforeach

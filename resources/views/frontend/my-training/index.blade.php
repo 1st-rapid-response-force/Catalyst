@@ -27,7 +27,7 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="/roster/1">
-                                    <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="/images/{{$course->public_image}}/small" alt="School">
+                                    <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="{{$course->showSmall()}}" alt="School">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -76,7 +76,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <a href="/roster/1">
-                                        <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="/images/{{$course->public_image}}/small" alt="School">
+                                        <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="{{$course->showSmall()}}" alt="School">
                                     </a>
                                 </div>
                                 <div class="media-body">
@@ -99,7 +99,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <a href="/roster/1">
-                                        <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="/images/{{$course->public_image}}/small" alt="School">
+                                        <img class="media-object img-thumbnail" style="max-height: 100px; max-width: 100px;" src="{{$course->showSmall()}}" alt="School">
                                     </a>
                                 </div>
                                 <div class="media-body">
