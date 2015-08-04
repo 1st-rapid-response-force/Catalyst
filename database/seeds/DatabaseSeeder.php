@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+        $this->call(AddMOSImage::class);
+        $this->call(CatalystLoadouts::class);
         Model::reguard();
     }
 }

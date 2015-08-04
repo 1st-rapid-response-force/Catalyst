@@ -17,57 +17,36 @@
 @section('content')
     <div class="container">
         <h1>My Loadout - {{$user->vpf}}</h1>
+        <p>You will be able to outfit your solider here. You can unlock more weapons and equipment by earning qualifications through completing schools and attending operations.</p>
+        <p>To obtain your loadout simply head to the nearest armorer and stock up on ammo. On the deployment server, the system will keep track of your items and inventory and persist through multiple sessions.</p>
         <div class="row">
             <div class="col-lg-4 well">
-                <h3>Primary Weapon</h3>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>M4</option>
-                    <option>M4 (AFG)</option>
-                    <option>M4 (Carryhandle)</option>
-                    <option>M4 (Grippod)</option>
-                    <option>M4 (M203)</option>
-                    <option>M4 (M320)</option>
-                    <option>M4A1</option>
-                    <option>M4A1 (AFG)</option>
-                    <option>M4A1 (Carryhandle)</option>
-                    <option>M4A1 (Grippod)</option>
-                    <option>M4A1 (M203)</option>
-                    <option>M4A1 (M320)</option>
-                    <option>M4 PIP</option>
-                    <option>M4 PIP (AFG)</option>
-                    <option>M4 PIP (Carryhandle)</option>
-                    <option>M4 PIP (Grippod)</option>
-                    <option>M4 PIP (M203)</option>
-                    <option>M4 PIP (M320)</option>
-                    <option>M16A4</option>
-                    <option>M16A4 (Carryhandle/Grippod)</option>
-                    <option>M16A4 (Carryhandle/M203)</option>
-                    <option>M249 PIP</option>
-                </select>
-                <h3>Sidearm Weapon</h3>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>M1911A1</option>
-                    <option>FNX-45 Tactical</option>
-                    <option>P99</option>
-                    <option>MP-443</option>
-                </select>
-                <h3>Launcher</h3>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>FGM-148 Javelin</option>
-                    <option>M136 (HEAT)</option>
-                    <option>M136 (HEDP)</option>
-                    <option>M136 (HP)</option>
-                </select>
+                <h3>Weapons</h3>
+                <h4>Primary Weapon</h4>
+                <div id="primaryWeapons"></div>
+                <h4>Sidearm Weapon</h4>
+                <div id="secondaryWeapons"></div>
+                <h4>Launcher</h4>
+                <div id="launcherWeapons"></div>
             </div>
             <div class="col-lg-4">
                 <img class="center-block" src="{{$user->vpf->assignment->mos->image}}">
                 <div class="text-center"><h4>{{$user->vpf->assignment->mos->name}}</h4></div>
             </div>
             <div class="col-lg-4 well">
-                <h3>Primary Weapon</h3>
+                <h3>Uniform & Aesthetics</h3>
+                <h4>Night Vision</h4>
+                <div id="nightvision"></div>
+                <h4>Helmet</h4>
+                <div id="helmet"></div>
+                <h4>Goggles</h4>
+                <div id="goggles"></div>
+                <h4>Uniform</h4>
+                <div id="uniform"></div>
+                <h4>Vest</h4>
+                <div id="vest"></div>
+                <h4>Backpack</h4>
+                <div id="backpack"></div>
             </div>
         </div>
 
@@ -75,17 +54,82 @@
 @endsection
 
 @section('js-bottom')
-    <script>
-        function formatState (state) {
-            if (!state.id) { return state.text; }
-            var $state = $(
-                    '<span><img src="vendor/images/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-            );
-            return $state;
-        };
+    <script type="text/javascript">
+        $(function () {
+            var primaryJSON = {!! $loadout[0]->toJSON() !!};
+            var secondaryJSON = {!! $loadout[1]->toJSON() !!};
+            var launcherJSON = {!! $loadout[2]->toJSON() !!};
 
-        $(".js-example-templating").select2({
-            templateResult: formatState
+            var nightvisionJSON = {!! $loadout[3]->toJSON() !!};
+            var helmetJSON = {!! $loadout[5]->toJSON() !!};
+            var gogglesJSON = {!! $loadout[6]->toJSON() !!};
+            var uniformJSON = {!! $loadout[7]->toJSON() !!};
+            var vestJSON = {!! $loadout[8]->toJSON() !!};
+            var backpackJSON = {!! $loadout[9]->toJSON() !!};
+
+            $('#primaryWeapons').ddslick({
+                data:primaryJSON,
+                width:300,
+                selectText: "Select your Primary Weapon",
+                imagePosition:"left"
+            });
+            $('#secondaryWeapons').ddslick({
+                data:secondaryJSON,
+                width:300,
+                selectText: "Select your Secondary Weapon",
+                imagePosition:"left"
+            });
+            $('#launcherWeapons').ddslick({
+                data:launcherJSON,
+                width:300,
+                selectText: "Select your Launcher",
+                imagePosition:"left"
+            });
+
+            $('#helmet').ddslick({
+                data:helmetJSON,
+                width:300,
+                selectText: "Select your Helmet",
+                imagePosition:"left"
+            });
+            $('#nightvision').ddslick({
+                data:nightvisionJSON,
+                width:300,
+                selectText: "Select your Nightvision",
+                imagePosition:"left"
+            });
+
+            $('#uniform').ddslick({
+                data:uniformJSON,
+                width:300,
+                selectText: "Select your Uniform",
+                imagePosition:"left"
+            });
+            $('#goggles').ddslick({
+                data:gogglesJSON,
+                width:300,
+                selectText: "Select your Goggles",
+                imagePosition:"left"
+            });
+
+            $('#vest').ddslick({
+                data:vestJSON,
+                width:300,
+                selectText: "Select your Vest",
+                imagePosition:"left"
+            });
+
+            $('#backpack').ddslick({
+                data:backpackJSON,
+                width:300,
+                selectText: "Select your Backpack",
+                imagePosition:"left"
+            });
+
+
+
+
         });
     </script>
+    <script type="text/javascript" src="/plugins/ddslick/jquery.ddslick.min.js"></script>
 @endsection

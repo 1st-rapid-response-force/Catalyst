@@ -142,6 +142,7 @@ Route::group(['namespace' => 'Backend',
     Route::resource('schools', 'SchoolsController');
     Route::resource('operations', 'OperationsController');
     Route::resource('ranks', 'RanksController');
+    Route::resource('loadouts', 'LoadoutsController');
 
     Route::get('autocomplete/courses', 'AutoCompleteController@getCourses');
 

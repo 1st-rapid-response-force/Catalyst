@@ -31,4 +31,14 @@ class Qualification extends Model
     {
         return $this->morphMany('App\PromotionPoints', 'model');
     }
+
+    /**
+     * Returns all Loadout items relating to this qualification
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function loadoutItems()
+    {
+        return $this->hasMany('App\Loadout','qualification_id','id');
+    }
+
 }
