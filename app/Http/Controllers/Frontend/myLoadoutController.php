@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+
 use App\Qualification;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,37 @@ class myLoadoutController extends Controller
         $loadout = $this->getLoadout();
         return view('frontend.my-loadout.index')
             ->with('user',$user)
-            ->with('loadout',$loadout);
+            ->with('primary',$loadout[0])
+            ->with('secondary',$loadout[1])
+            ->with('launcher',$loadout[2])
+            ->with('nightvision',$loadout[3])
+            ->with('binoculars',$loadout[4])
+            ->with('helmet',$loadout[5])
+            ->with('goggles',$loadout[6])
+            ->with('uniform',$loadout[7])
+            ->with('vest',$loadout[8])
+            ->with('backpack',$loadout[9]);
+
+    }
+
+    public function saveLoadout(Request $request)
+    {
+
+        $user = \Auth::user();
+        $loadout = [
+            $request->primaryWeapon,
+            $request->secondaryWeapons,
+            $request->launcherWeapons,
+            $request->nightvision,
+            $request->helmet,
+            $request->goggles,
+            $request->uniform,
+            $request->backpack,
+        ];
+
+        $user->vpf->loadout()->sync($loadout);
+        \Notification::success('Your loadout have been saved, you can now obtain it from the armorer on base');
+        return redirect('/my-loadout/');
     }
 
     /**

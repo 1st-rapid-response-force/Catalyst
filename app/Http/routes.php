@@ -93,6 +93,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
         //My Loadout
         Route::get('/my-loadout', ['as' => 'loadout', 'uses' => 'myLoadoutController@index']);
+        Route::put('/my-loadout', ['as' => 'loadout.save', 'uses' => 'myLoadoutController@saveLoadout']);
 
 
         //Auto-Complete

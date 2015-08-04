@@ -135,7 +135,7 @@
                                             </div>
                                             <div class="media-body">
                                                 <h4 class="media-heading">{{$qualification->name}}</h4>
-                                                {{$qualification->description}}Awarded on {{\Carbon\Carbon::createFromFormat('Y-m-d',$qualification->pivot->date_awarded)->toFormattedDateString()}}
+                                                {{$qualification->description}}<br>Awarded on {{\Carbon\Carbon::createFromFormat('Y-m-d',$qualification->pivot->date_awarded)->toFormattedDateString()}}
                                             </div>
                                         </div>
                                     @endforeach

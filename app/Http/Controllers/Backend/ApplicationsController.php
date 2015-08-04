@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Application;
 use App\Assignment;
+use App\Qualification;
 use App\VPF;
 use App\User;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class ApplicationsController extends Controller
 {
@@ -155,7 +157,7 @@ class ApplicationsController extends Controller
         $app->decision_paygrade = $filingUser->vpf->rank->pay_grade;
         $app->decision_unitname = '1st Rapid Response Force - Command Element';
         $app->decision_signature = $filingUser->vpf->first_name.' '.$filingUser->vpf->last_name;
-        $app->decision_date = \Carbon\Carbon::now()->toDateTimeString();
+        $app->decision_date = Carbon::now()->toDateTimeString();
         $app->processed_statement = $request->statement;
 
         /*
@@ -204,9 +206,18 @@ class ApplicationsController extends Controller
         $app->user->attachRole($memberRole);
 
         //Add user to Basic Training Course
-        $vpf->schools()->sync([
+        $vpf->schools()->attach([
             1 => ['completed' => 0],
         ]);
+
+        //Adds base level qualification for My Loadout
+        $rrfQualification = Qualification::where('name','=','1st RRF - Member')->first();
+        $vpf->qualifications()->attach([
+            $rrfQualification->id => ['date_awarded' => Carbon::now()],
+        ]);
+
+        //Give loadout of Nulls
+        $vpf->loadout()->sync([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
 
         //Sync all changes
         $app->push();
@@ -231,7 +242,7 @@ class ApplicationsController extends Controller
         $app->decision_paygrade = $filingUser->vpf->rank->pay_grade;
         $app->decision_unitname = '1st Rapid Response Force Command Element';
         $app->decision_signature = $filingUser->vpf->first_name.' '.$filingUser->vpf->last_name;
-        $app->decision_date = \Carbon\Carbon::now()->toDateTimeString();
+        $app->decision_date = Carbon::now()->toDateTimeString();
         $app->processed_statement = $request->statement;
         $app->save();
 

@@ -28,6 +28,6 @@ class Loadout extends Model
      */
     public function VPF()
     {
-        return $this->belongsToMany('App\VPF', 'loadouts_vpf', 'loadout_id', 'vpf_id');
+        return $this->belongsToMany('App\Loadout', 'loadouts_vpf', 'loadout_id', 'vpf_id');
     }
 }
