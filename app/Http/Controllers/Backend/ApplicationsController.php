@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Application;
 use App\Assignment;
 use App\Qualification;
+use App\Service_History;
 use App\VPF;
 use App\User;
 use App\Role;
@@ -219,8 +220,16 @@ class ApplicationsController extends Controller
         //Give loadout of Nulls
         $vpf->loadout()->sync([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]);
 
+        //Add Service History
+        $vpf->serviceHistory()->create([
+            'note' => 'Enlisted in the 1st Rapid Response Force',
+            'date'=> Carbon::now()
+        ]);
+
         //Sync all changes
         $app->push();
+
+
 
         //Log action by Approving member
         \Log::info('Application Accepted', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);
