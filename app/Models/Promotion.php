@@ -12,6 +12,7 @@ class Promotion extends Model
      * @var string
      */
     protected $table = 'promotions';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File

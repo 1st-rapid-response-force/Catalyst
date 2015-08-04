@@ -12,6 +12,7 @@ class SchoolTrainingDate extends Model
      * @var string
      */
     protected $table = 'school_training_date';
+    protected $guarded = [];
 
     /**
      * Returns School

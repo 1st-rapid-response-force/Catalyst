@@ -12,6 +12,7 @@ class Rank extends Model
      * @var string
      */
     protected $table = 'ranks';
+    protected $guarded = [];
 
     /**
      * Returns VPF'

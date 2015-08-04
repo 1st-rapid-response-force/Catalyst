@@ -12,6 +12,7 @@ class UnitAnnouncements extends Model
      * @var string
      */
     protected $table = 'unit_announcements';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File of Announcement Creator

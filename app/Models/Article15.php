@@ -12,6 +12,7 @@ class Article15 extends Model
      * @var string
      */
     protected $table = 'article15';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File

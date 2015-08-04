@@ -12,6 +12,7 @@ class SquadChatter extends Model
      * @var string
      */
     protected $table = 'squad_chatter';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File of Announcement Creator

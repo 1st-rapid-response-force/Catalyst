@@ -12,6 +12,7 @@ class Loadout extends Model
      * @var string
      */
     protected $table = 'loadouts_items';
+    protected $guarded = [];
 
     /**
      * Returns the required qualification for this item

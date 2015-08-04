@@ -12,6 +12,7 @@ class SquadAnnouncements extends Model
      * @var string
      */
     protected $table = 'squad_announcements';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File of Announcement Creator

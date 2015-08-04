@@ -12,6 +12,7 @@ class Service_History extends Model
      * @var string
      */
     protected $table = 'service_history';
+    protected $guarded = [];
 
     /**
      * Returns Virtual Personnel File

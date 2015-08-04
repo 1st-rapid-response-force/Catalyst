@@ -12,6 +12,7 @@ class Assignment extends Model
      * @var string
      */
     protected $table = 'assignments';
+    protected $guarded = [];
 
     /**
      * The Group the Assignment belongs to
