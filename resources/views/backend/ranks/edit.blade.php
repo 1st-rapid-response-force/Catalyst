@@ -17,6 +17,7 @@
 
 @section('content')
     <form class="form-horizontal" action="{{ route('admin.ranks.update',array($rank->id)) }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="put">
         <div class="form-group">
             <label for="abbreviation" class="col-sm-2 control-label">Abbreviation: &nbsp</label>
             <div class="col-sm-10">
