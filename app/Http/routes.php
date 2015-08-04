@@ -28,7 +28,7 @@ Route::group(['namespace' => 'Frontend'], function()
         return redirect('/');
     });
     Route::get('', function () {
-        \Auth()->login(4);
+        return redirect('/');
     });
 
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
