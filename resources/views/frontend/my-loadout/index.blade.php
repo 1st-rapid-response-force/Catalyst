@@ -16,76 +16,220 @@
 
 @section('content')
     <div class="container">
+        <form action="{{route('loadout.save')}}" method="post">
         <h1>My Loadout - {{$user->vpf}}</h1>
+        <p>You will be able to outfit your solider here. You can unlock more weapons and equipment by earning qualifications through completing schools and attending operations.</p>
+        <p>To obtain your loadout simply head to the nearest armorer and stock up on ammo. On the deployment server, the system will keep track of your items and inventory and persist through multiple sessions.</p>
+
+
+            <input name="_method" type="hidden" value="PUT">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <hr>
         <div class="row">
             <div class="col-lg-4 well">
-                <h3>Primary Weapon</h3>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>M4</option>
-                    <option>M4 (AFG)</option>
-                    <option>M4 (Carryhandle)</option>
-                    <option>M4 (Grippod)</option>
-                    <option>M4 (M203)</option>
-                    <option>M4 (M320)</option>
-                    <option>M4A1</option>
-                    <option>M4A1 (AFG)</option>
-                    <option>M4A1 (Carryhandle)</option>
-                    <option>M4A1 (Grippod)</option>
-                    <option>M4A1 (M203)</option>
-                    <option>M4A1 (M320)</option>
-                    <option>M4 PIP</option>
-                    <option>M4 PIP (AFG)</option>
-                    <option>M4 PIP (Carryhandle)</option>
-                    <option>M4 PIP (Grippod)</option>
-                    <option>M4 PIP (M203)</option>
-                    <option>M4 PIP (M320)</option>
-                    <option>M16A4</option>
-                    <option>M16A4 (Carryhandle/Grippod)</option>
-                    <option>M16A4 (Carryhandle/M203)</option>
-                    <option>M249 PIP</option>
-                </select>
-                <h3>Sidearm Weapon</h3>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>M1911A1</option>
-                    <option>FNX-45 Tactical</option>
-                    <option>P99</option>
-                    <option>MP-443</option>
-                </select>
-                <h3>Launcher</h3>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>FGM-148 Javelin</option>
-                    <option>M136 (HEAT)</option>
-                    <option>M136 (HEDP)</option>
-                    <option>M136 (HP)</option>
-                </select>
+                <h3>Weapons</h3>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#primaryCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Primary Weapons
+                </a><br><br>
+                <div class="collapse" id="primaryCollapse">
+                    <div class="well">
+                    @foreach($primary as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="primaryWeapon" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#secondaryCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Sidearm Weapons
+                </a><br><br>
+                <div class="collapse" id="secondaryCollapse">
+                    <div class="well">
+                        @foreach($secondary as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="secondaryWeapons" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#launcherCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Launcher Weapons
+                </a><br><br>
+                <div class="collapse" id="launcherCollapse">
+                    <div class="well">
+                        @foreach($launcher as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="launcherWeapons" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4">
                 <img class="center-block" src="{{$user->vpf->assignment->mos->image}}">
                 <div class="text-center"><h4>{{$user->vpf->assignment->mos->name}}</h4></div>
             </div>
             <div class="col-lg-4 well">
-                <h3>Primary Weapon</h3>
+                <h3>Uniform & Aesthetics</h3>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#nightVisionCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Nightvision
+                </a><br><br>
+                <div class="collapse" id="nightVisionCollapse">
+                    <div class="well">
+                        @foreach($nightvision as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="nightvision" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#helmetCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Helmet
+                </a><br><br>
+                <div class="collapse" id="helmetCollapse">
+                    <div class="well">
+                        @foreach($helmet as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="helmet" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#gogglesCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Goggles
+                </a><br><br>
+                <div class="collapse" id="gogglesCollapse">
+                    <div class="well">
+                        @foreach($goggles as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="goggles" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#uniformCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Goggles
+                </a><br><br>
+                <div class="collapse" id="uniformCollapse">
+                    <div class="well">
+                        @foreach($uniform as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="uniform" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#vestCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Vest
+                </a><br><br>
+                <div class="collapse" id="vestCollapse">
+                    <div class="well">
+                        @foreach($vest as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="vest" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#backpackCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Backpack
+                </a><br><br>
+                <div class="collapse" id="backpackCollapse">
+                    <div class="well">
+                        @foreach($backpack as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="backpack" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
             </div>
         </div>
-
+            <button type="submit" class="btn btn-success pull-right">Save Loadout</button>
+        </form>
     </div>
 @endsection
 
 @section('js-bottom')
-    <script>
-        function formatState (state) {
-            if (!state.id) { return state.text; }
-            var $state = $(
-                    '<span><img src="vendor/images/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
-            );
-            return $state;
-        };
 
-        $(".js-example-templating").select2({
-            templateResult: formatState
-        });
-    </script>
 @endsection

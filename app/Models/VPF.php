@@ -150,6 +150,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns Users current Loadout
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function loadout()
+    {
+        return $this->belongsToMany('App\Loadout', 'loadouts_vpf', 'vpf_id', 'loadout_id');
+    }
+
+    /**
      * Returns all Service History
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

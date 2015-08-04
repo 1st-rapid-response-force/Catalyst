@@ -55,6 +55,7 @@
                     <li> <a href="{{route('admin.ribbons.index')}}"><i class="fa fa-align-justify"></i> <span>Ribbons</span></a></li>
                     <li> <a href="{{route('admin.operations.index')}}"><i class="fa fa-calendar"></i> <span>Operations</span></a></li>
                     <li> <a href="{{route('admin.schools.index')}}"><i class="fa fa-university"></i> <span>Schools</span></a></li>
+                    <li> <a href="{{route('admin.loadouts.index')}}"><i class="fa fa-file-text"></i> <span>Loadout Items</span></a></li>
                 </ul>
             </li>
             <li class="treeview">

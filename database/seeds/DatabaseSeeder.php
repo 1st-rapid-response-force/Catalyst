@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use App\Group;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +12,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $env = \App::environment();
+
         Model::unguard();
+        if ($env == 'production')
+        {
+            $this->call(AddMOSImage::class);
+            $this->call(CatalystLoadouts::class);
+        }
+
+        if ($env == 'local')
+        {
+            $this->call(CatalystSeeder::class);
+            $this->call(CatalystRankSeeder::class);
+            $this->call(CatalystGroupsSeeder::class);
+            $this->call(CatalystAssignmentsSeeder::class);
+            $this->call(CatalystMOSSeeder::class);
+            $this->call(CatalystVPFBase::class);
+            $this->call(AddMOSImage::class);
+            $this->call(CatalystLoadouts::class);
+        }
+
         Model::reguard();
     }
 }

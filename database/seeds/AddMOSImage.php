@@ -89,8 +89,18 @@ class AddMOSImage extends Seeder
             $mos->save();
         }
 
+        // Reseed to deal with recruit issue on next deployment
+        //Assignment
+        $mos = new \App\MOS;
+        $mos->name = 'Recruit';
+        $mos->mos = '11R';
+        $mos->image = "/frontend/images/loadouts/infantry.png";
+        $mos->rank_limitation_id = 2;
+        $mos->save();
 
-
+        $recruit = \App\Assignment::find(156);
+        $recruit->mos_id = $mos->id;
+        $recruit->save();
 
 
 
