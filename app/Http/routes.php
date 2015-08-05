@@ -151,6 +151,7 @@ Route::group(['namespace' => 'Backend',
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);
     Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);
+    Route::resource('vpf', 'VPFController');
     Route::resource('schools', 'SchoolsController');
     Route::resource('operations', 'OperationsController');
     Route::resource('ranks', 'RanksController');
