@@ -16,10 +16,6 @@ Route::get('images/{image}', 'ImageController@show');
 Route::get('images/{image}/small', 'ImageController@showSmall');
 
 
-
-
-
-
 //Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
@@ -29,15 +25,6 @@ Route::group(['namespace' => 'Frontend'], function()
     });
     Route::get('', function () {
         return redirect('/');
-    });
-
-    Route::get('test', function () {
-        $vpf= \App\VPF::find(1);
-        //Add Service History
-        $vpf->serviceHistory()->create([
-            'note' => 'Enlisted in the 1st Rapid Response Force',
-            'date'=> Carbon\Carbon::now()
-        ]);
     });
 
 
@@ -76,6 +63,7 @@ Route::group(['namespace' => 'Frontend'], function()
             Route::get('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak', 'uses' => 'VPFController@showTeamspeak']);
             Route::post('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak.store', 'uses' => 'VPFController@saveTeamspeak']);
             Route::delete('/virtual-personnel-file/teamspeak/{id}',['as' => 'vpf.teamspeak.delete', 'uses' => 'VPFController@deleteTeamspeak']);
+            Route::get('/forms/{type}/{id}',['as'=>'vpf.forms.show','uses'=>'FormsController@show']);
 
         //My Inbox
         Route::get('/my-inbox', ['as' => 'inbox', 'uses' => 'myInboxController@index']);
@@ -112,7 +100,6 @@ Route::group(['namespace' => 'Frontend'], function()
         //Auto-Complete
         Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
 
-
     });
 
     // Authentication routes...
@@ -126,8 +113,9 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('auth/register', 'Auth\AuthController@getLogin');
     Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-
 });
+
+
 
 Route::group(['namespace' => 'Backend',
     'prefix' => 'admin',
@@ -145,12 +133,28 @@ Route::group(['namespace' => 'Backend',
     Route::get('enlistments/rejected-apps',['as'=>'admin.enlistments.rejected','uses'=>'ApplicationsController@rejected']);
     Route::resource('enlistments', 'ApplicationsController');
 
+    Route::get('forms/{type}',['as'=>'admin.forms.new','uses'=>'FormsController@newForm']);
+
     Route::resource('ribbons', 'RibbonsController');
     Route::resource('qualifications', 'QualificationsController');
 
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);
-    Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);
+    Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);\
+
+    Route::get('vpf/{vpf_id}/promote',['as'=>'admin.vpf.promote','uses'=>'VPFController@showPromoteUser']);
+    Route::post('vpf/{vpf_id}/promote',['as'=>'admin.vpf.promote.store','uses'=>'VPFController@PromoteUser']);
+    Route::get('vpf/{vpf_id}/reassign',['as'=>'admin.vpf.reassign','uses'=>'VPFController@showReassignMember']);
+    Route::post('vpf/{vpf_id}/reassign',['as'=>'admin.vpf.reassign.store','uses'=>'VPFController@reassignMember']);
+    Route::get('vpf/{vpf_id}/discharge',['as'=>'admin.vpf.discharge','uses'=>'VPFController@showDischargeMember']);
+    Route::post('vpf/{vpf_id}/discharge',['as'=>'admin.vpf.discharge.store','uses'=>'VPFController@dischargeMember']);
+    Route::get('vpf/{vpf_id}/forms/{type}',['as'=>'admin.forms.new','uses'=>'FormsController@newForm']);
+    Route::post('vpf/{vpf_id}/forms/{type}',['as'=>'admin.forms.store','uses'=>'FormsController@storeForm']);
+    Route::delete('vpf/{vpf_id}/delete/service-history/{id}',['as'=>'admin.vpf.delete.serviceHistory','uses'=>'VPFController@destroyServiceHistory']);
+    Route::delete('vpf/{vpf_id}/delete/form/{type}/{id}',['as'=>'admin.vpf.delete.form','uses'=>'FormsController@destroyForm']);
+    Route::delete('vpf/{vpf_id}/delete/qualification/{id}',['as'=>'admin.vpf.delete.qualification','uses'=>'VPFController@destroyQualification']);
+    Route::delete('vpf/{vpf_id}/delete/operations/{id}',['as'=>'admin.vpf.delete.operations','uses'=>'VPFController@destroyOperation']);
+    Route::delete('vpf/{vpf_id}/delete/schools/{id}',['as'=>'admin.vpf.delete.school','uses'=>'VPFController@destroySchool']);
     Route::resource('vpf', 'VPFController');
     Route::resource('schools', 'SchoolsController');
     Route::resource('operations', 'OperationsController');

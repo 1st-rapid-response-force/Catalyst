@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="panel panel-body">
         <h1>Virtual Personnel File - {{$vpf}}</h1>
         <div class="text-center">
             <div class="row">
@@ -68,6 +68,7 @@
                                 <thead>
                                 <th>Date</th>
                                 <th>Note</th>
+                                <th></th>
                                 </thead>
                                 <tbody>
 
@@ -75,6 +76,7 @@
                                     <tr>
                                         <td class="col-lg-2">{{\Carbon\Carbon::createFromFormat('Y-m-d',$serviceHistory->date)->toFormattedDateString()}}</td>
                                         <td class="col-lg-10">{{$serviceHistory->note}}</td>
+                                        <td> <a href="{{ route('admin.vpf.delete.serviceHistory',array($vpf->id,$serviceHistory->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -90,12 +92,14 @@
                                 <thead>
                                 <th>Date</th>
                                 <th>Form</th>
+                                <th></th>
                                 </thead>
                                 <tbody>
                                 @foreach($profile['forms'] as $form)
                                     <tr>
                                         <td class="col-lg-2">{{$form->updated_at->toFormattedDateString()}}</td>
                                         <td class="col-lg-10"><a href="/forms/{{$form->form_type}}/{{$form->id}}">{{$form->form_name}}</a></td>
+                                        <td> <a href="{{ route('admin.vpf.delete.form',array($vpf->id,$form->form_type,$form->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -115,7 +119,7 @@
                                                 <img class="media-object" style="max-height: 75px; max-width: 75px" src="{{$qualification->showSmall()}}" alt="{{$qualification->name}}">
                                             </div>
                                             <div class="media-body">
-                                                <h4 class="media-heading">{{$qualification->name}}</h4>
+                                                <h4 class="media-heading">{{$qualification->name}} <a href="{{ route('admin.vpf.delete.qualification',array($vpf->id,$qualification->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></h4>
                                                 {{$qualification->description}}<br>Awarded on {{\Carbon\Carbon::createFromFormat('Y-m-d',$qualification->pivot->date_awarded)->toFormattedDateString()}}
                                             </div>
                                         </div>
@@ -132,7 +136,7 @@
                                         @foreach($profile['operations'] as $operation)
                                             <tr>
                                                 <td class="col-lg-1">{{\Carbon\Carbon::createFromFormat('Y-m-d',$operation->pivot->date_attended)->toFormattedDateString()}}</td>
-                                                <td class="col-lg-4"><a href="/schools/">{{$operation->name}}</a></td>
+                                                <td class="col-lg-4"><a href="/schools/">{{$operation->name}}</a>  -  <a href="{{ route('admin.vpf.delete.operations',array($vpf->id,$operation->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -142,12 +146,13 @@
                                 @endif
                                 <h3>Schools</h3>
                                 @if($profile['schools']->count() > 0)
+                                    <h4>Completed Schools</h4>
                                     <table class="table table-bordered table-hover" id="formHistoryTable">
                                         <tbody>
                                         @foreach($profile['schools'] as $school)
                                             <tr>
                                                 <td class="col-lg-1">{{\Carbon\Carbon::createFromFormat('Y-m-d',$school->pivot->date_attended)->toFormattedDateString()}}</td>
-                                                <td class="col-lg-4"><a href="/schools/">{{$school->name}}</a></td>
+                                                <td class="col-lg-4"><a href="/schools/">{{$school->name}}</a> - <a href="{{ route('admin.vpf.delete.school',array($vpf->id,$school->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -155,22 +160,39 @@
                                 @else
                                     <p>No Schools attended on record.</p>
                                 @endif
+                                @if($vpf->schools()->where('completed','=',0)->get()->count() > 0)
+                                    <h4>In Progress</h4>
+                                    <table class="table table-bordered table-hover" id="formHistoryTable">
+                                        <tbody>
+                                        @foreach($vpf->schools()->where('completed','=',0)->get() as $school)
+                                            <tr>
+                                                <td class="col-lg-4"><a href="/schools/">{{$school->name}}</a> -  <a href="{{ route('admin.vpf.delete.school',array($vpf->id,$school->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @else
+                                    <p>No Schools in progress on record.</p>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request-options">
                         <div class="row">
-                            <div class="col-lg-3">
-                                <h3>Requests</h3>
-                                <a class="btn btn-block btn-default" href="#">File Virtual Personnel File Correction</a>
-                                <a class="btn btn-block btn-default" href="#">File Assignment Change Request</a>
+                            <div class="col-lg-6">
+                                <h3>Paperwork</h3>
+                                <a class="btn btn-block btn-default" href="/admin/vpf/{{$vpf->id}}/forms/article15">New Article 15</a>
+                                <a class="btn btn-block btn-default" href="/admin/vpf/{{$vpf->id}}/forms/ncs">New Negative Counseling Statement</a>
+                                <a class="btn btn-block btn-default" href="/admin/vpf/{{$vpf->id}}/forms/dcs">New Developmental Counseling Statement</a>
+                                <a class="btn btn-block btn-default" href="/admin/vpf/{{$vpf->id}}/forms/vcs">New Verbal Counseling Statement</a>
                                 <hr>
-                                <a class="btn btn-block btn-danger" href="#">File Discharge Paperwork</a>
+
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <h3>Options</h3>
-                                <a class="btn btn-block btn-primary" href="{{route('vpf.teamspeak')}}">Manage Teamspeak IDs</a>
-                                <a class="btn btn-block btn-primary" href="{{route('vpf.faces')}}">Edit Face</a>
+                                <a class="btn btn-block btn-primary" href="{{route('admin.vpf.promote',$vpf->id)}}">Promote Member</a>
+                                <a class="btn btn-block btn-primary" href="{{route('admin.vpf.reassign',$vpf->id)}}">Reassign Member</a>
+                                <a class="btn btn-block btn-danger" href="{{route('admin.vpf.discharge',$vpf->id)}}">Discharge Member</a>
                             </div>
                         </div>
                     </div>
@@ -388,9 +410,11 @@
                             <div class="form-group">
                                 <label for="user_id">Related User:</label>
                                 <select name="user_id" class="form-control" style="width: 100%;">
+                                    <!--email_off-->
                                     @foreach($users as $us)
                                         <option value="{{$us->id}}" {{($us->id == $vpf->id) ? 'selected' : ''}}>{{$us->email}}</option>
                                     @endforeach
+                                    <!--/email_off-->
                                 </select>
                             </div>
                             <div class="form-group">

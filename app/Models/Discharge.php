@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VCS extends Model
+class Discharge extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'vcs';
+    protected $table = 'discharges';
     protected $guarded = [];
 
     /**

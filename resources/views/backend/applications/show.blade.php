@@ -210,7 +210,7 @@
                     </div>
                     <div data-field-span="1">
                         <label>Statement</label>
-                        <textarea readonly cols="5">{{$app->processed_statement}}</textarea>
+                        <textarea readonly cols="8">{{$app->processed_statement}}</textarea>
                     </div>
                 </div>
             </fieldset>

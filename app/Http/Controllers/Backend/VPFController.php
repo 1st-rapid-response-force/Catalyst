@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Discharge;
 use App\Operation;
 use App\Qualification;
 use App\Rank;
 use App\Ribbon;
 use App\School;
+use App\Service_History;
 use App\User;
 use App\VPF;
+use App\Role;
 use App\Assignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -71,13 +74,14 @@ class VPFController extends Controller
         $schools = School::all();
         $operations = Operation::all();
         $qualifications = Qualification::all();
-        $assignments = $this->AssignmentList();
+        $assignments = $this->AssignmentList($vpf->id);
 
         $forms = collect();
         $forms = $forms->merge($vpf->article15);
         $forms = $forms->merge($vpf->vcs);
         $forms = $forms->merge($vpf->ncs);
         $forms = $forms->merge($vpf->dcs);
+        $forms = $forms->merge($vpf->discharges);
         $forms = $forms->sortByDesc('created_at');
 
         $buildProfile = collect(
@@ -161,18 +165,239 @@ class VPFController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \Notification::error('You cannot delete a VPF profile per Unit Policy');
+        return redirect('/admin/vpf');
+    }
+
+    /**
+     * Shows the Promote User interface
+     * @param $vpf_id
+     * @return $this
+     */
+    public function showPromoteUser($vpf_id)
+    {
+        $vpf = VPF::find($vpf_id);
+        $ranks = Rank::all();
+        return view('backend.vpf.promote')
+            ->with('vpf',$vpf)
+            ->with('ranks',$ranks);
+    }
+
+    /**
+     * Process the promote user request
+     * @param $vpf_id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function PromoteUser($vpf_id, Request $request)
+    {
+        $vpf = VPF::find($vpf_id);
+        $newRank = Rank::find($request->newRank);
+
+        $vpf->promotions()->create([
+            'old_rank_id' => $vpf->rank->id,
+            'new_rank_id' => $newRank->id
+        ]);
+
+        //Add Service History
+        $vpf->serviceHistory()->create([
+            'note' => 'Promoted from '.$request->oldRank.' to '.$newRank->name,
+            'date'=> Carbon::now()
+        ]);
+
+        $vpf->rank_id = $newRank->id;
+        $vpf->save();
+
+        \Notification::success('Member was promoted!');
+        return redirect('/admin/vpf/'.$vpf_id);
+    }
+
+    /**
+     * Shows the reassign member interface
+     * @param $vpf_id
+     * @return $this
+     */
+    public function showReassignMember($vpf_id)
+    {
+        $vpf = VPF::find($vpf_id);
+        $assignments = $this->AssignmentList($vpf->id);
+        return view('backend.vpf.reassign')
+            ->with('vpf',$vpf)
+            ->with('assignments',$assignments);
+    }
+
+    /**
+     * Processes the reassign member request
+     * @param $vpf_id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function reassignMember($vpf_id, Request $request)
+    {
+        $vpf = VPF::find($vpf_id);
+        $newAssignment = Assignment::find($request->newAssignment);
+
+        //Add Service History
+        $vpf->serviceHistory()->create([
+            'note' => 'Reassigned from '.$vpf->assignment->name.' to '.$newAssignment->name,
+            'date'=> Carbon::now()
+        ]);
+
+        $vpf->assignment_id = $newAssignment->id;
+        $vpf->save();
+
+
+        \Notification::success('Member was reassigned!');
+        return redirect('/admin/vpf/'.$vpf_id);
+    }
+
+    /**
+     * Shows the discharge member interface
+     * @param $vpf_id
+     * @return $this
+     */
+    public function showDischargeMember($vpf_id)
+    {
+        $vpf = VPF::find($vpf_id);
+        return view('backend.vpf.discharge')
+            ->with('vpf',$vpf);
+    }
+
+    /**
+     * Processes the reassign member request
+     * @param $vpf_id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function dischargeMember($vpf_id, Request $request)
+    {
+        $vpf = VPF::find($vpf_id);
+        $vpfUser = User::find($vpf->user->id);
+        $user = \Auth::User();
+
+        //Discharge Self Exception
+        if ($vpf->id == $user->id)
+        {
+            \Notification::error('You cannot discharge yourself');
+            return redirect('/admin/vpf/'.$vpf_id);
+        }
+
+        //Create Discharge Form
+        $dis = new Discharge;
+        $dis->vpf_id = $vpf->id;
+        $dis->name = $vpf->last_name.', '.$vpf->first_name;
+        $dis->grade = $vpf->rank->pay_grade;
+        $dis->discharge_type = $request->discharge_type;
+        $dis->discharge_text = $request->discharge_text;
+        $dis->discharger_name = $user->vpf->last_name.', '.$user->vpf->first_name;
+        $dis->discharger_grade = $user->vpf->rank->pay_grade;
+        $dis->discharger_signature = $user->vpf->first_name.' '.$user->vpf->last_name;
+        $dis->save();
+
+
+        //Add Service History
+        $vpf->serviceHistory()->create([
+            'note' => 'Discharged from the 1st RRF - '.$request->discharge_type,
+            'date'=> Carbon::now()
+        ]);
+
+
+        //Set Rank and Assignment
+        $vpf->rank_id = 1; //No Rank
+        $vpf->assignment_id = 157; //Civ
+        $vpf->save();
+
+        // Deal with Roles - Ghetto Style
+        foreach($vpf->user->roles as $role)
+        {
+            $getRole = Role::find($role->id);
+            $vpfUser->detachRole($getRole);
+        }
+        //Add simple role
+        $getRole = Role::find(5);
+        $vpfUser->attachRole($getRole);
+
+        $vpf->push();
+
+        \Notification::success('Member was Discharged from the unit!');
+        return redirect('/admin/vpf/'.$vpf_id);
+    }
+
+
+    /**
+     * Deletes a Service History Request based on VPF_ID and Service History ID
+     * @param $vpf_id
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function destroyServiceHistory($vpf_id,$id)
+    {
+        $serviceHistory = Service_History::find($id);
+        $serviceHistory->delete();
+        \Notification::success('Service History entry deleted');
+        return redirect('/admin/vpf/'.$vpf_id);
+    }
+
+    /**
+     * Deletes a Qualification attached to a user based on VPF_ID and Qualification ID
+     * @param $vpf_id
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function destroyQualification($vpf_id,$id)
+    {
+        $vpf = VPF::find($vpf_id);
+        $qual = Qualification::find($id);
+        $vpf->qualifications()->detach($qual->id);
+        \Notification::success('Qualification record deleted');
+        return redirect('/admin/vpf/'.$vpf_id);
+    }
+
+    /**
+     * Deletes a Operation attached to a user based on the VPF_ID and Qualification ID
+     * @param $vpf_id
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function destroyOperation($vpf_id,$id)
+    {
+        $vpf = VPF::find($vpf_id);
+        $qual = Operation::find($id);
+        $vpf->operations()->detach($qual->id);
+        \Notification::success('Operation record deleted');
+        return redirect('/admin/vpf/'.$vpf_id);
+    }
+
+    /**
+     * Deletes a School attached to a user based on the VPF_ID and the School ID
+     * @param $vpf_id
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
+    public function destroySchool($vpf_id,$id)
+    {
+        $vpf = VPF::find($vpf_id);
+        $qual = School::find($id);
+        $vpf->schools()->detach($qual->id);
+        \Notification::success('School record deleted');
+        return redirect('/admin/vpf/'.$vpf_id);
     }
 
     /**
      * Compiles a list of all available assignments based on available and those marked as initial assignments
      * @return \Illuminate\Support\Collection
      */
-    private function AssignmentList()
+    private function AssignmentList($vpf)
     {
         //Variable Declaration
         $assignments = Assignment::all();
+        $vpf = VPF::find($vpf);
+
+        //deal with current Assignment profile glitch
+        $currentAssignment = $vpf->assignment;
         $availableForEnlistment = collect();
+        $availableForEnlistment->push($currentAssignment);
+
 
         //Iterate through all assignments to determine all available Assignments
         foreach($assignments as $assignment)
@@ -184,11 +409,19 @@ class VPFController extends Controller
                 $availableForEnlistment->push($assignment);
             }
         }
+
+
         //Return list of unique MOS's, lets return a collection of MOS models for the page
         return $availableForEnlistment;
     }
 
 
+    /**
+     * Adds a Service History Entry
+     * @param $user
+     * @param $service_history
+     * @param string $date
+     */
     private function addServiceHistory($user,$service_history, $date = '2015-09-01')
     {
         $user->vpf->serviceHistory()->create([
@@ -197,6 +430,12 @@ class VPFController extends Controller
         ]);
     }
 
+    /**
+     * Adds a Ribbon to user's VPF
+     * @param $user
+     * @param $ribbon
+     * @param string $date
+     */
     private function addRibbon($user,$ribbon,$date = '2015-09-01')
     {
         $user->vpf->ribbons()->attach([
@@ -204,11 +443,22 @@ class VPFController extends Controller
         ]);
     }
 
+    /**
+     * Adds a Operation to User's VPF
+     * @param $user
+     * @param $operation
+     */
     private function addOperation($user,$operation)
     {
         $user->vpf->operations()->attach($operation);
     }
 
+    /**
+     * Adds a Qualification to User's VPF
+     * @param $user
+     * @param $qualification
+     * @param string $date
+     */
     private function addQualification($user,$qualification,$date = '2015-09-01')
     {
         $user->vpf->qualifications()->attach([
@@ -216,6 +466,13 @@ class VPFController extends Controller
         ]);
     }
 
+    /**
+     * Add's a School to User's VPF
+     * @param $user
+     * @param $school
+     * @param $completed
+     * @param string $date
+     */
     private function addSchools($user,$school,$completed ,$date = '2015-09-01')
     {
         $user->vpf->schools()->attach([
@@ -223,6 +480,11 @@ class VPFController extends Controller
         ]);
     }
 
+    /**
+     * Hard Save of the User profile, does not do any additional process, simply stores fields
+     * @param $user
+     * @param $input
+     */
     private function saveProfile($user,$input)
     {
         $user->vpf->first_name = $input->first_name;
