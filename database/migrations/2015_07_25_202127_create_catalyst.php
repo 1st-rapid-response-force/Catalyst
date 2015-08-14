@@ -210,7 +210,7 @@ class CreateCatalyst extends Migration
         {
             $table->unsignedInteger('vpf_id');
             $table->unsignedInteger('qualification_id');
-            $table->date('date_awarded')->nullable();;
+            $table->date('date_awarded')->nullable();
             $table->engine = 'InnoDB';
             $table->primary(['vpf_id', 'qualification_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');

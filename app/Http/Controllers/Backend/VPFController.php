@@ -87,7 +87,7 @@ class VPFController extends Controller
         $buildProfile = collect(
             ['serviceHistory'=>$vpf->serviceHistory->sortByDesc('date'),
                 'ribbons'=>$vpf->ribbons,
-                'qualifications'=>$user->vpf->qualifications,
+                'qualifications'=>$vpf->qualifications,
                 'operations'=>$vpf->operations,
                 'schools'=>$vpf->schools()->wherePivot('completed', '=','1')->get(),
                 'forms'=> $forms,
