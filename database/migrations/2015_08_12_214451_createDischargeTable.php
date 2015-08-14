@@ -12,7 +12,7 @@ class CreateDischargeTable extends Migration
      */
     public function up()
     {
-        Schema::create('Discharges', function (Blueprint $table) {
+        Schema::create('discharges', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
             $table->string('form_name')->default('Discharge Paperwork');
