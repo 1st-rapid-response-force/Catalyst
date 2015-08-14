@@ -94,7 +94,6 @@ class VPFController extends Controller
 
         $forms = collect();
         $forms = $forms->merge($user->vpf->article15);
-        $forms = $forms->merge($user->vpf->vcs);
         $forms = $forms->merge($user->vpf->ncs);
         $forms = $forms->merge($user->vpf->dcs);
         $forms = $forms->sortByDesc('created_at');

@@ -123,6 +123,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns all Discharges
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function discharges()
+    {
+        return $this->hasMany('App\Discharge','vpf_id','id');
+    }
+
+    /**
      * Returns all Service History
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -137,7 +146,7 @@ class VPF extends Model
      */
     public function promotions()
     {
-        return $this->hasMany('App\Promotion');
+        return $this->hasMany('App\Promotion','vpf_id','id');
     }
 
     /**
