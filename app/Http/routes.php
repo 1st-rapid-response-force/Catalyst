@@ -15,10 +15,6 @@
 Route::get('images/{image}', 'ImageController@show');
 Route::get('images/{image}/small', 'ImageController@showSmall');
 
-Route::get('/email', function () {
-    return view('emails.templates.main');
-});
-
 //Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
