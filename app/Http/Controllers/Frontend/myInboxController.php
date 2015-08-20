@@ -276,7 +276,7 @@ class myInboxController extends Controller
             $user = User::find($userID);
             Mail::send('emails.newMessage', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
                 $m->to($user->email, $user->vpf);
-                $m->subject('1st RRF - New Message');
+                $m->subject('1st RRF - New Message - '.$data['title']);
                 $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
                 $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
             });

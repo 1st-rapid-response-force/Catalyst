@@ -244,7 +244,7 @@
                                 <tr>
                                     <td align="right" valign="middle" class="mobile-padding" style="font-size:12px;padding:20px; background-color:#1f1f1f; color:#ffffff; text-align:left; ">
                                         <a style="color:#ffffff;"  href="https://1st-rrf.com">Website</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                                        <a style="color:#ffffff;" href="ts3server://ts.1st-rrf.com?port=9987&addbookmark=1st Rapid Response Force">Teamspeak</a>&nbsp;&nbsp; &nbsp;&nbsp;
+                                        <a style="color:#ffffff;" href="#">Teamspeak - ts.1st-rrf.com</a>&nbsp;&nbsp; &nbsp;&nbsp;
                                     </td>
                                 </tr>
                             </table>
