@@ -214,7 +214,7 @@
 
                                         <h1>{{$data['title']}}</h1>
                                         <br>
-                                        You have received a new message in your Inbox.
+                                        You have received a new message in your Inbox from <strong>{{$data['creator']}}</strong>
                                         <br>
                                         {!! $data['content'] !!}
                                         <br>

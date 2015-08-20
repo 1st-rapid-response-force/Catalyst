@@ -166,6 +166,7 @@ class myInboxController extends Controller
         $data = [
             'title' => $request->subject,
             'content' => $request->message,
+            'creator' => Auth::user()->vpf,
             'id' => $thread->id
         ];
 
@@ -225,6 +226,7 @@ class myInboxController extends Controller
             $data = [
                 'title' => $thread->subject,
                 'content' => $request->message,
+                'creator' => Auth::user()->vpf,
                 'id' => $thread->id
             ];
 

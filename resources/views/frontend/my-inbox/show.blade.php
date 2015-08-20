@@ -23,7 +23,7 @@
     @foreach($thread->participants as $par)
         <div class="media">
             <div class="media-left">
-                <a href="#">
+                <a href="/roster/{{$par->user->vpf->id}}">
                     <img class="media-object img-circle"  src="/avatar/{{$par->user->steam_id}}" style="max-height: 40px; max-width: 40px;">
                 </a>
             </div>
