@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Mail;
 
 class myInboxController extends Controller
 {
@@ -143,13 +144,15 @@ class myInboxController extends Controller
         );
 
         // Message
-        Message::create(
+        $message = Message::create(
             [
                 'thread_id' => $thread->id,
                 'user_id'   => Auth::user()->id,
                 'body'      => $request->message,
             ]
         );
+
+
 
         // Sender
         Participant::create(
@@ -160,10 +163,22 @@ class myInboxController extends Controller
             ]
         );
 
+        $data = [
+            'title' => $request->subject,
+            'content' => $request->message,
+            'id' => $thread->id
+        ];
+
+        //Send Email to Thread Creator
+        $this->emailUsersNewMessage([Auth::user()->id],$data);
+
         // Recipients
         if (\Request::has('recipents')) {
             $thread->addParticipants($recipients);
+            $this->emailUsersNewMessage($recipients,$data);
         }
+
+
 
         return redirect('/my-inbox/'.$thread->id);
     }
@@ -182,13 +197,19 @@ class myInboxController extends Controller
             return redirect('my-inbox');
         }
 
+
         //Participant add or reply?
         if($request->action == 'addUsers')
         {
             $recipients = explode(',',$request->recipents);
+            $dataNewParticipant = [
+                'title' => $thread->subject,
+                'id' => $thread->id
+            ];
             // Recipients
             if (\Request::has('recipents')) {
                 $thread->addParticipants($recipients);
+                $this->emailUsersNewParticipant($recipients,$dataNewParticipant);
             }
         } else {
             $thread->activateAllParticipants();
@@ -200,6 +221,13 @@ class myInboxController extends Controller
                     'body'      => Input::get('message'),
                 ]
             );
+
+            $data = [
+                'title' => $thread->subject,
+                'content' => $request->message,
+                'id' => $thread->id
+            ];
+
             // Add replier as a participant
             $participant = Participant::firstOrCreate(
                 [
@@ -209,6 +237,8 @@ class myInboxController extends Controller
             );
             $participant->last_read = new Carbon;
             $participant->save();
+            $this->emailUsersNewMessage($thread->participantsUserIds(),$data);
+
         }
         return redirect('my-inbox/' . $id);
     }
@@ -234,4 +264,41 @@ class myInboxController extends Controller
         return redirect('/my-inbox');
     }
 
+    /**
+     * Sends emails to all recipients
+     * @param $users
+     * @param $data
+     */
+    private function emailUsersNewMessage($users,$data)
+    {
+        foreach($users as $userID)
+        {
+            $user = User::find($userID);
+            Mail::send('emails.newMessage', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+                $m->to($user->email, $user->vpf);
+                $m->subject('1st RRF - New Message');
+                $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+                $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+            });
+        }
+    }
+
+    /**
+     * Sends emails to all recipients
+     * @param $users
+     * @param $data
+     */
+    private function emailUsersNewParticipant($users,$data)
+    {
+        foreach($users as $userID)
+        {
+            $user = User::find($userID);
+            Mail::send('emails.newParticipant', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+                $m->to($user->email, $user->vpf);
+                $m->subject('1st RRF - You have been added to a Conversation');
+                $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+                $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+            });
+        }
+    }
 }

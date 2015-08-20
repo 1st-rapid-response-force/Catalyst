@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Mail;
 use App\MOS;
 use App\User;
 use App\Application;
@@ -56,6 +57,7 @@ class EnlistmentController extends Controller
         }
 
         $user = \Auth::user();
+        $this->emailApplicationFiled($user);
         return view('frontend.enlistment.create')
             ->with('user',$user)
             ->with('mos',$mos);
@@ -200,5 +202,20 @@ class EnlistmentController extends Controller
 
         //Returns a collection of MOS's that are currently available
         return $mos;
+    }
+
+    /**
+     * Email's User
+     * @param $user
+     */
+    private function emailApplicationFiled($user)
+    {
+
+        Mail::send('emails.applicationFiled', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, 'User');
+            $m->subject('1st RRF - You have completed your Enlistment Paperwork');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
     }
 }

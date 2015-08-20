@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Mail;
 use App\Application;
 use App\Assignment;
 use App\Qualification;
@@ -229,7 +230,12 @@ class ApplicationsController extends Controller
         //Sync all changes
         $app->push();
 
-
+        // Email User
+        $data = [
+            'name'=>$vpf,
+            'steam_id'=>$vpf->user->steam_id
+        ];
+        $this->emailApprove($app->user,$data);
 
         //Log action by Approving member
         \Log::info('Application Accepted', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);
@@ -254,6 +260,10 @@ class ApplicationsController extends Controller
         $app->decision_date = Carbon::now()->toDateTimeString();
         $app->processed_statement = $request->statement;
         $app->save();
+
+        // Email User
+        $data = [];
+        $this->emailReject($app->user,$data);
 
         /*
          * Logic Check -
@@ -369,4 +379,35 @@ class ApplicationsController extends Controller
         //Return list of unique MOS's, lets return a collection of MOS models for the page
         return $availableForEnlistment;
     }
+
+    /**
+     * Sends email to user - Approve
+     * @param $user
+     * @param $data
+     */
+    private function emailApprove($user,$data)
+    {
+        Mail::send('emails.applicationApprove', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Your Application has been accepted');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
+
+    /**
+     * Sends email to user - Reject
+     * @param $user
+     * @param $data
+     */
+    private function emailReject($user,$data)
+    {
+        Mail::send('emails.applicationReject', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, 'User');
+            $m->subject('1st RRF - Your Application has been declined');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
+
 }
