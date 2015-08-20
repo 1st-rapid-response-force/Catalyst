@@ -214,11 +214,11 @@
 
                                         <h1>{{$data['title']}}</h1>
                                         <br>
-                                        You have received a new message in your Inbox.
+                                        You have received a new message in your Inbox from <strong>{{$data['creator']}}</strong>
                                         <br>
                                         {!! $data['content'] !!}
                                         <br>
-                                        You can view this message here - <a href="http://1st-rrf.com/my-inbox/{{$data['id']}}">My Inbox - View Message</a>
+                                        You can view this message here - <a href="http://1st-rrf.com/my-inbox/{{$data['id']}}">My Inbox - View Message </a>
                                         <br>
                                         <small>We are a gaming MILSIM group for ARMA 3 - we are not affiliated or represent any real world entity</small>
                                         <br><br>
