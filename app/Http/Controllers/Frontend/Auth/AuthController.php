@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Auth;
 
 use Validator;
 use Auth;
+use Mail;
 use App\User;
 use App\Role;
 use App\Http\Requests;
@@ -101,7 +102,7 @@ class AuthController extends Controller
         ]);
         $role = Role::where('name','user')->first();
         $user->attachRole($role);
-
+        $this->emailUser($user);
         Auth::login($user);
         return redirect('/');
     }
@@ -115,4 +116,19 @@ class AuthController extends Controller
         return redirect('/');
     }
 
+
+    /**
+     * Email's User
+     * @param $user
+     */
+    private function emailUser($user)
+    {
+
+        Mail::send('emails.newAccount', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, 'User');
+            $m->subject('1st RRF - Registration Successful');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
 }

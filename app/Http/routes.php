@@ -15,7 +15,6 @@
 Route::get('images/{image}', 'ImageController@show');
 Route::get('images/{image}/small', 'ImageController@showSmall');
 
-
 //Actual Routes
 Route::group(['namespace' => 'Frontend'], function()
 {
