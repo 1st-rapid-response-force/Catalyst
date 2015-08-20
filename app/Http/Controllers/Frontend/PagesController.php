@@ -106,7 +106,7 @@ class PagesController extends Controller
         $xml .= '<name>1st Rapid Response Force</name>'. PHP_EOL;
         $xml .= '<email>contactus@1st-rrf.com</email>'. PHP_EOL;
         $xml .= '<web>1st-rrf.com</web>'. PHP_EOL;
-        $xml .= '<picture>1st-rrf.paa</picture>'. PHP_EOL;
+        $xml .= '<picture>logo.paa</picture>'. PHP_EOL;
         $xml .= '<title>1st Rapid Response Force</title>'. PHP_EOL;
         foreach($vpfs as $vpf)
         {

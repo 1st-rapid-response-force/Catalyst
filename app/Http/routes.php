@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
     Route::get('avatar/{steam_id}', 'VPFController@buildAvatar');
-    Route::get('squadxml', 'PagesController@squadXML');
+    Route::get('squad-xml', 'PagesController@squadXML');
 
     Route::get('/', 'PagesController@index');
     Route::get('about', 'PagesController@about');
