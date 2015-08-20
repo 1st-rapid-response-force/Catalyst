@@ -218,4 +218,5 @@ class EnlistmentController extends Controller
             $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
         });
     }
+
 }

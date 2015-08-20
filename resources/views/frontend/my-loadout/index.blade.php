@@ -48,6 +48,27 @@
                         @endforeach
                     </div>
                 </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#primaryAttachCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Primary Weapon Attachment
+                </a><br><br>
+                <div class="collapse" id="primaryAttachCollapse">
+                    <div class="well">
+                        <p>Make sure the attachment you have selected is compatible</p>
+                        @foreach($primary_attachments as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this attachment? - <input type="radio" name="primary_attachment" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#secondaryCollapse" aria-expanded="false" aria-controls="collapseExample">
                     Sidearm Weapons
                 </a><br><br>
@@ -62,11 +83,31 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this weapon? - <input type="radio" name="secondaryWeapons" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                    <p><small>Select this attachment? - <input type="radio" name="secondary" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
                                 </div>
                             </div>
                         @endforeach
-
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#secondaryAttachCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Sidearm Weapon Attachment
+                </a><br><br>
+                <div class="collapse" id="secondaryAttachCollapse">
+                    <div class="well">
+                        <p>Make sure the attachment you have selected is compatible</p>
+                        @foreach($secondary_attachments as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this attachment? - <input type="radio" name="secondary_attachment" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#launcherCollapse" aria-expanded="false" aria-controls="collapseExample">
@@ -90,12 +131,13 @@
 
                     </div>
                 </div>
-                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#nightVisionCollapse" aria-expanded="false" aria-controls="collapseExample">
-                    Nightvision
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#launcherAttachCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Launcher Weapon Attachment
                 </a><br><br>
-                <div class="collapse" id="nightVisionCollapse">
+                <div class="collapse" id="launcherAttachCollapse">
                     <div class="well">
-                        @foreach($nightvision as $loadout)
+                        <p>Make sure the attachment you have selected is compatible</p>
+                        @foreach($launcher_attachments as $loadout)
                             <div class="media">
                                 <div class="media-left">
                                     <a href="#">
@@ -104,32 +146,10 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this weapon? - <input type="radio" name="nightvision" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                    <p><small>Select this attachment? - <input type="radio" name="launcher_attachment" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
                                 </div>
                             </div>
                         @endforeach
-
-                    </div>
-                </div>
-                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#gogglesCollapse" aria-expanded="false" aria-controls="collapseExample">
-                    Goggles
-                </a><br><br>
-                <div class="collapse" id="gogglesCollapse">
-                    <div class="well">
-                        @foreach($goggles as $loadout)
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this weapon? - <input type="radio" name="goggles" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
-                                </div>
-                            </div>
-                        @endforeach
-
                     </div>
                 </div>
             </div>
@@ -218,6 +238,47 @@
                                 <div class="media-body">
                                     <h5 class="media-heading">{{$loadout['text']}}</h5>
                                     <p><small>Select this weapon? - <input type="radio" name="backpack" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#nightVisionCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Nightvision
+                </a><br><br>
+                <div class="collapse" id="nightVisionCollapse">
+                    <div class="well">
+                        @foreach($nightvision as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="nightvision" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#gogglesCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Goggles
+                </a><br><br>
+                <div class="collapse" id="gogglesCollapse">
+                    <div class="well">
+                        @foreach($goggles as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="radio" name="goggles" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
                                 </div>
                             </div>
                         @endforeach

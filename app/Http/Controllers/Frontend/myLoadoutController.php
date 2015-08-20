@@ -23,8 +23,11 @@ class myLoadoutController extends Controller
         return view('frontend.my-loadout.index')
             ->with('user',$user)
             ->with('primary',$loadout[0])
+            ->with('primary_attachments',$loadout[10])
             ->with('secondary',$loadout[1])
+            ->with('secondary_attachments',$loadout[11])
             ->with('launcher',$loadout[2])
+            ->with('launcher_attachments',$loadout[12])
             ->with('nightvision',$loadout[3])
             ->with('binoculars',$loadout[4])
             ->with('helmet',$loadout[5])
@@ -37,17 +40,20 @@ class myLoadoutController extends Controller
 
     public function saveLoadout(Request $request)
     {
-
         $user = \Auth::user();
         $loadout = [
             $request->primaryWeapon,
-            $request->secondaryWeapons,
+            $request->secondary,
             $request->launcherWeapons,
             $request->nightvision,
             $request->helmet,
             $request->goggles,
             $request->uniform,
             $request->backpack,
+            $request->primary_attachment,
+            $request->secondary_attachment,
+            $request->launcher_attachment,
+
         ];
 
         $user->vpf->loadout()->sync($loadout);

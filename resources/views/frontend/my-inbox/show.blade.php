@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">{{$par->user->vpf}}</h4>
+                <h4 class="media-heading"><a href="/roster/{{$par->user->vpf->id}}">{{$par->user->vpf}}</a></h4>
             </div>
         </div>
     @endforeach
