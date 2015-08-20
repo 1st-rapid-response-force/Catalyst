@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Group;
 use App\Rank;
 use App\User;
+use App\VPF;
+use Response;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests;
@@ -91,4 +93,37 @@ class PagesController extends Controller
             ->with('striker',$striker);
     }
 
+    /**
+     * Returns the Squad XML for the Unit
+     */
+    public function squadXML()
+    {
+        $vpfs = VPF::all();
+        $xml = '<?xml version="1.0"?>'. PHP_EOL;
+        $xml .= '<!DOCTYPE squad SYSTEM "squad.dtd">'. PHP_EOL;
+        $xml .= '<?xml-stylesheet href="squad.xsl" type="text/xsl"?>'. PHP_EOL;
+        $xml .= '<squad nick="1RRF">'. PHP_EOL;
+        $xml .= '<name>1st Rapid Response Force</name>'. PHP_EOL;
+        $xml .= '<email>contactus@1st-rrf.com</email>'. PHP_EOL;
+        $xml .= '<web>1st-rrf.com</web>'. PHP_EOL;
+        $xml .= '<picture>1st-rrf.paa</picture>'. PHP_EOL;
+        $xml .= '<title>1st Rapid Response Force</title>'. PHP_EOL;
+        foreach($vpfs as $vpf)
+        {
+            $xml .= '<member id="'.$vpf->user->steam_id.'" nick="'.$vpf.'">'. PHP_EOL;
+            $xml .= '<name>'.$vpf->first_name.' '.$vpf->last_name.'</name>'. PHP_EOL;
+            $xml .= '<email>'.$vpf->user->email.'</email>'. PHP_EOL;
+            $xml .= '<icq>N/A</icq>'. PHP_EOL;
+            $xml .= '<remark>1st Rapid Response Force Member</remark>'. PHP_EOL;
+            $xml .= '</member>'. PHP_EOL;
+        }
+        $xml .= '</squad>'. PHP_EOL;
+
+        //Save to file system just in case
+        $file = fopen(public_path().'/squad.xml','w');
+        fwrite($file,$xml);
+        fclose($file);
+
+        return Response::make($xml, 200)->header('Content-Type', 'application/xml');
+    }
 }

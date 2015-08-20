@@ -212,6 +212,11 @@ class ApplicationsController extends Controller
             1 => ['completed' => 0],
         ]);
 
+        //Add Army Service Ribbon
+        $vpf->ribbons()->attach([
+            1 => ['date_awarded' => Carbon::now()],
+        ]);
+
         //Adds base level qualification for My Loadout
         $rrfQualification = Qualification::where('name','=','1st RRF - Member')->first();
         $vpf->qualifications()->attach([
