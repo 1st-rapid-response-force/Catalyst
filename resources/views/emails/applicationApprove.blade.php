@@ -222,6 +222,7 @@
                                             <li>Begin Coursework for Basic Combat Course and sign up for a class session - <a href="http://1st-rrf.com/my-training">My Training Center</a></li>
                                             <li>Setup a Base Loadout using the Web Loadout System - <a href="http://1st-rrf.com/my-loadout">My Loadout</a></li>
                                             <li>Download and Setup the Modpack - <a href="http://1st-rrf.com/modpack">Installing the Modpack</a></li>
+                                            <li>Add the SquadXML to your ingame character - https://1st-rrf.com/squad.xml</li>
                                             <li>Last but not least, be active and get to know your fellow members!</li>
                                         </ol>
                                         <br><br>
