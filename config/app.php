@@ -144,6 +144,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ImageServiceProvider::class,
+        App\Providers\TeamspeakServiceProvider::class,
 
         /*
          * Third Party Service Providers

@@ -127,6 +127,7 @@ Route::group(['namespace' => 'Backend',
     });
     Route::resource('users', 'UserController');
 
+    // Enlistments
     Route::post('enlistments/approve/{id}',['as'=>'admin.enlistments.approve','uses'=>'ApplicationsController@approve']);
     Route::post('enlistments/reject/{id}',['as'=>'admin.enlistments.reject','uses'=>'ApplicationsController@reject']);
     Route::get('enlistments/accepted-apps',['as'=>'admin.enlistments.accepted','uses'=>'ApplicationsController@accepted']);
@@ -138,10 +139,13 @@ Route::group(['namespace' => 'Backend',
     Route::resource('ribbons', 'RibbonsController');
     Route::resource('qualifications', 'QualificationsController');
 
+    // Schools
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);
     Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);\
+    Route::resource('schools', 'SchoolsController');
 
+    // Virtual Personnel File
     Route::get('vpf/{vpf_id}/promote',['as'=>'admin.vpf.promote','uses'=>'VPFController@showPromoteUser']);
     Route::post('vpf/{vpf_id}/promote',['as'=>'admin.vpf.promote.store','uses'=>'VPFController@PromoteUser']);
     Route::get('vpf/{vpf_id}/reassign',['as'=>'admin.vpf.reassign','uses'=>'VPFController@showReassignMember']);
@@ -156,10 +160,15 @@ Route::group(['namespace' => 'Backend',
     Route::delete('vpf/{vpf_id}/delete/operations/{id}',['as'=>'admin.vpf.delete.operations','uses'=>'VPFController@destroyOperation']);
     Route::delete('vpf/{vpf_id}/delete/schools/{id}',['as'=>'admin.vpf.delete.school','uses'=>'VPFController@destroySchool']);
     Route::resource('vpf', 'VPFController');
-    Route::resource('schools', 'SchoolsController');
+
+
+
+
     Route::resource('operations', 'OperationsController');
     Route::resource('ranks', 'RanksController');
     Route::resource('loadouts', 'LoadoutsController');
+    Route::resource('assignments', 'AssignmentController');
+    Route::resource('teamspeak', 'TeamspeakController');
 
     Route::get('autocomplete/courses', 'AutoCompleteController@getCourses');
 

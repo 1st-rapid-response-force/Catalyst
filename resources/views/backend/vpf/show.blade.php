@@ -440,6 +440,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="status">Clearance Level:</label>
+                                <select name="clearance" class="form-control" style="width: 100%;">
+                                    <option {{($user->vpf->clearance == '33') ? 'selected' : ''}} value="33">No Clearance</option>
+                                    <option {{($user->vpf->clearance == '34') ? 'selected' : ''}} value="34">Confidential Clearance</option>
+                                    <option {{($user->vpf->status == '35') ? 'selected' : ''}} value="35">Secret Clearance</option>
+                                    <option {{($user->vpf->status == '36') ? 'selected' : ''}} value="36">Top Secret Clearance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="assignments">Assignments (that are available):</label>
                                 <select name="assignment_id" class="form-control" style="width: 100%;">
                                     @foreach($assignments as $assignment)

@@ -41,7 +41,7 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li> <a href="/admin/organization-structure"><i class="fa fa-list"></i> <span>Organization Structure</span></a></li>
+                    <li> <a href="{{route('admin.assignments.index')}}"><i class="fa fa-list"></i> <span>Assignments Manager</span></a></li>
                     <li> <a href="/admin/ranks"><i class="fa fa-pause"></i> <span>Ranks</span></a></li>
                 </ul>
             </li>
@@ -65,9 +65,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li> <a href="/admin/teamspeak"><i class="fa fa-volume-up"></i> <span>Teamspeak Management</span></a></li>
+                    <li> <a href="{{route('admin.teamspeak.index')}}"><i class="fa fa-volume-up"></i> <span>Teamspeak Management</span></a></li>
                     <li> <a href="/admin/game-servers"><i class="fa fa-gamepad"></i> <span>Game Server Management</span></a></li>
-                    <li> <a href="/admin/forum-management"><i class="fa fa-quote-right"></i> <span>Forum Management</span></a></li>
                 </ul>
             </li>
     </section>

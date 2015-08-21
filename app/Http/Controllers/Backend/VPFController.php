@@ -15,12 +15,25 @@ use App\Role;
 use App\Assignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Modules\Teamspeak\TeamspeakContract;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class VPFController extends Controller
 {
+    /**
+     * @var TeamspeakContract
+     */
+    protected $ts;
+
+    /**
+     * @param TeamspeakContract $ts
+     */
+    public function __construct(TeamspeakContract $ts){
+        $this->ts = $ts;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -208,6 +221,9 @@ class VPFController extends Controller
         $vpf->rank_id = $newRank->id;
         $vpf->save();
 
+        $user = User::find($vpf->user->id);
+        $this->ts->update($user);
+
         \Notification::success('Member was promoted!');
         return redirect('/admin/vpf/'.$vpf_id);
     }
@@ -318,6 +334,9 @@ class VPFController extends Controller
         $vpfUser->attachRole($getRole);
 
         $vpf->push();
+
+        $user = User::find($vpf->user->id);
+        $this->ts->update($user);
 
         \Notification::success('Member was Discharged from the unit!');
         return redirect('/admin/vpf/'.$vpf_id);
@@ -493,10 +512,12 @@ class VPFController extends Controller
         $user->vpf->user_id = $input->user_id;
         $user->vpf->face_id = $input->face_id;
         $user->vpf->rank_id = $input->rank_id;
-        //Call Teamspeak function
         $user->vpf->status = $input->status;
+        $user->vpf->clearance = $input->clearance;
         $user->vpf->assignment_id = $input->assignment_id;
         $user->push();
+        $this->ts->update($user);
+
     }
 
 }

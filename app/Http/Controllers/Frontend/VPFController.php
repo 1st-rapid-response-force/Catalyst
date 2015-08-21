@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Modules\Teamspeak\TeamspeakContract;
 use App\Teamspeak;
 use Notification;
 use Illuminate\Http\Request;
@@ -27,10 +28,17 @@ class VPFController extends Controller
     protected $image;
 
     /**
-     * @param ImageRepositoryContract $image
+     * @var TeamspeakContract
      */
-    public function __construct(ImageRepositoryContract $image){
+    protected $ts;
+
+    /**
+     * @param ImageRepositoryContract $image
+     * @param TeamspeakContract $ts
+     */
+    public function __construct(ImageRepositoryContract $image, TeamspeakContract $ts){
         $this->image = $image;
+        $this->ts = $ts;
     }
 
     /**
@@ -192,10 +200,12 @@ class VPFController extends Controller
             \Notification::error('You must have a unique UUID in order to save this value.');
             return redirect('/virtual-personnel-file/teamspeak');
         }
-
+        $this->ts->update($user);
         $user->push();
 
-        Notification::success('Teamspeak UUID added successfully');
+
+
+        Notification::success('Teamspeak UUID added successfully, update has been pushed to teamspeak server');
         return redirect('/virtual-personnel-file/teamspeak');
     }
 
@@ -215,9 +225,9 @@ class VPFController extends Controller
             Notification::error('This is not your Teamspeak ID, you cannot delete it! Action has been logged and reported');
             return redirect('/virtual-personnel-file/teamspeak');
         }
-
+        $this->ts->delete($ts->uuid);
         $ts->delete();
-        Notification::success('Teamspeak UUID added successfully');
+        Notification::success('Teamspeak UUID removed successfully');
         return redirect('/virtual-personnel-file/teamspeak');
     }
 
@@ -367,8 +377,6 @@ class VPFController extends Controller
         // output
         return $img;
     }
-
-
 
 
 }
