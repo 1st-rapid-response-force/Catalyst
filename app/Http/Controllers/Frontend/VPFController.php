@@ -200,11 +200,14 @@ class VPFController extends Controller
             \Notification::error('You must have a unique UUID in order to save this value.');
             return redirect('/virtual-personnel-file/teamspeak');
         }
-        $this->ts->update($user);
-        $user->push();
+        $attempt = $this->ts->update($user);
+        if($attempt['success'] == false)
+        {
+            $ts->delete();
+            \Notification::error($attempt['message'].' - UUID has been removed.');
+            return redirect('/virtual-personnel-file/teamspeak');
 
-
-
+        }
         Notification::success('Teamspeak UUID added successfully, update has been pushed to teamspeak server');
         return redirect('/virtual-personnel-file/teamspeak');
     }
@@ -225,7 +228,6 @@ class VPFController extends Controller
             Notification::error('This is not your Teamspeak ID, you cannot delete it! Action has been logged and reported');
             return redirect('/virtual-personnel-file/teamspeak');
         }
-        $this->ts->delete($ts->uuid);
         $ts->delete();
         Notification::success('Teamspeak UUID removed successfully');
         return redirect('/virtual-personnel-file/teamspeak');

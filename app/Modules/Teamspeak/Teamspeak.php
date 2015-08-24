@@ -30,7 +30,7 @@ class Teamspeak implements TeamspeakContract {
 
     /**
      * Updates the teamspeak server based on user
-     * @param $user
+     * @return \Illuminate\Support\Collection
      */
     public function update($user)
     {
@@ -57,36 +57,39 @@ class Teamspeak implements TeamspeakContract {
         $uuids = $user->vpf->teamspeak;
         foreach ($uuids as $uid)
         {
-            $user = $this->ts->clientFindDb($uid->uuid, true);
-            $currentGroups = collect($this->ts->clientGetServerGroupsByDbid($user));
-            //Remove ignore groups that need to be ignored (push to talk, etc)
-            foreach($groupsNo as $ignore)
-            {
-                $currentGroups->forget($ignore);
+            try {
+                $user = $this->ts->clientFindDb($uid->uuid, true);
+                $currentGroups = collect($this->ts->clientGetServerGroupsByDbid($user));
+                //Remove ignore groups that need to be ignored (push to talk, etc)
+                foreach($groupsNo as $ignore)
+                {
+                    $currentGroups->forget($ignore);
+                }
+                //Deal with default group
+                if($currentGroups->contains('sgid',8))
+                    $currentGroups->forget(8);
+
+                $currentGroups = $currentGroups->keys();
+                //Find groups that need to be added
+                $add = $groups->diff($currentGroups);
+                $remove = $currentGroups->diff($groups);
+
+
+                // Remove Groups
+                foreach($remove as $group)
+                {
+                    $this->ts->serverGroupClientDel($group, $user);
+                }
+                // Add Groups
+                foreach($add as $group)
+                {
+                    $this->ts->serverGroupClientAdd($group, $user);
+                }
+            } catch(\TeamSpeak3_Exception $e) {
+                return collect(['success'=>false,'message'=>$e->getCode().' - '.$e->getMessage()]);
             }
-            //Deal with default group
-            if($currentGroups->contains('sgid',8))
-                $currentGroups->forget(8);
-
-            $currentGroups = $currentGroups->keys();
-            //Find groups that need to be added
-            $add = $groups->diff($currentGroups);
-            $remove = $currentGroups->diff($groups);
-
-
-            // Remove Groups
-            foreach($remove as $group)
-            {
-                $this->ts->serverGroupClientDel($group, $user);
-            }
-            // Add Groups
-            foreach($add as $group)
-            {
-                $this->ts->serverGroupClientAdd($group, $user);
-            }
-
-
         }
+        return collect(['success'=>true,'message'=>'Teamspeak update successful.']);
     }
 
     public function message($user,$message)
@@ -101,18 +104,24 @@ class Teamspeak implements TeamspeakContract {
     /**
      * Removes all groups from UUID
      * @param $uuid
+     * @return \Illuminate\Support\Collection
      */
     public function delete($uuid)
     {
-        $user = $this->ts->clientFindDb($uuid, true);
-        $currentGroups = collect($this->ts->clientGetServerGroupsByDbid($user));
-        if($currentGroups->contains('sgid',8))
-            $currentGroups->forget(8);
-        $currentGroups = $currentGroups->keys();
-        foreach($currentGroups as $group)
-        {
-            $this->ts->serverGroupClientDel($group, $user);
+        try {
+            $user = $this->ts->clientFindDb($uuid, true);
+            $currentGroups = collect($this->ts->clientGetServerGroupsByDbid($user));
+            if($currentGroups->contains('sgid',8))
+                $currentGroups->forget(8);
+            $currentGroups = $currentGroups->keys();
+            foreach($currentGroups as $group)
+            {
+                $this->ts->serverGroupClientDel($group, $user);
+            }
+        } catch(\TeamSpeak3_Exception $e) {
+            return collect(['success'=>false,'message'=>$e->getCode().' - '.$e->getMessage()]);
         }
+        return collect(['success'=>true,'message'=>'Teamspeak update successful.']);
     }
 
     public function tsviewer()
