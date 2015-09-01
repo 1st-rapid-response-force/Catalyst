@@ -157,7 +157,6 @@ return [
         'Intervention\Image\ImageServiceProvider',
         'Collective\Html\HtmlServiceProvider',
         Cmgmyr\Messenger\MessengerServiceProvider::class,
-        'Aloha\Twilio\Support\Laravel\ServiceProvider',
     ],
 
     /*
@@ -213,7 +212,6 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
-        'Twilio' => 'Aloha\Twilio\Support\Laravel\Facade',
     ],
 
 ];
