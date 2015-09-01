@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article15 extends Model
+class FileCorrection extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'article15';
+    protected $table = 'file_corrections';
     protected $guarded = [];
 
     /**

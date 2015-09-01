@@ -62,7 +62,9 @@ class VPFController extends Controller
         $forms = $forms->merge($user->vpf->vcs);
         $forms = $forms->merge($user->vpf->ncs);
         $forms = $forms->merge($user->vpf->dcs);
-        $forms = $forms->merge($user->discharges);
+        $forms = $forms->merge($user->vpf->discharges);
+        $forms = $forms->merge($user->vpf->file_corrections);
+        $forms = $forms->merge($user->vpf->assignment_changes);
         $forms = $forms->sortByDesc('created_at');
 
         $buildProfile = collect(
@@ -105,7 +107,7 @@ class VPFController extends Controller
         $forms = $forms->merge($user->vpf->article15);
         $forms = $forms->merge($user->vpf->ncs);
         $forms = $forms->merge($user->vpf->dcs);
-        $forms = $forms->merge($user->discharges);
+        $forms = $forms->merge($user->vpf->discharges);
         $forms = $forms->sortByDesc('created_at');
 
         $buildProfile = collect(

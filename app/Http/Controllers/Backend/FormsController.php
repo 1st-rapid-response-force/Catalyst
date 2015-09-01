@@ -2,19 +2,87 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Assignment;
+use App\AssignmentChange;
+use App\User;
 use App\Article15;
 use App\DCS;
 use App\Discharge;
+use App\FileCorrection;
+use App\InfractionReport;
 use App\NCS;
 use App\VCS;
 use App\VPF;
+use Mail;
+use App\Role;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use App\Modules\Teamspeak\TeamspeakContract;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class FormsController extends Controller
 {
+    /**
+     * @var TeamspeakContract
+     */
+    protected $ts;
+
+    /**
+     * @param TeamspeakContract $ts
+     */
+    public function __construct(TeamspeakContract $ts){
+        $this->ts = $ts;
+    }
+
+    /**
+     * Shows Form Manager index
+     */
+    public function index()
+    {
+        $user = \Auth::User();
+
+        $discharges = Discharge::where('discharge_type','=','PENDING REVIEW')->get();
+        $vpf_cr = FileCorrection::where('reviewed','=',0)->get();
+        $infractions = InfractionReport::where('reviewed','=',0)->get();
+        $assignment_changes = AssignmentChange::where('reviewed','=',0)->get();
+
+        $forms = collect();
+        $forms = $forms->merge($discharges);
+        $forms = $forms->merge($vpf_cr);
+        $forms = $forms->merge($infractions);
+        $forms = $forms->merge($assignment_changes);
+
+        return view('backend.forms.index')
+            ->with('forms',$forms)
+            ->with('user',$user);
+    }
+
+    /**
+     * Shows Form Manager index - archive (all)
+     */
+    public function all()
+    {
+        $user = \Auth::User();
+
+        $discharges = Discharge::all();
+        $vpf_cr = FileCorrection::all();
+        $infractions = InfractionReport::all();
+        $assignment_changes = AssignmentChange::all();
+
+        $forms = collect();
+        $forms = $forms->merge($discharges);
+        $forms = $forms->merge($vpf_cr);
+        $forms = $forms->merge($infractions);
+        $forms = $forms->merge($assignment_changes);
+
+        return view('backend.forms.index')
+            ->with('forms',$forms)
+            ->with('user',$user);
+    }
+
     public function newForm($vpf_id,$type)
     {
         $vpf = VPF::find($vpf_id);
@@ -173,5 +241,297 @@ class FormsController extends Controller
                 abort(404);
                 break;
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($vpf_id,$type,$id)
+    {
+        $vpf = VPF::find($vpf_id);
+        $user = \Auth::User();
+        switch($type)
+        {
+            case 'discharge':
+                $form = Discharge::find($id);
+                return view('backend.forms.edit.discharge')->with('dis',$form);
+                break;
+            case 'vpf_cr':
+                $form = FileCorrection::find($id);
+                return view('backend.forms.edit.vpf_cr')->with('vpf_cr',$form);
+                break;
+            case 'ir':
+                $form = InfractionReport::find($id);
+                return view('backend.forms.edit.ir')->with('ir',$form);
+                break;
+            case 'assignment_change':
+                $form = AssignmentChange::find($id);
+                $assignmentList= $this->AssignmentListTransfer();
+                return view('backend.forms.edit.assignment_change')->with('assignmentList',$assignmentList)->with('ac',$form);
+                break;
+                break;
+            case 'training-completion':
+                break;
+            default:
+                abort(404);
+                break;
+        }
+    }
+
+    /**
+     * Deals with form edits
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function process($vpf_id,$type,$id, Request $request)
+    {
+
+        $vpf = VPF::find($vpf_id);
+        $vpfUser = User::find($vpf->user->id);
+        $user = \Auth::User();
+
+        switch($type)
+        {
+            case 'discharge':
+                $discharger = \Auth::User();
+                $form = Discharge::find($id);
+                $form->discharge_type = $request->discharge_type;
+                $form->discharger_name = $discharger->vpf->last_name.', '.$discharger->vpf->first_name;
+                $form->discharger_grade = $discharger->vpf->rank->pay_grade;
+                $form->discharger_organization = '1st Rapid Response Force';
+                $form->discharger_signature = $discharger->vpf->first_name.' '.$discharger->vpf->last_name;
+                $form->save();
+
+                if($request->discharge_type != 'Dishonorable Discharge')
+                {
+                    // Email User
+                    $data = [
+                        'discharge_type'=>$request->discharge_type,
+                    ];
+
+                    $this->emailDischarge($vpf->user,$data);
+
+                    //Add Service History
+                    $vpf->serviceHistory()->create([
+                        'note' => 'Discharged from the 1st RRF - '.$request->discharge_type,
+                        'date'=> Carbon::now()
+                    ]);
+
+                    //Set Rank and Assignment
+                    $vpf->rank_id = 1; //No Rank
+                    $vpf->assignment_id = 157; //Civ
+                    $vpf->save();
+
+                    // Deal with Roles - Ghetto Style
+                    foreach($vpf->user->roles as $role)
+                    {
+                        $getRole = Role::find($role->id);
+                        $vpfUser->detachRole($getRole);
+                    }
+                    //Add simple role
+                    $getRole = Role::find(5);
+                    $vpfUser->attachRole($getRole);
+
+                    $vpf->push();
+
+
+                    //Update user on Teamspeak
+                    $this->ts->update($vpfUser);
+                } else {
+                    $data = [
+                        'discharge_type'=>$request->discharge_type,
+                    ];
+
+                    //Add Service History
+                    $vpf->serviceHistory()->create([
+                        'note' => 'Discharged from the 1st RRF - '.$request->discharge_type,
+                        'date'=> Carbon::now()
+                    ]);
+
+                    //Email user dishonorable discharge email
+                    $this->emailDishonorableDischarge($vpf->user,$data);
+
+                    //Set Rank and Assignment
+                    $vpf->rank_id = 1; //No Rank
+                    $vpf->assignment_id = 157; //Civ
+                    $vpf->save();
+
+                    // Deal with Roles - Ghetto Style
+                    foreach($vpf->user->roles as $role)
+                    {
+                        $getRole = Role::find($role->id);
+                        $vpfUser->detachRole($getRole);
+                    }
+                    //Add simple role
+                    $getRole = Role::find(5);
+                    $vpfUser->attachRole($getRole);
+
+                    $vpf->push();
+
+                    //Update user on Teamspeak
+                    $this->ts->ban($vpfUser);
+                }
+
+
+                \Notification::sucess('Form has been saved, user has been discharge.');
+                return redirect('/admin/forms');
+                break;
+            case 'vpf_cr':
+                $form = FileCorrection::find($id);
+                if($request->reviewed == 1)
+                {
+                    $form->reviewed = $request->reviewed;
+                    $form->save();
+                    \Notification::sucess('Form has been saved');
+                    return redirect('/admin/forms');
+                } else {
+                    \Notification::warning('No action has been taken as review field was set to not reviewed');
+                    return redirect('/admin/forms');
+                }
+                break;
+            case 'ir':
+                $form = InfractionReport::find($id);
+                if($request->reviewed == 1)
+                {
+                $form->reviewed = $request->reviewed;
+                $form->save();
+                \Notification::sucess('Form has been saved');
+                return redirect('/admin/forms');
+                } else {
+                    \Notification::warning('No action has been taken as review field was set to not reviewed');
+                    return redirect('/admin/forms');
+                }
+                break;
+            case 'assignment_change':
+                $form = AssignmentChange::find($id);
+                if($request->reviewed == 1)
+                {
+                    $form->reviewed = $request->reviewed;
+                    $form->approved = $request->approved;
+                    $form->approved_by = $user->vpf;
+                    $form->save();
+
+                    $ac = Assignment::find($request->requested_assignment);
+                    $requestedAssignment = $ac->name.' - '.$ac->mos->mos.' - '.$ac->group->name;
+
+                    if($request->approved == 1)
+                    {
+                        $decision = "Approved";
+
+                        //Add Service History
+                        $vpf->serviceHistory()->create([
+                            'note' => 'Assignment Transfer to '.$ac->name.' - '.$ac->mos->mos.' - '.$ac->group->name,
+                            'date'=> Carbon::now()
+                        ]);
+
+                        //Make Assignment Change
+                        $vpf->assignment_id = $request->requested_assignment;
+                        $vpf->save();
+                    } else {
+                        $decision = "Declined";
+                    }
+
+                    // Email User
+                    $data = [
+                        'approved'=>$decision,
+                        'requested_assignment' => $requestedAssignment,
+                    ];
+                    $this->emailAssignmentChange($vpf->user,$data);
+
+
+
+                    \Notification::sucess('Form has been saved');
+                    return redirect('/admin/forms');
+                } else {
+                    \Notification::warning('No action has been taken as review field was set to not reviewed');
+                    return redirect('/admin/forms');
+                }
+
+
+                break;
+            case 'training-completion':
+                break;
+            default:
+                abort(404);
+                break;
+        }
+    }
+
+    /**
+     * Compiles a list of all available assignments based on available and those marked as initial assignments
+     * @return \Illuminate\Support\Collection
+     */
+    private function AssignmentListTransfer()
+    {
+        //Variable Declaration
+        $assignments = Assignment::all();
+        $availableForEnlistment = collect();
+
+
+        //Iterate through all assignments to determine all available Assignments
+        foreach($assignments as $assignment)
+        {
+            //Check if anyone else has this ID
+            $assignmentCheck = VPF::where('assignment_id',$assignment->id)->first();
+            //If No One has it, add the model to a collection
+            if (is_null($assignmentCheck)) {
+                // Transfer Open Check
+                if($assignment->transfer_open == 1)
+                    $availableForEnlistment->push($assignment);
+            }
+        }
+
+
+        //Return list of unique MOS's, lets return a collection of MOS models for the page
+        return $availableForEnlistment;
+    }
+
+    /**
+     * Sends email to User regarding Discharges
+     * @param $user
+     * @param $data
+     */
+    private function emailDischarge($user,$data)
+    {
+        Mail::send('emails.discharge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Discharge');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
+
+    /**
+     * Sends email to User regarding Discharges
+     * @param $user
+     * @param $data
+     */
+    private function emailDishonorableDischarge($user,$data)
+    {
+        Mail::send('emails.dishonorableDischarge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Dishonorable Discharge');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
+
+    /**
+     * Sends email to User regarding Discharges
+     * @param $user
+     * @param $data
+     */
+    private function emailAssignmentChange($user,$data)
+    {
+        Mail::send('emails.assignmentChange', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Assignment Change');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
     }
 }

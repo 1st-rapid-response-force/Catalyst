@@ -52,6 +52,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li> <a href="{{route('admin.vpf.index')}}"><i class="fa fa-file"></i> <span>Virtual Personnel File</span></a></li>
+                    <li> <a href="{{route('admin.forms.index')}}"><i class="fa fa-archive"></i> <span>Forms Manager</span></a></li>
                     <li> <a href="{{route('admin.qualifications.index')}}"><i class="fa fa-check-square-o"></i> <span>Qualifications</span></a></li>
                     <li> <a href="{{route('admin.ribbons.index')}}"><i class="fa fa-align-justify"></i> <span>Ribbons</span></a></li>
                     <li> <a href="{{route('admin.operations.index')}}"><i class="fa fa-calendar"></i> <span>Operations</span></a></li>

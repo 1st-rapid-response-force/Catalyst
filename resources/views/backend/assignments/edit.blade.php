@@ -51,6 +51,11 @@
                 <label><input type="radio" name="entry_level" value="1" {{($assignment->entry_level == 1) ? 'checked' : ''}}> YES</label> &nbsp;
                 <label><input type="radio" name="entry_level" value="0" {{($assignment->entry_level == 0) ? 'checked' : ''}}> NO</label> &nbsp;
             </div>
+            <div class="form-group">
+                <label>Is this an position open for transfers (Assignment Change Requests):</label>
+                <label><input type="radio" name="transfer_open" value="1" {{($assignment->transfer_open == 1) ? 'checked' : ''}}> YES</label> &nbsp;
+                <label><input type="radio" name="transfer_open" value="0" {{($assignment->transfer_open == 0) ? 'checked' : ''}}> NO</label> &nbsp;
+            </div>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button> <a href="{{route('admin.assignments.index')}}" class="btn btn-danger">Cancel</a>
         </form>

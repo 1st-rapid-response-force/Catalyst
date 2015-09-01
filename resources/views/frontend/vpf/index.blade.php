@@ -114,7 +114,7 @@
                                 @foreach($profile['forms'] as $form)
                                 <tr>
                                     <td class="col-lg-2">{{$form->updated_at->toFormattedDateString()}}</td>
-                                    <td class="col-lg-10"><a href="/forms/{{$form->form_type}}/{{$form->id}}">{{$form->form_name}}</a></td>
+                                    <td class="col-lg-10"><a href="/forms/show/{{$form->form_type}}/{{$form->id}}">{{$form->form_name}}</a></td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -181,10 +181,11 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <h3>Requests</h3>
-                                <a class="btn btn-block btn-default" href="#">File Virtual Personnel File Correction</a>
-                                <a class="btn btn-block btn-default" href="#">File Assignment Change Request</a>
+                                <a class="btn btn-block btn-default" href="/forms/create/ir">File an Infraction Report</a>
+                                <a class="btn btn-block btn-default" href="/forms/create/vpf_cr">File Virtual Personnel File Correction</a>
+                                <a class="btn btn-block btn-default" href="/forms/create/assignment_change">File Assignment Change Request</a>
                                 <hr>
-                                <a class="btn btn-block btn-danger" href="#">File Discharge Paperwork</a>
+                                <a class="btn btn-block btn-danger" href="/forms/create/discharge">File Discharge Paperwork</a>
                             </div>
                             <div class="col-lg-6">
                                 <h3>Options</h3>

@@ -98,8 +98,8 @@
                     <li class="hidden-xs"><a href="#15b-description" data-toggle="tab" aria-expanded="false">15B(B1/2) - Transport Airframe Weapons Sergeant</a></li>
                     <li class="hidden-xs"><a href="#57a-description" data-toggle="tab" aria-expanded="false">57A - Simulation Operations Officer</a></li>
                     <li class="hidden-xs"><a href="#25c-description" data-toggle="tab" aria-expanded="false">25C - Radio Operator</a></li>
-                    <li class=""><a href="#15q-description" data-toggle="tab" aria-expanded="false">15Q - Air Traffic Control Specialist </a></li>
-                    <li class=""><a href="#17z-description" data-toggle="tab" aria-expanded="false">17Z - Reconnaissance Element Commander</a></li>
+                    <li class=""><a href="#15q-description" data-toggle="tab" aria-expanded="false">13B (Artillery Crewmemember) </a></li>
+                    <li class=""><a href="#17z-description" data-toggle="tab" aria-expanded="false">18Z - Reconnaissance Element Commander</a></li>
                 </ul>
 
                 <div id="myTabContent" class="tab-content">
@@ -112,12 +112,12 @@
                                 Many 11Bs choose never to progress further into the unit as they find that the role provides a great all round experience that is not overly time consuming.
                             </p>
                             <p>
-                                Out 11Bs are trained to some of the highest standards in the ARMA verse to show teamwork and discipline, whilst not operating at a level that requires enthusiast level time commitments.
+                                Our 11Bs are trained to some of the highest standards in the ARMA verse to show teamwork and discipline, whilst not operating at a level that requires enthusiast level time commitments.
                             </p>
                             <p>
                                 11Bs are essential to completing any objective that the RRF is assigned, normally utilizing firepower and overwhelming force tactics to complete their objective in coordination with other elements.
                             </p>
-                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                            <a href="/enlistment" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="15b-description">
@@ -135,7 +135,7 @@
                                 15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
                             </p>
 
-                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                            <a href="/enlistment" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="57a-description">
@@ -146,68 +146,46 @@
                             <p>
                                 Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
                             </p>
-                            <p>
-                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
-                            </p>
-                            <p>
-                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
-                            </p>
-
-                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                            <a href="/enlistment" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="25c-description">
                         <div class="well well-lg">
                             <p>
-                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                                25Cs within the RRF are responsible for maintaining tactical radio communications at all echelons and training the unit on standard radio operation and procedure.
                             </p>
                             <p>
-                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
+                                They are deployed within the formations as Radio Telephone Operators (RTO), providing long range communications with adjacent units, command, and support assets.
                             </p>
                             <p>
-                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
+                                Additionally, once trained and certified, 25Cs fill an additional role as Joint Terminal Air Controllers (JTAC), directing actions of combat aircraft engaged in close air support.
                             </p>
-                            <p>
-                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
-                            </p>
-
-                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                            <a href="/enlistment" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="15q-description">
                         <div class="well well-lg">
                             <p>
-                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                                Our 13Bs understand how to maximize and coordinate indirect fire support effects in addtion to being highly proficent in the rapid processing and execution of fire missions.  As the experts, they train the unit in proper fire mission request procedure and advise the commander on safe employment of fires.
                             </p>
                             <p>
-                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
+                                They are further tasked with being prepared to forward deploy in support of ground forces operations to provide precision guidance to artillery batteries as forward observers (FOs).
                             </p>
-                            <p>
-                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
-                            </p>
-                            <p>
-                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
-                            </p>
-
-                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                            <a href="/enlistment" class="btn btn-primary">Enlist Today</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="17z-description">
                         <div class="well well-lg">
                             <p>
-                                57As design and build operations for the RRF. It is very unusual amongst ARMA units for a member of the group to have a full time assignment of creating missions and content, however we are fortunate to have a dedicated team building top quality operations.
+                                18Zs lead special long range reconnaissance and direct action teams and represent the pinnacle of the RRF tactical units.  Typically handpicked from within the unit, candidates will endure rigorous training on small unit tactics, as well as a competitive selection process.
                             </p>
                             <p>
-                                Our talented team of 57As plan, design, implement and run all aspects of the RRFs operations.
-                            </p>
-                            <p>
-                                This wide ranging position will see the individual utilizing weapons from Designated Rifles all the way to the might Vulcan Minigun to provide support to their comrades on the ground and their teammates in the airframe with them.
-                            </p>
-                            <p>
-                                15Bs are essential to the safe operation of the RRFs Aircraft and serve as a great stepping stone into the Pilot Positions.
-                            </p>
 
-                            <a href="#" class="btn btn-primary">Enlist Today</a>
+                                As leaders of the special operations element, 18Zs are responsible for the training of their teams and mission planning.  They will possess all of the necessary skills and qualifications to deploy their teams by any available means, anywhere in the RRF area of operations.
+                            </p>
+                            <p>
+                                This is not an entry level position.
+                            </p>
                         </div>
                     </div>
                 </div>

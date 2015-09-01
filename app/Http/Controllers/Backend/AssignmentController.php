@@ -91,6 +91,7 @@ class AssignmentController extends Controller
         $assignment->mos_id = $request->mos_id;
         $assignment->name = $request->name;
         $assignment->entry_level = $request->entry_level;
+        $assignment->transfer_open = $request->transfer_open;
         $assignment->save();
 
         \Notification::success('Assignment Updated Successfully');

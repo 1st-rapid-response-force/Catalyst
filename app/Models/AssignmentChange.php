@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Article15 extends Model
+class AssignmentChange extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'article15';
+    protected $table = 'assignment_changes';
     protected $guarded = [];
 
     /**
@@ -21,5 +21,10 @@ class Article15 extends Model
     public function VPF()
     {
         return $this->belongsTo('App\VPF','vpf_id','id');
+    }
+
+    public function requestedAssignment()
+    {
+        return $this->belongsTo('App\Assignment','requested_assignment','id');
     }
 }

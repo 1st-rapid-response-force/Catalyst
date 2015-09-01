@@ -20,6 +20,6 @@ class Discharge extends Model
      */
     public function VPF()
     {
-        return $this->belongsTo('App\VPF');
+        return $this->belongsTo('App\VPF','vpf_id','id');
     }
 }

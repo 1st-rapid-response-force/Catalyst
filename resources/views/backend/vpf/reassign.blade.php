@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="box-body">
-            <p>Using this interface you can reassign members in the unit.</p>
+            <p>Using this interface you can reassign members in the unit. <br><br> <strong>NOTE: This is an administrative reassign, if a member has filed a form use the Form Manager instead!</strong></p>
             <p>The following actions will occur</p>
             <ul>
                 <li>A service history entry will be added</li>

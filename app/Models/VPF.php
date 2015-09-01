@@ -114,6 +114,33 @@ class VPF extends Model
     }
 
     /**
+     * Returns all Incident Reports
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function infraction_reports()
+    {
+        return $this->hasMany('App\InfractionReport','vpf_id','id');
+    }
+
+    /**
+     * Returns all File Corrections
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function file_corrections()
+    {
+        return $this->hasMany('App\FileCorrection','vpf_id','id');
+    }
+
+    /**
+     * Returns all Assignment Change Forms
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignment_changes()
+    {
+        return $this->hasMany('App\AssignmentChange','vpf_id','id');
+    }
+
+    /**
      * Returns all Developmental Counseling Statements
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

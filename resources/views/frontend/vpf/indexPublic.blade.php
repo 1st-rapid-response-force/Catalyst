@@ -111,7 +111,7 @@
                                 @foreach($profile['forms'] as $form)
                                     <tr>
                                         <td class="col-lg-2">{{$form->updated_at->toFormattedDateString()}}</td>
-                                        <td class="col-lg-10"><a href="/forms/{{$form->form_type}}/{{$form->id}}">{{$form->form_name}}</a></td>
+                                        <td class="col-lg-10"><a href="/forms/show/{{$form->form_type}}/{{$form->id}}">{{$form->form_name}}</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

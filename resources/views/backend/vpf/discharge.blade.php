@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="box-body">
-            <p>Using this interface you can discharge a member in the unit.</p>
+            <p>Using this interface you can discharge a member in the unit. <br><br> <strong>NOTE: This is an administrative discharge, if a member has filed a form use the Form Manager instead!</strong></p>
             <p>The following actions will occur</p>
             <ul>
                 <li>A service history entry will be added</li>
@@ -38,8 +38,8 @@
                         <option>Bad Conduct Discharge</option>
                         <option>Administrative Discharge</option>
                     </select>
-                    <label>Discharge Notes (placed in Discharge Form)</label>
-                    <textarea name="discharge_text" class="form-control"></textarea>
+                    <label>Reason for Discharge (autofilled)</label>
+                    <textarea name="discharge_text" class="form-control" readonly> Discharge form was filed on behalf of member</textarea>
                     <br>
                     <button type="submit" class="btn btn-primary">Discharge User</button>
                 </div>

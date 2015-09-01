@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
         <li class="active">Forms</li>
-        <li class="active">Discharge Paperwork - {{$dis->created_at->toFormattedDateString()}}</li>
+        <li class="active">Assignment Change Request Form - {{$ac->created_at->toFormattedDateString()}}</li>
     </ol>
 @endsection
 
@@ -18,24 +18,24 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-body">
-            <form class="grid-form">
+            <form class="grid-form" method="post" action="{{route('vpf.forms.store', 'assignment_change')}}">
                 {!! csrf_field() !!}
-                <div class="text-center"><legend><strong>DISCHARGE PAPERWORK</strong><br> 1ST RAPID RESPONSE FORCE<br><br></legend></div>
+                <div class="text-center"><legend><strong>ASSIGNMENT CHANGE REQUEST FORM</strong><br> 1ST RAPID RESPONSE FORCE<br><br></legend></div>
                 <div class="text-center"><h3>PRIVACY ACT STATEMENT</h3></div>
                 <p><strong>AUTHORITY: </strong> 1ST-RRF-POLICIES-PROCEDURES</p>
-                <p><strong>PRINCIPAL PURPOSE(S): </strong> Used to document a discharge/seperation from the 1st Rapid Response Force.</p>
+                <p><strong>PRINCIPAL PURPOSE(S): </strong> Used to request an assignment change within the 1st Rapid Response Force.</p>
                 <p><strong>ROUTINE USE(S): </strong> This form becomes a part of the Service's Enlisted Internal File.</p>
-                <p><strong>DISCLOSURE: </strong> Voluntary; however, failure to furnish proper information may negate the proper discharge and can lead to punitive action.</p>
+                <p><strong>DISCLOSURE: </strong> Voluntary; however, failure to furnish proper information or file request will result in no assignment change.</p>
                 <fieldset>
                     <legend>A. IDENTIFICATION DATA</legend>
                     <div data-row-span="6">
                         <div data-field-span="2">
                             <label>NAME</label>
-                            <input type="text" name="name" readonly value="{{$dis->name}}">
+                            <input type="text" name="name" readonly value="{{$vpf->last_name.', '.$vpf->first_name}}">
                         </div>
                         <div data-field-span="1">
                             <label>GRADE</label>
-                            <input type="text" name="grade" readonly value="{{$dis->grade}}">
+                            <input type="text" name="grade" readonly value="{{$vpf->rank->pay_grade}}">
                         </div>
 
                     </div>
@@ -46,23 +46,29 @@
                         </div>
                         <div data-field-span="1">
                             <label>CURRENT DATE</label>
-                            <input type="text" id="date" name="date" placeholder="01/01/2000" readonly value="{{$dis->date}}">
+                            <input type="text" id="date" name="date" placeholder="01/01/2000" readonly value="{{\Carbon\Carbon::now()->toDateString()}}">
                         </div>
                     </div>
                     <div data-row-span="4">
-                        <div data-field-span="4">
+                        <d data-field-span="4">
                             <label>ORGANIZATION</label>
                             <input type="text" name="organization" readonly value="1st Rapid Response Force">
-                        </div>
+                        </d
                     </div>
                 </fieldset>
                 <br>
                 <fieldset>
-                    <legend>B. DISCHARGE</legend>
+                    <legend>B. ASSIGNMENT REQUEST</legend>
                     <div data-row-span="1">
                         <div data-field-span="1">
-                            <label>DISCHARGE NOTES</label>
-                            <textarea name="discharge_text" rows="15" readonly>{{$dis->discharge_text}}</textarea>
+                            <label>REQUESTED ASSIGNMENT</label>
+                            <input type="text" readonly value="{{$ac->requestedAssignment->name}} - {{$ac->requestedAssignment->mos->mos}} - {{$ac->requestedAssignment->group->name}}">
+                        </div>
+                    </div>
+                    <div data-row-span="1">
+                        <div data-field-span="1">
+                            <label>REASON FOR ASSIGNMENT CHANGE</label>
+                            <textarea name="request_reason" readonly rows="15">{{$ac->request_reason}}</textarea>
                         </div>
                     </div>
                 </fieldset>
@@ -71,33 +77,26 @@
                     <legend>C. PROCESSING PARTY</legend>
                     <div data-row-span="1">
                         <div data-field-span="1">
-                            <label>DISCHARGE TYPE</label>
-                            <input type="text" readonly name="discharge_type" value="{{$dis->discharge_type}}">
-                        </div>
-                    </div>
-                    <div data-row-span="3">
-                        <div data-field-span="2">
-                            <label>NAME</label>
-                            <input type="text" readonly name="discharger_name" value="{{$dis->discharger_name}}">
-                        </div>
-                        <div data-field-span="1">
-                            <label>GRADE</label>
-                            <input type="text" readonly name="discharger_grade" value="{{$dis->discharger_grade}}">
-                        </div>
-                    </div>
-                    <div data-row-span="2">
-                        <div data-field-span="2">
-                            <label>ORGANIZATION</label>
-                            <input type="text" readonly name="discharger_organization" value="{{$dis->discharger_organization}}">
+                            <label>HAS THIS ASSIGNMENT CHANGE FORM BEEN REVIEWED</label>
+                            <label><input type="radio" name="reviewed" value="1" disabled {{($ac->reviewed == 1) ? 'checked' : ''}}> YES</label> &nbsp;
+                            <label><input type="radio" name="reviewed" value="0" disabled {{($ac->reviewed == 0) ? 'checked' : ''}}> NO</label> &nbsp;
                         </div>
                     </div>
                     <div data-row-span="1">
                         <div data-field-span="1">
-                            <label>SIGNATURE</label>
-                            <input type="text" name="discharger_signature" readonly value="{{$dis->discharger_signature}}">
+                            <label>HAS THIS REQUEST BEEN APPROVED</label>
+                            <label><input type="radio" name="approved" value="1" disabled {{($ac->approved == 1) ? 'checked' : ''}}> YES</label> &nbsp;
+                            <label><input type="radio" name="approved" value="0" disabled {{($ac->approved == 1) ? 'checked' : ''}}> NO</label> &nbsp;
+                        </div>
+                    </div>
+                    <div data-row-span="3">
+                        <div data-field-span="2">
+                            <label>AUTHORITY:</label>
+                            <input type="text" readonly name="discharger_name" value="{{$ac->approved_by}}">
                         </div>
                     </div>
                 </fieldset>
+                <br><br>
             </form>
         </div>
     </div>

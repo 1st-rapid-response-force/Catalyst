@@ -15,6 +15,7 @@ use App\Role;
 use App\Assignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Mail;
 use App\Modules\Teamspeak\TeamspeakContract;
 
 use App\Http\Requests;
@@ -95,6 +96,8 @@ class VPFController extends Controller
         $forms = $forms->merge($vpf->ncs);
         $forms = $forms->merge($vpf->dcs);
         $forms = $forms->merge($vpf->discharges);
+        $forms = $forms->merge($vpf->file_corrections);
+        $forms = $forms->merge($vpf->assignment_changes);
         $forms = $forms->sortByDesc('created_at');
 
         $buildProfile = collect(
@@ -336,7 +339,31 @@ class VPFController extends Controller
         $vpf->push();
 
         $user = User::find($vpf->user->id);
-        $this->ts->update($user);
+
+        if($request->discharge_type != 'Dishonorable Discharge')
+        {
+            // Email User
+            $data = [
+                'discharge_type'=>$request->discharge_type,
+            ];
+
+            $this->emailDischarge($vpf->user,$data);
+
+            //Update user on Teamspeak
+            $this->ts->update($user);
+        } else {
+            $data = [
+                'discharge_type'=>$request->discharge_type,
+            ];
+
+            //Email user dishonorable discharge email
+            $this->emailDishonorableDischarge($vpf->user,$data);
+
+            //Ban user on Teamspeak
+            $this->ts->ban($vpfUser);
+        }
+
+
 
         \Notification::success('Member was Discharged from the unit!');
         return redirect('/admin/vpf/'.$vpf_id);
@@ -520,4 +547,34 @@ class VPFController extends Controller
 
     }
 
+
+    /**
+     * Sends email to User regarding Discharges
+     * @param $user
+     * @param $data
+     */
+    private function emailDischarge($user,$data)
+    {
+        Mail::send('emails.discharge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Discharge');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
+
+    /**
+     * Sends email to User regarding Discharges
+     * @param $user
+     * @param $data
+     */
+    private function emailDishonorableDischarge($user,$data)
+    {
+        Mail::send('emails.dishonorableDischarge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Dishonorable Discharge');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
 }

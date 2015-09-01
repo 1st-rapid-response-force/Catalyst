@@ -9,6 +9,8 @@ interface TeamspeakContract {
     public function message($user,$message);
     public function announce($message);
     public function delete($uuid);
+    public function ban($user);
     public function tsviewer();
+
 
 }

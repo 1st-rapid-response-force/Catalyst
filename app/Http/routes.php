@@ -63,7 +63,9 @@ Route::group(['namespace' => 'Frontend'], function()
             Route::get('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak', 'uses' => 'VPFController@showTeamspeak']);
             Route::post('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak.store', 'uses' => 'VPFController@saveTeamspeak']);
             Route::delete('/virtual-personnel-file/teamspeak/{id}',['as' => 'vpf.teamspeak.delete', 'uses' => 'VPFController@deleteTeamspeak']);
-            Route::get('/forms/{type}/{id}',['as'=>'vpf.forms.show','uses'=>'FormsController@show']);
+            Route::get('/forms/show/{type}/{id}',['as'=>'vpf.forms.show','uses'=>'FormsController@show']);
+            Route::get('/forms/create/{type}',['as'=>'vpf.forms.create','uses'=>'FormsController@create']);
+            Route::post('/forms/create/{type}',['as'=>'vpf.forms.store','uses'=>'FormsController@store']);
 
         //My Inbox
         Route::get('/my-inbox', ['as' => 'inbox', 'uses' => 'myInboxController@index']);
@@ -134,12 +136,21 @@ Route::group(['namespace' => 'Backend',
     Route::get('enlistments/rejected-apps',['as'=>'admin.enlistments.rejected','uses'=>'ApplicationsController@rejected']);
     Route::resource('enlistments', 'ApplicationsController');
 
-    Route::get('forms/{type}',['as'=>'admin.forms.new','uses'=>'FormsController@newForm']);
+
 
     Route::resource('ribbons', 'RibbonsController');
     Route::resource('qualifications', 'QualificationsController');
 
+    // Form Manager
+    Route::get('forms/',['as'=>'admin.forms.index','uses'=>'FormsController@index']);
+    Route::get('forms/all/',['as'=>'admin.forms.archive','uses'=>'FormsController@all']);
+    Route::get('forms/edit/{vpf_id}/{type}/{id}',['as'=>'admin.forms.edit','uses'=>'FormsController@edit']);
+    Route::post('forms/edit/{vpf_id}/{type}/{id}',['as'=>'admin.forms.edit','uses'=>'FormsController@process']);
+    Route::delete('forms/delete/{type}/{id}',['as'=>'admin.forms.destroy','uses'=>'FormsController@index']);
+
+
     // Schools
+    Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);
     Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);\
@@ -160,6 +171,7 @@ Route::group(['namespace' => 'Backend',
     Route::delete('vpf/{vpf_id}/delete/operations/{id}',['as'=>'admin.vpf.delete.operations','uses'=>'VPFController@destroyOperation']);
     Route::delete('vpf/{vpf_id}/delete/schools/{id}',['as'=>'admin.vpf.delete.school','uses'=>'VPFController@destroySchool']);
     Route::resource('vpf', 'VPFController');
+
 
 
 

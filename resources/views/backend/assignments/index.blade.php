@@ -31,6 +31,7 @@
                 <th>Group</th>
                 <th>Assigned to</th>
                 <th>Entry Level</th>
+                <th>Transfer Open</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -42,6 +43,7 @@
                     <td>{!! $assignment->group->name !!}</td>
                     <td><a href="{{route('admin.vpf.show',$assignment->id)}}">{{$assignment->member}}</a></td>
                     <td>{!!($assignment->entry_level == 1) ? 'True' : 'False' !!}</td>
+                    <td>{!!($assignment->transfer_open == 1) ? 'True' : 'False' !!}</td>
                     <td><a href="{{route('admin.assignments.edit', $assignment->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
                         <a href="{{ route('admin.assignments.destroy',array($assignment->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>
                     </td>

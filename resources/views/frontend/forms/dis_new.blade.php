@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
         <li class="active">Forms</li>
-        <li class="active">Discharge Paperwork - {{$dis->created_at->toFormattedDateString()}}</li>
+        <li class="active">Discharge Request</li>
     </ol>
 @endsection
 
@@ -18,7 +18,7 @@
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-body">
-            <form class="grid-form">
+            <form class="grid-form" method="post" action="{{route('vpf.forms.store', 'discharge')}}">
                 {!! csrf_field() !!}
                 <div class="text-center"><legend><strong>DISCHARGE PAPERWORK</strong><br> 1ST RAPID RESPONSE FORCE<br><br></legend></div>
                 <div class="text-center"><h3>PRIVACY ACT STATEMENT</h3></div>
@@ -31,11 +31,11 @@
                     <div data-row-span="6">
                         <div data-field-span="2">
                             <label>NAME</label>
-                            <input type="text" name="name" readonly value="{{$dis->name}}">
+                            <input type="text" name="name" readonly value="{{$vpf->last_name.', '.$vpf->first_name}}">
                         </div>
                         <div data-field-span="1">
                             <label>GRADE</label>
-                            <input type="text" name="grade" readonly value="{{$dis->grade}}">
+                            <input type="text" name="grade" readonly value="{{$vpf->rank->pay_grade}}">
                         </div>
 
                     </div>
@@ -46,7 +46,7 @@
                         </div>
                         <div data-field-span="1">
                             <label>CURRENT DATE</label>
-                            <input type="text" id="date" name="date" placeholder="01/01/2000" readonly value="{{$dis->date}}">
+                            <input type="text" id="date" name="date" placeholder="01/01/2000" readonly value="{{\Carbon\Carbon::now()->toDateString()}}">
                         </div>
                     </div>
                     <div data-row-span="4">
@@ -61,8 +61,8 @@
                     <legend>B. DISCHARGE</legend>
                     <div data-row-span="1">
                         <div data-field-span="1">
-                            <label>DISCHARGE NOTES</label>
-                            <textarea name="discharge_text" rows="15" readonly>{{$dis->discharge_text}}</textarea>
+                            <label>REASON FOR DISCHARGE</label>
+                            <textarea name="discharge_text" rows="15"></textarea>
                         </div>
                     </div>
                 </fieldset>
@@ -72,32 +72,35 @@
                     <div data-row-span="1">
                         <div data-field-span="1">
                             <label>DISCHARGE TYPE</label>
-                            <input type="text" readonly name="discharge_type" value="{{$dis->discharge_type}}">
+                            <input type="text" readonly name="discharge_type" value="PENDING REVIEW">
                         </div>
                     </div>
                     <div data-row-span="3">
                         <div data-field-span="2">
                             <label>NAME</label>
-                            <input type="text" readonly name="discharger_name" value="{{$dis->discharger_name}}">
+                            <input type="text" readonly name="discharger_name" value="">
                         </div>
                         <div data-field-span="1">
                             <label>GRADE</label>
-                            <input type="text" readonly name="discharger_grade" value="{{$dis->discharger_grade}}">
+                            <input type="text" readonly name="discharger_grade" value="">
                         </div>
                     </div>
                     <div data-row-span="2">
                         <div data-field-span="2">
                             <label>ORGANIZATION</label>
-                            <input type="text" readonly name="discharger_organization" value="{{$dis->discharger_organization}}">
+                            <input type="text" readonly name="discharger_organization" value="">
                         </div>
                     </div>
                     <div data-row-span="1">
                         <div data-field-span="1">
                             <label>SIGNATURE</label>
-                            <input type="text" name="discharger_signature" readonly value="{{$dis->discharger_signature}}">
+                            <input type="text" name="discharger_signature" readonly value="">
                         </div>
                     </div>
                 </fieldset>
+                <br><br>
+                <p>The only section you need to fillout is the reason for discharge section. Once you submit this form and it is processed, you will be notified via email and your permissions and rank will be removed.</p>
+                <button type="submit">File for Discharge</button>
             </form>
         </div>
     </div>
