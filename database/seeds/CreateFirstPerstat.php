@@ -13,7 +13,7 @@ class CreateFirstPerstat extends Seeder
     {
         $perstat = new \App\Perstat;
         $assigned = \App\VPF::where('status','=','Active')->get()->count();
-        $perstat = new Perstat;
+        $perstat = new \App\Perstat;
         $perstat->from = '2015-08-30';
         $perstat->to = '2015-09-06';
         $perstat->assigned = $assigned;
