@@ -73,6 +73,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns all PERSTATS
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function perstat()
+    {
+        return $this->belongsToMany('App\Perstat', 'perstat_vpf', 'vpf_id', 'perstat_id');
+    }
+
+    /**
      * Returns all Ribbons
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
@@ -210,6 +219,16 @@ class VPF extends Model
     public function schoolTrainingDate()
     {
         return $this->belongsToMany('App\SchoolTrainingDate', 'school_training_date_user', 'vpf_id', 'school_date_id');
+    }
+
+    public function hasReportedIn()
+    {
+        $perstat = Perstat::where('active','=','1')->first();
+
+        if($perstat->VPF->contains($this->id))
+            return true;
+
+        return false;
     }
 
 }

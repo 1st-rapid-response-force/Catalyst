@@ -52,7 +52,15 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('enlistment/success', 'EnlistmentController@success');
     });
 
+    // Used to report in My Squad
     Route::group(['middleware' => ['auth','member']], function()
+    {
+        Route::get('/my-squad', ['as' => 'squad', 'uses' => 'mySquadController@index']);
+        Route::post('/my-squad/reportin', ['as' => 'squad.reportin.create', 'uses' => 'mySquadController@reportIn']);
+    });
+
+    //Report in Check
+    Route::group(['middleware' => ['auth','member','reportin']], function()
     {
         //Member only section
 
@@ -78,7 +86,6 @@ Route::group(['namespace' => 'Frontend'], function()
             Route::put('/my-inbox/edit-message/{id}', ['as' => 'inbox.edit.message.update', 'uses' => 'myInboxController@editMessageSave']);
 
         //My Squad
-        Route::get('/my-squad', ['as' => 'squad', 'uses' => 'mySquadController@index']);
             Route::get('/my-squad/message/{id}/edit', ['as' => 'squad.chatter.edit', 'uses' => 'mySquadController@editChatter']);
             Route::put('/my-squad/message/{id}', ['as' => 'squad.chatter.update', 'uses' => 'mySquadController@updateChatter']);
             Route::post('/my-squad/message', ['as' => 'squad.chatter.create', 'uses' => 'mySquadController@addChatter']);
@@ -143,7 +150,7 @@ Route::group(['namespace' => 'Backend',
 
     // Form Manager
     Route::get('forms/',['as'=>'admin.forms.index','uses'=>'FormsController@index']);
-    Route::get('forms/all/',['as'=>'admin.forms.archive','uses'=>'FormsController@all']);
+    Route::get('forms/all/',['as'=>'admin.forms.all','uses'=>'FormsController@all']);
     Route::get('forms/edit/{vpf_id}/{type}/{id}',['as'=>'admin.forms.edit','uses'=>'FormsController@edit']);
     Route::post('forms/edit/{vpf_id}/{type}/{id}',['as'=>'admin.forms.edit','uses'=>'FormsController@process']);
     Route::delete('forms/delete/{type}/{id}',['as'=>'admin.forms.destroy','uses'=>'FormsController@index']);
@@ -173,10 +180,11 @@ Route::group(['namespace' => 'Backend',
     Route::resource('vpf', 'VPFController');
 
 
-
-
+    //PERSTAT Test
+    Route::get('perstat/test',['as'=>'admin.perstat.test','uses'=>'PerstatController@test']);
 
     Route::resource('operations', 'OperationsController');
+    Route::resource('perstat', 'PerstatController');
     Route::resource('ranks', 'RanksController');
     Route::resource('loadouts', 'LoadoutsController');
     Route::resource('assignments', 'AssignmentController');

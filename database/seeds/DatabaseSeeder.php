@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         if ($env == 'production')
         {
+            $this->call(CreateFirstPerstat::class);
         }
 
         if ($env == 'local')

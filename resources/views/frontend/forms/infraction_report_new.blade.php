@@ -26,7 +26,7 @@
                 <p><strong>PRINCIPAL PURPOSE(S): </strong> Used to report conduct infractions within the unit.</p>
                 <p><strong>ROUTINE USE(S): </strong> This form is used to report conduct which will be reviewed by the Commanding Officer.</p>
                 <p><strong>DISCLOSURE: </strong> Voluntary; information is internally used and can only be viewed by Unit Commander</p>
-                <p><strong>INFO: </strong> Upon submitting this form and investigation will be conducted regarding the infraction. You may be contacted for more information regarding this case, however your report or name1` will never be disclosed to the violating party.</p>
+                <p><strong>INFO: </strong> Upon submitting this form and investigation will be conducted regarding the infraction. You may be contacted for more information regarding this case, however your report or name will never be disclosed to the violating party.</p>
                 <fieldset>
                     <legend>A. INFRACTION REPORT</legend>
                     <div data-row-span="4">

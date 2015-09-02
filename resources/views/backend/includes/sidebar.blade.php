@@ -42,6 +42,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li> <a href="{{route('admin.assignments.index')}}"><i class="fa fa-list"></i> <span>Assignments Manager</span></a></li>
+                    <li> <a href="{{route('admin.perstat.index')}}"><i class="fa fa-line-chart"></i> <span>PERSTAT Manager</span></a></li>
                     <li> <a href="/admin/ranks"><i class="fa fa-pause"></i> <span>Ranks</span></a></li>
                 </ul>
             </li>

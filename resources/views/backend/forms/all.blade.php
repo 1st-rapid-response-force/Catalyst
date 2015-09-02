@@ -22,7 +22,20 @@
         </div>
     </div>
     <div class="box-body">
-        <p>This shows all forms that are currently need review.</p>
+        <div class="pull-left" style="margin-bottom:10px">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    Forms <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{route('admin.forms.index')}}">Forms requiring attention</a></li>
+                    <li><a href="{{route('admin.forms.all')}}">All Forms</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <p>This shows all forms in the system, including forms that have been processed.</p>
         <table class="table table-striped table-bordered table-hover" id="user">
             <thead>
             <tr>

@@ -33,6 +33,12 @@
                                 <div class="media-body">
                                     <h5 class="media-heading"><a href="/roster/{{$member->user->id}}">{{$member}}</a></h5>
                                     <small>{{$member->assignment->name}}</small>
+                                    <br>
+                                    @if($member->hasReportedIn())
+                                    <span class="label label-success">Reported in</span>
+                                    @else
+                                    <span class="label label-danger">Pending Report in</span>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
@@ -98,7 +104,9 @@
                         @if(Auth::user()->hasRole(['nco','officer','superadmin']))
                         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#squadadd">Add Squad Announcement</button>
                         @endif
-                        <a href="#" class="btn btn-block btn-primary">Report In</a>
+                        @if(!$user->vpf->hasReportedIn())
+                        <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#reportin">Report in</button>
+                        @endif
                     </div>
                 </div>
                 <div class="well well-sm">
@@ -106,8 +114,8 @@
                     <p>Per current report in period</p>
                     <div class="panel-body">
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                60%
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{$user->vpf->assignment->group->squad_report_percentage()}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$user->vpf->assignment->group->squad_report_percentage()}}%;">
+                                {{$user->vpf->assignment->group->squad_report_percentage()}}%
                             </div>
                         </div>
                     </div>
@@ -192,6 +200,29 @@
                         <div class="form-group">
                             <textarea class="form-control" id="message" name="message" rows="10" placeholder="Squad Announcements" required></textarea>
                         </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-success">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reportin" tabindex="-1" role="dialog" aria-labelledby="reportin">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="reportinlabel">Report in</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('squad.reportin.create')}}" method="POST">
+                        {!! csrf_field() !!}
+                        <p>By submitting this form you are reporting into the unit. You will need to report in on a weekly basis in order to maintain an active status.</p>
+                        <p>Failure to report will result in negative action against you.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

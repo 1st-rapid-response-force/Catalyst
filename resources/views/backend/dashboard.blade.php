@@ -34,7 +34,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Active Members</span>
                     <span class="info-box-number">{{$members}}</span>
-                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
+                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="{{route('admin.users.index')}}">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -44,7 +44,7 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Active Applications</span>
                     <span class="info-box-number">{{$applications}}</span>
-                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
+                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="{{route('admin.enlistments.index')}}">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -53,8 +53,8 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Report in Status</span>
-                    <span class="info-box-number">37%</span>
-                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
+                    <span class="info-box-number">{!! $perstat->report_percentage() !!}%</span>
+                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="{{route('admin.perstat.index')}}">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>
@@ -75,7 +75,7 @@
                 <span class="info-box-icon bg-aqua"><i class="fa fa-child"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Pending Promotions</span>
-                    <span class="info-box-number">4</span>
+                    <span class="info-box-number">0</span>
                     <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
@@ -85,8 +85,8 @@
                 <span class="info-box-icon bg-blue"><i class="fa fa-fighter-jet"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Operations to Date</span>
-                    <span class="info-box-number">24</span>
-                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
+                    <span class="info-box-number">{{$operations}}</span>
+                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="{{route('admin.operations.index')}}">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>

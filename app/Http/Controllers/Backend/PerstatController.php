@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Operation;
 use App\Perstat;
 use App\VPF;
-use App\Application;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AdminController extends Controller
+class PerstatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,17 +18,22 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $members = VPF::where('status','=','Active')->get()->count();
-        $application = Application::where('status','=','Under Review')->get()->count();
-        $operations = Operation::all()->count();
-        $perstat = Perstat::where('active','=','1')->first();
+        $perstats = Perstat::all();
 
+        return view('backend.perstat.index')
+            ->with('perstats', $perstats);
+    }
 
-        return view('backend.dashboard')
-            ->with('members',$members)
-            ->with('applications',$application)
-            ->with('operations',$operations)
-            ->with('perstat',$perstat);
+    public function test()
+    {
+        $assigned = VPF::where('status','=','Active')->get()->count();
+        $perstat = new Perstat;
+        $perstat->from = '2015-09-03';
+        $perstat->to = '2015-09-06';
+        $perstat->assigned = $assigned;
+        $perstat->active = true;
+        $perstat->save();
+
     }
 
     /**
@@ -62,7 +65,9 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $perstat = Perstat::find($id);
+        return view('backend.perstat.show')
+            ->with('perstat',$perstat);
     }
 
     /**

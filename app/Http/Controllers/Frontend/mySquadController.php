@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Perstat;
 use App\SquadAnnouncements;
 use App\SquadChatter;
 use App\UnitAnnouncements;
@@ -22,10 +23,12 @@ class mySquadController extends Controller
         $user = \Auth()->user();
         $chatter = SquadChatter::where('group_id','=',$user->vpf->assignment->group->id)->orderBy('created_at','desc')->Paginate(15);
         $unitAnnouncements = UnitAnnouncements::all()->sortByDesc('created_at')->take(2);
+        $perstat = Perstat::where('active','=','1')->first();
         return view('frontend.my-squad.index')
             ->with('user',$user)
             ->with('unitAnnouncements', $unitAnnouncements)
-            ->with('chatter',$chatter);
+            ->with('chatter',$chatter)
+            ->with('perstat',$perstat);
     }
 
     /**
@@ -186,6 +189,15 @@ class mySquadController extends Controller
         $ann->save();
 
         \Notification::success('Message modified successfully');
+        return redirect('/my-squad');
+    }
+
+    public function reportIn()
+    {
+        $user = \Auth()->user();
+        $perstat = Perstat::where('active','=','1')->first();
+        $user->vpf->perstat()->attach($perstat->id);
+        \Notification::success('Your report in has been filed. Make sure to report in weekly.');
         return redirect('/my-squad');
     }
 

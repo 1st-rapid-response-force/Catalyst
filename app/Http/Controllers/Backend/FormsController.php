@@ -78,7 +78,7 @@ class FormsController extends Controller
         $forms = $forms->merge($infractions);
         $forms = $forms->merge($assignment_changes);
 
-        return view('backend.forms.index')
+        return view('backend.forms.all')
             ->with('forms',$forms)
             ->with('user',$user);
     }
