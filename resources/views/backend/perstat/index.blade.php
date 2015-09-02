@@ -4,6 +4,8 @@
 @section('sub-title','Manager')
 
 @section('scripts-css-header')
+    <meta name="csrf-param" content="_token">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('breadcrumbs')

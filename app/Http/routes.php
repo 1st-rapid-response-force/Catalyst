@@ -179,12 +179,11 @@ Route::group(['namespace' => 'Backend',
     Route::delete('vpf/{vpf_id}/delete/schools/{id}',['as'=>'admin.vpf.delete.school','uses'=>'VPFController@destroySchool']);
     Route::resource('vpf', 'VPFController');
 
-
-    //PERSTAT Test
-    Route::get('perstat/test',['as'=>'admin.perstat.test','uses'=>'PerstatController@test']);
+    //PERSTAT
+    Route::post('perstat/email/{id}',['as'=>'admin.perstat.email','uses'=>'PerstatController@emailAllPending']);
+    Route::resource('perstat', 'PerstatController');
 
     Route::resource('operations', 'OperationsController');
-    Route::resource('perstat', 'PerstatController');
     Route::resource('ranks', 'RanksController');
     Route::resource('loadouts', 'LoadoutsController');
     Route::resource('assignments', 'AssignmentController');

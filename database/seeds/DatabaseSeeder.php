@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         if ($env == 'production')
         {
-            $this->call(CreateFirstPerstat::class);
         }
 
         if ($env == 'local')
@@ -31,6 +30,7 @@ class DatabaseSeeder extends Seeder
             $this->call(AddMOSImage::class);
             $this->call(CatalystLoadouts::class);
             $this->call(DischargeAssignment::class);
+            $this->call(CreateFirstPerstat::class);
         }
 
         Model::reguard();

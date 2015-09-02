@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Perstat;
+use Mail;
 use App\VPF;
 use Illuminate\Http\Request;
 
@@ -34,27 +35,6 @@ class PerstatController extends Controller
         $perstat->active = true;
         $perstat->save();
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -101,6 +81,36 @@ class PerstatController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \Notification::error('You cannot delete a PERSTAT, probably shouldnt include this option... well then');
+        return redirect('/admin/perstat');
+    }
+
+    public function emailAllPending(Request $request, $id)
+    {
+        $perstat = Perstat::find($id);
+        $pending = $perstat->pendingReportIn();
+
+        foreach($pending as $vpf)
+        {
+            $this->emailReportIn($vpf->user);
+        }
+
+        \Notification::success('Emails have been sent to pending members');
+        return redirect('/admin/perstat/'.$perstat->id);
+    }
+
+    /**
+     * Sends email to user - Notify Report in
+     * @param $user
+     * @param $data
+     */
+    private function emailReportIn($user)
+    {
+        Mail::send('emails.reportIn', ['user' => $user], function ($m) use ($user) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Report In');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
     }
 }

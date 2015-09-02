@@ -4,6 +4,8 @@
 @section('sub-title','Manager')
 
 @section('scripts-css-header')
+    <meta name="csrf-param" content="_token">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('breadcrumbs')
@@ -47,6 +49,8 @@
                 @endforeach
             </div>
         </div>
+        <hr>
+        <a href="{{ route('admin.perstat.email',array($perstat->id)) }}" data-method="post" rel="nofollow" data-confirm="This will email all users who have not reported in are you sure?" class="btn btn-primary">Email Members who have not reported in</a>
 
 
 
