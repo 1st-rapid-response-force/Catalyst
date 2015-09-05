@@ -85,7 +85,9 @@
                                     <div class="media-body">
                                         <h4 class="media-heading">{{$announcement->creator}}</h4>
                                         <p>{!! $announcement->message !!}</p>
+                                        @if($user->id == $announcement->creator->id)
                                         <small><a href="{{route('squad.announcement.edit',$announcement->id)}}">Edit Message</a></small>
+                                        @endif
                                         <div class="text-muted"><small>Posted {!! $announcement->created_at->diffForHumans() !!} {{($announcement->created_at != $announcement->updated_at) ? '| Edited '.$announcement->updated_at->diffForHumans() : ''}}</small></div>
                                     </div>
                                 </div>
