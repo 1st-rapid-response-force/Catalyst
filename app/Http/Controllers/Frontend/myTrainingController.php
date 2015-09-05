@@ -69,14 +69,18 @@ class myTrainingController extends Controller
     {
         $user = \Auth()->user();
         $school = School::find($id);
-        $eligibleCourses = $this->eligibleCourses($user);
+        $eligibleCourses = $this->courseClearance($user);
 
         //Used to determine if the user can apply to the course or if they are already taken it or completed it
         $coursesCompletedID = collect($user->vpf->schools()->wherePivot('completed', '=','1')->lists('id'));
         $coursesInProgressID = collect($user->vpf->schools()->wherePivot('completed', '=','0')->lists('id'));
         $courses = $coursesCompletedID->merge($coursesInProgressID);
 
-
+        if(!$eligibleCourses->contains($id))
+        {
+            \Notification::error('You are not eligible for this course.');
+            return redirect('/my-training');
+        }
 
         //Determine if user has already applied for a time if so store it and return it to the view, else return the time selection
         //screen
@@ -192,7 +196,27 @@ class myTrainingController extends Controller
     }
 
 
-    public function eligibleCourses($user)
+    private function courseClearance($user)
+    {
+        $courses = collect();
+        $coursesInProgress = $user->vpf->schools()->wherePivot('completed', '=','0')->lists('id');
+        $coursesCompleted = $user->vpf->schools()->wherePivot('completed', '=','1')->lists('id');
+        $eligible = $this->eligibleCourses($user);
+        $eligible = $eligible->lists('id');
+        $courses = $courses->merge($coursesCompleted);
+        $courses = $courses->merge($coursesInProgress);
+        $courses = $courses->merge($eligible);
+
+        return $courses;
+
+    }
+
+    /**
+     * Determines which courses the user is eligible for
+     * @param $user
+     * @return mixed
+     */
+    private function eligibleCourses($user)
     {
         $allCourses = School::all();
         $coursesInProgress = $user->vpf->schools()->wherePivot('completed', '=','0')->get();
