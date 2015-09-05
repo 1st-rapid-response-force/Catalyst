@@ -24,13 +24,13 @@
             <div class="col-lg-12">
                 <h3>{{$section->name}}</h3>
                 {!! $section->content !!}
+                @if($section->video != '')
                 <hr>
                 <!-- 16:9 aspect ratio -->
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{$section->video}}" frameborder="0" allowfullscreen></iframe>
                 </div>
-
-
+                @endif
                 <br><br>
                 <a href="{{route('training.show',$school->id)}}" class="btn btn-primary">Back to School</a>
                 @if($section->next_section != "None")
