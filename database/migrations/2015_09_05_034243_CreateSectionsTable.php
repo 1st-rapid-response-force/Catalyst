@@ -12,7 +12,7 @@ class CreateSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Sections', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('school_id');
             $table->integer('order');
