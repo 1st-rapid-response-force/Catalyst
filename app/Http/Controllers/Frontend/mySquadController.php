@@ -78,6 +78,15 @@ class mySquadController extends Controller
             ->with('chatter',$chatter);
     }
 
+    public function viewAnnouncement($id)
+    {
+        $user = \Auth()->user();
+        $announce = UnitAnnouncements::find($id);
+        return view('frontend.my-squad.announceView')
+            ->with('user',$user)
+            ->with('announce',$announce);
+    }
+
     /**
      * Updates the Chatter based on id
      *

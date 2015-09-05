@@ -59,7 +59,8 @@
                                     </div>
                                     <div class="media-body">
                                         <h4 class="media-heading">{{$announcement->creator}} - <small>{{$announcement->creator->assignment->name}}</small></h4>
-                                        <p>{!! $announcement->message !!}</p>
+                                        <p>{!! $announcement->short_message !!}</p>
+                                        <p><a href="{{route('squad.announcement.view',$announcement->id)}}" class="btn btn-xs btn-primary pull-right">Read More</a></p>
                                         <div class="text-muted"><small>Posted {!! $announcement->created_at->diffForHumans() !!} {{($announcement->created_at != $announcement->updated_at) ? '| Edited '.$announcement->updated_at->diffForHumans() : ''}}</small></div>
                                     </div>
                                 </div>

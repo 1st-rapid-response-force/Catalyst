@@ -86,6 +86,7 @@ Route::group(['namespace' => 'Frontend'], function()
             Route::put('/my-inbox/edit-message/{id}', ['as' => 'inbox.edit.message.update', 'uses' => 'myInboxController@editMessageSave']);
 
         //My Squad
+            Route::get('/my-squad/unit-announcement/{id}', ['as' => 'squad.announcement.view', 'uses' => 'mySquadController@viewAnnouncement']);
             Route::get('/my-squad/message/{id}/edit', ['as' => 'squad.chatter.edit', 'uses' => 'mySquadController@editChatter']);
             Route::put('/my-squad/message/{id}', ['as' => 'squad.chatter.update', 'uses' => 'mySquadController@updateChatter']);
             Route::post('/my-squad/message', ['as' => 'squad.chatter.create', 'uses' => 'mySquadController@addChatter']);
@@ -184,6 +185,7 @@ Route::group(['namespace' => 'Backend',
     Route::resource('perstat', 'PerstatController');
 
     Route::resource('operations', 'OperationsController');
+    Route::resource('announcements', 'AnnouncementController');
     Route::resource('ranks', 'RanksController');
     Route::resource('loadouts', 'LoadoutsController');
     Route::resource('assignments', 'AssignmentController');
