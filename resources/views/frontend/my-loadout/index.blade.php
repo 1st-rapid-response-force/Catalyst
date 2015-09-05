@@ -4,6 +4,12 @@
 @section('title', 'My Loadout')
 
 @section('css-top')
+    <style>
+        .scrolldiv {
+            height: 115px;
+            overflow-y:auto;
+        }
+    </style>
 @endsection
 
 @section('breadcrumbs')
@@ -32,7 +38,7 @@
                     Primary Weapons
                 </a><br><br>
                 <div class="collapse" id="primaryCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                     @foreach($primary as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -52,7 +58,7 @@
                     Primary Weapon Attachment
                 </a><br><br>
                 <div class="collapse" id="primaryAttachCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         <p>Make sure the attachment you have selected is compatible</p>
                         @foreach($primary_attachments as $loadout)
                             <div class="media">
@@ -73,7 +79,7 @@
                     Sidearm Weapons
                 </a><br><br>
                 <div class="collapse" id="secondaryCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($secondary as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -93,7 +99,7 @@
                     Sidearm Weapon Attachment
                 </a><br><br>
                 <div class="collapse" id="secondaryAttachCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         <p>Make sure the attachment you have selected is compatible</p>
                         @foreach($secondary_attachments as $loadout)
                             <div class="media">
@@ -114,7 +120,7 @@
                     Launcher Weapons
                 </a><br><br>
                 <div class="collapse" id="launcherCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($launcher as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -135,7 +141,7 @@
                     Launcher Weapon Attachment
                 </a><br><br>
                 <div class="collapse" id="launcherAttachCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         <p>Make sure the attachment you have selected is compatible</p>
                         @foreach($launcher_attachments as $loadout)
                             <div class="media">
@@ -164,7 +170,7 @@
                     Helmet
                 </a><br><br>
                 <div class="collapse" id="helmetCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($helmet as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -185,7 +191,7 @@
                     Uniform
                 </a><br><br>
                 <div class="collapse" id="uniformCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($uniform as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -206,7 +212,7 @@
                     Vest
                 </a><br><br>
                 <div class="collapse" id="vestCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($vest as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -227,7 +233,7 @@
                     Backpack
                 </a><br><br>
                 <div class="collapse" id="backpackCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($backpack as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -247,7 +253,7 @@
                     Nightvision
                 </a><br><br>
                 <div class="collapse" id="nightVisionCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($nightvision as $loadout)
                             <div class="media">
                                 <div class="media-left">
@@ -268,7 +274,7 @@
                     Goggles
                 </a><br><br>
                 <div class="collapse" id="gogglesCollapse">
-                    <div class="well">
+                    <div class="well scrolldiv">
                         @foreach($goggles as $loadout)
                             <div class="media">
                                 <div class="media-left">
