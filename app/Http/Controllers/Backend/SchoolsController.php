@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Rank;
 use App\School;
 use App\SchoolTrainingDate;
+use App\Section;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -65,9 +66,6 @@ class SchoolsController extends Controller
             'img' => 'image',
             'short_description' => 'required',
             'description' => 'required',
-            'docs' => '',
-            'videos' => '',
-            'published' => '',
             'promotionPoints' => 'integer',
         ]);
 
@@ -76,11 +74,12 @@ class SchoolsController extends Controller
         $school->name = $request->name;
         $school->short_description = $request->short_description;
         $school->description = $request->description;
+        $school->docs = '';
+        $school->videos = '';
         $school->prerequisites = $request->prerequisites;
+        $school->oneofcourses = $request->oneofcourses;
         $school->minimumRankRequired = $request->minimumRankRequired;
-        $school->docs = $request->docs;
-        $school->videos = $request->video;
-        $school->published = $request->published;
+        $school->published = false;
         $school->promotionPoints = $request->promotionPoints;
         $school->save();
 
@@ -151,11 +150,91 @@ class SchoolsController extends Controller
     {
         $school = School::find($id);
         $json = $this->prePopulatePrerequisites($school->prerequisites);
+        $json2 = $this->prePopulatePrerequisites($school->oneofcourses);
         $ranks = Rank::all();
         return view('backend.schools.edit')
             ->with('school',$school)
             ->with('ranks',$ranks)
-            ->with('json',$json);
+            ->with('json',$json)
+            ->with('json2',$json2);
+    }
+
+    public function addSection($id)
+    {
+        $school = School::find($id);
+        return view('backend.schools.addSection')
+            ->with('school',$school);
+    }
+
+    public function storeSection($id, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'order'=> 'required|integer',
+            'video' => ''
+        ]);
+
+        $school = School::find($id);
+        $school->sections()->create([
+            'order' => $request->order,
+            'name' => $request->name,
+            'content' => $request->content_course,
+            'video' =>$request->video,
+            'next_section' => $request->next_section
+        ]);
+
+
+        \Notification::success('Section added to school.');
+        return redirect('/admin/schools/'.$school->id.'/edit');
+    }
+
+    public function updateSection($id,$school_id, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'order'=> 'required|integer',
+            'video' => ''
+        ]);
+
+        $school = School::find($id);
+        $section = Section::find($school_id);
+        $section->order = $request->order;
+        $section->name = $request->name;
+        $section->content = $request->content_course;
+        $section->video = $request->video;
+        $section->next_section = $request->next_section;
+        $section->save();
+
+
+        \Notification::success('Section has been modified.');
+        return redirect('/admin/schools/'.$school->id.'/edit');
+    }
+
+    public function showSection($id,$section_id)
+    {
+        $school = School::find($id);
+        $section = Section::find($section_id);
+        return view('backend.schools.showSection')
+            ->with('school',$school)
+            ->with('section',$section);
+    }
+    public function editSection($id,$section_id)
+    {
+        $school = School::find($id);
+        $section = Section::find($section_id);
+        return view('backend.schools.editSection')
+            ->with('school',$school)
+            ->with('section',$section);
+    }
+
+    public function deleteSection($id,$section_id)
+    {
+        $school = School::find($id);
+        $section = Section::find($section_id);
+        $section->delete();
+
+        \Notification::success('Section removed from school.');
+        return redirect('/admin/schools/'.$school->id.'/edit');
     }
 
     /**
@@ -197,9 +276,8 @@ class SchoolsController extends Controller
         $school->name = $request->name;
         $school->short_description = $request->short_description;
         $school->description = $request->description;
-        $school->docs = $request->docs;
-        $school->videos = $request->video;
         $school->prerequisites = $request->prerequisites;
+        $school->oneofcourses = $request->oneofcourses;
         $school->minimumRankRequired = $request->minimumRankRequired;
         $school->published = $request->published;
         $school->promotionPoints = $request->promotionPoints;
@@ -217,6 +295,11 @@ class SchoolsController extends Controller
      */
     public function destroy($id)
     {
+        if($id == '1')
+        {
+            \Notification::error('You cannot delete the Base School.');
+            return redirect('/admin/schools');
+        }
         $school = School::find($id);
         if(!($school->storage_image == 'false'))
         {

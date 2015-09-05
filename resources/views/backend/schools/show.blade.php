@@ -22,8 +22,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#description-tab" aria-controls="description-tab" role="tab" data-toggle="tab">Description</a></li>
-            <li role="presentation"><a href="#doc-tab" aria-controls="doc-tab" role="tab" data-toggle="tab">Documentation</a></li>
-            <li role="presentation"><a href="#videos-tab" aria-controls="videos-tab" role="tab" data-toggle="tab">Videos</a></li>
+            <li role="presentation"><a href="#doc-tab" aria-controls="doc-tab" role="tab" data-toggle="tab">Sections</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -42,11 +41,10 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="doc-tab">
                 <br>
-                {!! $school->docs !!}
-            </div>
-            <div role="tabpanel" class="tab-pane" id="videos-tab">
-                <br>
-                {!! $school->videos !!}
+                <h3>Sections</h3>
+                @foreach($school->sections as $section)
+                    <a href="{{route('admin.schools.section.show',array($school->id,$section->id))}}" class="btn btn-primary btn-block">{{$section->order}}. {{$section->name}}</a>
+                @endforeach
             </div>
         </div>
     </div>

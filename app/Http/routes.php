@@ -98,6 +98,7 @@ Route::group(['namespace' => 'Frontend'], function()
         //My Training Center
         Route::get('/my-training', ['as' => 'training', 'uses' => 'myTrainingController@index']);
             Route::get('/my-training/{id}', ['as' => 'training.show', 'uses' => 'myTrainingController@show']);
+            Route::get('/my-training/{id}/sections/{section_id}', ['as' => 'training.section.show', 'uses' => 'myTrainingController@showSection']);
             Route::post('/my-training/enroll/{id}', ['as' => 'training.enroll', 'uses' => 'myTrainingController@enrollClass']);
             Route::put('/my-training/enroll/{id}', ['as' => 'training.date.signup', 'uses' => 'myTrainingController@signupDate']);
             Route::delete('/my-training/date/{id}', ['as' => 'training.date.destroy', 'uses' => 'myTrainingController@cancelDate']);
@@ -158,6 +159,12 @@ Route::group(['namespace' => 'Backend',
 
 
     // Schools
+    Route::get('schools/{id}/section/new/',['as'=>'admin.schools.section.add','uses'=>'SchoolsController@addSection']);
+    Route::get('schools/{id}/section/{section_id}',['as'=>'admin.schools.section.show','uses'=>'SchoolsController@showSection']);
+    Route::get('schools/{id}/section/edit/{section_id}',['as'=>'admin.schools.section.edit','uses'=>'SchoolsController@editSection']);
+    Route::put('schools/{id}/section/edit/{section_id}',['as'=>'admin.schools.section.update','uses'=>'SchoolsController@updateSection']);
+    Route::delete('schools/{id}/section/delete/{section_id}',['as'=>'admin.schools.section.delete','uses'=>'SchoolsController@deleteSection']);
+    Route::post('schools/{id}/section/new/',['as'=>'admin.schools.section.store','uses'=>'SchoolsController@storeSection']);
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
     Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);

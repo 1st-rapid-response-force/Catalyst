@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\School;
 use App\SchoolTrainingDate;
+use App\Section;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -19,40 +20,15 @@ class myTrainingController extends Controller
     public function index()
     {
         $user = \Auth()->user();
-        $allCourses = School::all();
         $coursesInProgress = $user->vpf->schools()->wherePivot('completed', '=','0')->get();
         $coursesCompleted = $user->vpf->schools()->wherePivot('completed', '=','1')->get();
 
-        // Used to determine, courses that user is eligible in
-        $ava = collect();
-        $coursesCompletedID = collect($user->vpf->schools()->wherePivot('completed', '=','1')->lists('id'));
-        $coursesInProgressID = collect($user->vpf->schools()->wherePivot('completed', '=','0')->lists('id'));
-        $courseTest= $coursesCompletedID;
 
         //Determine Class Sessions signed up for Time that are in the future
         $dates = $user->vpf->schoolTrainingDate()->where('date','>', \Carbon\Carbon::now())->get();
 
-
-        foreach($allCourses as $course)
-        {
-            // Pull all ID's required by course as defined by prerequisites
-            if(!is_null($course->prerequisites))
-            {
-                //Collect Course prerequisites
-                $courseID = collect(explode(',',$course->prerequisites));
-                //Use Difference, if empty, then all prerequisites have been taken, else it means they are not eligible
-                $diff = $courseID->diff($courseTest);
-                if(($diff->isEmpty()) && ($course->minimumRankRequired <= $user->vpf->rank->id)) $ava->push($course->id);
-            } else {
-                $ava->push($course->id);
-            }
-        }
-        $ava = $ava->diff($coursesInProgressID);
-
-        //Eligible Courses - FUCK YEAH
-        $ava = $ava->diff($courseTest);
-        $eligibleCourses = School::findMany($ava);
-
+        //Determine classes that user is eligible for
+        $eligibleCourses = $this->eligibleCourses($user);
 
         return view('frontend.my-training.index')
             ->with('user',$user)
@@ -93,13 +69,14 @@ class myTrainingController extends Controller
     {
         $user = \Auth()->user();
         $school = School::find($id);
-
-
+        $eligibleCourses = $this->eligibleCourses($user);
 
         //Used to determine if the user can apply to the course or if they are already taken it or completed it
         $coursesCompletedID = collect($user->vpf->schools()->wherePivot('completed', '=','1')->lists('id'));
         $coursesInProgressID = collect($user->vpf->schools()->wherePivot('completed', '=','0')->lists('id'));
         $courses = $coursesCompletedID->merge($coursesInProgressID);
+
+
 
         //Determine if user has already applied for a time if so store it and return it to the view, else return the time selection
         //screen
@@ -123,6 +100,17 @@ class myTrainingController extends Controller
             ->with('dates',$dates)
             ->with('selected',$selected);
 
+    }
+
+    public function showSection($id,$section_id)
+    {
+        $user = \Auth()->user();
+        $school = School::find($id);
+        $section = Section::find($section_id);
+        return view('frontend.my-training.showSection')
+            ->with('school',$school)
+            ->with('section',$section)
+            ->with('user',$user);
     }
 
     /**
@@ -201,5 +189,64 @@ class myTrainingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function eligibleCourses($user)
+    {
+        $allCourses = School::all();
+        $coursesInProgress = $user->vpf->schools()->wherePivot('completed', '=','0')->get();
+        $coursesCompleted = $user->vpf->schools()->wherePivot('completed', '=','1')->get();
+
+        // Used to determine, courses that user is eligible in
+        $ava = collect();
+        $coursesCompletedID = collect($user->vpf->schools()->wherePivot('completed', '=','1')->lists('id'));
+        $coursesInProgressID = collect($user->vpf->schools()->wherePivot('completed', '=','0')->lists('id'));
+        $courseTest= $coursesCompletedID;
+
+        //Determine Class Sessions signed up for Time that are in the future
+        $dates = $user->vpf->schoolTrainingDate()->where('date','>', \Carbon\Carbon::now())->get();
+
+
+        foreach($allCourses as $course)
+        {
+            $prCheck = false;
+            // Pull all ID's required by course as defined by prerequisites
+            if((!is_null($course->prerequisites)) && ($course->prerequisites != ''))
+            {
+                //Collect Course prerequisites
+                $courseID = collect(explode(',',$course->prerequisites));
+                //Use Difference, if empty, then all prerequisites have been taken, else it means they are not eligible
+                $diff = $courseID->diff($courseTest);
+                if(($diff->isEmpty()) && ($course->minimumRankRequired <= $user->vpf->rank->id))
+                {
+                    $prCheck = true;
+                }
+            } else {
+                $prCheck = true;
+            }
+
+            // Pull all ID's required by course as defined by onebyone
+            if((!is_null($course->oneofcourses)) && ($course->prerequisites != ''))
+            {
+                //Collect Course prerequisites
+                $courseID = collect(explode(',',$course->oneofcourses));
+                $count = $courseID->count();
+
+                $diff = $courseID->diff($courseTest);
+                if(($diff->count() != $count) && ($course->minimumRankRequired <= $user->vpf->rank->id) && ($prCheck == true)) $ava->push($course->id);
+            } else {
+                if($prCheck == true)
+                    $ava->push($course->id);
+            }
+
+        }
+        $ava = $ava->diff($coursesInProgressID);
+
+        //Eligible Courses - FUCK YEAH
+        $ava = $ava->diff($courseTest);
+        $eligibleCourses = School::findMany($ava);
+
+        return $eligibleCourses;
     }
 }

@@ -157,6 +157,7 @@ return [
         'Intervention\Image\ImageServiceProvider',
         'Collective\Html\HtmlServiceProvider',
         Cmgmyr\Messenger\MessengerServiceProvider::class,
+        'AltThree\Segment\SegmentServiceProvider'
     ],
 
     /*

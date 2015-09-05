@@ -40,6 +40,7 @@ class CreatePerstatTable extends Migration
      */
     public function down()
     {
+        Schema::drop('perstat_vpf');
         Schema::drop('perstat');
     }
 }

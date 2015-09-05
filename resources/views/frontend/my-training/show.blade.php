@@ -36,23 +36,23 @@
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#description" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
-                        <li role="presentation"><a href="#docs" aria-controls="docs" role="tab" data-toggle="tab">Documentation</a></li>
-                        <li role="presentation"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
+                        <li role="presentation"><a href="#sections" aria-controls="docs" role="tab" data-toggle="tab">Sections</a></li>
                     @if(!($coursesCompleted->contains($school->id)))
                         <li role="presentation"><a href="#schedule" aria-controls="schedule" role="tab" data-toggle="tab">Class Schedule</a></li>
                     @endif
                     </ul>
-
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="description">
                             {!! $school->description !!}
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="docs">
-                            {!! $school->docs !!}
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="videos">
-                            {!! $school->videos !!}
+                        <div role="tabpanel" class="tab-pane" id="sections">
+                            <h3>Sections</h3>
+                            <p>Every School within the 1st RRF is broken into smaller sections allowing you to tackle a large school piece by piece.</p>
+                            <br>
+                            @foreach($school->sections as $section)
+                                <a href="{{route('training.section.show',array($school->id,$section->id))}}" class="btn btn-primary btn-block">{{$section->order}}. {{$section->name}}</a>
+                            @endforeach
                         </div>
                         @if(!($coursesCompleted->contains($school->id)))
                         <div role="tabpanel" class="tab-pane" id="schedule">

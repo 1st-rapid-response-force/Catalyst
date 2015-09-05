@@ -40,6 +40,16 @@ class School extends Model
     {
         return $this->hasMany('App\SchoolTrainingDate','school_id','id');
     }
+    /**
+     * Returns all School Dates Counseling Statements
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sections()
+    {
+        return $this->hasMany('App\Section','school_id','id')->orderBy('order','asc');
+    }
+
+
 
     /**
      * Returns image

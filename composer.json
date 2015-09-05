@@ -15,7 +15,8 @@
         "intervention/image": "^2.3",
         "cmgmyr/messenger": "~2.0",
         "laravelcollective/html": "~5.0",
-        "planetteamspeak/ts3-php-framework": "^1.1"
+        "planetteamspeak/ts3-php-framework": "^1.1",
+        "alt-three/segment": "~1.0"
 
     },
     "require-dev": {
