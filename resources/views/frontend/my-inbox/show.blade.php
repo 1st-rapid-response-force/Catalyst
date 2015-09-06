@@ -62,7 +62,7 @@
                                 <img src="/avatar/{{$message->user->steam_id}}" alt="{!! $message->user->name !!}" style="max-width: 100px; max-height: 100px;" class="img-circle">
                             </a>
                             <div class="media-body">
-                                <h5 class="media-heading">{!! $message->user->name !!}</h5>
+                                <h5 class="media-heading">{!! $message->user->vpf !!}</h5>
                                 <p>{!! $message->body !!}</p>
                                 <div class="text-muted"><small>Posted {!! $message->created_at->diffForHumans() !!} {{($message->created_at != $message->updated_at) ? '| Edited '.$message->updated_at->diffForHumans() : ''}}</small></div>
                                 @if($user->id == $message->user->id)
