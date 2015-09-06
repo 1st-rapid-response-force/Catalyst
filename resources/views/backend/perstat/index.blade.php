@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-                        <p>You can issue a new PERSTAT for this cycle, <br>From: <strong>{{\Carbon\Carbon::now()->toDateString()}}</strong>  <br> To: <strong>{{\Carbon\Carbon::now()->addWeek()->toDateString()}}</strong></p>
+                        <p>You can issue a new PERSTAT for this cycle, <br>From: <strong>{{$oldPerstat->to}}</strong>  <br> To: <strong>{{$newDate->toDateString()}}</strong></p>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </div>
                 <div class="modal-footer">

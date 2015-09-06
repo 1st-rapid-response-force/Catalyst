@@ -28,6 +28,12 @@ class PerstatController extends Controller
         $date->hour= 0;
         $date->minute = 0;
         $date->second = 0;
+
+        $dateNew = Carbon::createFromFormat('Y-m-d', $perstatOld->to)->addWeek();
+        $dateNew->hour= 0;
+        $dateNew->minute = 0;
+        $dateNew->second = 0;
+
         $now = Carbon::now();
 
         //Determine whether to show button
@@ -41,7 +47,8 @@ class PerstatController extends Controller
         return view('backend.perstat.index')
             ->with('perstats', $perstats)
             ->with('validNew',$validNew)
-            ->with('oldPerstat',$perstatOld);
+            ->with('oldPerstat',$perstatOld)
+            ->with('newDate',$dateNew);
     }
 
     /**
@@ -57,13 +64,16 @@ class PerstatController extends Controller
         $perstatOld->active = false;
         $perstatOld->save();
 
-        $now = Carbon::now();
+        $date = Carbon::createFromFormat('Y-m-d', $perstatOld->to)->addWeek();
+        $date->hour= 0;
+        $date->minute = 0;
+        $date->second = 0;
 
         //New Perstat
         $assigned = VPF::where('status','=','Active')->get()->count();
         $perstat = new Perstat;
-        $perstat->from = $now->toDateString();
-        $perstat->to = $now->addWeek(1)->toDateString();
+        $perstat->from = $perstatOld->to;
+        $perstat->to = $date->toDateString();
         $perstat->assigned = $assigned;
         $perstat->active = true;
         $perstat->save();
