@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Perstat;
+use Carbon\Carbon;
 use Mail;
 use App\VPF;
 use Illuminate\Http\Request;
@@ -21,19 +22,55 @@ class PerstatController extends Controller
     {
         $perstats = Perstat::all();
 
+        // Deal with new PERSTAT Logic
+        $perstatOld = Perstat::where('active','=','1')->first();
+        $date = Carbon::createFromFormat('Y-m-d', $perstatOld->to);
+        $date->hour= 0;
+        $date->minute = 0;
+        $date->second = 0;
+        $now = Carbon::now();
+
+        //Determine whether to show button
+        if($now->gt($date))
+        {
+            $validNew = true;
+        } else {
+            $validNew = false;
+        }
+
         return view('backend.perstat.index')
-            ->with('perstats', $perstats);
+            ->with('perstats', $perstats)
+            ->with('validNew',$validNew)
+            ->with('oldPerstat',$perstatOld);
     }
 
-    public function test()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
     {
+        // Set old perstat to active
+        $perstatOld = Perstat::where('active','=','1')->first();
+        $perstatOld->active = false;
+        $perstatOld->save();
+
+        $now = Carbon::now();
+
+        //New Perstat
         $assigned = VPF::where('status','=','Active')->get()->count();
         $perstat = new Perstat;
-        $perstat->from = '2015-09-03';
-        $perstat->to = '2015-09-06';
+        $perstat->from = $now->toDateString();
+        $perstat->to = $now->addWeek(1)->toDateString();
         $perstat->assigned = $assigned;
         $perstat->active = true;
         $perstat->save();
+
+        \Notification::success('PERSTAT added successfully');
+        return redirect('/admin/perstat');
+
 
     }
 
