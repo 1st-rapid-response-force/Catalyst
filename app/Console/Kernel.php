@@ -47,6 +47,6 @@ class Kernel extends ConsoleKernel
             $perstat->assigned = $assigned;
             $perstat->active = true;
             $perstat->save();
-        })->weekly();
+        })->weekly()->sundays()->at('02:00');
     }
 }
