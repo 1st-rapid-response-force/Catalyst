@@ -170,8 +170,6 @@ class myInboxController extends Controller
             'id' => $thread->id
         ];
 
-        //Send Email to Thread Creator
-        $this->emailUsersNewMessage([Auth::user()->id],$data);
 
         // Recipients
         if (\Request::has('recipents')) {
