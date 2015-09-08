@@ -21,7 +21,7 @@
         <div class="form-group">
             <label for="subject" class="col-sm-2 control-label">Subject: &nbsp</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="subject" name="subject" value="" placeholder="Name of Qualification">
+                <input type="text" class="form-control" id="subject" name="subject" value="" placeholder="Subject">
             </div>
         </div>
         <div class="form-group">

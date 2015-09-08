@@ -41,6 +41,7 @@ class myLoadoutController extends Controller
     public function saveLoadout(Request $request)
     {
         $user = \Auth::user();
+        dd($request);
         $loadout = [
             $request->primaryWeapon,
             $request->secondary,
@@ -49,6 +50,7 @@ class myLoadoutController extends Controller
             $request->helmet,
             $request->goggles,
             $request->uniform,
+            $request->vest,
             $request->backpack,
             $request->primary_attachment,
             $request->secondary_attachment,
