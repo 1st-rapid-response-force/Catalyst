@@ -41,7 +41,7 @@ class myLoadoutController extends Controller
     public function saveLoadout(Request $request)
     {
         $user = \Auth::user();
-        dd($request);
+
         $loadout = [
             $request->primaryWeapon,
             $request->secondary,
