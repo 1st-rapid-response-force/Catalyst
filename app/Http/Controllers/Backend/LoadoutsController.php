@@ -33,7 +33,7 @@ class LoadoutsController extends Controller
      */
     public function index()
     {
-        $loadouts = Loadout::all();
+        $loadouts = Loadout::where('empty','=','0')->get();
         $qualifications = Qualification::all();
         return view('backend.loadouts.index')
             ->with('loadouts',$loadouts)
