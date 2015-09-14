@@ -22,7 +22,7 @@
             <h2>Monthly Donations:</h2>
                 <div class="col-md-3">
                     <div class="well">
-                        @if($user->onPlan('1'))
+                        @if($user->onPlan('5month'))
                         <h4>Your Current Plan:</h4>
                         <h3>$5.00 Dollar</h3>
                         @else
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="well">
-                        @if($user->onPlan('3'))
+                        @if($user->onPlan('15month'))
                             <h4>Your Current Plan:</h4>
                         <h3>$15.00 Dollar</h3>
                         @else
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="well">
-                        @if($user->onPlan('5'))
+                        @if($user->onPlan('25month'))
                             <h4>Your Current Plan:</h4>
                         <h3>$25.00 Dollar</h3>
                         @else
