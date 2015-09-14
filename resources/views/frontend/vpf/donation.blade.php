@@ -24,9 +24,9 @@
                     <div class="well">
                         @if($user->onPlan('5month'))
                         <h4>Your Current Plan:</h4>
-                        <h3>$5.00 Dollar</h3>
+                        <h3>$5.00 Dollars</h3>
                         @else
-                        <h3>$5.00 Dollar</h3>
+                        <h3>$5.00 Dollars</h3>
                         <form action="{{route('vpf.donate.plan1',array($user->vpf->id))}}" method="POST">
                             {{csrf_field()}}
                             <script
@@ -45,9 +45,9 @@
                     <div class="well">
                         @if($user->onPlan('15month'))
                             <h4>Your Current Plan:</h4>
-                        <h3>$15.00 Dollar</h3>
+                        <h3>$15.00 Dollars</h3>
                         @else
-                        <h3>$15.00 Dollar</h3>
+                        <h3>$15.00 Dollars</h3>
                         <form action="{{route('vpf.donate.plan2',array($user->vpf->id))}}" method="POST">
                             {{csrf_field()}}
                             <script
@@ -66,9 +66,9 @@
                     <div class="well">
                         @if($user->onPlan('25month'))
                             <h4>Your Current Plan:</h4>
-                        <h3>$25.00 Dollar</h3>
+                        <h3>$25.00 Dollars</h3>
                         @else
-                            <h3>$25.00 Dollar</h3>
+                            <h3>$25.00 Dollars</h3>
                         <form action="{{route('vpf.donate.plan3',array($user->vpf->id))}}" method="POST">
                             {{csrf_field()}}
                             <script
@@ -87,9 +87,9 @@
                     <div class="well">
                         @if($user->onPlan('50month'))
                             <h4>Your Current Plan:</h4>
-                        <h3>$50.00 Dollar</h3>
+                        <h3>$50.00 Dollars</h3>
                         @else
-                            <h3>$50.00 Dollar</h3>
+                            <h3>$50.00 Dollars</h3>
                         <form action="{{route('vpf.donate.plan4',array($user->vpf->id))}}" method="POST">
                             {{csrf_field()}}
                             <script
