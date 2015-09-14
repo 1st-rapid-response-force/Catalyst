@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Operation;
 use App\Perstat;
+use App\User;
 use App\VPF;
 use App\Application;
 use Illuminate\Http\Request;
@@ -24,13 +25,15 @@ class AdminController extends Controller
         $application = Application::where('status','=','Under Review')->get()->count();
         $operations = Operation::all()->count();
         $perstat = Perstat::where('active','=','1')->first();
+        $cost = $this->determineDonationAmount();
 
 
         return view('backend.dashboard')
             ->with('members',$members)
             ->with('applications',$application)
             ->with('operations',$operations)
-            ->with('perstat',$perstat);
+            ->with('perstat',$perstat)
+            ->with('cost',$cost);
     }
 
     /**
@@ -97,5 +100,33 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function determineDonationAmount()
+    {
+        $users = User::all();
+        $cost = 0.00;
+        foreach($users as $user)
+        {
+            switch ($user->stripe_plan) {
+                case '5month':
+                    $cost += 5.00;
+                    break;
+                case '15month':
+                    $cost += 15.00;
+                    break;
+                case '25month':
+                    $cost += 25.00;
+                    break;
+                case '50month':
+                    $cost += 50.00;
+                    break;
+                default:
+                    $cost += 0;
+                    break;
+            }
+        }
+
+        return $cost;
     }
 }

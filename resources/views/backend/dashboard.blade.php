@@ -74,8 +74,8 @@
             <div class="info-box">
                 <span class="info-box-icon bg-aqua"><i class="fa fa-child"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Pending Promotions</span>
-                    <span class="info-box-number">0</span>
+                    <span class="info-box-text">Monthly Donation</span>
+                    <span class="info-box-number">${{$cost}}</span>
                     <span class="info-box-content"><a class="btn btn-default btn-sm" href="#">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
