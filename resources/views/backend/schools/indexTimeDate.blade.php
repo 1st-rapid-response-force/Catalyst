@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <p>The following are the School that have been set up in the unit.</p>
+    <p>The following are the School Time/Date for this school.</p>
     <h4>Administrative Options</h4>
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newDate">New Training Date</button>
     @if ($school->schoolDate->count() > 0)
@@ -66,6 +66,16 @@
                                 <div class="bootstrap-timepicker">
                                     <input id="timepicker" class="form-control" name="time" type="text" class="input-small">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Responsible Member: &nbsp</label>
+                            <div class="col-sm-10">
+                                <select name="responsible_id" class="form-control">
+                                    @foreach($vpfs as $vpf)
+                                    <option value="{{$vpf->id}}">{{$vpf}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">

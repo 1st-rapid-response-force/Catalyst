@@ -80,6 +80,16 @@ class PagesController extends Controller
     }
 
     /**
+     * Display the Modpack page.
+     *
+     * @return Response
+     */
+    public function modpack()
+    {
+        return view('frontend.modpack');
+    }
+
+    /**
      * Display the Contact page.
      *
      * @return Response

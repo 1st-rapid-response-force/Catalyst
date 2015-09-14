@@ -23,9 +23,14 @@
                 <li class="{{ Active::pattern('about')}}">
                     <a href="/about">About</a>
                 </li>
-                <li class="{{ Active::pattern('servers')}}">
-                    <a href="/servers">Servers</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Servers<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Active::pattern('/servers')}}"><a href="/servers">Server List</a></li>
+                        <li class="{{ Active::pattern('/modpack')}}"><a href="/modpack">Modpack</a></li>
+                    </ul>
                 </li>
+
                 <li class="{{ Active::pattern('structure-assignments')}}">
                     <a href="/structure-assignments">Structure and Assignments</a>
                 </li>

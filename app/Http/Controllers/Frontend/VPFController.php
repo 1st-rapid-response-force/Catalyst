@@ -230,10 +230,140 @@ class VPFController extends Controller
             Notification::error('This is not your Teamspeak ID, you cannot delete it! Action has been logged and reported');
             return redirect('/virtual-personnel-file/teamspeak');
         }
+        $this->ts->delete($ts->uuid);
         $ts->delete();
         Notification::success('Teamspeak UUID removed successfully');
         return redirect('/virtual-personnel-file/teamspeak');
     }
+
+
+    /**
+     * Show donation page
+     *
+     * @param $vpf_id
+     * @param Request $request
+     */
+    public function showDonation()
+    {
+        $user = \Auth::user();
+        $public_key = env('STRIPE_PUBLIC');
+        return view('frontend.vpf.donation')
+            ->with('user',$user)->with('public_key',$public_key);
+    }
+
+    /**
+     * Show donation page
+     *
+     * @param $vpf_id
+     * @param Request $request
+     */
+    public function showDonationCancel()
+    {
+        $user = \Auth::user();
+        $public_key = env('STRIPE_PUBLIC');
+        return view('frontend.vpf.donationCancel')
+            ->with('user',$user)->with('public_key',$public_key);
+    }
+
+    /**
+     * Process Payment Plan 1 - $5.00 USD
+     * @param $vpf_id
+     * @param Request $request
+     */
+    public function processPlan1($vpf_id, Request $request)
+    {
+        $user = \Auth::user();
+
+
+        //Plan Change Check
+        if ($user->subscribed()) {
+            $user->subscription('5month')->noProrate()->swap();
+            \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
+        } else {
+            $user->subscription('5month')->create($request->stripeToken);
+            \Notification::success('Your Donation plan has been successfully setup!');
+        }
+
+        $attempt = $this->ts->update($user);
+        return redirect('/virtual-personnel-file/donations/');
+    }
+
+    /**
+     * Process Payment Plan 2 - $15.00 USD
+     * @param $vpf_id
+     * @param Request $request
+     */
+    public function processPlan2($vpf_id, Request $request)
+    {
+        $user = \Auth::user();
+
+        //Plan Change Check
+        if ($user->subscribed()) {
+            $user->subscription('15month')->noProrate()->swap();
+            \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
+        } else {
+            $user->subscription('15month')->create($request->stripeToken);
+            \Notification::success('Your Donation plan has been successfully setup!');
+        }
+        $attempt = $this->ts->update($user);
+
+        return redirect('/virtual-personnel-file/donations/');
+    }
+
+    /**
+     * Process Payment Plan 3 - $25.00 USD
+     * @param $vpf_id
+     * @param Request $request
+     */
+    public function processPlan3($vpf_id, Request $request)
+    {
+        $user = \Auth::user();
+
+        //Plan Change Check
+        if ($user->subscribed()) {
+            $user->subscription('25month')->noProrate()->swap();
+            \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
+        } else {
+            $user->subscription('25month')->create($request->stripeToken);
+            \Notification::success('Your Donation plan has been successfully setup!');
+        }
+        $attempt = $this->ts->update($user);
+
+        return redirect('/virtual-personnel-file/donations/');
+    }
+
+    /**
+     * Process Payment Plan 4 - $50.00 USD
+     * @param $vpf_id
+     * @param Request $request
+     */
+    public function processPlan4($vpf_id, Request $request)
+    {
+        $user = \Auth::user();
+
+
+        //Plan Change Check
+        if ($user->subscribed()) {
+            $user->subscription('50month')->noProrate()->swap();
+            \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
+        } else {
+            $user->subscription('50month')->create($request->stripeToken);
+            \Notification::success('Your Donation plan has been successfully setup!');
+        }
+        $attempt = $this->ts->update($user);
+
+        return redirect('/virtual-personnel-file/donations/');
+    }
+
+    public function cancelPlan()
+    {
+        $user = \Auth::user();
+        $user->subscription()->cancel();
+        $attempt = $this->ts->update($user);
+        \Notification::success('Your Donation plan has been successfully canceled!');
+        return redirect('/virtual-personnel-file/donations/');
+    }
+
 
     /**
      * Saves User Selection

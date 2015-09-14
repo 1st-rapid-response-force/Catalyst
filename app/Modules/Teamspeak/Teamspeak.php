@@ -51,7 +51,12 @@ class Teamspeak implements TeamspeakContract
         } else {
             $groups->push(38);
         }
-
+        if ($user->everSubscribed())
+        {
+            if ($user->subscribed()) {
+                $groups->push(39);
+            }
+        }
 
         //Lets begin
         $uuids = $user->vpf->teamspeak;

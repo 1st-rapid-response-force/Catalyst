@@ -37,6 +37,9 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('structure-assignments', 'PagesController@structureAndAssignments');
     Route::get('faq', 'PagesController@faq');
     Route::get('contact-us', 'PagesController@contact');
+    Route::get('modpack', 'PagesController@modpack');
+    Route::post('stripe/webhook', '\Laravel\Cashier\WebhookController@handleWebhook');
+
     Route::get('/roster/{id}', 'VPFController@publicView');
 
     // API
@@ -68,6 +71,14 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('/virtual-personnel-file',['as' => 'vpf', 'uses' => 'VPFController@index']);
             Route::get('/virtual-personnel-file/faces',['as' => 'vpf.faces', 'uses' => 'VPFController@showFaces']);
             Route::post('/virtual-personnel-file/faces',['as' => 'vpf.faces.update', 'uses' => 'VPFController@saveFace']);
+            Route::get('/virtual-personnel-file/donations',['as' => 'vpf.donate', 'uses' => 'VPFController@showDonation']);
+            Route::get('/virtual-personnel-file/donation/cancel',['as' => 'vpf.donation.cancel', 'uses' => 'VPFController@showDonationCancel']);
+            Route::post('/virtual-personnel-file/donations/cancel',['as' => 'vpf.donate.cancel.confirm', 'uses' => 'VPFController@cancelPlan']);
+            Route::post('/virtual-personnel-file/donations/plan1/{vpf_id}',['as' => 'vpf.donate.plan1', 'uses' => 'VPFController@processPlan1']);
+            Route::post('/virtual-personnel-file/donations/plan2/{vpf_id}',['as' => 'vpf.donate.plan2', 'uses' => 'VPFController@processPlan2']);
+            Route::post('/virtual-personnel-file/donations/plan3/{vpf_id}',['as' => 'vpf.donate.plan3', 'uses' => 'VPFController@processPlan3']);
+            Route::post('/virtual-personnel-file/donations/plan4/{vpf_id}',['as' => 'vpf.donate.plan4', 'uses' => 'VPFController@processPlan4']);
+
             Route::get('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak', 'uses' => 'VPFController@showTeamspeak']);
             Route::post('/virtual-personnel-file/teamspeak',['as' => 'vpf.teamspeak.store', 'uses' => 'VPFController@saveTeamspeak']);
             Route::delete('/virtual-personnel-file/teamspeak/{id}',['as' => 'vpf.teamspeak.delete', 'uses' => 'VPFController@deleteTeamspeak']);

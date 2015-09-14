@@ -31,4 +31,9 @@ class SchoolTrainingDate extends Model
     {
         return $this->belongsToMany('App\VPF', 'school_training_date_user', 'school_date_id', 'vpf_id');
     }
+
+    public function instructor()
+    {
+        return $this->belongsTo('App\VPF','responsible_id','id');
+    }
 }

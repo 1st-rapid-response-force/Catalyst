@@ -22,7 +22,6 @@
         <p>The RRF is a NATO group and as such members will be required to be citizens of a NATO member country to partake. The RRF will issue clear and precise forward guidance, at least three months in advance, that details timing. Command Group will also issue clear and immutable ( May only be modified with three months notice of modification ) blocks of time where members are expected to be able to commit, however the schedule will advise which of these blocks they are required to commit to.</p>
         <p><strong>Members must be over the age of 18.</strong></p>
         <h3>Available Assignments</h3>
-        <p>Make pretty later</p>
         <ol>
             @if(!$availMOSs->count() == 0)
             @foreach($availMOSs as $mos)

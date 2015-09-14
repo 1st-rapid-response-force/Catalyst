@@ -308,6 +308,12 @@ class FormsController extends Controller
 
                 if($request->discharge_type != 'Dishonorable Discharge')
                 {
+                    //Ensure we cancel Subscription on Discharge
+                    if ($user->everSubscribed())
+                    {
+                        $vpfUser->subscription()->cancel();
+                    }
+
                     // Email User
                     $data = [
                         'discharge_type'=>$request->discharge_type,
@@ -345,6 +351,12 @@ class FormsController extends Controller
                     $data = [
                         'discharge_type'=>$request->discharge_type,
                     ];
+
+                    //Ensure we cancel Subscription on Discharge
+                    if ($user->everSubscribed())
+                    {
+                        $vpfUser->subscription()->cancel();
+                    }
 
                     //Add Service History
                     $vpf->serviceHistory()->create([

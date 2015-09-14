@@ -6,6 +6,7 @@ use App\Rank;
 use App\School;
 use App\SchoolTrainingDate;
 use App\Section;
+use App\VPF;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -117,8 +118,10 @@ class SchoolsController extends Controller
     public function indexTimeDate($id)
     {
         $school = School::find($id);
+        $vpfs = VPF::all();
         return view('backend.schools.indexTimeDate')
-            ->with('school',$school);
+            ->with('school',$school)
+            ->with('vpfs',$vpfs);
     }
 
     public function addTimeDate(Request $request,$id)
@@ -127,6 +130,7 @@ class SchoolsController extends Controller
         $test = new SchoolTrainingDate;
         $test->school_id = $id;
         $test->date = $time->format('Y-m-d H:i:s');
+        $test->responsible_id = $request->responsible_id;
         $test->save();
         \Notification::success('Time/Date to school added successfully');
         return redirect('/admin/schools/time-date/'.$id);

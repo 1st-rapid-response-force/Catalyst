@@ -50,17 +50,17 @@
                         @foreach($dates as $date)
                             <div class="media">
                                 <div class="media-left">
-                                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/frontend/images/appointment.png" alt="School">
+                                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/frontend/images/appointment.jpg" alt="School">
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-heading"><a href="/my-training/{{$date->school->id}}"><h4>{{$date->school->name}}</h4></a></h5>
-                                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}}</p>
+                                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}}<br>Class Instructor: <a href="/roster/{{$date->instructor->id}}">{{$date->instructor}}</a></p>
                                     <small>Class starts in {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->diffForHumans()}}</small>
                                 </div>
                             </div>
                         @endforeach
                     @else
-                        <p>No appointments found, you are currently no scheduled or the dates are in the past.</p>
+                        <p>No appointments found, you are currently not scheduled or the dates are in the past.</p>
                     @endif
                 </div>
             </div>
