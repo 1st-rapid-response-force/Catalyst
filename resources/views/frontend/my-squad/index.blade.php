@@ -262,11 +262,6 @@
                         phone number, email, and teamspeak message. When troops require your assistance. (Abuse of this system by anyone will result in immediate disciplinary acton.</p>
                             {!! csrf_field() !!}
                             <div class="form-group">
-                                <label>On Call Number:</label>
-                                <input class="form-control" id="phone" name="oncall_phone" placeholder="+14155555555">
-                                <small>Number must be in <a href="https://en.wikipedia.org/wiki/E.164">E164 format</a></small>
-                            </div>
-                            <div class="form-group">
                                 <label>On Call Type:</label>
                                 <select class="form-control" name="oncall_type">
                                     <option value="MEDEVAC">MEDEVAC</option>
@@ -277,6 +272,12 @@
                                     <option value="ATC">Air Traffic Control</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label>On Call Number:</label>
+                                <input class="form-control" id="phone" name="oncall_phone" placeholder="+14155555555">
+                                <small>Number must be in <a href="https://en.wikipedia.org/wiki/E.164">E164 format</a>, <strong>if you leave this field blank your only your Teamspeak will be contacted.</strong></small>
+                            </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
