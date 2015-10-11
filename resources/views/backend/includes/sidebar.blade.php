@@ -37,13 +37,16 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-sitemap"></i> <span>Unit Structure</span>
+                    <i class="fa fa-sitemap"></i> <span>Unit Manager</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li> <a href="{{route('admin.assignments.index')}}"><i class="fa fa-list"></i> <span>Assignments Manager</span></a></li>
-                    <li> <a href="{{route('admin.perstat.index')}}"><i class="fa fa-line-chart"></i> <span>PERSTAT Manager</span></a></li>
                     <li> <a href="{{route('admin.announcements.index')}}"><i class="fa fa-newspaper-o"></i> <span>Announcements Manager</span></a></li>
+                    <li> <a href="{{route('admin.assignments.index')}}"><i class="fa fa-list"></i> <span>Assignments Manager</span></a></li>
+                    <li> <a href="{{route('admin.groups.index')}}"><i class="fa fa-list"></i> <span>Assignments Manager</span></a></li>
+                    <li> <a href="{{route('admin.perstat.index')}}"><i class="fa fa-line-chart"></i> <span>PERSTAT Manager</span></a></li>
+                    <li> <a href="{{route('admin.oncall.index')}}"><i class="fa fa-phone-square"></i> <span>On Call Manager</span></a></li>
+                    <li> <a href="{{route('admin.prism.index')}}"><i class="fa fa-eye"></i> <span>Prism Inbox</span></a></li>
                     <li> <a href="/admin/ranks"><i class="fa fa-pause"></i> <span>Ranks</span></a></li>
                 </ul>
             </li>

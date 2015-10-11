@@ -47,18 +47,25 @@ class Group extends Model
     public function squad_report_percentage()
     {
         $members = $this->members;
-        $perstat = Perstat::where('active','=','1')->first();
-        $reportin = 0;
-        //compile a list of squad members who have completed the PERSTAT
-        foreach($perstat->VPF as $vpf)
+        if(count($members) > 0)
         {
+            $perstat = Perstat::where('active','=','1')->first();
+            $reportin = 0;
+            //compile a list of squad members who have completed the PERSTAT
+            foreach($perstat->VPF as $vpf)
+            {
 
-            if(is_null($vpf))
-                break;
-            if($members->contains($vpf->id))
-                $reportin += 1;
+                if(is_null($vpf))
+                    break;
+                if($members->contains($vpf->id))
+                    $reportin += 1;
+            }
+            return round((($reportin/$members->count())*100),2);
+        } else {
+            return 'NA - ';
         }
-        return round((($reportin/$members->count())*100),2);
+
+
     }
 
 }
