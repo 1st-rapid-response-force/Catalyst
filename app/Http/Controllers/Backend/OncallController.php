@@ -19,12 +19,21 @@ class OncallController extends Controller
     public function index()
     {
         $oncalls = OnCall::all();
-        $members = VPF::where('oncall_status','=','Active')->get();
 
         return view('backend.oncall.index')
             ->with('oncalls', $oncalls);
+    }
 
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function indexMembers()
+    {
+        $oncalls = VPF::where('oncall_status','=','1')->get();
+        return view('backend.oncall.indexMembers')
+            ->with('oncalls', $oncalls);
     }
 
     /**

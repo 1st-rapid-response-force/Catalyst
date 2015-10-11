@@ -207,6 +207,8 @@ Route::group(['namespace' => 'Backend',
     Route::post('groups/{group_id}/mysquad/chatter',['as'=>'admin.groups.chatter.create','uses'=>'GroupController@addChatter']);
     Route::post('groups/{group_id}/mysquad/squadannouce',['as'=>'admin.groups.squadannouce.create','uses'=>'GroupController@addSquadAnnoucement']);
 
+    //On Call
+    Route::get('oncall/members',['as'=>'admin.oncall.indexMembers','uses'=>'OncallController@indexMembers']);
 
 
 
