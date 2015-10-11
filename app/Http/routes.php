@@ -202,6 +202,14 @@ Route::group(['namespace' => 'Backend',
     Route::delete('vpf/{vpf_id}/delete/schools/{id}',['as'=>'admin.vpf.delete.school','uses'=>'VPFController@destroySchool']);
     Route::resource('vpf', 'VPFController');
 
+    //Groups
+    Route::get('groups/{group_id}/mysquad',['as'=>'admin.groups.mysquad','uses'=>'GroupController@mySquad']);
+    Route::post('groups/{group_id}/mysquad/chatter',['as'=>'admin.groups.chatter.create','uses'=>'GroupController@addChatter']);
+    Route::post('groups/{group_id}/mysquad/squadannouce',['as'=>'admin.groups.squadannouce.create','uses'=>'GroupController@addSquadAnnoucement']);
+
+
+
+
     //PERSTAT
     Route::post('perstat/email/{id}',['as'=>'admin.perstat.email','uses'=>'PerstatController@emailAllPending']);
     Route::resource('perstat', 'PerstatController');
@@ -212,6 +220,10 @@ Route::group(['namespace' => 'Backend',
     Route::resource('loadouts', 'LoadoutsController');
     Route::resource('assignments', 'AssignmentController');
     Route::resource('teamspeak', 'TeamspeakController');
+    Route::resource('oncall', 'OncallController');
+    Route::resource('prism', 'PrismController');
+    Route::resource('groups', 'GroupController');
+
 
     Route::get('autocomplete/courses', 'AutoCompleteController@getCourses');
 
