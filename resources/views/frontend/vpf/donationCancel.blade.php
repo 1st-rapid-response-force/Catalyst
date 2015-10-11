@@ -22,7 +22,7 @@
         <form action="{{route('vpf.donate.cancel.confirm')}}" method="POST" >
             {{csrf_field()}}
             <a href="/virtual-personnel-file/" class="btn btn-success">Return to Virtual Personnel File</a>
-            <button type="submit" class="btn btn-danger">Cancel Donation Plan</button>
+        <button type="submit" class="btn btn-danger">Cancel Donation Plan</button>
         </form>
     </div>
 @endsection
