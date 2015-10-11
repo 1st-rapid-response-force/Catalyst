@@ -110,6 +110,8 @@
                         @if(!$user->vpf->hasReportedIn())
                         <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#reportin">Report in</button>
                         @endif
+                        <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#callin">Setup On Call</button>
+
                     </div>
                 </div>
                 <div class="well well-sm">
@@ -225,7 +227,7 @@
                     <form action="{{route('squad.reportin.create')}}" method="POST">
                         {!! csrf_field() !!}
                         <p>By submitting this form you are reporting into the unit. You will need to report in on a weekly basis in order to maintain an active status.</p>
-                        <p>Failure to report will result in negative action against you.</p>
+                        <p>Failure to report will result in negative action against you. </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -236,4 +238,43 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="callin" tabindex="-1" role="dialog" aria-labelledby="callin">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="callinlabel">Setup - On Call</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('squad.oncall.create')}}" method="POST">
+                        {!! csrf_field() !!}
+                        <p>The on call system allows for troops in the deployment environment to get in contact with you in case of MEDEVAC, logistics, and command assistance/guidance. This system will send you a message to your
+                        phone number, email, and teamspeak message. When troops require your assistance. (Abuse of this system by anyone will result in immediate disciplinary acton.</p>
+                            {!! csrf_field() !!}
+                            <div class="form-group">
+                                <label>On Call Number:</label>
+                                <input class="form-control" id="phone" name="oncall_phone" placeholder="+14155555555">
+                                <small>Number must be in <a href="https://en.wikipedia.org/wiki/E.164">E164 format</a></small>
+                            </div>
+                            <div class="form-group">
+                                <label>On Call Type:</label>
+                                <select class="form-control" name="oncall_type">
+                                    <option value="MED">MEDEVAC</option>
+                                    <option value="LOG">Logistics</option>
+                                    <option value="TRN">Transport</option>
+                                    <option value="CAS">Close Air Support</option>
+                                    <option value="COM">Command</option>
+                                    <option value="ATC">Air Traffic Control</option>
+                                </select>
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-success">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

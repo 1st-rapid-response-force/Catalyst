@@ -57,6 +57,31 @@ class mySquadController extends Controller
     }
 
     /**
+     * Stores the OnCall Comment
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function onCallAdd(Request $request)
+    {
+        $this->validate($request, [
+            'phone' => 'required',
+        ]);
+        $user = \Auth()->user();
+
+        $chatter = new SquadChatter;
+        $chatter->message = $request->chatter;
+        $chatter->vpf_id = $user->vpf->id;
+        $chatter->group_id = $user->vpf->assignment->group->id;
+        $chatter->save();
+
+        \Notification::success('Message added successfully');
+        return redirect('/my-squad');
+
+    }
+
+    /**
      * Show the form for editing the chatter resource.
      *
      * @param  int  $id

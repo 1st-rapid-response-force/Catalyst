@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img src="/frontend/images/logo.png" alt="">
+                <a href="/"><img src="/frontend/images/logo.png" alt=""></a>
             </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->

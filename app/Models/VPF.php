@@ -231,4 +231,13 @@ class VPF extends Model
         return false;
     }
 
+    public function enabledOnCall()
+    {
+        $perstat = VPF::where('active','=','1')->first();
+
+        if($perstat->VPF->contains($this->id))
+            return true;
+
+        return false;
+    }
 }

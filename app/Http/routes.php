@@ -105,6 +105,8 @@ Route::group(['namespace' => 'Frontend'], function()
             Route::post('/my-squad/announcement', ['as' => 'squad.announcement.create', 'uses' => 'mySquadController@addSquadAnnouncement']);
             Route::get('/my-squad/announcement/{id}/edit', ['as' => 'squad.announcement.edit', 'uses' => 'mySquadController@editSquadAnnouncement']);
             Route::put('/my-squad/announcement/{id}', ['as' => 'squad.announcement.update', 'uses' => 'mySquadController@updateSquadAnnouncement']);
+            Route::post('/my-squad/oncall', ['as' => 'squad.oncall.create', 'uses' => 'mySquadController@onCallAdd']);
+
 
         //My Training Center
         Route::get('/my-training', ['as' => 'training', 'uses' => 'myTrainingController@index']);
