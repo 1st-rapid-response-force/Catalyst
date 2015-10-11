@@ -101,11 +101,20 @@ class mySquadController extends Controller
 
         if($user->vpf->onCallPhoneEnabled())
         {
-            \Twilio::message($request->oncall_phone,'1ST RRF - You have enabled the ON-CALL system - TYPE: '.$request->oncall_type);
+            try{
+                \Twilio::message($request->oncall_phone,'1ST RRF - You have enabled the ON-CALL system - TYPE: '.$request->oncall_type);
+                \Notification::success('You have been set On Call.');
+            } catch (\Services_Twilio_RestException $e)
+            {
+                $user->vpf->oncall_phone = '';
+                \Notification::warning('You have been set On Call, however the your phone was not valid. You will receive messages via TS');
+
+            }
+
         }
 
 
-        \Notification::success('You have been set On Call.');
+
         return redirect('/my-squad');
 
     }
@@ -152,13 +161,15 @@ class mySquadController extends Controller
                     ." [/COLOR]");
                 $phone = $vpf->oncall_phone;
                 if($user->vpf->onCallPhoneEnabled()) {
-                    \Twilio::message($vpf->oncall_phone, '1ST RRF - ON CALL ALERT - ' .
-                        $request->oncall_type . ' | ' .
-                        $request->grid . ' | ' .
-                        $request->callsign . ' | ' .
-                        $request->urgency . ' | ' .
-                        $request->enemy_sit. ' | '.
-                        $request->other );
+                    try {
+                        \Twilio::message($vpf->oncall_phone, '1ST RRF - ON CALL ALERT - ' .
+                            $request->oncall_type . ' | ' .
+                            $request->grid . ' | ' .
+                            $request->callsign . ' | ' .
+                            $request->urgency . ' | ' .
+                            $request->enemy_sit. ' | '.
+                            $request->other );
+                    } catch (\Services_Twilio_RestException $e) {}
                 }
             }
 
@@ -182,7 +193,9 @@ class mySquadController extends Controller
         $user = \Auth()->user();
         $phone = $user->vpf->oncall_phone;
         if($user->vpf->onCallPhoneEnabled()) {
-            \Twilio::message($user->vpf->oncall_phone,'1ST RRF - You have disabled the ON-CALL system.');
+            try {
+                \Twilio::message($user->vpf->oncall_phone,'1ST RRF - You have disabled the ON-CALL system.');
+            } catch (\Services_Twilio_RestException $e) {}
         }
 
         $save =$this->ts->message($user,"[COLOR=red]You have disabled the ON-CALL SYSTEM[/COLOR]");
