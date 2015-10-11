@@ -90,18 +90,20 @@ class mySquadController extends Controller
      */
     public function onCallAdd(Request $request)
     {
-        $this->validate($request, [
-            'oncall_phone' => 'required',
-        ]);
         $user = \Auth()->user();
-        $save = $this->ts->message($user,"[COLOR=red]You have enabled the ON-CALL SYSTEM - TYPE: ".$request->oncall_type." [/COLOR]");
+        $this->ts->message($user,"[COLOR=red]You have enabled the ON-CALL SYSTEM - TYPE: ".$request->oncall_type." [/COLOR]");
+        $phone = $request->oncall_phone;
 
         $user->vpf->oncall_status = true;
         $user->vpf->oncall_phone = $request->oncall_phone;
         $user->vpf->oncall_type = $request->oncall_type;
         $user->push();
 
-        \Twilio::message($request->oncall_phone,'1ST RRF - You have enabled the ON-CALL system - TYPE: '.$request->oncall_type);
+        if(!empty($phone))
+        {
+            \Twilio::message($request->oncall_phone,'1ST RRF - You have enabled the ON-CALL system - TYPE: '.$request->oncall_type);
+        }
+
 
         \Notification::success('You have been set On Call.');
         return redirect('/my-squad');
@@ -119,10 +121,16 @@ class mySquadController extends Controller
 
         $user = \Auth()->user();
 
-        $oncallCheck = $user->vpf->onCallRequests->reverse()->first();
+        try {
+            $oncallCheck = $user->vpf->onCallRequests->reverse()->first();
+            $oncallCheck = $oncallCheck->created_at;
+        } catch (\ErrorException $e) {
+            $oncallCheck = Carbon::now()->subMinute(10);
+        }
+
         $now = Carbon::now();
 
-        if($oncallCheck->created_at->addMinutes(5) < $now)
+        if($oncallCheck->addMinutes(5) < $now)
         {
             $oncall = $user->vpf->onCallRequests()->create([
                 'oncall_type' => $request->oncall_type,
@@ -142,7 +150,10 @@ class mySquadController extends Controller
                     ." | ".$request->enemy_sit
                     ." | OTHER: ".$request->other
                     ." [/COLOR]");
-                \Twilio::message($vpf->oncall_phone,'1ST RRF - ON CALL ALERT -'.$request->oncall_type.' '.$request->grid.' '.$request->callsign.' '.$request->urgency.' '.$request->enemy_sit);
+                $phone = $vpf->oncall_phone;
+                if(!empty($phone)) {
+                    \Twilio::message($vpf->oncall_phone, '1ST RRF - ON CALL ALERT -' . $request->oncall_type . ' | ' . $request->grid . ' | ' . $request->callsign . ' | ' . $request->urgency . ' | ' . $request->enemy_sit);
+                }
             }
 
             \Notification::success('On Call Request has been dispatched to all applicable members, Do not resend your request if no one contacts you.');
@@ -163,7 +174,11 @@ class mySquadController extends Controller
     public function onCallDisable(Request $request)
     {
         $user = \Auth()->user();
-        \Twilio::message($user->vpf->oncall_phone,'1ST RRF - You have disabled the ON-CALL system.');
+        $phone = $user->vpf->oncall_phone;
+        if(!empty($phone)) {
+            \Twilio::message($user->vpf->oncall_phone,'1ST RRF - You have disabled the ON-CALL system.');
+        }
+
         $save =$this->ts->message($user,"[COLOR=red]You have disabled the ON-CALL SYSTEM[/COLOR]");
 
         $user->vpf->oncall_status = false;
