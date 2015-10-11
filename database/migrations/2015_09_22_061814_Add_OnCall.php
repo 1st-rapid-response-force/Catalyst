@@ -23,6 +23,7 @@ class AddOnCall extends Migration
         Schema::create('oncall', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('vpf_id');
+            $table->string('oncall_type');
             $table->string('grid');
             $table->string('callsign');
             $table->string('urgency');
@@ -36,7 +37,7 @@ class AddOnCall extends Migration
             $table->unsignedInteger('oncall_id');
             $table->unsignedInteger('vpf_id');
             $table->engine = 'InnoDB';
-            $table->primary(['oncall_id'.'vpf_id']);
+            $table->primary(['oncall_id','vpf_id']);
             $table->foreign('vpf_id')->references('id')->on('vpf')->onDelete('cascade');
             $table->foreign('oncall_id')->references('id')->on('oncall')->onDelete('cascade');
         });

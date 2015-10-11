@@ -195,6 +195,16 @@ class VPF extends Model
     }
 
     /**
+     * Returns all On Call Requests
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function onCallRequests()
+    {
+        return $this->hasMany('App\OnCall','vpf_id','id');
+    }
+
+
+    /**
      * Returns Users current Loadout
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
@@ -231,13 +241,13 @@ class VPF extends Model
         return false;
     }
 
-    public function enabledOnCall()
+    public function onCall()
     {
-        $perstat = VPF::where('active','=','1')->first();
-
-        if($perstat->VPF->contains($this->id))
+        if($this->oncall_status)
+        {
             return true;
-
+        }
         return false;
+
     }
 }

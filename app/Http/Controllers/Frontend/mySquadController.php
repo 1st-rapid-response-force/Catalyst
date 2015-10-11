@@ -6,13 +6,35 @@ use App\Perstat;
 use App\SquadAnnouncements;
 use App\SquadChatter;
 use App\UnitAnnouncements;
+use App\VPF;
 use Illuminate\Http\Request;
+use App\Modules\Teamspeak\TeamspeakContract;
+use App\Repositories\Image\ImageRepositoryContract;
+use Carbon\Carbon;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class mySquadController extends Controller
 {
+    /**
+     * @var ImageRepositoryContract
+     */
+    protected $image;
+
+    /**
+     * @var TeamspeakContract
+     */
+    protected $ts;
+
+    /**
+     * @param ImageRepositoryContract $image
+     * @param TeamspeakContract $ts
+     */
+    public function __construct(ImageRepositoryContract $image, TeamspeakContract $ts){
+        $this->image = $image;
+        $this->ts = $ts;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,11 +46,14 @@ class mySquadController extends Controller
         $chatter = SquadChatter::where('group_id','=',$user->vpf->assignment->group->id)->orderBy('created_at','desc')->Paginate(15);
         $unitAnnouncements = UnitAnnouncements::all()->sortByDesc('created_at')->take(2);
         $perstat = Perstat::where('active','=','1')->first();
+        $oncall = $this->getOnCallCats();
+
         return view('frontend.my-squad.index')
             ->with('user',$user)
             ->with('unitAnnouncements', $unitAnnouncements)
             ->with('chatter',$chatter)
-            ->with('perstat',$perstat);
+            ->with('perstat',$perstat)
+            ->with('oncallCat',$oncall);
     }
 
     /**
@@ -57,7 +82,7 @@ class mySquadController extends Controller
     }
 
     /**
-     * Stores the OnCall Comment
+     * Enables OnCall
      *
      * @param  Request  $request
      * @param  int  $id
@@ -66,17 +91,87 @@ class mySquadController extends Controller
     public function onCallAdd(Request $request)
     {
         $this->validate($request, [
-            'phone' => 'required',
+            'oncall_phone' => 'required',
         ]);
         $user = \Auth()->user();
+        $save = $this->ts->message($user,"[COLOR=red]You have enabled the ON-CALL SYSTEM - TYPE: ".$request->oncall_type." [/COLOR]");
 
-        $chatter = new SquadChatter;
-        $chatter->message = $request->chatter;
-        $chatter->vpf_id = $user->vpf->id;
-        $chatter->group_id = $user->vpf->assignment->group->id;
-        $chatter->save();
+        $user->vpf->oncall_status = true;
+        $user->vpf->oncall_phone = $request->oncall_phone;
+        $user->vpf->oncall_type = $request->oncall_type;
+        $user->push();
 
-        \Notification::success('Message added successfully');
+        \Twilio::message($request->oncall_phone,'1ST RRF - You have enabled the ON-CALL system - TYPE: '.$request->oncall_type);
+
+        \Notification::success('You have been set On Call.');
+        return redirect('/my-squad');
+
+    }
+    public function onCallAssistance(Request $request)
+    {
+        $this->validate($request, [
+            'oncall_type' => 'required',
+            'grid' => 'required',
+            'callsign' => 'required',
+            'urgency' => 'required',
+            'enemy_sit' => 'required'
+        ]);
+
+        $user = \Auth()->user();
+
+        $oncallCheck = $user->vpf->onCallRequests->reverse()->first();
+        $now = Carbon::now();
+
+        if($oncallCheck->created_at->addMinutes(5) < $now)
+        {
+            $oncall = $user->vpf->onCallRequests()->create([
+                'oncall_type' => $request->oncall_type,
+                'grid' => $request->grid,
+                'callsign' => $request->callsign,
+                'urgency' => $request->urgency,
+                'security' => $request->enemy_sit,
+                'other' => $request->other,
+            ]);
+
+
+            foreach ($oncall->oncallMembers() as $vpf) {
+                $this->ts->message($vpf->user,"[COLOR=red]ON-CALL SYSTEM ALERT - TYPE: ".$request->oncall_type
+                    ." | GRID: ".$request->grid
+                    ." | CALLSIGN: ".$request->callsign
+                    ." | ".$request->urgency
+                    ." | ".$request->enemy_sit
+                    ." | OTHER: ".$request->other
+                    ." [/COLOR]");
+                \Twilio::message($vpf->oncall_phone,'1ST RRF - ON CALL ALERT -'.$request->oncall_type.' '.$request->grid.' '.$request->callsign.' '.$request->urgency.' '.$request->enemy_sit);
+            }
+
+            \Notification::success('On Call Request has been dispatched to all applicable members, Do not resend your request if no one contacts you.');
+        } else {
+            \Notification::warning('You have already submitted an on call request, due to flood protection, you need to wait 5 minutes between requests.');
+        }
+
+        return redirect('/my-squad');
+    }
+
+    /**
+     * Disables OnCall
+     *
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function onCallDisable(Request $request)
+    {
+        $user = \Auth()->user();
+        \Twilio::message($user->vpf->oncall_phone,'1ST RRF - You have disabled the ON-CALL system.');
+        $save =$this->ts->message($user,"[COLOR=red]You have disabled the ON-CALL SYSTEM[/COLOR]");
+
+        $user->vpf->oncall_status = false;
+        $user->vpf->oncall_phone = "";
+        $user->vpf->oncall_type = "";
+        $user->push();
+
+        \Notification::success('You have been been removed from On Call.');
         return redirect('/my-squad');
 
     }
@@ -233,6 +328,46 @@ class mySquadController extends Controller
         $user->vpf->perstat()->attach($perstat->id);
         \Notification::success('Your report in has been filed. Make sure to report in weekly.');
         return redirect('/my-squad');
+    }
+
+    private function getOnCallCats()
+    {
+        $vpfs = VPF::all();
+        $cat = collect();
+        foreach($vpfs as $vpf)
+        {
+            switch($vpf->oncall_type)
+            {
+                case 'MEDEVAC':
+                    $type = collect(['type'=>'MEDEVAC','name'=>'MEDEVAC']);
+                    $cat->push($type);
+                    break;
+                case 'LOGISTICS':
+                    $type = collect(['type'=>'LOGISTICS','name'=>'Logistics']);
+                    $cat->push($type);
+                    break;
+                case 'TRANSPORT':
+                    $type = collect(['type'=>'TRANSPORT','name'=>'Transport']);
+                    $cat->push($type);
+                    break;
+                case 'CAS':
+                    $type = collect(['type'=>'CAS','name'=>'Close Air Support']);
+                    $cat->push($type);
+                    break;
+                case 'COMMAND':
+                    $type = collect(['type'=>'COMMAND','name'=>'Command']);
+                    $cat->push($type);
+                    break;
+                case 'ATC':
+                    $type = collect(['type'=>'ATC','name'=>'Air Traffic Control']);
+                    $cat->push($type);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return $cat->unique();
     }
 
 }

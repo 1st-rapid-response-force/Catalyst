@@ -14,7 +14,6 @@ class AddResponsibleMemberId extends Migration
     {
         Schema::table('school_training_date', function (Blueprint $table) {
             $table->unsignedInteger('responsible_id')->default(1)->after('date');
-            $table->foreign('responsible_id')->references('id')->on('vpf')->onDelete('cascade');
         });
     }
 

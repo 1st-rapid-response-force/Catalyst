@@ -25,15 +25,11 @@ class OnCall extends Model
     }
 
     /**
-     * Returns On Call Information or False Boolean
-     * @return Array or Boolean
+     * Returns all members who are currently on call
      */
-    public function onCall()
+    public function oncallMembers()
     {
-        $oncallUser = $this->VPF;
-        $members = VPF::where('status','=','Active')->get();
-        $members = $members->diff($reportedIn);
-        return $members;
+        return VPF::where('oncall_type','=',$this->oncall_type)->get();
     }
 
 }

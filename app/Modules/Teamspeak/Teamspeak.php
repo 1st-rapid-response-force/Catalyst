@@ -93,9 +93,21 @@ class Teamspeak implements TeamspeakContract
         return collect(['success' => true, 'message' => 'Teamspeak update successful.']);
     }
 
+
     public function message($user, $message)
     {
+    //Lets begin
+        $uuids = $user->vpf->teamspeak;
+        foreach ($uuids as $uid) {
+            try {
+                $user = $this->ts->clientGetByUid($uid->uuid, true);
+                $user->message($message);
 
+            } catch (\TeamSpeak3_Exception $e) {
+             // Ignore the error and continue
+            }
+        }
+        return collect(['success' => true, 'message' => 'Message sent to all TS Clients that user has on file successful.']);
     }
 
     public function announce($message)
