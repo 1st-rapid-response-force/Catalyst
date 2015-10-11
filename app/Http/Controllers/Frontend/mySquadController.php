@@ -99,7 +99,7 @@ class mySquadController extends Controller
         $user->vpf->oncall_type = $request->oncall_type;
         $user->push();
 
-        if(!empty($phone))
+        if($user->vpf->onCallPhoneEnabled())
         {
             \Twilio::message($request->oncall_phone,'1ST RRF - You have enabled the ON-CALL system - TYPE: '.$request->oncall_type);
         }
@@ -151,7 +151,7 @@ class mySquadController extends Controller
                     ." | OTHER: ".$request->other
                     ." [/COLOR]");
                 $phone = $vpf->oncall_phone;
-                if(!empty($phone)) {
+                if($user->vpf->onCallPhoneEnabled()) {
                     \Twilio::message($vpf->oncall_phone, '1ST RRF - ON CALL ALERT - ' .
                         $request->oncall_type . ' | ' .
                         $request->grid . ' | ' .
@@ -181,7 +181,7 @@ class mySquadController extends Controller
     {
         $user = \Auth()->user();
         $phone = $user->vpf->oncall_phone;
-        if(!empty($phone)) {
+        if($user->vpf->onCallPhoneEnabled()) {
             \Twilio::message($user->vpf->oncall_phone,'1ST RRF - You have disabled the ON-CALL system.');
         }
 

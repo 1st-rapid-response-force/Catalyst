@@ -250,4 +250,11 @@ class VPF extends Model
         return false;
 
     }
+    public function onCallPhoneEnabled()
+    {
+        $phone = $this->oncall_phone;
+        if(!empty($phone))
+            return true;
+        return false;
+    }
 }

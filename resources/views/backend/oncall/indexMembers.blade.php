@@ -31,7 +31,7 @@
                     On Call <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{route('admin.oncall.indexMembers')}}">View On Call Members</a></li>
+                    <li><a href="{{route('admin.oncall.index')}}">View On Call Requests</a></li>
                 </ul>
             </div>
         </div>
@@ -41,26 +41,20 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>From</th>
-                <th>Type</th>
-                <th>Grid</th>
-                <th>Callsign</th>
-                <th>Urgency</th>
-                <th>Security</th>
-                <th>Submitted on</th>
+                <th>Name</th>
+                <th>On Call Type</th>
+                <th>Phone Enabled</th>
+                <th>Options</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($oncalls as $call)
                 <tr>
                     <td>{!! $call->id !!}</td>
-                    <td>{!! $call->vpf !!}</td>
+                    <td>{!! $call !!}</td>
                     <td>{!! $call->oncall_type !!}</td>
-                    <td>{!! $call->grid !!}</td>
-                    <td>{!! $call->callsign !!}</td>
-                    <td>{!! $call->getUrgency() !!}</td>
-                    <td>{!! $call->getSecurity() !!}</td>
-                    <td>{!! $call->created_at->diffForHumans() !!}</td>
+                    <td>{!!($call->onCallPhoneEnabled()) ? '<span class="label label-success">True</span>' : '<span class="label label-danger">False</span>' !!}</td>
+                    <td>NA</td>
                 </tr>
             @endforeach
             </tbody>
