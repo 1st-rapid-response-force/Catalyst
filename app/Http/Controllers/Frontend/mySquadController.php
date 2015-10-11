@@ -152,7 +152,13 @@ class mySquadController extends Controller
                     ." [/COLOR]");
                 $phone = $vpf->oncall_phone;
                 if(!empty($phone)) {
-                    \Twilio::message($vpf->oncall_phone, '1ST RRF - ON CALL ALERT -' . $request->oncall_type . ' | ' . $request->grid . ' | ' . $request->callsign . ' | ' . $request->urgency . ' | ' . $request->enemy_sit);
+                    \Twilio::message($vpf->oncall_phone, '1ST RRF - ON CALL ALERT - ' .
+                        $request->oncall_type . ' | ' .
+                        $request->grid . ' | ' .
+                        $request->callsign . ' | ' .
+                        $request->urgency . ' | ' .
+                        $request->enemy_sit. ' | '.
+                        $request->other );
                 }
             }
 
