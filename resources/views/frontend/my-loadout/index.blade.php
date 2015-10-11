@@ -10,6 +10,13 @@
             overflow-y:auto;
         }
     </style>
+
+    <style>
+        .scrolldivMulti {
+            height: 250px;
+            overflow-y:auto;
+        }
+    </style>
 @endsection
 
 @section('breadcrumbs')
@@ -58,7 +65,7 @@
                     Primary Weapon Attachment
                 </a><br><br>
                 <div class="collapse" id="primaryAttachCollapse">
-                    <div class="well scrolldiv">
+                    <div class="well scrolldivMulti">
                         <p>Make sure the attachment you have selected is compatible</p>
                         @foreach($primary_attachments as $loadout)
                             <div class="media">
@@ -69,7 +76,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this attachment? - <input type="radio" name="primary_attachment" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                    <p><small>Select this attachment? - <input type="checkbox" name="primary_attachment[]" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
                                 </div>
                             </div>
                         @endforeach
@@ -99,7 +106,7 @@
                     Sidearm Weapon Attachment
                 </a><br><br>
                 <div class="collapse" id="secondaryAttachCollapse">
-                    <div class="well scrolldiv">
+                    <div class="well scrolldivMulti">
                         <p>Make sure the attachment you have selected is compatible</p>
                         @foreach($secondary_attachments as $loadout)
                             <div class="media">
@@ -110,7 +117,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this attachment? - <input type="radio" name="secondary_attachment" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                    <p><small>Select this attachment? - <input type="checkbox" name="secondary_attachment[]" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
                                 </div>
                             </div>
                         @endforeach
@@ -135,27 +142,6 @@
                             </div>
                         @endforeach
 
-                    </div>
-                </div>
-                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#launcherAttachCollapse" aria-expanded="false" aria-controls="collapseExample">
-                    Launcher Weapon Attachment
-                </a><br><br>
-                <div class="collapse" id="launcherAttachCollapse">
-                    <div class="well scrolldiv">
-                        <p>Make sure the attachment you have selected is compatible</p>
-                        @foreach($launcher_attachments as $loadout)
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
-                                    <p><small>Select this attachment? - <input type="radio" name="launcher_attachment" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
-                                </div>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
@@ -288,11 +274,32 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                </div>
 
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#itemsCollapse" aria-expanded="false" aria-controls="collapseExample">
+                    Items
+                </a><br><br>
+                <div class="collapse" id="itemsCollapse">
+                    <div class="well scrolldivMulti">
+                        @foreach($items as $loadout)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <img class="media-object" style="max-height: 75px; max-width: 75px;" class="img-thumbnail" src="{{$loadout['imageSrc']}}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading">{{$loadout['text']}}</h5>
+                                    <p><small>Select this weapon? - <input type="checkbox" name="items[]" {{($loadout['selected'] == true) ? 'checked' : ''}} value="{{$loadout['value']}}"></small></p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
+            <input type="hidden" name="launcher_attachment" value="15">
             <button type="submit" class="btn btn-success pull-right">Save Loadout</button>
         </form>
     </div>

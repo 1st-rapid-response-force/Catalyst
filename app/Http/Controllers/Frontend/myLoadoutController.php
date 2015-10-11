@@ -34,15 +34,15 @@ class myLoadoutController extends Controller
             ->with('goggles',$loadout[6])
             ->with('uniform',$loadout[7])
             ->with('vest',$loadout[8])
-            ->with('backpack',$loadout[9]);
+            ->with('backpack',$loadout[9])
+            ->with('items',$loadout[13]);
 
     }
 
     public function saveLoadout(Request $request)
     {
         $user = \Auth::user();
-
-        $loadout = [
+        $loadout = collect([
             $request->primaryWeapon,
             $request->secondary,
             $request->launcherWeapons,
@@ -52,13 +52,12 @@ class myLoadoutController extends Controller
             $request->uniform,
             $request->vest,
             $request->backpack,
-            $request->primary_attachment,
-            $request->secondary_attachment,
             $request->launcher_attachment,
+        ]);
 
-        ];
+        $loadoutMerged = $loadout->merge($request->primary_attachment)->merge($request->secondary_attachment)->merge($request->items);
+        $user->vpf->loadout()->sync($loadoutMerged);
 
-        $user->vpf->loadout()->sync($loadout);
         \Notification::success('Your loadout have been saved, you can now obtain it from the armorer on base');
         return redirect('/my-loadout/');
     }
