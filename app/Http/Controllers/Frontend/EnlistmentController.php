@@ -57,7 +57,7 @@ class EnlistmentController extends Controller
         }
 
         $user = \Auth::user();
-        $this->emailApplicationFiled($user);
+
         return view('frontend.enlistment.create')
             ->with('user',$user)
             ->with('mos',$mos);
@@ -136,7 +136,7 @@ class EnlistmentController extends Controller
         $user->application_id = $app->id;
         $user->save();
 
-
+          $this->emailApplicationFiled($user);
         //Redirect to Application
         \Notification::success('Application has been filed. It is in the process of being reviewed. You can check the status of your application via this page. You will also receive email updates. The current status of the application can be found in section D.');
         return redirect('/enlistment/my-application');
