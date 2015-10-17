@@ -55,8 +55,9 @@ class myLoadoutController extends Controller
             $request->launcher_attachment,
         ]);
 
+
         $loadoutMerged = $loadout->merge($request->primary_attachment)->merge($request->secondary_attachment)->merge($request->items);
-        $user->vpf->loadout()->sync($loadoutMerged);
+        $user->vpf->loadout()->sync($loadoutMerged->all());
 
         \Notification::success('Your loadout have been saved, you can now obtain it from the armorer on base');
         return redirect('/my-loadout/');
