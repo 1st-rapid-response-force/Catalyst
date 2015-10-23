@@ -106,22 +106,23 @@
                 </div>
             <div class="col-lg-12 text-center">
                 @if ($user->everSubscribed())
-                @if($user->cancelled())
-                    <h4>Expires:
-                        {{
-                            $user->subscription()->getSubscriptionEndDate()->toFormattedDateString()
-                        }} ( {{ $user->subscription()->getSubscriptionEndDate()->diffInDays(\Carbon\Carbon::now())  }} days from now )
-                    </h4>
-                @else
-                    <h4>Auto Renews:
-                        {{
-                            $user->subscription()->getSubscriptionEndDate()->toFormattedDateString()
-                        }} ( {{ $user->subscription()->getSubscriptionEndDate()->diffInDays(\Carbon\Carbon::now())  }} days from now )
-                    </h4>
-                    <a href="{{route('vpf.donation.cancel')}}"><i class="glyphicon glyphicon-adjust"></i>&nbsp;Cancel</a><br>
+                    @if($user->cancelled() && !($user->expired()))
+                        <h4>Expires:
+                            {{
+                                $user->subscription()->getSubscriptionEndDate()->toFormattedDateString()
+                            }} ( {{ $user->subscription()->getSubscriptionEndDate()->diffInDays(\Carbon\Carbon::now())  }} days from now )
+                        </h4>
+                        <small>If you decide to swap your plan midway, you will be charged the new amount on the next monthly donation cycle.</small>
+                    @elseif($user->subscribed())
+                        <h4>Auto Renews:
+                            {{
+                                $user->subscription()->getSubscriptionEndDate()->toFormattedDateString()
+                            }} ( {{ $user->subscription()->getSubscriptionEndDate()->diffInDays(\Carbon\Carbon::now())  }} days from now )
+                        </h4>
+                        <a href="{{route('vpf.donation.cancel')}}"><i class="glyphicon glyphicon-adjust"></i>&nbsp;Cancel</a><br>
+                        <small>If you decide to swap your plan midway, you will be charged the new amount on the next monthly donation cycle.</small>
+                    @endif
                 @endif
-                @endif
-                <small>If you decide to swap your plan midway, you will be charged the new amount on the next monthly donation cycle.</small>
             </div>
         </div>
     </div>
