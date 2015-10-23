@@ -274,7 +274,7 @@ class myInboxController extends Controller
         foreach($users as $userID)
         {
             $user = User::find($userID);
-            Mail::send('emails.newMessage', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            Mail::queue('emails.newMessage', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
                 $m->to($user->email, $user->vpf);
                 $m->subject('1st RRF - New Message - '.$data['title']);
                 $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
@@ -293,7 +293,7 @@ class myInboxController extends Controller
         foreach($users as $userID)
         {
             $user = User::find($userID);
-            Mail::send('emails.newParticipant', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            Mail::queue('emails.newParticipant', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
                 $m->to($user->email, $user->vpf);
                 $m->subject('1st RRF - You have been added to a Conversation');
                 $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');

@@ -147,7 +147,7 @@ class AnnouncementController extends Controller
      */
     private function emailAnnounce($user,$data)
     {
-        Mail::send('emails.announcement', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+        Mail::queue('emails.announcement', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
             $m->to($user->email, $user->vpf);
             $m->subject('1st RRF - '.$data['subject']);
             $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
