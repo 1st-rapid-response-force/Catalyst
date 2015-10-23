@@ -108,22 +108,25 @@ class AdminController extends Controller
         $cost = 0.00;
         foreach($users as $user)
         {
-            switch ($user->stripe_plan) {
-                case '5month':
-                    $cost += 5.00;
-                    break;
-                case '15month':
-                    $cost += 15.00;
-                    break;
-                case '25month':
-                    $cost += 25.00;
-                    break;
-                case '50month':
-                    $cost += 50.00;
-                    break;
-                default:
-                    $cost += 0;
-                    break;
+            if($user->stripe_active == 1)
+            {
+                switch ($user->stripe_plan) {
+                    case '5month':
+                        $cost += 5.00;
+                        break;
+                    case '15month':
+                        $cost += 15.00;
+                        break;
+                    case '25month':
+                        $cost += 25.00;
+                        break;
+                    case '50month':
+                        $cost += 50.00;
+                        break;
+                    default:
+                        $cost += 0;
+                        break;
+                }
             }
         }
 
