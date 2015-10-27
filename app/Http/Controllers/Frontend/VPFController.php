@@ -19,6 +19,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use PhpSpec\Exception\Fracture\PropertyNotFoundException;
 
 class VPFController extends Controller
 {
@@ -50,11 +51,10 @@ class VPFController extends Controller
     {
         $user = \Auth::user();
         //Exception Checks
-        try {
-            VPF::findorFail($user->vpf_id);
-        } catch (ModelNotFoundException $e) {
-            \Notification::error('The Virtual Personnel File was not found.');
-            return redirect('/');
+
+        if(is_null($user->vpf)) {
+            \Notification::error('The user does not have a VPF File.');
+            return redirect('/structure-assignments');
         }
 
         $forms = collect();
@@ -91,24 +91,24 @@ class VPFController extends Controller
         try {
             $user = User::findorFail($id);
         } catch (ModelNotFoundException $e) {
-            \Notification::error('The Virtual Personnel File was not found.');
+            \Notification::error('The User was not found.');
             return redirect('/structure-assignments');
         }
 
         // Get the VPF file
-        try {
-            VPF::findorFail($user->id);
-        } catch (ModelNotFoundException $e) {
+        if(is_null($user->vpf)) {
             \Notification::error('The user does not have a VPF File.');
             return redirect('/structure-assignments');
         }
 
         $forms = collect();
+
         $forms = $forms->merge($user->vpf->article15);
         $forms = $forms->merge($user->vpf->ncs);
         $forms = $forms->merge($user->vpf->dcs);
         $forms = $forms->merge($user->vpf->discharges);
         $forms = $forms->sortByDesc('created_at');
+
 
         $buildProfile = collect(
             ['serviceHistory'=>$user->vpf->serviceHistory->sortByDesc('date'),
