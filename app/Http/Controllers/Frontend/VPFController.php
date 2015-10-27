@@ -111,13 +111,14 @@ class VPFController extends Controller
         $forms = $forms->sortByDesc('created_at');
 
         $buildProfile = collect(
-            ['serviceHistory'=>$user->vpf->serviceHistory,
+            ['serviceHistory'=>$user->vpf->serviceHistory->sortByDesc('date'),
                 'ribbons'=>$user->vpf->ribbons,
                 'qualifications'=>$user->vpf->qualifications,
                 'operations'=>$user->vpf->operations,
                 'schools'=>$user->vpf->schools()->wherePivot('completed', '=','1')->get(),
                 'forms'=> $forms,
             ]);
+
         return view('frontend.vpf.indexPublic')
             ->with('user',$user)
             ->with('profile',$buildProfile);
