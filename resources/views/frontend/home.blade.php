@@ -21,7 +21,7 @@
         <div class="hero-content text-center">
             <div class="hero-text wow fadeIn" data-wow-delay=".8s">
                 <h3 class="hero-title"><span>1st Rapid Response Force</span></h3>
-                <p class="hero-description">As realistic as you can get.</p>
+                <p class="hero-description">Military Simulation at its finest.</p>
                 <br/><br/><br/>
             </div><!--/ Hero text end -->
         </div><!--/ Hero content end -->

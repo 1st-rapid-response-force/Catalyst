@@ -61,26 +61,5 @@
             </div>
         </div>
     </div>
-
-    <div class="footer_b">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="footer_bottom">
-                        <p class="text-block"> &copy; Copyright reserved to <span>1st Rapid Response Force </span></p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="footer_mid pull-right">
-                        <ul class="social-contact list-inline">
-                            <li> <a href="https://www.youtube.com/channel/UC_-fsMdc3XJSpsJLEogxtOw"><i class="fa fa-youtube"></i></a></li>
-                            <li> <a href="https://steamcommunity.com/groups/1st-rrf"><i class="fa fa-steam-square"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
 </section>
 <!-- Footer Area End -->

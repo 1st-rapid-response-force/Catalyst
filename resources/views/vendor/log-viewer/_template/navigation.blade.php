@@ -12,6 +12,11 @@
             </a>
         </div>
         <ul class="nav navbar-nav">
+            <li>
+                <a href="/admin/">
+                    <i class="fa fa-arrow-circle-left"></i> Return to 1st RRF Admin
+                </a>
+            </li>
             <li class="{{ Route::is('log-viewer::dashboard') ? 'active' : '' }}">
                 <a href="{{ route('log-viewer::dashboard') }}">
                     <i class="fa fa-dashboard"></i> Dashboard
