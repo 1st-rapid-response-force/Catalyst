@@ -35,6 +35,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/frontend/css/logo-nav.css">
+    <link rel="stylesheet" href="/frontend/css/custom.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,7 +48,7 @@
 </head>
 
 
-<body style="padding-top:40px;padding-bottom:50px; @yield('body-style')">
+<body style="padding-top:40px; @yield('body-style')">
 
 @include('frontend.includes.nav')
 
@@ -72,6 +73,10 @@
 
     @yield('content')
 
+<div class="footer_spacer">
+
+</div>
+@include('frontend.includes.footer')
 <!-- jQuery Version 1.11.1 -->
 <script src="/frontend/js/jquery.js"></script>
 

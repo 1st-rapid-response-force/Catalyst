@@ -48,7 +48,7 @@
 </head>
 
 
-<body style="padding-top:40px;padding-bottom:50px; @yield('body-style')">
+<body style="padding-top:40px; @yield('body-style')">
 
 </div>
 @include('frontend.includes.nav')
@@ -70,6 +70,8 @@
     {!! Notification::showAll() !!}
 </div>
 @yield('content-2')
+
+@include('frontend.includes.footer')
 <!-- jQuery Version 1.11.1 -->
 <script src="/frontend/js/jquery.js"></script>
 
