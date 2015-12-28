@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'log' => 'single',
+    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------
@@ -160,6 +160,7 @@ return [
         Cmgmyr\Messenger\MessengerServiceProvider::class,
         'AltThree\Segment\SegmentServiceProvider',
         'Aloha\Twilio\Support\Laravel\ServiceProvider',
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
     ],
 
     /*

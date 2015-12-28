@@ -18,7 +18,8 @@
         "planetteamspeak/ts3-php-framework": "^1.1",
         "alt-three/segment": "~1.0",
         "laravel/cashier": "^5.0",
-        "aloha/twilio": "^2.0"
+        "aloha/twilio": "^2.0",
+        "arcanedev/log-viewer": "~3.0"
 
     },
     "require-dev": {

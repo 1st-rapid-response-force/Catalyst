@@ -75,6 +75,7 @@
                     <li> <a href="/admin/game-servers"><i class="fa fa-gamepad"></i> <span>Game Server Management</span></a></li>
                 </ul>
             </li>
+            <li> <a href="/admin/log-viewer"><i class="fa fa-cogs"></i> <span>Log Viewer</span></a></li>
     </section>
     <!-- /.sidebar -->
 </aside>
