@@ -404,10 +404,6 @@
                                 <input type="input" class="form-control" id="last_name" name="last_name" placeholder="Last Name" value="{{$vpf->last_name}}">
                             </div>
                             <div class="form-group">
-                                <label for="dob">Date of Birth:</label>
-                                <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" value="{{$vpf->user->application->dob}}">
-                            </div>
-                            <div class="form-group">
                                 <label for="user_id">Related User:</label>
                                 <select name="user_id" class="form-control" style="width: 100%;">
                                     <!--email_off-->
@@ -434,18 +430,18 @@
                             <div class="form-group">
                                 <label for="status">Status:</label>
                                 <select name="status" class="form-control" style="width: 100%;">
-                                    <option {{($user->vpf->status == 'Active') ? 'selected' : ''}} value="Active">Active</option>
-                                    <option {{($user->vpf->status == 'LOA') ? 'selected' : ''}} value="LOA">LOA</option>
-                                    <option {{($user->vpf->status == 'Discharged') ? 'selected' : ''}} value="Discharged">Discharged</option>
+                                    <option {{($vpf->status == 'Active') ? 'selected' : ''}} value="Active">Active</option>
+                                    <option {{($vpf->status == 'LOA') ? 'selected' : ''}} value="LOA">LOA</option>
+                                    <option {{($vpf->status == 'Discharged') ? 'selected' : ''}} value="Discharged">Discharged</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="status">Clearance Level:</label>
                                 <select name="clearance" class="form-control" style="width: 100%;">
-                                    <option {{($user->vpf->clearance == '33') ? 'selected' : ''}} value="33">No Clearance</option>
-                                    <option {{($user->vpf->clearance == '34') ? 'selected' : ''}} value="34">Confidential Clearance</option>
-                                    <option {{($user->vpf->status == '35') ? 'selected' : ''}} value="35">Secret Clearance</option>
-                                    <option {{($user->vpf->status == '36') ? 'selected' : ''}} value="36">Top Secret Clearance</option>
+                                    <option {{($vpf->clearance == '33') ? 'selected' : ''}} value="33">No Clearance</option>
+                                    <option {{($vpf->clearance == '34') ? 'selected' : ''}} value="34">Confidential Clearance</option>
+                                    <option {{($vpf->clearance == '35') ? 'selected' : ''}} value="35">Secret Clearance</option>
+                                    <option {{($vpf->clearance == '36') ? 'selected' : ''}} value="36">Top Secret Clearance</option>
                                 </select>
                             </div>
                             <div class="form-group">

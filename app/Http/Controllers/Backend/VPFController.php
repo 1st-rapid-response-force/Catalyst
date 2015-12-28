@@ -142,35 +142,35 @@ class VPFController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $VPF = VPF::find($id);
         switch ($request->form_type) {
             case 'addServiceHistory':
-                $this->addServiceHistory($user,$request->serviceHistoryNote,$request->serviceHistoryDate);
+                $this->addServiceHistory($VPF,$request->serviceHistoryNote,$request->serviceHistoryDate);
                 \Notification::success('Service History added successfully');
                 break;
             case 'addRibbon':
-                $this->addRibbon($user,$request->ribbons,$request->dateAwarded);
+                $this->addRibbon($VPF,$request->ribbons,$request->dateAwarded);
                 \Notification::success('Ribbon added successfully');
                 break;
             case 'addQualifications':
-                $this->addQualification($user,$request->qualifications,$request->dateAwarded);
+                $this->addQualification($VPF,$request->qualifications,$request->dateAwarded);
                 \Notification::success('Qualification added successfully');
                 break;
             case 'addOperations':
-                $this->addOperation($user,$request->operations);
+                $this->addOperation($VPF,$request->operations);
                 \Notification::success('Operation added successfully');
                 break;
             case 'addSchools':
-                $this->addSchools($user,$request->schools,$request->completed,$request->dateAttended);
+                $this->addSchools($VPF,$request->schools,$request->completed,$request->dateAttended);
                 \Notification::success('School added successfully');
                 break;
             case 'profile':
-                $this->saveProfile($user,$request);
+                $this->saveProfile($VPF,$request);
                 \Notification::success('Saving Profile');
                 break;
         }
 
-        return redirect('/admin/vpf/'.$user->vpf->id);
+        return redirect('/admin/vpf/'.$VPF->id);
     }
 
     /**
@@ -470,7 +470,7 @@ class VPFController extends Controller
      */
     private function addServiceHistory($user,$service_history, $date = '2015-09-01')
     {
-        $user->vpf->serviceHistory()->create([
+        $user->serviceHistory()->create([
             'note' => $service_history,
             'date' => $date
         ]);
@@ -484,7 +484,7 @@ class VPFController extends Controller
      */
     private function addRibbon($user,$ribbon,$date = '2015-09-01')
     {
-        $user->vpf->ribbons()->attach([
+        $user->ribbons()->attach([
             $ribbon =>['date_awarded' => $date]
         ]);
     }
@@ -496,7 +496,7 @@ class VPFController extends Controller
      */
     private function addOperation($user,$operation)
     {
-        $user->vpf->operations()->attach($operation);
+        $user->operations()->attach($operation);
     }
 
     /**
@@ -507,7 +507,7 @@ class VPFController extends Controller
      */
     private function addQualification($user,$qualification,$date = '2015-09-01')
     {
-        $user->vpf->qualifications()->attach([
+        $user->qualifications()->attach([
             $qualification => ['date_awarded' => $date]
         ]);
     }
@@ -521,7 +521,7 @@ class VPFController extends Controller
      */
     private function addSchools($user,$school,$completed ,$date = '2015-09-01')
     {
-        $user->vpf->schools()->attach([
+        $user->schools()->attach([
             $school => ['date_attended' => $date, 'completed' => $completed]
         ]);
     }
@@ -533,17 +533,23 @@ class VPFController extends Controller
      */
     private function saveProfile($user,$input)
     {
-        $user->vpf->first_name = $input->first_name;
-        $user->vpf->last_name = $input->last_name;
-        $user->application->dob = $input->dob;
-        $user->vpf->user_id = $input->user_id;
-        $user->vpf->face_id = $input->face_id;
-        $user->vpf->rank_id = $input->rank_id;
-        $user->vpf->status = $input->status;
-        $user->vpf->clearance = $input->clearance;
-        $user->vpf->assignment_id = $input->assignment_id;
+        $user->first_name = $input->first_name;
+        $user->last_name = $input->last_name;
+        $user->user_id = $input->user_id;
+        $user->face_id = $input->face_id;
+        $user->rank_id = $input->rank_id;
+        $user->status = $input->status;
+        $user->clearance = $input->clearance;
+        $user->assignment_id = $input->assignment_id;
         $user->push();
-        $this->ts->update($user);
+
+        $u = $user->user;
+
+        try {
+            $this->ts->update($u);
+        } catch (QueryException $e) {
+        // Do Nothing
+        }
 
     }
 

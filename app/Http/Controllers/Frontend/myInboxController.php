@@ -28,9 +28,9 @@ class myInboxController extends Controller
         $user = Auth::user();
         $currentUserId = Auth::user()->id;
         // All threads, ignore deleted/archived participants
-        $threads = Thread::getAllLatest()->paginate(30);
+        $threads = Thread::getAllLatest()->paginate(15);
         // All threads that user is participating in
-        $threads = Thread::forUser($currentUserId)->latest('updated_at')->paginate(30);;
+        $threads = Thread::forUser($currentUserId)->latest('updated_at')->paginate(15);;
         // All threads that user is participating in, with new messages
         // $threads = Thread::forUserWithNewMessages($currentUserId)->latest('updated_at')->get();
         return view('frontend.my-inbox.index', compact('threads', 'currentUserId'))

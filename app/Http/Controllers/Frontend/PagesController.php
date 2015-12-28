@@ -108,7 +108,7 @@ class PagesController extends Controller
      */
     public function squadXML()
     {
-        $vpfs = VPF::all();
+        $vpfs = VPF::where('status','=','Active')->get();
         $xml = '<?xml version="1.0"?>'. PHP_EOL;
         $xml .= '<!DOCTYPE squad SYSTEM "squad.dtd">'. PHP_EOL;
         $xml .= '<?xml-stylesheet href="squad.xsl" type="text/xsl"?>'. PHP_EOL;

@@ -29,8 +29,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('inspire')
-                 ->hourly();
+                ->hourly();
         $schedule->command('perstat:create')
-            ->weekly();
+                ->weekly();
+        $schedule->command('squadxml:create')
+                ->hourly();
     }
 }

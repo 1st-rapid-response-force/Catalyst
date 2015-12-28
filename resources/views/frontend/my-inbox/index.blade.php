@@ -1,4 +1,4 @@
-@extends('frontend.my-inbox.layouts.inbox')
+@extends('frontend.my-inbox.layouts.home')
 
 @section('css-top-mail')
 @endsection
@@ -17,13 +17,11 @@
 @section('content-mail')
     {!! Form::open(['route' => ['inbox.removeThreads']]) !!}
         <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
-            </div><!-- /.box-header -->
             <div class="box-body no-padding">
                 <div class="mailbox-controls">
                     <!-- Check all button -->
                     <div class="btn-group">
+                        <a href="{{route('inbox.create')}}" class="btn btn-default btn-sm"><i class="fa fa-pencil-square-o "></i></a>
                         <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-trash-o"></i></button>
                     </div><!-- /.btn-group -->
                 </div>

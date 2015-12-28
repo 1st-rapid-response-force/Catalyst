@@ -28,7 +28,7 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3 class="menu_head">Commanding Officer</h3>
+                            <h3 class="menu_head">Unit Commander</h3>
                             <div class="footer_menu_contact">
                                 <ul class="footer_list">
                                     <li> <i class="fa fa-user"></i>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="col-sm-6">
-                            <h3 class="menu_head">Executive Officer</h3>
+                            <h3 class="menu_head">Theatre Commander</h3>
                             <div class="footer_menu_contact">
                                 <ul class="footer_list">
                                     <li> <i class="fa fa-user"></i>

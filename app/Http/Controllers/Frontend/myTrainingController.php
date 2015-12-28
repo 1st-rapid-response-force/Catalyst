@@ -27,6 +27,9 @@ class myTrainingController extends Controller
         //Determine Class Sessions signed up for Time that are in the future
         $dates = $user->vpf->schoolTrainingDate()->where('date','>', \Carbon\Carbon::now())->get();
 
+        //Determine if User is teaching any Classes
+        $teaching = $this->getTeachingClasses($user);
+
         //Determine classes that user is eligible for
         $eligibleCourses = $this->eligibleCourses($user);
 
@@ -35,7 +38,24 @@ class myTrainingController extends Controller
             ->with('coursesInProgress',$coursesInProgress)
             ->with('coursesCompleted',$coursesCompleted)
             ->with('eligibleCourses',$eligibleCourses)
+            ->with('teaching',$teaching)
             ->with('dates',$dates);
+    }
+
+    public function instructor()
+    {
+        $user = \Auth()->user();
+        //Determine if User is teaching any Classes
+        $teaching = $this->getTeachingClasses($user);
+
+        if(!$teaching) {
+            \Notification::error('You are not eligible to view this page.');
+            return redirect('/my-training');
+        }
+
+        return view('frontend.my-training.index')
+            ->with('user',$user)
+            ->with('teaching',$teaching);
     }
 
     /**
@@ -273,4 +293,16 @@ class myTrainingController extends Controller
 
         return $eligibleCourses;
     }
+
+    public function getTeachingClasses($user)
+    {
+        $classes = SchoolTrainingDate::where('responsible_id','=',$user->vpf->id)->where('date','>', \Carbon\Carbon::now())->get();
+        if($classes->count() > 0)
+        {
+            return $classes;
+        } else {
+            return false;
+        }
+    }
+
 }

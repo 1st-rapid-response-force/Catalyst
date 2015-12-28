@@ -17,6 +17,11 @@
     <div class="container">
         <h1>My Training - {{$user->vpf}}</h1>
         <p>The Training Center allows you to view all current programs you are currently enrolled in, view training documentation, and videos. Once you have completed all program requirements, you will be certified and marked as completed.</p>
+
+        @if($teaching)
+        <a href="{{route('training.instructor')}}" class="btn btn-primary">Instructor Panel</a> <br><br>
+        @endif
+
         <div class="row">
             <div class="col-lg-6">
                 <div class="well">

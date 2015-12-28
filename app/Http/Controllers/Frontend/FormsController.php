@@ -31,7 +31,7 @@ class FormsController extends Controller
         switch($type)
         {
             case 'ir':
-                $vpfs = VPF::all();
+                $vpfs = VPF::where('status','=','Active')->get();
                 return view('frontend.forms.infraction_report_new')
                     ->with('vpfs',$vpfs)
                     ->with('vpf',$vpf)
