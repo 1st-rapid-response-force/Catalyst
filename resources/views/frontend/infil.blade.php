@@ -8,8 +8,9 @@
 
 @section('content')
     <div class="container">
-        <h1>1st Rapid Response Force</h1>
-        <h2>INFIL INTEL</h2>
+        <div class="text-center">
+            <h2>INFIL INTEL</h2>
+        </div>
         <hr>
         @foreach($articles as $infil)
             <h3>{{$infil->title}} <small>{{$infil->type}}</small></h3>
