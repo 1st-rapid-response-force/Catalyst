@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('cac/{steam_id}', 'VPFController@buildCACCard');
     Route::get('avatar/{steam_id}', 'VPFController@buildAvatar');
     Route::get('squad-xml', 'PagesController@squadXML');
+    Route::get('infil', 'PagesController@getInfil');
 
     Route::get('/', 'PagesController@index');
     Route::get('about', 'PagesController@about');
@@ -217,6 +218,7 @@ Route::group(['namespace' => 'Backend',
     Route::post('perstat/email/{id}',['as'=>'admin.perstat.email','uses'=>'PerstatController@emailAllPending']);
     Route::resource('perstat', 'PerstatController');
 
+    Route::resource('infil', 'InfilController');
     Route::resource('operations', 'OperationsController');
     Route::resource('announcements', 'AnnouncementController');
     Route::resource('ranks', 'RanksController');

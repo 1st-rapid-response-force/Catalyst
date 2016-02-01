@@ -123,6 +123,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns all Infil News
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function infils()
+    {
+        return $this->hasMany('App\InfilAnnouncements','vpf_id','id');
+    }
+
+    /**
      * Returns all Incident Reports
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

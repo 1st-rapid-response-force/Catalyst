@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Group;
+use App\InfilAnnouncements;
 use App\Rank;
 use App\User;
 use App\VPF;
+use Carbon\Carbon;
 use Response;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -136,4 +138,12 @@ class PagesController extends Controller
 
         return Response::make($xml, 200)->header('Content-Type', 'application/xml');
     }
+
+    public function getInfil()
+    {
+        $now = new Carbon();
+        $infil = InfilAnnouncements::where('published',true)->get();
+        return view('frontend.infil')->with('articles',$infil);
+    }
+
 }
