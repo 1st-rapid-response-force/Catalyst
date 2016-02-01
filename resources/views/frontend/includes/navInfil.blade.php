@@ -5,7 +5,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
-                <a href="/"><img src="/frontend/images/logo.png" alt=""></a>
+                <img src="/frontend/images/logo.png" alt="">
             </a>
         </div>
         <!-- /.navbar-collapse -->

@@ -8,9 +8,10 @@
 
 @section('content')
     <div class="container">
-        <h1>1st RRF - INFIL INTEL</h1>
+        <h1>1st Rapid Response Force - INFIL INTEL</h1>
+        <hr>
         @foreach($articles as $infil)
-            <h2>{{$infil->title}} <smalL>{{$infil->type}}</smalL></h2>
+            <h3>{{$infil->title}} <small>{{$infil->type}}</small></h3>
             <p>Written by {{$infil->vpf}} <small>{{$infil->publish_date->diffForHumans()}}</small></p>
             {!! $infil->body !!}
         @endforeach
