@@ -142,7 +142,7 @@ class PagesController extends Controller
     public function getInfil()
     {
         $now = new Carbon();
-        $infil = InfilAnnouncements::where('published',true)->get();
+        $infil = InfilAnnouncements::where('published',true)->orderBy('publish_date', 'desc')->get();
         return view('frontend.infil')->with('articles',$infil);
     }
 
