@@ -20,6 +20,7 @@ class myLoadoutController extends Controller
     {
         $user = \Auth::user();
         $loadout = $this->getLoadout();
+        \Log::info('LOADOUT: User is viewing their loadout', ['user'=> [$user->id,$user->email]]);
         return view('frontend.my-loadout.index')
             ->with('user',$user)
             ->with('primary',$loadout[0])
@@ -59,7 +60,7 @@ class myLoadoutController extends Controller
         $loadoutMerged = $loadout->merge($request->primary_attachment)->merge($request->secondary_attachment)->merge($request->items);
         $user->vpf->loadout()->sync($loadoutMerged->all());
 
-        \Log::info('SQUAD: User has changed their loadout', ['user'=> [$user->id,$user->email]]);
+        \Log::info('LOADOUT: User has changed their loadout', ['user'=> [$user->id,$user->email]]);
         \Notification::success('Your loadout have been saved, you can now obtain it from the armorer on base');
         return redirect('/my-loadout/');
     }

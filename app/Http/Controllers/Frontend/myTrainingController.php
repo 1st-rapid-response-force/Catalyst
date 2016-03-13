@@ -135,7 +135,7 @@ class myTrainingController extends Controller
         $user = \Auth()->user();
         $school = School::find($id);
         $section = Section::find($section_id);
-        \Log::info('SCHOOL: User is viewing school section', ['user'=> [$user->id,$user->email],'school' => [$school->id,$school->name,'section' => [$section->id,$section->name]]]);
+        \Log::info('SCHOOL: User is viewing school section', ['user'=> [$user->id,$user->email],'school' => ['id'=>$school->id,'name'=>$school->name,'section' => [$section->id,$section->name]]]);
         return view('frontend.my-training.showSection')
             ->with('school',$school)
             ->with('section',$section)

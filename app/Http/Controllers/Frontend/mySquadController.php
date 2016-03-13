@@ -48,6 +48,8 @@ class mySquadController extends Controller
         $perstat = Perstat::where('active','=','1')->first();
         $oncall = $this->getOnCallCats();
 
+
+        \Log::info('SQUAD: User is viewing their Squad', ['user'=> [$user->id,$user->email]]);
         return view('frontend.my-squad.index')
             ->with('user',$user)
             ->with('unitAnnouncements', $unitAnnouncements)
