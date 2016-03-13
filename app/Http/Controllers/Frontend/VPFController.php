@@ -75,6 +75,7 @@ class VPFController extends Controller
                 'schools'=>$user->vpf->schools()->wherePivot('completed', '=','1')->get(),
                 'forms'=> $forms,
             ]);
+        \Log::info('VPF: User is viewing their VPF', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
 
         return view('frontend.vpf.index')
             ->with('user',$user)
@@ -212,6 +213,7 @@ class VPFController extends Controller
 
         }
         Notification::success('Teamspeak UUID added successfully, update has been pushed to teamspeak server');
+        \Log::info('VPF: User has saved/added a new Teamspeak UUID to their VPF', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
         return redirect('/virtual-personnel-file/teamspeak');
     }
 
@@ -234,6 +236,7 @@ class VPFController extends Controller
         $this->ts->delete($ts->uuid);
         $ts->delete();
         Notification::success('Teamspeak UUID removed successfully');
+        \Log::info('VPF: User has removed a Teamspeak UUID to their VPF', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
         return redirect('/virtual-personnel-file/teamspeak');
     }
 
@@ -282,10 +285,12 @@ class VPFController extends Controller
             \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
         } else {
             $user->subscription('5month')->create($request->stripeToken);
+            \Log::info('DONATION: User has signed up for Donation Plan 1', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
             \Notification::success('Your Donation plan has been successfully setup!');
         }
 
         $attempt = $this->ts->update($user);
+
         return redirect('/virtual-personnel-file/donations/');
     }
 
@@ -304,9 +309,11 @@ class VPFController extends Controller
             \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
         } else {
             $user->subscription('15month')->create($request->stripeToken);
+            \Log::info('DONATION: User has signed up for Donation Plan 2', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
             \Notification::success('Your Donation plan has been successfully setup!');
         }
         $attempt = $this->ts->update($user);
+
 
         return redirect('/virtual-personnel-file/donations/');
     }
@@ -326,6 +333,7 @@ class VPFController extends Controller
             \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
         } else {
             $user->subscription('25month')->create($request->stripeToken);
+            \Log::info('DONATION: User has signed up for Donation Plan 3', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
             \Notification::success('Your Donation plan has been successfully setup!');
         }
         $attempt = $this->ts->update($user);
@@ -349,6 +357,7 @@ class VPFController extends Controller
             \Notification::success('Your Donation Plan has been swapped, it will take effect next donation cycle!');
         } else {
             $user->subscription('50month')->create($request->stripeToken);
+            \Log::info('DONATION: User has signed up for Donation Plan 4', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
             \Notification::success('Your Donation plan has been successfully setup!');
         }
         $attempt = $this->ts->update($user);
@@ -361,6 +370,7 @@ class VPFController extends Controller
         $user = \Auth::user();
         $user->subscription()->cancel();
         $attempt = $this->ts->update($user);
+        \Log::info('DONATION: User has canceled their donation plan', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
         \Notification::success('Your Donation plan has been successfully canceled!');
         return redirect('/virtual-personnel-file/donations/');
     }
@@ -376,6 +386,7 @@ class VPFController extends Controller
         $user->vpf->face_id = $request->face_id;
         $user->push();
 
+        \Log::info('VPF: User has modified their face', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
         \Notification::success('Face has been updated.');
         return redirect('/virtual-personnel-file/');
 

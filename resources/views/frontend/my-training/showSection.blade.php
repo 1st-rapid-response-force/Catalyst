@@ -22,7 +22,7 @@
         <hr>
         <div class="row">
             <div class="col-lg-12">
-                <h3>{{$section->name}}</h3>
+                <h1>{{$section->name}}</h1>
                 {!! $section->content !!}
                 @if($section->video != '')
                 <hr>

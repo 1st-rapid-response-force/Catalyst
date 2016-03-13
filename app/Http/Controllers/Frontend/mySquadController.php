@@ -76,6 +76,7 @@ class mySquadController extends Controller
         $chatter->group_id = $user->vpf->assignment->group->id;
         $chatter->save();
 
+        \Log::info('SQUAD: User posted a message in squad chatter', ['user'=> [$user->id,$user->email,$user->vpf->assignment->name,$user->vpf->assignment->group_id]]);
         \Notification::success('Message added successfully');
         return redirect('/my-squad');
 
@@ -360,6 +361,7 @@ class mySquadController extends Controller
         $user = \Auth()->user();
         $perstat = Perstat::where('active','=','1')->first();
         $user->vpf->perstat()->attach($perstat->id);
+        \Log::info('SQUAD: User has reported in', ['user'=> [$user->id,$user->email,$user->vpf->assignment->name,$user->vpf->assignment->group_id]]);
         \Notification::success('Your report in has been filed. Make sure to report in weekly.');
         return redirect('/my-squad');
     }

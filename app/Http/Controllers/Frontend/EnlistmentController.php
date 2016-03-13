@@ -138,6 +138,7 @@ class EnlistmentController extends Controller
 
           $this->emailApplicationFiled($user);
         //Redirect to Application
+        \Log::info('ENLISTMENT: User has enlisted into the 1st RRF', ['user'=> [$user->id,$user->email], 'application' => $app->id]);
         \Notification::success('Application has been filed. It is in the process of being reviewed. You can check the status of your application via this page. You will also receive email updates. The current status of the application can be found in section D.');
         return redirect('/enlistment/my-application');
     }

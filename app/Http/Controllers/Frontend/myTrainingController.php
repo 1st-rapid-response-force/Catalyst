@@ -33,6 +33,8 @@ class myTrainingController extends Controller
         //Determine classes that user is eligible for
         $eligibleCourses = $this->eligibleCourses($user);
 
+        \Log::info('SCHOOL: User is viewing school index', ['user'=> [$user->id,$user->email]]);
+
         return view('frontend.my-training.index')
             ->with('user',$user)
             ->with('coursesInProgress',$coursesInProgress)
@@ -116,6 +118,8 @@ class myTrainingController extends Controller
             $dates = SchoolTrainingDate::findMany($selectedTimes);
         }
 
+        \Log::info('SCHOOL: User is viewing school', ['user'=> [$user->id,$user->email],'school' => [$school->id,$school->name]]);
+
         return view('frontend.my-training.show')
             ->with('user',$user)
             ->with('school',$school)
@@ -131,6 +135,7 @@ class myTrainingController extends Controller
         $user = \Auth()->user();
         $school = School::find($id);
         $section = Section::find($section_id);
+        \Log::info('SCHOOL: User is viewing school section', ['user'=> [$user->id,$user->email],'school' => [$school->id,$school->name,'section' => [$section->id,$section->name]]]);
         return view('frontend.my-training.showSection')
             ->with('school',$school)
             ->with('section',$section)
@@ -148,6 +153,7 @@ class myTrainingController extends Controller
     {
         $user = \Auth()->user()->vpf;
         $coursesInProgressID = collect($user->schools()->wherePivot('completed', '=','0')->lists('id'));
+        $school = School::find($id);
 
         if($coursesInProgressID->count() == 2 )
         {
@@ -159,6 +165,7 @@ class myTrainingController extends Controller
             $id => ['completed' => 0],
         ]);
 
+        \Log::info('SCHOOL: User is enrolled in school', ['user'=> [$user->id,$user->email],'school' => [$school->id,$school->name]]);
         \Notification::success('You have enrolled in this class successfully');
         return redirect('/my-training');
     }
@@ -167,6 +174,7 @@ class myTrainingController extends Controller
     {
         $user = \Auth()->user();
         $user->vpf->schoolTrainingDate()->attach($id);
+        \Log::info('SCHOOL: User is signed up for class training session', ['user'=> [$user->id,$user->email],'session' => [$id]]);
         \Notification::success('You have signed up for a class training session.');
         return redirect('/my-training');
     }
@@ -176,6 +184,7 @@ class myTrainingController extends Controller
     {
         $user = \Auth()->user();
         $user->vpf->schoolTrainingDate()->detach($id);
+        \Log::info('SCHOOL: User cancelled their signup for class training session', ['user'=> [$user->id,$user->email],'session' => [$id]]);
         \Notification::success('You have cancelled your training session appointment.');
         return redirect('/my-training');
     }

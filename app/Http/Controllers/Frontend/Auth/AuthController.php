@@ -82,13 +82,15 @@ class AuthController extends Controller
         if (is_null($user)) {
             return view('frontend.auth.register')->with('steam_id',$steam_id);
         } else {
-            Auth::login($user);
-            \Log::info('User has logged in.', ['id'=> $user->id]);
+            Auth::login($user,true);
+            \Log::info('User has logged in.', ['user'=> [$user->id,$user->email]]);
             return redirect('/');
         }
     }
     public function getLogout()
     {
+        $user = \Auth::User();
+        \Log::info('User has logged out', ['user'=> [$user->id,$user->email]]);
         Auth::logout();
         return redirect('/');
     }
@@ -103,6 +105,7 @@ class AuthController extends Controller
         $role = Role::where('name','user')->first();
         $user->attachRole($role);
         $this->emailUser($user);
+        \Log::info('User has logged in - after registration', ['user'=> [$user->id,$user->email,$user->steam_id]]);
         Auth::login($user);
         return redirect('/');
     }
@@ -112,7 +115,7 @@ class AuthController extends Controller
         $user = User::find($id);
         Auth::logout();
         Auth::login($user);
-        \Log::info('User has logged in.', ['id'=> $user->id]);
+        \Log::info('ADMIN: User is being impersonated', ['user'=> [$user->id,$user->email]]);
         return redirect('/');
     }
 
@@ -123,7 +126,7 @@ class AuthController extends Controller
      */
     private function emailUser($user)
     {
-
+        \Log::info('EMAIL: Registration Successful email sent', ['user'=> [$user->id,$user->email,$user->steam_id]]);
         Mail::send('emails.newAccount', ['user' => $user], function ($m) use ($user) {
             $m->to($user->email, 'User');
             $m->subject('1st RRF - Registration Successful');

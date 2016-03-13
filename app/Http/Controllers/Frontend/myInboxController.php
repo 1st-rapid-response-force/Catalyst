@@ -33,6 +33,7 @@ class myInboxController extends Controller
         $threads = Thread::forUser($currentUserId)->latest('updated_at')->paginate(15);;
         // All threads that user is participating in, with new messages
         // $threads = Thread::forUserWithNewMessages($currentUserId)->latest('updated_at')->get();
+        \Log::info('INBOX: User has viewed their inbox', ['user'=> [$user->id,$user->email]]);
         return view('frontend.my-inbox.index', compact('threads', 'currentUserId'))
             ->with('user',$user);
     }
@@ -61,6 +62,7 @@ class myInboxController extends Controller
             // don't show the current user in list
             $users = User::whereNotIn('id', $thread->participantsUserIds($user->id))->get();
             $thread->markAsRead($user->id);
+            \Log::info('INBOX: User has viewed a message', ['user'=> [$user->id,$user->email],'thread' => $thread->id,$thread->subject]);
             return view('frontend.my-inbox.show')
                 ->with('user',$user)
                 ->with('thread',$thread)
@@ -126,6 +128,7 @@ class myInboxController extends Controller
         }
         $message->body = $request->body;
         $message->save();
+        \Log::info('INBOX: User has edited a message', ['user'=> [$user->id,$user->email],'message' => $message->id]);
         return redirect('/my-inbox/'.$message->thread->id);
     }
     /**
@@ -135,7 +138,7 @@ class myInboxController extends Controller
      */
     public function store(Request $request)
     {
-
+        $user = \Auth::User();
         $recipients = explode(',',$request->recipents);
         $thread = Thread::create(
             [
@@ -178,7 +181,7 @@ class myInboxController extends Controller
         }
 
 
-
+        \Log::info('INBOX: User has created a message', ['user'=> [$user->id,$user->email],'thread'=>$thread->id,'message' => $message->id]);
         return redirect('/my-inbox/'.$thread->id);
     }
     /**
@@ -261,6 +264,7 @@ class myInboxController extends Controller
             \Notification::success('You have left these conversations');
 
         }
+        \Log::info('INBOX: User has left a thread', ['user'=> [$user->id,$user->email],'threads' => $request->delete]);
         return redirect('/my-inbox');
     }
 
