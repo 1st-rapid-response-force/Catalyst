@@ -17,8 +17,6 @@
     <li class="active">Edit the Section</li>
 @endsection
 
-@endsection
-
 @section('content')
     <form class="form-horizontal" action="{{ route('admin.schools.section.update',array($school->id,$section->id)) }}" method="post" enctype="multipart/form-data">
         <input name="_method" type="hidden" value="PUT">

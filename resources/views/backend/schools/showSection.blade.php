@@ -35,6 +35,7 @@
         </div><!-- /.box-body -->
     </div><!-- /.box -->
 @endsection
+
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
     <script type="text/javascript">
