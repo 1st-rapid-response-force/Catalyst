@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\AddNewPERSTAT::class,
+        \App\Console\Commands\SquadXML::class
     ];
 
     /**

@@ -17,8 +17,6 @@
     <li class="active">Show a Section</li>
 @endsection
 
-@endsection
-
 @section('content')
         <!-- Default box -->
     <div class="box">

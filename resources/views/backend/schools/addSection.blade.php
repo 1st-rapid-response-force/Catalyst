@@ -17,7 +17,6 @@
     <li class="active">Add a Section</li>
 @endsection
 
-@endsection
 
 @section('content')
     <form class="form-horizontal" action="{{ route('admin.schools.section.store',array($school->id)) }}" method="post" enctype="multipart/form-data">
