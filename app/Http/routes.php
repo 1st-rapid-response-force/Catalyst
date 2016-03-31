@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
     // API
     Route::get('api/loadout/{steam_id}', 'APIController@getLoadout');
+    Route::post('api/training/ranges', 'APIController@postQualification');
 
     Route::group(['middleware' => 'auth'], function()
     {

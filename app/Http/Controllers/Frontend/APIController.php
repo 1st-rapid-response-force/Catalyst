@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\RangeQualification;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -28,5 +29,17 @@ class APIController extends Controller
         return $loadout->toJson();
 
 
+    }
+
+    public function postQualification(Request $request)
+    {
+        $user = User::where('steam_id','=', $request->steam_id)->first();
+        if(!isset($user))
+        {
+            return response()->make("No User Found with that Steam ID",422);
+        }
+
+        $user->vpf->range_scores()->create($request->only(['range','score','scoreMax','weapon']));
+        return response()->make("Success",200);
     }
 }

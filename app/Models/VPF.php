@@ -186,6 +186,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns all Service History
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function range_scores()
+    {
+        return $this->hasMany('App\RangeQualification','vpf_id','id');
+    }
+
+    /**
      * Returns all Promotions
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
