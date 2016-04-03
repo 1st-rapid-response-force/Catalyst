@@ -232,7 +232,6 @@ class myTrainingController extends Controller
     {
         $user = \Auth()->user();
         \Log::warning('SCHOOL: User has marked a class as cancelled - instructor', ['user'=> [$user->id,$user->email]]);
-        // test
 
         $date = SchoolTrainingDate::findOrFail($date_id);
         $date->status = 3;

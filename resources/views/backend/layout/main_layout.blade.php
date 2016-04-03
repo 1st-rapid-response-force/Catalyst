@@ -50,7 +50,7 @@
     <![endif]-->
 </head>
 <!-- ADD THE CLASS layout-boxed TO GET A BOXED LAYOUT -->
-<body class="skin-black-light layout-boxed sidebar-mini catalyst-background">
+<body class="skin-black-light sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
