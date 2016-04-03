@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\ClassCompletion;
+use App\InfractionReport;
 use App\School;
 use App\SchoolTrainingDate;
 use App\Section;
@@ -209,6 +210,43 @@ class myTrainingController extends Controller
         \Notification::success('You have submitted your school completion form, thank you for teaching this class.');
         return redirect('/my-training');
     }
+
+    public function cancelClass($date_id)
+    {
+        $user = \Auth()->user();
+        $date = SchoolTrainingDate::findOrFail($date_id);
+
+        //Determine if User is teaching any Classes
+        $teaching = $this->getTeachingClasses($user);
+        if(!$teaching) {
+            \Notification::error('You are not eligible to view this page.');
+            return redirect('/my-training');
+        }
+
+        return view('frontend.my-training.instructor_cancel_class')
+            ->with('user',$user)
+            ->with('date',$date);
+    }
+
+    public function postCancelClass($date_id, Request $request)
+    {
+        $user = \Auth()->user();
+        \Log::warning('SCHOOL: User has marked a class as cancelled - instructor', ['user'=> [$user->id,$user->email]]);
+
+        $date = SchoolTrainingDate::findOrFail($date_id);
+        $date->status = 3;
+        $date->save();
+
+        $user->vpf->infraction_reports()->create([
+            'violator_name' => $user->vpf,
+            'violation_summary' => 'This class has been marked for review as the instructor has cancelled it. --- '.$request->violation_summary.' ==== Date ID'.$date->id,
+            'reviewed' => false
+        ]);
+
+        \Notification::warning('You have cancelled your class, an infraction report has been filed on your behalf.');
+        return redirect('/my-training');
+    }
+
 
 
     private function courseClearance($user)
