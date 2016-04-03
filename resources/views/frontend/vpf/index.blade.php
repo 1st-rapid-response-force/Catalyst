@@ -182,6 +182,13 @@
                         <h3>Range Scores</h3>
                         @if($user->vpf->range_scores->count() > 0)
                             <table class="table table-bordered table-hover" id="formHistoryTable">
+                                <thead>
+                                    <th>Date</th>
+                                    <th>Range</th>
+                                    <th>Score Obtained</th>
+                                    <th>Max Score</th>
+                                    <th>Weapon Used</th>
+                                </thead>
                                 <tbody>
                                 @foreach($user->vpf->range_scores as $score)
                                     <tr>
@@ -189,12 +196,13 @@
                                         <td class="col-lg-2">{{$score->range}}</td>
                                         <td class="col-lg-2">{{$score->score}}</td>
                                         <td class="col-lg-2">{{$score->scoreMax}}</td>
+                                        <td class="col-lg-2">{{$score}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         @else
-                            <p>No Schools attended on record.</p>
+                            <p>No Range Scores on record, all scores are recorded automatically (Rifle and Pistol only)</p>
                         @endif
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request-options">
