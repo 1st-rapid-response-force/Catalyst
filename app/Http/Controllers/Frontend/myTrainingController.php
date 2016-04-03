@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\ClassCompletion;
 use App\School;
 use App\SchoolTrainingDate;
 use App\Section;
@@ -55,30 +56,26 @@ class myTrainingController extends Controller
             return redirect('/my-training');
         }
 
-        return view('frontend.my-training.index')
+        return view('frontend.my-training.instructor')
             ->with('user',$user)
             ->with('teaching',$teaching);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function completeClass($date_id)
     {
-        //
-    }
+        $user = \Auth()->user();
+        $date = SchoolTrainingDate::findOrFail($date_id);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
+        //Determine if User is teaching any Classes
+        $teaching = $this->getTeachingClasses($user);
+        if(!$teaching) {
+            \Notification::error('You are not eligible to view this page.');
+            return redirect('/my-training');
+        }
+
+        return view('frontend.my-training.instructor_complete_class')
+            ->with('user',$user)
+            ->with('date',$date);
     }
 
     /**
@@ -189,39 +186,28 @@ class myTrainingController extends Controller
         return redirect('/my-training');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function completePostClass($date_id,Request $request)
     {
-        //
-    }
+        $user = \Auth()->user();
+        $completion = new ClassCompletion;
+        $completion->vpf_id = $user->vpf->id;
+        $completion->date_id = $date_id;
+        $completion->status = 2;
+        $completion->attendees = $request->attendees;
+        $completion->observers = $request->observers;
+        $completion->helpers = $request->helpers;
+        $completion->comments = $request->comments;
+        $completion->rewards = $request->rewards;
+        $completion->issues = $request->issues;
+        $completion->save();
+        \Log::info('SCHOOL: User has marked a class as complete - instructor', ['user'=> [$user->id,$user->email]]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $date = SchoolTrainingDate::findOrFail($date_id);
+        $date->status = 2;
+        $date->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        \Notification::success('You have submitted your school completion form, thank you for teaching this class.');
+        return redirect('/my-training');
     }
 
 
@@ -305,7 +291,7 @@ class myTrainingController extends Controller
 
     public function getTeachingClasses($user)
     {
-        $classes = SchoolTrainingDate::where('responsible_id','=',$user->vpf->id)->where('date','>', \Carbon\Carbon::now())->get();
+        $classes = SchoolTrainingDate::where('responsible_id','=',$user->vpf->id)->where('status','=', 1)->get();
         if($classes->count() > 0)
         {
             return $classes;

@@ -115,6 +115,9 @@ Route::group(['namespace' => 'Frontend'], function()
         //My Training Center
         Route::get('/my-training', ['as' => 'training', 'uses' => 'myTrainingController@index']);
         Route::get('/my-training/instructor', ['as' => 'training.instructor', 'uses' => 'myTrainingController@instructor']);
+        Route::get('/my-training/instructor/{date_id}/complete', ['as' => 'training.instructor.class.complete', 'uses' => 'myTrainingController@completeClass']);
+        Route::post('/my-training/instructor/{date_id}/complete', ['as' => 'training.instructor.class.complete.post', 'uses' => 'myTrainingController@completePostClass']);
+        Route::get('/my-training/instructor/{date_id}/cancel', ['as' => 'training.instructor.class.cancel', 'uses' => 'myTrainingController@cancelClass']);
             Route::get('/my-training/{id}', ['as' => 'training.show', 'uses' => 'myTrainingController@show']);
             Route::get('/my-training/{id}/sections/{section_id}', ['as' => 'training.section.show', 'uses' => 'myTrainingController@showSection']);
             Route::post('/my-training/enroll/{id}', ['as' => 'training.enroll', 'uses' => 'myTrainingController@enrollClass']);
