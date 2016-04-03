@@ -75,6 +75,7 @@
                     <li role="presentation" class="active"><a href="#serviceHistory" aria-controls="serviceHistory" role="tab" data-toggle="tab">Service History</a></li>
                     <li role="presentation"><a href="#formHistory" aria-controls="formHistory" role="tab" data-toggle="tab">Form History</a></li>
                     <li role="presentation"><a href="#opqualschool" aria-controls="opqualschool" role="tab" data-toggle="tab">Operations, Qualifications, Schools</a></li>
+                    <li role="presentation"><a href="#range" aria-controls="range" role="tab" data-toggle="tab">Range Scores</a></li>
                     <li role="presentation"><a href="#request-options" aria-controls="request-options" role="tab" data-toggle="tab">Requests & Options</a></li>
                 </ul>
 
@@ -176,6 +177,25 @@
                                 @endif
                             </div>
                         </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="range">
+                        <h3>Range Scores</h3>
+                        @if($user->vpf->range_scores->count() > 0)
+                            <table class="table table-bordered table-hover" id="formHistoryTable">
+                                <tbody>
+                                @foreach($user->vpf->range_scores as $score)
+                                    <tr>
+                                        <td class="col-lg-1">{{$score->created_at->toFormattedDateString()}}</td>
+                                        <td class="col-lg-2">{{$score->range}}</td>
+                                        <td class="col-lg-2">{{$score->score}}</td>
+                                        <td class="col-lg-2">{{$score->scoreMax}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No Schools attended on record.</p>
+                        @endif
                     </div>
                     <div role="tabpanel" class="tab-pane" id="request-options">
                         <div class="row">

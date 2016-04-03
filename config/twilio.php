@@ -53,7 +53,7 @@ return [
                 |
                 */
 
-                'ssl_verify' => env('TWILIO_SSL', '123'),
+                'ssl_verify' => env('TWILIO_SSL', 'true'),
 
             ],
         ],

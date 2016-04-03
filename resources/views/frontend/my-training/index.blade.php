@@ -50,7 +50,7 @@
                 <div class="well">
                     <h3>Upcoming Class Sessions</h3>
                     <p>These are the class sessions you have signed up for.</p>
-                    <p>For reference the current UTC time is {{\Carbon\Carbon::now()->toDayDateTimeString()}}</p>
+                    <p>For reference the current UTC time is {{\Carbon\Carbon::now()->toDateTimeString()}}</p>
                     @if($dates->count() > 0)
                         @foreach($dates as $date)
                             <div class="media">
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h5 class="media-heading"><a href="/my-training/{{$date->school->id}}"><h4>{{$date->school->name}}</h4></a></h5>
-                                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}}<br>Class Instructor: <a href="/roster/{{$date->instructor->id}}">{{$date->instructor}}</a></p>
+                                    <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDateTimeString()}}<br>Class Instructor: <a href="/roster/{{$date->instructor->id}}">{{$date->instructor}}</a></p>
                                     <small>Class starts in {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->diffForHumans()}}</small>
                                 </div>
                             </div>
