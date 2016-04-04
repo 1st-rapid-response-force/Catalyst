@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Assignment;
 use App\AssignmentChange;
+use App\ClassCompletion;
+use App\School;
 use App\User;
 use App\Article15;
 use App\DCS;
@@ -48,12 +50,14 @@ class FormsController extends Controller
         $vpf_cr = FileCorrection::where('reviewed','=',0)->get();
         $infractions = InfractionReport::where('reviewed','=',0)->get();
         $assignment_changes = AssignmentChange::where('reviewed','=',0)->get();
+        $class_completion = ClassCompletion::where('status','=',2)->get();
 
         $forms = collect();
         $forms = $forms->merge($discharges);
         $forms = $forms->merge($vpf_cr);
         $forms = $forms->merge($infractions);
         $forms = $forms->merge($assignment_changes);
+        $forms = $forms->merge($class_completion);
 
         return view('backend.forms.index')
             ->with('forms',$forms)
@@ -71,6 +75,7 @@ class FormsController extends Controller
         $vpf_cr = FileCorrection::all();
         $infractions = InfractionReport::all();
         $assignment_changes = AssignmentChange::all();
+        $class_completion = ClassCompletion::all();
 
         $forms = collect();
         $forms = $forms->merge($discharges);
@@ -109,7 +114,7 @@ class FormsController extends Controller
                     ->with('vpf',$vpf)
                     ->with('user',$user);
                 break;
-            case 'training-completion':
+            case 'class-completion':
                 break;
             case 'discharge':
                 break;
@@ -189,7 +194,7 @@ class FormsController extends Controller
                 \Notification::success('DCS filed.');
                 return redirect('/admin/vpf/'.$vpf->id);
                 break;
-            case 'training-completion':
+            case 'class-completion':
                 break;
             case 'discharge':
                 break;
@@ -229,7 +234,10 @@ class FormsController extends Controller
                 \Notification::success('DCS deleted.');
                 return redirect('/admin/vpf/'.$vpf->id);
                 break;
-            case 'training-completion':
+            case 'class-completion':
+                $form = ClassCompletion::find($id);
+                $form->delete();
+                \Notification::success('Class Completion Form deleted.');
                 break;
             case 'discharge':
                 $form = Discharge::find($id);
@@ -273,7 +281,33 @@ class FormsController extends Controller
                 return view('backend.forms.edit.assignment_change')->with('assignmentList',$assignmentList)->with('ac',$form);
                 break;
                 break;
-            case 'training-completion':
+            case 'class-completion':
+                $form = ClassCompletion::find($id);
+
+                $attendees = collect();
+                $observers = collect();
+                $helpers = collect();
+
+                if(!empty($form->attendees))
+                {
+                    $attendees = User::find(explode(',',$form->attendees));
+                }
+
+                if(!empty($form->observers))
+                {
+                    $observers = User::find(explode(',',$form->observers));
+                }
+
+                if(!empty($form->helpers))
+                {
+                    $helpers = User::find(explode(',',$form->helpers));
+                }
+
+                return view('backend.forms.edit.class-completion')
+                    ->with('form',$form)
+                    ->with('attendees', $attendees)
+                    ->with('observers', $observers)
+                    ->with('helpers', $helpers);
                 break;
             default:
                 abort(404);
@@ -456,7 +490,7 @@ class FormsController extends Controller
 
 
 
-                    \Notification::sucess('Form has been saved');
+                    \Notification::success('Form has been saved');
                     return redirect('/admin/forms');
                 } else {
                     \Notification::warning('No action has been taken as review field was set to not reviewed');
@@ -471,6 +505,65 @@ class FormsController extends Controller
                 abort(404);
                 break;
         }
+    }
+
+    public function getSchoolComplete($vpf_id,$type,$id)
+    {
+        $form = ClassCompletion::find($id);
+
+        $attendees = collect();
+        $observers = collect();
+        $helpers = collect();
+        $enrolled = $form->date->school->VPF;
+
+        if(!empty($form->attendees))
+        {
+            $attendees = User::find(explode(',',$form->attendees));
+        }
+
+        if(!empty($form->observers))
+        {
+            $observers = User::find(explode(',',$form->observers));
+        }
+
+        if(!empty($form->helpers))
+        {
+            $helpers = User::find(explode(',',$form->helpers));
+        }
+
+        return view('backend.forms.edit.class-completion-success')
+            ->with('form',$form)
+            ->with('attendees', $attendees)
+            ->with('observers', $observers)
+            ->with('enrolled', $enrolled)
+            ->with('helpers', $helpers);
+    }
+
+    public function postSchoolComplete($vpf_id,$type,$id, Request $request)
+    {
+        $form = ClassCompletion::find($id);
+        $graduates = User::find(explode(',',$request->graduates));
+        $school = School::find($request->school_id);
+
+        foreach($graduates as $graduate)
+        {
+
+            $graduate->vpf->schools()->detach($request->school_id);
+            $graduate->vpf->schools()->attach($request->school_id, ['completed' => true, 'date_attended' => Carbon::now()]);
+            $graduate->vpf->serviceHistory()->create([
+                'note' => "Graduated from ".$school->name,
+                'date' => Carbon::now(),
+            ]);
+
+
+        }
+
+        $form->status = 5;
+        $form->save();
+
+        \Notification::success('Class has been marked as complete.');
+        return redirect('/admin/forms');
+
     }
 
     /**

@@ -177,6 +177,8 @@ Route::group(['namespace' => 'Backend',
     Route::get('forms/',['as'=>'admin.forms.index','uses'=>'FormsController@index']);
     Route::get('forms/all/',['as'=>'admin.forms.all','uses'=>'FormsController@all']);
     Route::get('forms/edit/{vpf_id}/{type}/{id}',['as'=>'admin.forms.edit','uses'=>'FormsController@edit']);
+    Route::get('forms/edit/{vpf_id}/{type}/{id}/complete',['as'=>'admin.forms.school-completion.complete','uses'=>'FormsController@getSchoolComplete']);
+    Route::post('forms/edit/{vpf_id}/{type}/{id}/complete',['as'=>'admin.forms.school-completion.complete.post','uses'=>'FormsController@postSchoolComplete']);
     Route::post('forms/edit/{vpf_id}/{type}/{id}',['as'=>'admin.forms.edit','uses'=>'FormsController@process']);
     Route::delete('forms/delete/{type}/{id}',['as'=>'admin.forms.destroy','uses'=>'FormsController@index']);
 

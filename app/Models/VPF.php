@@ -251,11 +251,7 @@ class VPF extends Model
 
     public function isMember()
     {
-        if($this->status == "Active")
-        {
-            return true;
-        }
-        return false;
+
     }
 
     public function hasReportedIn()
