@@ -82,6 +82,7 @@ class FormsController extends Controller
         $forms = $forms->merge($vpf_cr);
         $forms = $forms->merge($infractions);
         $forms = $forms->merge($assignment_changes);
+        $forms = $forms->merge($class_completion);
 
         return view('backend.forms.all')
             ->with('forms',$forms)
@@ -488,8 +489,6 @@ class FormsController extends Controller
                     ];
                     $this->emailAssignmentChange($vpf->user,$data);
 
-
-
                     \Notification::success('Form has been saved');
                     return redirect('/admin/forms');
                 } else {
@@ -497,9 +496,13 @@ class FormsController extends Controller
                     return redirect('/admin/forms');
                 }
 
-
                 break;
-            case 'training-completion':
+            case 'class-completion':
+                $form = ClassCompletion::find($id);
+                $form->status = 4;
+                $form->save();
+                \Notification::success('Form has been saved');
+                return redirect('/admin/forms');
                 break;
             default:
                 abort(404);
