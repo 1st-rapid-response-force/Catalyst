@@ -31,6 +31,26 @@ class APIController extends Controller
 
     }
 
+    public function getIsMember($uuid)
+    {
+        $user = User::where('steam_id','=', $uuid)->first();
+
+        //If not user found
+        if(is_null($user))
+        {
+            return response()->json(['steam_id' => $uuid, 'member' => 'false']);
+        }
+
+        if($user->vpf->isMember())
+        {
+            return response()->json(['steam_id' => $uuid, 'member' => 'true']);
+        } else {
+            return response()->json(['steam_id' => $uuid, 'member' => 'false']);
+        }
+
+
+    }
+
     public function postQualification(Request $request)
     {
         $user = User::where('steam_id','=', $request->steam_id)->first();

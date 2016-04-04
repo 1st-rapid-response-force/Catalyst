@@ -249,6 +249,15 @@ class VPF extends Model
         return $this->belongsToMany('App\SchoolTrainingDate', 'school_training_date_user', 'vpf_id', 'school_date_id');
     }
 
+    public function isMember()
+    {
+        if($this->status == "Active")
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function hasReportedIn()
     {
         $perstat = Perstat::where('active','=','1')->first();
