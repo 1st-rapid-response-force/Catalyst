@@ -51,7 +51,7 @@
                             <p>Every School within the 1st RRF is broken into smaller sections allowing you to tackle a large school piece by piece.</p>
                             <br>
                             @foreach($school->sections as $section)
-                                <a href="{{route('training.section.show',array($school->id,$section->id))}}" class="btn btn-primary btn-block">{{$section->order}}. {{$section->name}}</a>
+                                <a href="{{$section->documentation_url}}" target="_blank" class="btn btn-primary btn-block">{{$section->order}}. {{$section->name}}</a>
                             @endforeach
                         </div>
                         @if(!($coursesCompleted->contains($school->id)))

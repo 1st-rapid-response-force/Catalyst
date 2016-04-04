@@ -33,12 +33,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Youtube Embed ID: &nbsp</label>
-            <div class="col-sm-9">
-                <input type="text" class="form-control" id="name" name="video" value="{{$section->video}}" placeholder='N0YoUh0SjWc'>
-            </div>
-        </div>
-        <div class="form-group">
             <label for="section" class="col-sm-2 control-label">Next Section: &nbsp</label>
             <div class="col-sm-9">
                 <select name="next_section" class="form-control">
@@ -50,9 +44,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="shortDescription" class="col-sm-2 control-label">Content: &nbsp</label>
-            <div class="col-sm-10">
-                <textarea id="content" name="content_course" placeholder="Content of this section" required rows="20" cols="80">{!! $section->content !!}</textarea>
+            <label for="name" class="col-sm-2 control-label">1st RRF Documentation URL: &nbsp</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="documentation_url" name="documentation_url" value="{{$sec->documentation_url}}" placeholder='https://documentation.1st-rrf.com/'>
             </div>
         </div>
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

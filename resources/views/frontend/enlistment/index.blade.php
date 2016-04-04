@@ -37,3 +37,4 @@
 @section('js-bottom')
     <script type="text/javascript" src="/frontend/js/gridforms.js"></script>
 @endsection
+

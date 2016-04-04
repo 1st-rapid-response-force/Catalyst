@@ -175,15 +175,15 @@ class SchoolsController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'order'=> 'required|integer',
-            'video' => ''
         ]);
 
         $school = School::find($id);
         $school->sections()->create([
             'order' => $request->order,
             'name' => $request->name,
-            'content' => $request->content_course,
-            'video' =>$request->video,
+            'documentation_url' => $request->documentation_url,
+            'content' => '',
+            'video' =>'',
             'next_section' => $request->next_section
         ]);
 
@@ -197,15 +197,15 @@ class SchoolsController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'order'=> 'required|integer',
-            'video' => ''
         ]);
 
         $school = School::find($id);
         $section = Section::find($school_id);
         $section->order = $request->order;
         $section->name = $request->name;
-        $section->content = $request->content_course;
-        $section->video = $request->video;
+        $section->documentation_url = $request->documentation_url;
+        $section->content = '';
+        $section->video = '';
         $section->next_section = $request->next_section;
         $section->save();
 
