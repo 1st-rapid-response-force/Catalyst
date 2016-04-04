@@ -46,7 +46,7 @@
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">1st RRF Documentation URL: &nbsp</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="documentation_url" name="documentation_url" value="{{$sec->documentation_url}}" placeholder='https://documentation.1st-rrf.com/'>
+                <input type="text" class="form-control" id="documentation_url" name="documentation_url" value="{{$section->documentation_url}}" placeholder='https://documentation.1st-rrf.com/'>
             </div>
         </div>
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
