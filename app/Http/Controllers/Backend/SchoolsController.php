@@ -77,8 +77,18 @@ class SchoolsController extends Controller
         $school->description = $request->description;
         $school->docs = '';
         $school->videos = '';
-        $school->prerequisites = $request->prerequisites;
-        $school->oneofcourses = $request->oneofcourses;
+        if(empty($request->prerequisites))
+        {
+            $school->prerequisites = $request->prerequisites;
+        } else {
+            $school->prerequisites = null;
+        }
+        if(empty($request->oneofcourses))
+        {
+            $school->oneofcourses = $request->oneofcourses;
+        } else {
+            $school->oneofcourses = null;
+        }
         $school->minimumRankRequired = $request->minimumRankRequired;
         $school->published = false;
         $school->promotionPoints = $request->promotionPoints;
@@ -280,8 +290,18 @@ class SchoolsController extends Controller
         $school->name = $request->name;
         $school->short_description = $request->short_description;
         $school->description = $request->description;
-        $school->prerequisites = $request->prerequisites;
-        $school->oneofcourses = $request->oneofcourses;
+        if(empty($request->prerequisites))
+        {
+            $school->prerequisites = $request->prerequisites;
+        } else {
+            $school->prerequisites = null;
+        }
+        if($request->oneofcourses == "")
+        {
+            $school->oneofcourses = $request->oneofcourses;
+        } else {
+            $school->oneofcourses = null;
+        }
         $school->minimumRankRequired = $request->minimumRankRequired;
         $school->published = $request->published;
         $school->promotionPoints = $request->promotionPoints;

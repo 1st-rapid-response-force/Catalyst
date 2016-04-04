@@ -295,7 +295,7 @@ class myTrainingController extends Controller
                 $courseID = collect(explode(',',$course->prerequisites));
                 //Use Difference, if empty, then all prerequisites have been taken, else it means they are not eligible
                 $diff = $courseID->diff($courseTest);
-                if(($diff->isEmpty()) && ($course->minimumRankRequired <= $user->vpf->rank->id))
+                if(($diff->isEmpty()) && ($course->minimumRankRequired <= $user->vpf->rank->id) && $course->published)
                 {
                     $prCheck = true;
                 }
@@ -311,7 +311,7 @@ class myTrainingController extends Controller
                 $count = $courseID->count();
 
                 $diff = $courseID->diff($courseTest);
-                if(($diff->count() != $count) && ($course->minimumRankRequired <= $user->vpf->rank->id) && ($prCheck == true)) $ava->push($course->id);
+                if(($diff->count() != $count) && ($course->minimumRankRequired <= $user->vpf->rank->id) && ($prCheck == true) ) $ava->push($course->id);
             } else {
                 if($prCheck == true)
                     $ava->push($course->id);
