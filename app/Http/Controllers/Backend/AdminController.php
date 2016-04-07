@@ -3,6 +3,17 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Operation;
+use App\Assignment;
+use App\AssignmentChange;
+use App\ClassCompletion;
+use App\School;
+use App\Article15;
+use App\DCS;
+use App\Discharge;
+use App\FileCorrection;
+use App\InfractionReport;
+use App\NCS;
+use App\VCS;
 use App\Perstat;
 use App\User;
 use App\VPF;
@@ -21,6 +32,21 @@ class AdminController extends Controller
      */
     public function index()
     {
+
+        $discharges = Discharge::where('discharge_type','=','PENDING REVIEW')->get();
+        $vpf_cr = FileCorrection::where('reviewed','=',0)->get();
+        $infractions = InfractionReport::where('reviewed','=',0)->get();
+        $assignment_changes = AssignmentChange::where('reviewed','=',0)->get();
+        $class_completion = ClassCompletion::where('status','=',2)->get();
+
+        $forms = collect();
+        $forms = $forms->merge($discharges);
+        $forms = $forms->merge($vpf_cr);
+        $forms = $forms->merge($infractions);
+        $forms = $forms->merge($assignment_changes);
+        $forms = $forms->merge($class_completion);
+
+
         $members = VPF::where('status','=','Active')->get()->count();
         $application = Application::where('status','=','Under Review')->get()->count();
         $operations = Operation::all()->count();
@@ -33,6 +59,7 @@ class AdminController extends Controller
             ->with('applications',$application)
             ->with('operations',$operations)
             ->with('perstat',$perstat)
+            ->with('forms',$forms)
             ->with('cost',$cost);
     }
 

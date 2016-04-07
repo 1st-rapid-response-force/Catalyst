@@ -82,11 +82,11 @@
         </div>
         <div class="col-lg-4">
             <div class="info-box">
-                <span class="info-box-icon bg-blue"><i class="fa fa-fighter-jet"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-paperclip"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Operations to Date</span>
-                    <span class="info-box-number">{{$operations}}</span>
-                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="{{route('admin.operations.index')}}">More Info</a></span>
+                    <span class="info-box-text">Pending Paperwork</span>
+                    <span class="info-box-number">{{$forms->count()}}</span>
+                    <span class="info-box-content"><a class="btn btn-default btn-sm" href="{{route('admin.forms.index')}}">More Info</a></span>
                 </div><!-- /.info-box-content -->
             </div><!-- /.info-box -->
         </div>

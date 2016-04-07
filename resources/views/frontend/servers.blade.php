@@ -38,10 +38,9 @@
                     <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/frontend/images/arma3.png" alt="ARMA3">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">ARMA 3 <small>Public Server - Mods</small></h4>
+                    <h4 class="media-heading">ARMA 3 <small>Public Modded Environment</small></h4>
                     <address>
-                        <strong>arma.1st-rrf.com:2302</strong><br>
-                        <a class="btn btn-success" href="#">Connect to Public Server</a>
+                        <strong>public.arma.1st-rrf.com</strong><br>
                     </address>
                 </div>
             </div>
@@ -52,8 +51,7 @@
                 <div class="media-body">
                     <h4 class="media-heading">ARMA 3 <small>Deployment Server</small></h4>
                     <address>
-                        <strong>public.1st-rrf.com:2302</strong><br>
-                        <a class="btn btn-success" href="#">Connect to Deployment Server</a>
+                        <strong>Not Online Yet</strong><br>
                     </address>
                 </div>
             </div>
@@ -66,8 +64,7 @@
                 <div class="media-body">
                     <h4 class="media-heading">ARMA 3 <small>Training Server</small></h4>
                     <address>
-                        <strong>arma.1st-rrf.com:2322</strong><br>
-                        <a class="btn btn-success" href="#">Connect to Training Server</a>
+                        <strong>wake.arma.1st-rrf.com</strong><br>
                     </address>
                 </div>
             </div>
