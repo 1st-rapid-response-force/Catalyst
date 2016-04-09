@@ -94,7 +94,7 @@ class Application extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','dob'];
 
     public function user()
     {

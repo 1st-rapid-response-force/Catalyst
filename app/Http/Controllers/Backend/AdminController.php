@@ -19,6 +19,7 @@ use App\Perstat;
 use App\User;
 use App\VPF;
 use App\Application;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -49,7 +50,25 @@ class AdminController extends Controller
 
         // Calendar
         $events = Event::admin()->get();
+
+        $birthdays = collect();
+        // Fun Stuff
+        foreach(VPF::active()->get() as $vpf)
+        {
+            $dob = $vpf->user->application->dob->year(Carbon::now()->year);
+            $birthdays->push(\Calendar::event(
+                $vpf.' -  Birthday', //event title
+                true, //full day event?
+                $dob,
+                $dob,
+                rand(9000,10000),
+                [
+                    'color' => '#4B870C'
+                ]
+            ));
+        }
         $calendar = \Calendar::addEvents($events);
+        $calendar = \Calendar::addEvents($birthdays);
 
 
         $members = VPF::where('status','=','Active')->get()->count();

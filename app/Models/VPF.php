@@ -325,6 +325,17 @@ class VPF extends Model
 
     }
 
+    // Query Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'Active');
+    }
+
+    public function scopeDischarged($query)
+    {
+        return $query->where('status', 'Discharged');
+    }
+
     public function hasReportedIn()
     {
         $perstat = Perstat::where('active','=','1')->first();
