@@ -159,6 +159,8 @@ Route::group(['namespace' => 'Backend',
     Route::get('dashboard', function () {
         return redirect('/admin/');
     });
+
+    Route::post('events/add-event',['as'=>'admin.events.postAddEvent','uses'=>'EventController@store']);
     Route::resource('users', 'UserController');
 
     // Enlistments

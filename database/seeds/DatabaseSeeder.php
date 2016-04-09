@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         if ($env == 'production')
         {
+            $this->call(EventCategorySeeder::class);
         }
 
         if ($env == 'local')
         {
+            /*
             $this->call(CatalystSeeder::class);
             $this->call(CatalystRankSeeder::class);
             $this->call(CatalystGroupsSeeder::class);
@@ -31,6 +33,8 @@ class DatabaseSeeder extends Seeder
             $this->call(CatalystLoadouts::class);
             $this->call(DischargeAssignment::class);
             $this->call(CreateFirstPerstat::class);
+            */
+            $this->call(EventCategorySeeder::class);
         }
 
         Model::reguard();

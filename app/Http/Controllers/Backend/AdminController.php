@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Event;
 use App\Operation;
 use App\Assignment;
 use App\AssignmentChange;
@@ -46,6 +47,10 @@ class AdminController extends Controller
         $forms = $forms->merge($assignment_changes);
         $forms = $forms->merge($class_completion);
 
+        // Calendar
+        $events = Event::admin()->get();
+        $calendar = \Calendar::addEvents($events);
+
 
         $members = VPF::where('status','=','Active')->get()->count();
         $application = Application::where('status','=','Under Review')->get()->count();
@@ -60,7 +65,8 @@ class AdminController extends Controller
             ->with('operations',$operations)
             ->with('perstat',$perstat)
             ->with('forms',$forms)
-            ->with('cost',$cost);
+            ->with('cost',$cost)
+            ->with('calendar',$calendar);
     }
 
     /**

@@ -203,6 +203,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns all events created by VPF
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function eventsCreated()
+    {
+        return $this->hasMany('App\Event','vpf_id','id');
+    }
+
+    /**
      * Returns all File Corrections
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

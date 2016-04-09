@@ -7,6 +7,8 @@
 @section('scripts-css-header')
         <!-- Calendar -->
         <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+        <link href="/plugins/jquery-datetime/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @section('breadcrumbs')
@@ -98,21 +100,74 @@
             <h3 class="box-title">Calendar of Events</h3>
         </div>
         <div class="box-body">
-            <div id="calendar"></div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#eventModal">
+                Add Event
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="eventModalLabel">Create Event</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('admin.events.postAddEvent')}}" method="post">
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Event Title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select class="form-control" name="category_id">
+                                        <option value="1">Training</option>
+                                        <option value="2">Modpack</option>
+                                        <option value="3">Meetings</option>
+                                        <option value="4">Misc</option>
+                                        <option value="5">Admin</option>
+                                    </select>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="hidden" name="allDay" value="0">
+                                        <input type="checkbox" name="allDay" value="1"> Is this event all day?
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Start time:</label>
+                                    <input type="datetime" class="form-control" name="start" id="start" placeholder="Start Time">
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">End time:</label>
+                                    <input type="datetime" class="form-control" name="end" id="end" placeholder="End Time">
+                                </div>
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Event</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            {!! $calendar->calendar() !!}
+
         </div>
     </div>
 @endsection
 
 @section('page-script')
+    {!! $calendar->script() !!}
+
     <script>
-        $(document).ready(function() {
-
-            // page is now ready, initialize the calendar...
-
-            $('#calendar').fullCalendar({
-                // put your options and callbacks here
-            })
-
+        $( document ).ready(function() {
+            jQuery('#start').datetimepicker({
+            });
+            jQuery('#end').datetimepicker({
+            });
         });
     </script>
 @endsection
@@ -120,6 +175,7 @@
 @section('page-script-include')
     <script src="/backend/js/moment.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.3.2/fullcalendar.min.js"></script>
+    <script src="/plugins/jquery-datetime/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 @endsection
 
 
