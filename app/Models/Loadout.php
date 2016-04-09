@@ -4,6 +4,33 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Loadout
+ *
+ * @property integer $id
+ * @property integer $qualification_id
+ * @property string $category
+ * @property string $name
+ * @property string $class_name
+ * @property string $storage_image
+ * @property string $public_image
+ * @property boolean $empty
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Qualification $qualification
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $VPF
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereQualificationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereCategory($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereClassName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereStorageImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout wherePublicImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereEmpty($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Loadout whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Loadout extends Model
 {
     /**

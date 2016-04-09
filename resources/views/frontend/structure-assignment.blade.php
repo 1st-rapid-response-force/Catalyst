@@ -23,10 +23,10 @@
 
         <h3>Officer Ranks</h3>
         <div class="text-center">
-            <table class="table table-bordered table-hover" id="ranks">
+            <table class="table table-hover" id="ranks">
                 <thead>
                 @foreach($officerRanks as $rank)
-                    <th ><img style="max-width: 100px; max-height: 100px;" class="center-block" src="{{$rank->showSmall()}}"></th>
+                    <th ><img style="max-width: 100px; max-height: 100px; border: none;" class="center-block" src="{{$rank->showSmall()}}"></th>
                 @endforeach
                 </thead>
                 <tbody>
@@ -41,10 +41,10 @@
 
         <h3>Warrant Ranks</h3>
         <div class="text-center">
-            <table class="table table-bordered table-hover" id="ranks">
+            <table class="table table-hover" id="ranks">
                 <thead>
                 @foreach($warrantRanks as $rank)
-                    <th><img style="max-width: 100px; max-height: 100px;" class="center-block" src="{{$rank->showSmall()}}"></th>
+                    <th><img style="max-width: 100px; max-height: 100px; border: none;" class="center-block" src="{{$rank->showSmall()}}"></th>
                 @endforeach
                 </thead>
                 <tbody>
@@ -59,10 +59,10 @@
 
         <h3>Enlistment Ranks</h3>
         <div class="text-center">
-            <table class="table table-bordered table-hover" id="ranks">
+            <table class="table table-hover" id="ranks">
                 <thead>
                 @foreach($enlistedRanks as $rank)
-                    <th><img style="max-width: 100px; max-height: 100px;" class="center-block" src="{{$rank->showSmall()}}"></th>
+                    <th><img style="max-width: 100px; max-height: 100px; border: none;" class="center-block" src="{{$rank->showSmall()}}"></th>
                 @endforeach
                 </thead>
                 <tbody>
@@ -77,20 +77,20 @@
         <div>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#structure" aria-controls="structure" role="tab" data-toggle="tab">Structure</a></li>
-                <li role="presentation"><a href="#assignments" aria-controls="assignments" role="tab" data-toggle="tab">Assignments</a></li>
+                <li role="presentation"><a href="#structure" aria-controls="structure" role="tab" data-toggle="tab">Structure</a></li>
+                <li role="presentation" class="active"><a href="#assignments" aria-controls="assignments" role="tab" data-toggle="tab">Assignments</a></li>
 
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="structure">
+                <div role="tabpanel" class="tab-pane " id="structure">
                     <div id="structureHolder" style="height:300px;">
                         <br>
                         <img width="100%" src="/frontend/images/structure.png">
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="assignments">
+                <div role="tabpanel" class="tab-pane active" id="assignments">
                     <h2>Assignments</h2>
                     <p>The NATO RRF is designed to scale to a maximum personnel allocation of 150 combat troops with several support elements. Every member of the unit will at all times hold a single assignment. Assignments are mutually exclusive positions which have required playtime, training and commitment attributes attached to them. On</p>
                     <h3>1st Rapid Response Force</h3>
@@ -101,13 +101,9 @@
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
                                         @if(!is_null($assignment->member))
-                                            <ul>
-                                                <li><a href="/roster/{{$assignment->member->id}}">{{$assignment->name}} - {{$assignment->member->user->vpf}}</a></li>
-                                            </ul>
+                                            <img src="/frontend/images/avatars/members/{{$assignment->member->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
                                         @else
-                                            <ul>
-                                                <li>{{$assignment->name}}</li>
-                                            </ul>
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
                                         @endif
                                     @endforeach
                                 @else
@@ -121,13 +117,9 @@
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
                                         @if(!is_null($assignment->member))
-                                            <ul>
-                                                <li><a href="/roster/{{$assignment->member->id}}">{{$assignment->name}} - {{$assignment->member->user->vpf}}</a></li>
-                                            </ul>
+                                            <img src="/frontend/images/avatars/members/{{$assignment->member->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
                                         @else
-                                            <ul>
-                                                <li>{{$assignment->name}}</li>
-                                            </ul>
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
                                         @endif
                                     @endforeach
                                 @else
@@ -141,13 +133,9 @@
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
                                         @if(!is_null($assignment->member))
-                                            <ul>
-                                                <li><a href="/roster/{{$assignment->member->id}}">{{$assignment->name}} - {{$assignment->member->user->vpf}}</a></li>
-                                            </ul>
+                                            <img src="/frontend/images/avatars/members/{{$assignment->member->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
                                         @else
-                                            <ul>
-                                                <li>{{$assignment->name}}</li>
-                                            </ul>
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
                                         @endif
                                     @endforeach
                                 @else

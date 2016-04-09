@@ -4,6 +4,30 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Operation
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $storage_image
+ * @property string $public_image
+ * @property string $description
+ * @property string $date
+ * @property \Illuminate\Database\Eloquent\Collection|\App\PromotionPoints[] $promotionPoints
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\VPF[] $VPF
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereStorageImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation wherePublicImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation wherePromotionPoints($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Operation whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Operation extends Model
 {
     /**

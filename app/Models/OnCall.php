@@ -4,6 +4,32 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\OnCall
+ *
+ * @property integer $id
+ * @property integer $vpf_id
+ * @property string $oncall_type
+ * @property string $grid
+ * @property string $callsign
+ * @property string $urgency
+ * @property string $security
+ * @property string $other
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\VPF $VPF
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereVpfId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereOncallType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereGrid($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereCallsign($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereUrgency($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereSecurity($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereOther($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\OnCall whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class OnCall extends Model
 {
     /**

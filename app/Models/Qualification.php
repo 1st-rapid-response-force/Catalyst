@@ -4,6 +4,29 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Qualification
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $storage_image
+ * @property string $public_image
+ * @property string $description
+ * @property \Illuminate\Database\Eloquent\Collection|\App\PromotionPoints[] $promotionPoints
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\VPF[] $VPF
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadoutItems
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification whereStorageImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification wherePublicImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification wherePromotionPoints($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Qualification whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Qualification extends Model
 {
     /**

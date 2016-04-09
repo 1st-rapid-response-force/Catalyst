@@ -18,7 +18,9 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\AddNewPERSTAT::class,
-        \App\Console\Commands\SquadXML::class
+        \App\Console\Commands\SquadXML::class,
+        \App\Console\Commands\CreateAvatar::class,
+        \App\Console\Commands\CreateCAC::class,
     ];
 
     /**
@@ -35,5 +37,9 @@ class Kernel extends ConsoleKernel
                 ->weekly();
         $schedule->command('squadxml:create')
                 ->hourly();
+        $schedule->command('image:avatar')
+                ->daily();
+        $schedule->command('image:cac')
+            ->daily();
     }
 }

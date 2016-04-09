@@ -5,6 +5,28 @@ namespace App;
 use App\UnitAnnouncements;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Group
+ *
+ * @property integer $id
+ * @property integer $parent_id
+ * @property string $name
+ * @property string $description
+ * @property string $image
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Assignment[] $assignments
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SquadAnnouncements[] $announcements
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SquadChatter[] $chatter
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereParentId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Group extends Model
 {
     /**

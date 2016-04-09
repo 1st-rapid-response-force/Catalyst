@@ -38,7 +38,7 @@
                         @foreach($threads as $thread)
                             <tr class="{{($thread->isUnread($user->id) == true) ? 'info' : ''}}">
                                 <td><input type="checkbox" name="delete[{{$thread->id}}]" value="{{$thread->id}}"/></td>
-                                <td class="mailbox-name"><img class="img-circle" style="max-height: 30px; max-width: 30px;" src="/avatar/{{$thread->creator()->steam_id}}">  <a href="{{route('inbox.show',$thread->id)}}">{{$thread->creator()->vpf}}</a></td>
+                                <td class="mailbox-name"><img class="img-circle" style="max-height: 30px; max-width: 30px;" src="/frontend/images/avatars/members/{{$thread->creator()->steam_id}}.png">  <a href="{{route('inbox.show',$thread->id)}}">{{$thread->creator()->vpf}}</a></td>
                                 <td class="mailbox-subject">{{$thread->subject}}</td>
                                 <td class="mailbox-date">{{$thread->latestMessage->user->vpf}}<br> {{$thread->latestMessage->updated_at->diffForHumans()}}</td>
                             </tr>

@@ -19,7 +19,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="/roster/1">
-                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/avatar/{{$rod->steam_id}}" alt="Avatar">
+                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/frontend/images/avatars/members/{{$rod->steam_id}}.png" alt="Avatar">
                 </a>
             </div>
             <div class="media-body">
@@ -33,7 +33,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="/roster/1">
-                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/avatar/{{$striker->steam_id}}" alt="Avatar">
+                    <img class="media-object img-circle" style="max-height: 100px; max-width: 100px;" src="/frontend/images/avatars/members/{{$striker->steam_id}}.png" alt="Avatar">
                 </a>
             </div>
             <div class="media-body">

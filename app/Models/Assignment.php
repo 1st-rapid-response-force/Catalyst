@@ -4,6 +4,30 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Assignment
+ *
+ * @property integer $id
+ * @property integer $group_id
+ * @property integer $mos_id
+ * @property string $name
+ * @property boolean $entry_level
+ * @property boolean $transfer_open
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Group $group
+ * @property-read \App\VPF $member
+ * @property-read \App\MOS $mos
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereGroupId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereMosId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereEntryLevel($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereTransferOpen($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Assignment whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Assignment extends Model
 {
     /**

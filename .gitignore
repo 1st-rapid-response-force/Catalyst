@@ -1,5 +1,6 @@
 /.idea
 /vendor
 /node_modules
+/public/frontend/images/avatars/members
 Homestead.yaml
 .env

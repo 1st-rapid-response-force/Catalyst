@@ -161,6 +161,9 @@ return [
         'AltThree\Segment\SegmentServiceProvider',
         'Aloha\Twilio\Support\Laravel\ServiceProvider',
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        'MaddHatter\LaravelFullcalendar\ServiceProvider',
+        
     ],
 
     /*
@@ -217,6 +220,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Twilio' => 'Aloha\Twilio\Support\Laravel\Facade',
+        'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
     ],
 
 ];

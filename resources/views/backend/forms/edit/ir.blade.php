@@ -39,8 +39,8 @@
                         <div class="form-group">
                             <label>Has this issue been reviewed/corrected?</label>
                             <select class="form-control" name="reviewed">
-                                <option value="1">Yes</option>
-                                <option value="0" selected>No</option>
+                                <option value="1" {{($app->milsim_experience == true) ? 'checked' : ''}}>Yes</option>
+                                <option value="0" {{($app->milsim_experience == true) ? 'checked' : ''}}>No</option>
                             </select>
                         </div>
                         <br>

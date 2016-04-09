@@ -4,6 +4,68 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\VPF
+ *
+ * @property integer $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $searchable
+ * @property integer $user_id
+ * @property integer $assignment_id
+ * @property integer $rank_id
+ * @property integer $face_id
+ * @property string $status
+ * @property integer $clearance
+ * @property string $avatar
+ * @property boolean $oncall_status
+ * @property string $oncall_phone
+ * @property string $oncall_type
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\User $user
+ * @property-read \App\Rank $rank
+ * @property-read \App\Assignment $assignment
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Operation[] $operations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Qualification[] $qualifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Perstat[] $perstat
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Ribbon[] $ribbons
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\School[] $schools
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article15[] $article15
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\VCS[] $vcs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\NCS[] $ncs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\InfilAnnouncements[] $infils
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\InfractionReport[] $infraction_reports
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\FileCorrection[] $file_corrections
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AssignmentChange[] $assignment_changes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\DCS[] $dcs
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Discharge[] $discharges
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Service_History[] $serviceHistory
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\RangeQualification[] $range_scores
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Promotion[] $promotions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PromotionPoints[] $promotionsPoints
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\OnCall[] $onCallRequests
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Loadout[] $loadout
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Teamspeak[] $teamspeak
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SchoolTrainingDate[] $schoolTrainingDate
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereFirstName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereLastName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereSearchable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereAssignmentId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereRankId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereFaceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereClearance($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereAvatar($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereOncallStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereOncallPhone($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereOncallType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\VPF whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class VPF extends Model
 {
     protected $guarded = [];

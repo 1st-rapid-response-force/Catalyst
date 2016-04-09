@@ -4,6 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Ribbon
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $storage_image
+ * @property string $public_image
+ * @property string $description
+ * @property \Illuminate\Database\Eloquent\Collection|\App\PromotionPoints[] $promotionPoints
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\VPF[] $VPF
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon whereStorageImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon wherePublicImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon wherePromotionPoints($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Ribbon whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Ribbon extends Model
 {
     /**

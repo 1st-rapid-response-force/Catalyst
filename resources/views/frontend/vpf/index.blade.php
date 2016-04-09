@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <img src="/cac/{{$user->steam_id}}">
+                <img src="/frontend/images/faces/members/{{$user->steam_id}}.png">
             </div>
             <div class="col-md-5">
                 <div class="well well-sm">

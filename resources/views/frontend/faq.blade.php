@@ -61,23 +61,7 @@
                     </div>
                     <div id="FAQThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                         <div class="panel-body">
-                            <p>The 1st RRF Modpack consist of several mods complied to ensure the best simulation experience. You will need <a href="/downloads/arma3sync.exe">Arma3Sync</a> in order to set up the repository. It is important to note that our modpack is publicly available and required for play on our public servers.</p>
-                            <h5>Instructions on setting up the Repository</h5>
-                            <ol class="no-list-style">
-                                <li> - Once ARMA3Sync is installed, click on the Repositories tab</li>
-                                <li> - Click on the blue plus button and a pop up window will appear</li>
-                                <li> - Use the following settings:
-                                    <ul class="no-list-style">
-                                        <li> ---- Repository Name: 1st RRF</li>
-                                        <li> ---- File Transfer Protocol: HTTP</li>
-                                        <li> ---- Host or URL: http://content.1st-rrf.com/modpack</li>
-                                        <li> ---- Port: 80</li>
-                                        <li> ---- Login set to anonymous</li>
-                                    </ul>
-                                </li>
-                                <li> - Once the Repository is added, it will appear in your addon repositories, you can then press the last icon on the right hand side to enter the repository</li>
-                                <li> - You should be able to check for addons via the green checkmark and then press the download addons button to begin downloading all the addons</li>
-                            </ol>
+                            <p>Instructions on downloading the modpack can be found here: <a href="/modpack">1st RRF Modpack Instructions</a>.</p>
                         </div>
                     </div>
                 </div>

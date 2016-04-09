@@ -408,7 +408,7 @@
                                 <select name="user_id" class="form-control" style="width: 100%;">
                                     <!--email_off-->
                                     @foreach($users as $us)
-                                        <option value="{{$us->id}}" {{($us->id == $vpf->id) ? 'selected' : ''}}>{{$us->email}}</option>
+                                        <option value="{{$us->id}}" {{($us->id == $vpf->user->id) ? 'selected' : ''}}>{{$us->email}}</option>
                                     @endforeach
                                     <!--/email_off-->
                                 </select>

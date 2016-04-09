@@ -4,6 +4,41 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Rank
+ *
+ * @property integer $id
+ * @property string $abbreviation
+ * @property string $name
+ * @property string $pay_grade
+ * @property string $storage_image
+ * @property string $public_image
+ * @property integer $promotionPointsRequired
+ * @property integer $tigRequired
+ * @property string $trainingRequired
+ * @property integer $weight
+ * @property integer $next_rank
+ * @property integer $teamspeakGroup
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\VPF[] $VPF
+ * @property-read \App\Rank $nextRank
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereAbbreviation($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank wherePayGrade($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereStorageImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank wherePublicImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank wherePromotionPointsRequired($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereTigRequired($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereTrainingRequired($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereNextRank($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereTeamspeakGroup($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Rank whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Rank extends Model
 {
     /**
@@ -20,7 +55,7 @@ class Rank extends Model
      */
     public function VPF()
     {
-        return $this->hasMany('VPF');
+        return $this->hasMany('App\VPF');
     }
 
     /**

@@ -14,7 +14,7 @@
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                        <img src="/avatar/{{\Auth::User()->steam_id}}" class="img-circle" alt="User Image" />
+                        <img src="/frontend/images/avatars/members/{{\Auth::User()->steam_id}}.png" class="img-circle" alt="User Image" />
                         <p>
                             {{\Auth::User()->vpf}}
                             <small>{{\Auth::User()->vpf->assignment->mos->name}}</small>

@@ -528,22 +528,22 @@ class VPFController extends Controller
 
     /**
      * Hard Save of the User profile, does not do any additional process, simply stores fields
-     * @param $user
+     * @param $vpf
      * @param $input
      */
-    private function saveProfile($user,$input)
+    private function saveProfile($vpf,$input)
     {
-        $user->first_name = $input->first_name;
-        $user->last_name = $input->last_name;
-        $user->user_id = $input->user_id;
-        $user->face_id = $input->face_id;
-        $user->rank_id = $input->rank_id;
-        $user->status = $input->status;
-        $user->clearance = $input->clearance;
-        $user->assignment_id = $input->assignment_id;
-        $user->push();
+        $vpf->first_name = $input->first_name;
+        $vpf->last_name = $input->last_name;
+        $vpf->user_id = $input->user_id;
+        $vpf->face_id = $input->face_id;
+        $vpf->rank_id = $input->rank_id;
+        $vpf->status = $input->status;
+        $vpf->clearance = $input->clearance;
+        $vpf->assignment_id = $input->assignment_id;
+        $vpf->push();
 
-        $u = $user->user;
+        $u = $vpf->user;
 
         try {
             $this->ts->update($u);
