@@ -203,6 +203,15 @@ class VPF extends Model
     }
 
     /**
+     * Returns all events created by VPF
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function eventsCreated()
+    {
+        return $this->hasMany('App\Event','vpf_id','id');
+    }
+
+    /**
      * Returns all File Corrections
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -314,6 +323,17 @@ class VPF extends Model
     public function isMember()
     {
 
+    }
+
+    // Query Scopes
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'Active');
+    }
+
+    public function scopeDischarged($query)
+    {
+        return $query->where('status', 'Discharged');
     }
 
     public function hasReportedIn()

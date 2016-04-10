@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Event;
 use App\Operation;
 use App\Assignment;
 use App\AssignmentChange;
@@ -18,6 +19,7 @@ use App\Perstat;
 use App\User;
 use App\VPF;
 use App\Application;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -46,6 +48,28 @@ class AdminController extends Controller
         $forms = $forms->merge($assignment_changes);
         $forms = $forms->merge($class_completion);
 
+        // Calendar
+        $events = Event::admin()->get();
+
+        $birthdays = collect();
+        // Fun Stuff
+        foreach(VPF::active()->get() as $vpf)
+        {
+            $dob = $vpf->user->application->dob->year(Carbon::now()->year);
+            $birthdays->push(\Calendar::event(
+                $vpf.' -  Birthday', //event title
+                true, //full day event?
+                $dob,
+                $dob,
+                rand(9000,10000),
+                [
+                    'color' => '#4B870C'
+                ]
+            ));
+        }
+        $calendar = \Calendar::addEvents($events);
+        $calendar = \Calendar::addEvents($birthdays);
+
 
         $members = VPF::where('status','=','Active')->get()->count();
         $application = Application::where('status','=','Under Review')->get()->count();
@@ -60,7 +84,8 @@ class AdminController extends Controller
             ->with('operations',$operations)
             ->with('perstat',$perstat)
             ->with('forms',$forms)
-            ->with('cost',$cost);
+            ->with('cost',$cost)
+            ->with('calendar',$calendar);
     }
 
     /**
