@@ -10,7 +10,6 @@ use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
@@ -127,7 +126,7 @@ class myInboxController extends Controller
             Session::flash('error_message', 'The message was not found.');
             return redirect('/my-inbox');
         }
-        $message->body = \Crypt::encrypt($request->body);
+        $message->body = $request->body;
         $message->save();
         \Log::info('INBOX: User has edited a message', ['user'=> [$user->id,$user->email],'message' => $message->id]);
         return redirect('/my-inbox/'.$message->thread->id);
@@ -152,7 +151,7 @@ class myInboxController extends Controller
             [
                 'thread_id' => $thread->id,
                 'user_id'   => Auth::user()->id,
-                'body'      => \Crypt::encrypt($request->message),
+                'body'      => $request->message,
             ]
         );
 
@@ -221,7 +220,7 @@ class myInboxController extends Controller
                 [
                     'thread_id' => $thread->id,
                     'user_id'   => Auth::id(),
-                    'body'      => \Crypt::encrypt($request->message),
+                    'body'      => Input::get('message'),
                 ]
             );
 

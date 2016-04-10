@@ -35,7 +35,7 @@
                 </a>
                 <div class="media-body">
                     <h5 class="media-heading">{!! $message->user->vpf !!}</h5>
-                    <p>{!! Crypt::decrypt($message->body) !!}</p>
+                    <p>{!! $message->body !!}</p>
                     <div class="text-muted"><small>Posted {!! $message->created_at->diffForHumans() !!} {{($message->created_at != $message->updated_at) ? '| Edited '.$message->updated_at->diffForHumans() : ''}}</small></div>
                 </div>
             </div>
