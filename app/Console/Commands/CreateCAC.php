@@ -39,6 +39,10 @@ class CreateCAC extends Command
      */
     public function handle()
     {
+        $membersFaces = 'frontend/images/faces/members';
+        //Destroy all images
+        \Storage::disk('public')->deleteDirectory($membersFaces);
+        \Storage::disk('public')->makeDirectory($membersFaces);
         VPF::chunk(10, function ($vpfs) {
             foreach ($vpfs as $vpf) {
                 $user = User::find($vpf->user->id);
@@ -88,6 +92,7 @@ class CreateCAC extends Command
                     'ximi.png',
                 ];
                 $images = public_path().'/frontend/images/faces/';
+                $faces = '/frontend/images/faces/members/';
 
                 $face=\Image::make($images.$faces_array[$user->vpf->face_id])->resize(106,139);
 
@@ -124,9 +129,9 @@ class CreateCAC extends Command
                 });
 
                 $img->save($images.'members/'.$random_string.'.png');
-                $user->vpf->avatar = $images.'members/'.$random_string.'.png';
+                $user->vpf->avatar = $faces.$random_string.'.png';
                 $user->push();
-                
+
 
             }
         });

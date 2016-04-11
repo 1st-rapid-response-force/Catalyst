@@ -24,7 +24,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object img-circle"  src="/frontend/images/avatars/members/{{$par->user->steam_id}}.png" style="max-height: 40px; max-width: 40px;">
+                    <img class="media-object img-circle"  src="{{$par->user->vpf->avatar}}" style="max-height: 40px; max-width: 40px;">
                 </a>
             </div>
             <div class="media-body">

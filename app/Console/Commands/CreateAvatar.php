@@ -39,12 +39,19 @@ class CreateAvatar extends Command
      */
     public function handle()
     {
+        $membersAvatars = 'frontend/images/avatars/members';
+        //Destroy all images
+        \Storage::disk('public')->deleteDirectory($membersAvatars);
+        \Storage::disk('public')->makeDirectory($membersAvatars);
+        
+        
         VPF::chunk(10, function ($vpfs) {
             foreach ($vpfs as $vpf) {
                 $images = public_path().'/frontend/images/avatars/';
+                $membersAvatars = '/frontend/images/avatars/members/';
                 $random_string = str_random();
                 $user = User::find($vpf->user->id);
-                $user->vpf->avatar = $images.'members/'.$random_string.'.png';
+                $user->vpf->avatar = $membersAvatars.$random_string.'.png';
                 $user->push();
 
                 if(isset($user))

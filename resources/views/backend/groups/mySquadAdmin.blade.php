@@ -30,7 +30,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <a href="/roster/1">
-                                        <img class="media-object img-circle" style="max-height: 30px; max-width: 30px;" src="/avatar/{{$member->user->steam_id}}" alt="Avatar">
+                                        <img class="media-object img-circle" style="max-height: 30px; max-width: 30px;" src="{{$member->user->vpf->avatar}}" alt="Avatar">
                                     </a>
                                 </div>
                                 <div class="media-body">
@@ -60,7 +60,7 @@
                                 <div class="media">
                                     <div class="media-left">
                                         <a href="/roster/1">
-                                            <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="/frontend/images/avatars/members/{{$announcement->creator->user->steam_id}}.png" alt="Avatar">
+                                            <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="{{$announcement->creator->user->vpf->avatar}}" alt="Avatar">
                                         </a>
                                     </div>
                                     <div class="media-body">
@@ -85,7 +85,7 @@
                                 <div class="media">
                                     <div class="media-left">
                                         <a href="/roster/1">
-                                            <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="/frontend/images/avatars/members/{{$announcement->creator->user->steam_id}}.png" alt="Avatar">
+                                            <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="{{$announcement->creator->user->vpf->avatar}}" alt="Avatar">
                                         </a>
                                     </div>
                                     <div class="media-body">
@@ -140,7 +140,7 @@
                         <div class="media">
                             <div class="media-left">
                                 <a href="/roster/1">
-                                    <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="/frontend/images/avatars/members/{{$message->creator->user->steam_id}}.png" alt="Avatar">
+                                    <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="{{$message->creator->user->vpf->avatar}}" alt="Avatar">
                                 </a>
                             </div>
                             <div class="media-body">

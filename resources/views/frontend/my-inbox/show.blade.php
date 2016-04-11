@@ -24,7 +24,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="/roster/{{$par->user->vpf->id}}">
-                    <img class="media-object img-circle"  src="/frontend/images/avatars/members/{{$par->user->steam_id}}.png" style="max-height: 40px; max-width: 40px;">
+                    <img class="media-object img-circle"  src="{{$par->user->vpf->avatar}}" style="max-height: 40px; max-width: 40px;">
                 </a>
             </div>
             <div class="media-body">
@@ -59,7 +59,7 @@
                     @foreach($thread->messages as $message)
                         <div class="media">
                             <a class="pull-left" href="#">
-                                <img src="/frontend/images/avatars/members/{{$message->user->steam_id}}.png" alt="{!! $message->user->name !!}" style="max-width: 100px; max-height: 100px;" class="img-circle">
+                                <img src="{{$message->user->vpf->avatar}}" alt="{!! $message->user->name !!}" style="max-width: 100px; max-height: 100px;" class="img-circle">
                             </a>
                             <div class="media-body">
                                 <h5 class="media-heading"><strong>{!! $message->user->vpf !!}</strong></h5>

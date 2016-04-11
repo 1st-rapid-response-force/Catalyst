@@ -24,7 +24,7 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="/roster/1">
-                            <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="/avatar/{{$announcement->creator->user->steam_id}}" alt="Avatar">
+                            <img class="media-object img-circle" style="max-height: 50px; max-width: 50px;" src="{{$announcement->creator->user->vpf->avatar}}" alt="Avatar">
                         </a>
                     </div>
                     <div class="media-body">

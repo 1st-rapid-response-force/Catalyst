@@ -95,7 +95,7 @@
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
                                         @if(!is_null($assignment->member))
-                                            <img src="/frontend/images/avatars/members/{{$assignment->member->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
                                         @else
                                             <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
                                         @endif
@@ -111,7 +111,7 @@
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
                                         @if(!is_null($assignment->member))
-                                            <img src="/frontend/images/avatars/members/{{$assignment->member->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
                                         @else
                                             <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
                                         @endif
@@ -127,7 +127,7 @@
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
                                         @if(!is_null($assignment->member))
-                                            <img src="/frontend/images/avatars/members/{{$assignment->member->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
                                         @else
                                             <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
                                         @endif
@@ -143,7 +143,7 @@
                 <div role="tabpanel" class="tab-pane " id="recruits">
                     <h5><strong>Recruits</strong></h5>
                     @foreach($recruits as $recruit)
-                            <img src="/frontend/images/avatars/members/{{$recruit->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$recruit->id}}">{{$recruit}} - Recruit</a></br>
+                            <img src="{{$recruit->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$recruit->id}}">{{$recruit}} - Recruit</a></br>
                     @endforeach
                 </div>
                 <div role="tabpanel" class="tab-pane " id="discharges">
