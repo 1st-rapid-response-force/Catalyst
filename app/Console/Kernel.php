@@ -39,8 +39,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('squadxml:create')
                 ->hourly();
         $schedule->command('image:avatar')
-                ->daily();
+                ->twiceDaily(6, 18);
         $schedule->command('image:cac')
-            ->daily();
+                ->twiceDaily(6, 18);;
     }
 }
