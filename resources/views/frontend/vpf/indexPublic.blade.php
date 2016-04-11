@@ -149,13 +149,13 @@
                                         @foreach($profile['operations'] as $operation)
                                             <tr>
                                                 <td class="col-lg-1">{{\Carbon\Carbon::createFromFormat('Y-m-d',$operation->pivot->date_attended)->toFormattedDateString()}}</td>
-                                                <td class="col-lg-4"><a href="/schools/">{{$operation->name}}</a></td>
+                                                <td class="col-lg-4"><a href="#">{{$operation->name}}</a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                 @else
-                                    <p>No Schools attended on record.</p>
+                                    <p>No Operations attended on record.</p>
                                 @endif
                                 <h3>Schools</h3>
                                 @if($profile['schools']->count() > 0)
@@ -164,7 +164,7 @@
                                         @foreach($profile['schools'] as $school)
                                             <tr>
                                                 <td class="col-lg-1">{{\Carbon\Carbon::createFromFormat('Y-m-d',$school->pivot->date_attended)->toFormattedDateString()}}</td>
-                                                <td class="col-lg-4"><a href="/schools/">{{$school->name}}</a></td>
+                                                <td class="col-lg-4"><a href="#">{{$school->name}}</a></td>
                                             </tr>
                                         @endforeach
                                         </tbody>

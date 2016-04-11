@@ -60,14 +60,19 @@ class PagesController extends Controller
         $officerRanks = Rank::whereIn('id', array(19,20,21,22,23,24))->get();
         $groups1 = Group::whereBetween('id', [2,14])->get();
         $groups2 = Group::whereBetween('id', [15, 25])->get();
-        $groups3 = Group::whereBetween('id', [26,43])->get();
+        $groups3 = Group::whereBetween('id', [26,42])->get();
+        $recruits = VPF::where('assignment_id',156)->get();
+        $discharges = VPF::discharged()->get();
+
         return view('frontend.structure-assignment')
             ->with('enlistedRanks',$enlistedRanks)
             ->with('warrantRanks',$warrantRanks)
             ->with('officerRanks',$officerRanks)
             ->with('group1', $groups1)
             ->with('group2', $groups2)
-            ->with('group3', $groups3);
+            ->with('group3', $groups3)
+            ->with('recruits', $recruits)
+            ->with('discharges', $discharges);
 
     }
 
@@ -126,7 +131,7 @@ class PagesController extends Controller
             $xml .= '<name>'.$vpf->first_name.' '.$vpf->last_name.'</name>'. PHP_EOL;
             $xml .= '<email>'.$vpf->user->email.'</email>'. PHP_EOL;
             $xml .= '<icq>N/A</icq>'. PHP_EOL;
-            $xml .= '<remark>1st Rapid Response Force Member</remark>'. PHP_EOL;
+            $xml .= '<remark>1st Rapid Response Force Member - '.$vpf->assignment->name.' - '.$vpf->assignment->group->name.'</remark>'. PHP_EOL;
             $xml .= '</member>'. PHP_EOL;
         }
         $xml .= '</squad>'. PHP_EOL;

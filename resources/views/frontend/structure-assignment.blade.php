@@ -77,19 +77,13 @@
         <div>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation"><a href="#structure" aria-controls="structure" role="tab" data-toggle="tab">Structure</a></li>
                 <li role="presentation" class="active"><a href="#assignments" aria-controls="assignments" role="tab" data-toggle="tab">Assignments</a></li>
-
+                <li role="presentation"><a href="#recruits" aria-controls="structure" role="tab" data-toggle="tab">Recruits</a></li>
+                <li role="presentation"><a href="#discharges" aria-controls="structure" role="tab" data-toggle="tab">Discharges</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane " id="structure">
-                    <div id="structureHolder" style="height:300px;">
-                        <br>
-                        <img width="100%" src="/frontend/images/structure.png">
-                    </div>
-                </div>
                 <div role="tabpanel" class="tab-pane active" id="assignments">
                     <h2>Assignments</h2>
                     <p>The NATO RRF is designed to scale to a maximum personnel allocation of 150 combat troops with several support elements. Every member of the unit will at all times hold a single assignment. Assignments are mutually exclusive positions which have required playtime, training and commitment attributes attached to them. On</p>
@@ -142,16 +136,25 @@
                                     <h4><strong>{{$group->name}}</strong></h4>
                                 @endif
                             @endforeach
-                            <h5><strong>Recruits</strong></h5>
-                            <ul>
-                                <li>Recruit</li>
-                            </ul>
                         </div>
                     </div>
-                    <small class="pull-right">This assignment chart is system generated, report any errors via an error report form
-                    </small>
+
+                </div>
+                <div role="tabpanel" class="tab-pane " id="recruits">
+                    <h5><strong>Recruits</strong></h5>
+                    @foreach($recruits as $recruit)
+                            <img src="/frontend/images/avatars/members/{{$recruit->user->steam_id}}.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$recruit->id}}">{{$recruit}} - Recruit</a></br>
+                    @endforeach
+                </div>
+                <div role="tabpanel" class="tab-pane " id="discharges">
+                    <h5><strong>Discharges</strong></h5>
+                    @foreach($discharges as $discharge)
+                        <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$discharge->id}}">{{$discharge}} - {{$discharge->discharges->first()->discharge_type}}</a></br>
+                    @endforeach
                 </div>
             </div>
+            <small class="pull-right">This assignment chart is system generated, report any errors via an error report form
+            </small>
         </div>
     </div>
 @endsection

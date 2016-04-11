@@ -247,6 +247,18 @@ class VPF extends Model
         return $this->hasMany('App\Discharge','vpf_id','id');
     }
 
+    public function scopeDischarged($query)
+    {
+        return $query->where('status', 'General Discharge')
+            ->orWhere('status', 'Honorable Discharge')
+            ->orWhere('status', 'Administrative Discharge')
+            ->orWhere('status', 'Other than Honorable Discharge')
+            ->orWhere('status', 'Bad Conduct Discharge')
+            ->orWhere('status', 'Dishonorable Discharge')
+            ->orWhere('status', 'Retired')
+            ->orWhere('status', 'Discharged');
+    }
+
     /**
      * Returns all Service History
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -329,11 +341,6 @@ class VPF extends Model
     public function scopeActive($query)
     {
         return $query->where('status', 'Active');
-    }
-
-    public function scopeDischarged($query)
-    {
-        return $query->where('status', 'Discharged');
     }
 
     public function hasReportedIn()

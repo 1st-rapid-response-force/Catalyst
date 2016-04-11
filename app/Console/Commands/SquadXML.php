@@ -55,7 +55,7 @@ class SquadXML extends Command
             $xml .= '<name>'.$vpf->first_name.' '.$vpf->last_name.'</name>'. PHP_EOL;
             $xml .= '<email>'.$vpf->user->email.'</email>'. PHP_EOL;
             $xml .= '<icq>N/A</icq>'. PHP_EOL;
-            $xml .= '<remark>1st Rapid Response Force Member</remark>'. PHP_EOL;
+            $xml .= '<remark>1st Rapid Response Force Member - '.$vpf->assignment->name.' - '.$vpf->assignment->group->name.'</remark>'. PHP_EOL;
             $xml .= '</member>'. PHP_EOL;
         }
         $xml .= '</squad>'. PHP_EOL;

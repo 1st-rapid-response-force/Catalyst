@@ -365,6 +365,7 @@ class FormsController extends Controller
                     //Set Rank and Assignment
                     $vpf->rank_id = 1; //No Rank
                     $vpf->assignment_id = 157; //Civ
+                    $vpf->status = $request->discharge_type;
                     $vpf->save();
 
                     // Deal with Roles - Ghetto Style
@@ -405,6 +406,7 @@ class FormsController extends Controller
                     //Set Rank and Assignment
                     $vpf->rank_id = 1; //No Rank
                     $vpf->assignment_id = 157; //Civ
+                    $vpf->status = $request->discharge_type;
                     $vpf->save();
 
                     // Deal with Roles - Ghetto Style

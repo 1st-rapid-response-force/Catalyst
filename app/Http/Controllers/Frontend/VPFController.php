@@ -90,38 +90,33 @@ class VPFController extends Controller
     public function publicView($id)
     {
         try {
-            $user = User::findorFail($id);
+            $vpf = VPF::findorFail($id);
         } catch (ModelNotFoundException $e) {
             \Notification::error('The User was not found.');
             return redirect('/structure-assignments');
         }
 
-        // Get the VPF file
-        if(is_null($user->vpf)) {
-            \Notification::error('The user does not have a VPF File.');
-            return redirect('/structure-assignments');
-        }
-
         $forms = collect();
 
-        $forms = $forms->merge($user->vpf->article15);
-        $forms = $forms->merge($user->vpf->ncs);
-        $forms = $forms->merge($user->vpf->dcs);
-        $forms = $forms->merge($user->vpf->discharges);
+        $forms = $forms->merge($vpf->article15);
+        $forms = $forms->merge($vpf->ncs);
+        $forms = $forms->merge($vpf->dcs);
+        $forms = $forms->merge($vpf->discharges);
         $forms = $forms->sortByDesc('created_at');
 
 
         $buildProfile = collect(
-            ['serviceHistory'=>$user->vpf->serviceHistory->sortByDesc('date'),
-                'ribbons'=>$user->vpf->ribbons,
-                'qualifications'=>$user->vpf->qualifications,
-                'operations'=>$user->vpf->operations,
-                'schools'=>$user->vpf->schools()->wherePivot('completed', '=','1')->get(),
+            ['serviceHistory'=>$vpf->serviceHistory->sortByDesc('date'),
+                'ribbons'=>$vpf->ribbons,
+                'qualifications'=>$vpf->qualifications,
+                'operations'=>$vpf->operations,
+                'schools'=>$vpf->schools()->wherePivot('completed', '=','1')->get(),
                 'forms'=> $forms,
             ]);
 
         return view('frontend.vpf.indexPublic')
-            ->with('user',$user)
+            ->with('user',$vpf->user)
+            ->with('vpf',$vpf)
             ->with('profile',$buildProfile);
     }
 
