@@ -29,7 +29,7 @@
             </div>
             <div class="media-body">
                 <h4 class="media-heading"><a href="/roster/{{$par->user->vpf->id}}">{{$par->user->vpf}}</a></h4>
-                <p><small>Last Viewed: {{$par->last_read->diffForHumans()}}</small></p>
+                <p><small>Last Viewed: {{(null !== $par->last_read) ? $par->last_read->diffForHumans() : "Unread"}}</small></p>
             </div>
         </div>
     @endforeach
