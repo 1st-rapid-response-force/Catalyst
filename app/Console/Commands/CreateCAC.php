@@ -129,8 +129,6 @@ class CreateCAC extends Command
                 });
 
                 $img->save($images.'members/'.$random_string.'.png');
-                $user->vpf->avatar = $faces.$random_string.'.png';
-                $user->push();
 
 
             }
