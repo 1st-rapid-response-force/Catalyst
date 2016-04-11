@@ -35,6 +35,7 @@ class SchoolTrainingDate extends Model
      */
     protected $table = 'school_training_date';
     protected $guarded = [];
+    protected $dates = ['date'];
 
     /**
      * Returns School

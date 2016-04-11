@@ -14,6 +14,7 @@ use App\Discharge;
 use App\FileCorrection;
 use App\InfractionReport;
 use App\NCS;
+use App\SchoolTrainingDate;
 use App\VCS;
 use App\Perstat;
 use App\User;
@@ -48,28 +49,7 @@ class AdminController extends Controller
         $forms = $forms->merge($assignment_changes);
         $forms = $forms->merge($class_completion);
 
-        // Calendar
-        $events = Event::admin()->get();
-
-        $birthdays = collect();
-        // Fun Stuff
-        foreach(VPF::active()->get() as $vpf)
-        {
-            $dob = $vpf->user->application->dob->year(Carbon::now()->year);
-            $birthdays->push(\Calendar::event(
-                $vpf.' -  Birthday', //event title
-                true, //full day event?
-                $dob,
-                $dob,
-                rand(9000,10000),
-                [
-                    'color' => '#4B870C'
-                ]
-            ));
-        }
-        $calendar = \Calendar::addEvents($events);
-        $calendar = \Calendar::addEvents($birthdays);
-
+        $calendar = $this->getCalendar();
 
         $members = VPF::where('status','=','Active')->get()->count();
         $application = Application::where('status','=','Under Review')->get()->count();
@@ -183,5 +163,60 @@ class AdminController extends Controller
         }
 
         return $cost;
+    }
+
+    private function getCalendar()
+    {
+        // Calendar
+        $events = Event::admin()->get();
+
+        if (\Cache::has('training_events')) {
+            $trainings = \Cache::get('training_events');
+        } else {
+            $trainings = collect();
+            foreach (SchoolTrainingDate::all() as $date)
+            {
+                $trainings->push(\Calendar::event(
+                    $date->school->name, //event title
+                    false, //full day event?
+                    $date->date,
+                    $date->date->addHour(2),
+                    rand(8000,9000),
+                    [
+                        'color' => '#922727'
+                    ]
+                ));
+            }
+            \Cache::put('training_events', $trainings, 60);
+        }
+
+        if (\Cache::has('birthdays_events')) {
+            $birthdays = \Cache::get('birthdays_events');
+        } else {
+            $birthdays = collect();
+            foreach(VPF::active()->get() as $vpf)
+            {
+                $dob = $vpf->user->application->dob->year(Carbon::now()->year);
+                $birthdays->push(\Calendar::event(
+                    $vpf.' -  Birthday', //event title
+                    true, //full day event?
+                    $dob,
+                    $dob,
+                    rand(9000,10000),
+                    [
+                        'color' => '#4B870C'
+                    ]
+                ));
+            }
+            \Cache::put('birthdays_events', $birthdays, 600);
+        }
+
+        $calendar = \Calendar::addEvents($events);
+        $calendar = \Calendar::addEvents($birthdays);
+        $calendar = \Calendar::addEvents($trainings);
+        return $calendar->setCallbacks([
+            'timeFormat' => 'H(:mm)'
+        ]);
+
     }
 }
