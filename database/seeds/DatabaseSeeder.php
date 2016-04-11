@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         if ($env == 'production')
         {
-            $this->call(EventCategorySeeder::class);
         }
 
         if ($env == 'local')
