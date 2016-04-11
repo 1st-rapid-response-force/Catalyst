@@ -166,7 +166,7 @@ class VPFController extends Controller
                 break;
             case 'profile':
                 $this->saveProfile($VPF,$request);
-                \Artisan::queue('images:avatars');
+                \Artisan::queue('images:avatar');
                 \Artisan::queue('images:cac');
                 \Notification::success('Saving Profile');
                 break;

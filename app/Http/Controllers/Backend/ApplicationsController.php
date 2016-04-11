@@ -242,7 +242,7 @@ class ApplicationsController extends Controller
         ];
         $this->emailApprove($app->user,$data);
 
-        \Artisan::queue('images:avatars');
+        \Artisan::queue('images:avatar');
         \Artisan::queue('images:cac');
 
         //Log action by Approving member
