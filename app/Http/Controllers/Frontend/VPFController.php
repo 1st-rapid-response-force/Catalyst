@@ -385,6 +385,8 @@ class VPFController extends Controller
         $user = \Auth::user();
         $user->vpf->face_id = $request->face_id;
         $user->push();
+        \Artisan::queue('images:cac');
+        
 
         \Log::info('VPF: User has modified their face', ['user'=> [$user->id,$user->email], 'vpf' => $user->vpf->id]);
         \Notification::success('Face has been updated.');

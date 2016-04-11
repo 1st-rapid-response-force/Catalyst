@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\SquadXML::class,
         \App\Console\Commands\CreateAvatar::class,
         \App\Console\Commands\CreateCAC::class,
+        \App\Console\Commands\encryptMessages::class,
     ];
 
     /**

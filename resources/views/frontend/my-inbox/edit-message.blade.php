@@ -61,7 +61,7 @@
                 <!-- Message Form Input -->
                 <div class="form-group">
                     <textarea name="body" class="form-control">
-                        {!! $message->body !!}
+                        {!! \Crypt::decrypt($message->body) !!}
                     </textarea>
                 </div>
                 <!-- Submit Form Input -->

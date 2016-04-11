@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <img src="/cac/{{$vpf->user->steam_id}}">
+                    <img src="/frontend/images/faces/members/{{$vpf->user->steam_id}}.png">
                 </div>
             </div>
         </div>
