@@ -214,7 +214,7 @@ class AdminController extends Controller
         $calendar = \Calendar::addEvents($events);
         $calendar = \Calendar::addEvents($birthdays);
         $calendar = \Calendar::addEvents($trainings);
-        return $calendar->setCallbacks([
+        return $calendar->setOptions([
             'timeFormat' => 'H(:mm)'
         ]);
 
