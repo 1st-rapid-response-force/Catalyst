@@ -42,7 +42,10 @@ class CreateAvatar extends Command
         VPF::chunk(10, function ($vpfs) {
             foreach ($vpfs as $vpf) {
                 $images = public_path().'/frontend/images/avatars/';
+                $random_string = str_random();
                 $user = User::find($vpf->user->id);
+                $user->vpf->avatar = $images.'members/'.$random_string.'.png';
+                $user->push();
 
                 if(isset($user))
                 {
@@ -57,7 +60,7 @@ class CreateAvatar extends Command
                     $img = \Image::canvas(160,160)
                         ->insert($images.'background.png')
                         ->insert($rankImg,'center',0,28)
-                        ->save($images.'members/'.$user->steam_id.'.png');
+                        ->save($images.'members/'.$random_string.'.png');
                 }
 
             }

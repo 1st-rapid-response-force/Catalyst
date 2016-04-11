@@ -42,6 +42,8 @@ class CreateCAC extends Command
         VPF::chunk(10, function ($vpfs) {
             foreach ($vpfs as $vpf) {
                 $user = User::find($vpf->user->id);
+                $random_string = str_random();
+
 
                 $faces_array = [
                     'default_face.png',
@@ -121,7 +123,10 @@ class CreateCAC extends Command
                     $font->size(12);
                 });
 
-                $img->save($images.'members/'.$user->steam_id.'.png');
+                $img->save($images.'members/'.$random_string.'.png');
+                $user->vpf->avatar = $images.'members/'.$random_string.'.png';
+                $user->push();
+                
 
             }
         });
