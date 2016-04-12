@@ -84,7 +84,7 @@ class AuthController extends Controller
         } else {
             Auth::login($user,true);
             \Log::info('User has logged in.', ['user'=> [$user->id,$user->email]]);
-            return redirect('/');
+            return redirect()->intended();
         }
     }
     public function getLogout()
