@@ -4,7 +4,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="/frontend/images/avatars/members/{{\Auth::User()->steam_id}}.png" class="img-circle" alt="User Image" />
+                <img src="/frontend/images/avatars/members/{{\Auth::User()->vpf->avatar}}.png" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
                 <p>{{\Auth::User()->vpf}}</p>
