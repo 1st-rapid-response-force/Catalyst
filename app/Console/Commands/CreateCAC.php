@@ -128,7 +128,7 @@ class CreateCAC extends Command
                     $font->size(12);
                 });
 
-                $img->save($images.'members/'.$random_string.'.png');
+                $img->save($images.'members/'.$user->steam_id.'.png');
 
 
             }
