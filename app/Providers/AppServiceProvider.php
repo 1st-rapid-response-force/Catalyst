@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            \App\Repositories\Frontend\User\Steam\SteamContract::class,
+            \App\Repositories\Frontend\User\Steam\EloquentSteamRepository::class
+        );
     }
 }

@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('servers', 'PagesController@servers');
     Route::get('structure-assignments', 'PagesController@structureAndAssignments');
     Route::get('faq', 'PagesController@faq');
+    Route::get('apply', 'PagesController@apply');
     Route::get('contact-us', 'PagesController@contact');
     Route::get('modpack', 'PagesController@modpack');
     Route::post('stripe/webhook', '\Laravel\Cashier\WebhookController@handleWebhook');

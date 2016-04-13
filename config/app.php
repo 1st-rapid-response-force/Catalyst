@@ -163,6 +163,7 @@ return [
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         'MaddHatter\LaravelFullcalendar\ServiceProvider',
+        'Syntax\SteamApi\SteamApiServiceProvider',
         
     ],
 
@@ -221,6 +222,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',
         'Twilio' => 'Aloha\Twilio\Support\Laravel\Facade',
         'Calendar' => 'MaddHatter\LaravelFullcalendar\Facades\Calendar',
+
     ],
 
 ];
