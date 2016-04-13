@@ -163,7 +163,7 @@ class FormsController extends Controller
                 break;
             case 'ncs':
                 $ncs = NCS::find($id);
-                if(($ncs->vpf_id == $user->vpf->id) || ($user->hasRole(['nco','officer','superadmin'])))
+                if(true)
                 {
                     return view('frontend.forms.ncs')
                         ->with('ncs',$ncs)
@@ -230,7 +230,7 @@ class FormsController extends Controller
                 break;
             case 'discharge':
                 $dis = Discharge::find($id);
-                if(($dis->vpf_id == $user->vpf->id) || ($user->hasRole(['nco','officer','superadmin'])))
+                if(true)
                 {
                     return view('frontend.forms.dis')
                         ->with('dis',$dis)

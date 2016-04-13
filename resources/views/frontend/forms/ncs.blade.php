@@ -84,8 +84,8 @@
                     <div data-row-span="4">
                         <div data-field-span="1">
                             <label></label>
-                            <label><input type="radio" name="approval" {{($ncs->approval == 'Approve plan of action.') ? 'checked' : ''}} value="Approve plan of action." readonly> Approve plan of action.</label> &nbsp;
-                            <label><input type="radio" name="approval" {{($ncs->approval == 'I recommend no further action.') ? 'checked' : ''}} value="I recommend no further action." readonly> I recommend no further action.</label> &nbsp;
+                            <label><input type="radio" name="approval" {{($ncs->approval == 'Approve plan of action.') ? 'checked' : ''}} value="Approve plan of action." readonly onclick="return false;"> Approve plan of action.</label> &nbsp;
+                            <label><input type="radio" name="approval" {{($ncs->approval == 'I recommend no further action.') ? 'checked' : ''}} value="I recommend no further action." readonly onclick="return false;"> I recommend no further action.</label> &nbsp;
                         </div>
                         <div data-field-span="3">
                             <label>NAME OF COMMANDER</label>
@@ -103,7 +103,7 @@
                         </div>
                         <div data-field-span="1">
                             <label>DATE</label>
-                            <input type="text" id="approval_date" name="approval_date" readonly value="{{$ncs->approval_date}}">
+                            <input type="text" id="approval_date" name="approval_date" readonly value="{{$ncs->approval_date}}" >
                         </div>
                     </div>
                 </fieldset>
