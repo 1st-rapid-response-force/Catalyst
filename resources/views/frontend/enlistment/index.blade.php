@@ -30,12 +30,13 @@
                 <li>Members will be required to be citizens of a NATO member country to partake.</li>
                 <li>Members will need to be able to commit to a weekly operations and training schedule.</li>
                 <li>Members will need speak english in order to properly communicate with the unit.</li>
+                <li>Members will need to not be affiliated, enlisted, or active in any other MILSIM Unit/Community within ARMA.</li>
             </ul>
             <li>Review the <a href="/structure-assignments">Structure and Assignments</a> and the Disciplinary Policy before completing your application.</li>
             <li>Login/Create an account with us, if you are new, we will direct you to a registration page, if you are an existing member, we will log you in. - <small>For more information on Steam Open ID <a href="http://steamcommunity.com/dev">click here.</a></small>
             </li>
             <li>Fill out the Application and wait for a reply</li>
-            <li><a href="{{route('frontend.modpack')}}">Download Infil</a>, our ARMA 3 modpack updater and launcher, constructed in house by 1st RRF members (we have a public server, so while you wait you can start to play)</li>
+            <li><a href="/modpack">Download Infil</a>, our ARMA 3 modpack updater and launcher, constructed in house by 1st RRF members (we have a public server, so while you wait you can start to play)</li>
             <li>Be active and participate in the community.</li>
         </ol>
         <p> </p>
