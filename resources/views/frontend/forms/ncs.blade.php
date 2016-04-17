@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
         <li class="active">Forms</li>
-        <li class="active">NCS - {{$ncs->date}})</li>
+        <li class="active">NCS - {{$ncs->date}}</li>
     </ol>
 @endsection
 
