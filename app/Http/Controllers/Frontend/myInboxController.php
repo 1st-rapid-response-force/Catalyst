@@ -140,7 +140,7 @@ class myInboxController extends Controller
     public function store(Request $request)
     {
         $user = \Auth::User();
-        $recipients = explode(',',$request->recipents);
+        $recipients = $request->autocomplete;
         $thread = Thread::create(
             [
                 'subject' => $request->subject,
@@ -155,8 +155,6 @@ class myInboxController extends Controller
                 'body'      => \Crypt::encrypt($request->message),
             ]
         );
-
-
 
         // Sender
         Participant::create(
@@ -176,7 +174,7 @@ class myInboxController extends Controller
 
 
         // Recipients
-        if (\Request::has('recipents')) {
+        if (\Request::has('autocomplete')) {
             $thread->addParticipants($recipients);
             $this->emailUsersNewMessage($recipients,$data);
         }
@@ -204,13 +202,13 @@ class myInboxController extends Controller
         //Participant add or reply?
         if($request->action == 'addUsers')
         {
-            $recipients = explode(',',$request->recipents);
+            $recipients = $request->autocomplete_add;
             $dataNewParticipant = [
                 'title' => $thread->subject,
                 'id' => $thread->id
             ];
             // Recipients
-            if (\Request::has('recipents')) {
+            if (\Request::has('autocomplete_add')) {
                 $thread->addParticipants($recipients);
                 $this->emailUsersNewParticipant($recipients,$dataNewParticipant);
             }

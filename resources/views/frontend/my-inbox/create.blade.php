@@ -1,6 +1,10 @@
 @extends('frontend.my-inbox.layouts.inbox')
 
+@section('title','My Inbox')
+
 @section('css-top-mail')
+        <!-- Select2 -->
+<link href="/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -21,10 +25,12 @@
             <h3 class="box-title">Compose new message</h3>
             {!! Form::open(['route' => 'inbox.store']) !!}
                     <!-- Subject Form Input -->
+
             <div class="form-group">
-                {!! Form::label('autocomplete', 'Recipients', ['class' => 'control-label']) !!}
-                <input type="text" id="autocomplete" name="recipents" />
+                {!! Form::label('autocomplete') !!}
+                {!! Form::select('autocomplete[]', [], null, ['class' => 'form-control', 'id' => 'names', 'multiple']) !!}
             </div>
+
             <div class="form-group">
                 {!! Form::label('subject', 'Subject', ['class' => 'control-label']) !!}
                 {!! Form::text('subject', null, ['class' => 'form-control']) !!}
@@ -49,22 +55,32 @@
 
 
 @section('js-bottom-mail')
-    <script type="text/javascript" src="/plugins/tokeninput/src/jquery.tokeninput.js"></script>
     <script type="text/javascript" src="/plugins/jQueryUI/jquery-ui.min.js"></script>
     <script src="/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <!-- Select2 -->
+    <script src="/plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             CKEDITOR.replace( 'message');
-            $("#autocomplete").tokenInput("/autocomplete/users", {
-                theme: "facebook",
-                preventDuplicates: true,
-                searchDelay: 300,
-                hintText: 'Search by First or Last Name'
+        });
 
-            });
+        $('#names').select2({
+            placeholder: 'Search 1RRF Members',
+            minimumInputLength: 3,
+            ajax: {
+                url: '/autocomplete/vpf',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                results: function (data, page) {
+                    return {results: data};
+                }
+            },
+
         });
     </script>
-    <link href="/plugins/tokeninput/styles/token-input-facebook.css" rel="stylesheet" type="text/css" />
-
 
 @endsection

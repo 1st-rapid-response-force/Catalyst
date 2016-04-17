@@ -1,12 +1,10 @@
 @extends('frontend.my-inbox.layouts.inbox')
 
+@section('title','My Inbox')
+
 @section('css-top-mail')
-    <style>
-        ul.token-input-list-facebook
-        {
-            width:100%;
-        }
-    </style>
+        <!-- Select2 -->
+<link href="/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -35,9 +33,10 @@
     @endforeach
     <br>
     {!! Form::open(['route' => ['inbox.update', $thread->id], 'method' => 'PUT']) !!}
-        <div class="form-group">
-            <input type="text" id="autocomplete" name="recipents" />
-        </div>
+    <div class="form-group">
+        {!! Form::label('autocomplete_add') !!}
+        {!! Form::select('autocomplete_add[]', [], null, ['class' => 'form-control', 'id' => 'names_add', 'multiple']) !!}
+    </div>
         <div class="form-group">
             <input type="hidden" name="action" value="addUsers">
                 <input type="submit" class="btn btn-xs btn-success" value="Add Participants">
@@ -101,18 +100,34 @@
 @endsection
 
 @section('js-bottom-mail')
-    <script type="text/javascript" src="/plugins/tokeninput/src/jquery.tokeninput.js"></script>
     <script type="text/javascript" src="/plugins/jQueryUI/jquery-ui.min.js"></script>
     <script src="/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <!-- Select2 -->
+    <script src="/plugins/select2/select2.full.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             CKEDITOR.replace( 'message');
-            $("#autocomplete").tokenInput("/autocomplete/users", {
-                theme: "facebook"
-            });
-            $("ul.token-input-list-facebook").css({"width":"100%"});
         });
     </script>
-    <link href="/plugins/tokeninput/styles/token-input-facebook.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $('#names_add').select2({
+            placeholder: 'Search 1RRF Members',
+            minimumInputLength: 3,
+            ajax: {
+                url: '/autocomplete/vpf',
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                results: function (data, page) {
+                    return {results: data};
+                }
+            },
+
+        });
+    </script>
+
 @endsection
 

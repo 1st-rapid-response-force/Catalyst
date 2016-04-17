@@ -1,5 +1,7 @@
 @extends('frontend.my-inbox.layouts.home')
 
+@section('title','My Inbox')
+
 @section('css-top-mail')
 @endsection
 

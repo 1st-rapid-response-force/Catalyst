@@ -134,6 +134,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
         //Auto-Complete
         Route::get('autocomplete/users', 'AutoCompleteController@getUsers');
+        Route::get('autocomplete/vpf', 'AutoCompleteController@getVPFs');
 
     });
 

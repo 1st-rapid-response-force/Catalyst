@@ -22,9 +22,22 @@ class AutoCompleteController extends Controller
                 'name' => $vpf->__toString(),];
             $results->push($rt);
         }
-
-
-
         return \Response::json($results);
+    }
+
+    public function getVPFs(Request $request)
+    {
+        $vpfs = VPF::where('searchable', 'LIKE', '%'.$request->q.'%')->get();
+        $results = collect();
+
+        foreach ($vpfs as $vpf)
+        {
+            $rt = [
+                'id' => $vpf->user->id,
+                'text' => $vpf->searchable
+            ];
+            $results->push($rt);
+        }
+        return \Response::json(['results' => $results]);
     }
 }
