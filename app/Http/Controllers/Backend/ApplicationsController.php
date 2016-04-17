@@ -244,6 +244,7 @@ class ApplicationsController extends Controller
 
         \Artisan::queue('images:avatar');
         \Artisan::queue('images:cac');
+        \Artisan::queue('vpf:searchable');
 
         //Log action by Approving member
         \Log::info('Application Accepted', ['user_id'=> $filingUser->id, 'app_id'=>$app->id]);

@@ -172,6 +172,7 @@ class VPFController extends Controller
                 break;
         }
 
+        \Artisan::queue('vpf:searchable');
         return redirect('/admin/vpf/'.$VPF->id);
     }
 
@@ -367,7 +368,7 @@ class VPFController extends Controller
         }
 
 
-
+        \Artisan::queue('vpf:searchable');
         \Notification::success('Member was Discharged from the unit!');
         return redirect('/admin/vpf/'.$vpf_id);
     }

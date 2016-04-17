@@ -27,7 +27,7 @@
                     <!-- Subject Form Input -->
 
             <div class="form-group">
-                {!! Form::label('autocomplete') !!}
+                {!! Form::label('autocomplete','Users') !!}
                 {!! Form::select('autocomplete[]', [], null, ['class' => 'form-control', 'id' => 'names', 'multiple']) !!}
             </div>
 
