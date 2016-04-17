@@ -19,7 +19,7 @@ class InfilController extends Controller
      */
     public function index()
     {
-        $infilReports = InfilAnnouncements::all();
+        $infilReports = InfilAnnouncements::orderBy('created_at','desc')->get();
         return view('backend.infil.index')
             ->with('infils',$infilReports);
     }

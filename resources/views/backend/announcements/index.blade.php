@@ -28,8 +28,8 @@
             <thead>
             <tr>
                 <th>Date</th>
-                <th>Issued By</th>
                 <th>Subject</th>
+                <th>Issued By</th>
                 <th>Options</th>
             </tr>
             </thead>
@@ -37,8 +37,8 @@
             @foreach($announcements as $announcement)
                 <tr>
                     <td>{{$announcement->created_at->toDayDateTimeString()}}</td>
-                    <td>{{$announcement->creator}}</td>
                     <td>{{$announcement->subject}}</td>
+                    <td>{{$announcement->creator}}</td>
                     <td>
                         <a class="btn btn-success" href="{{ route('admin.announcements.edit',array($announcement->id)) }}">Edit</a>
                         <a class="btn btn-danger" href="{{ route('admin.announcements.destroy',array($announcement->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?">Delete</a>
@@ -57,7 +57,9 @@
     <script src="/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-            $("#announcements").DataTable();
+            $("#announcements").DataTable({
+                "order": [[0, "desc"]]
+            });
         });
     </script>
     @endsection

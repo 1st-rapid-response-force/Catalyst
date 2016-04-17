@@ -7,6 +7,7 @@ use App\School;
 use App\SchoolTrainingDate;
 use App\Section;
 use App\VPF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -128,7 +129,7 @@ class SchoolsController extends Controller
     public function indexTimeDate($id)
     {
         $school = School::find($id);
-        $vpfs = VPF::all();
+        $vpfs = VPF::active()->get();
         return view('backend.schools.indexTimeDate')
             ->with('school',$school)
             ->with('vpfs',$vpfs);
@@ -139,7 +140,7 @@ class SchoolsController extends Controller
         $time= new \Datetime($request->date.' '.$request->time);
         $test = new SchoolTrainingDate;
         $test->school_id = $id;
-        $test->date = $time->format('Y-m-d H:i:s');
+        $test->date = Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString();
         $test->responsible_id = $request->responsible_id;
         $test->save();
         \Notification::success('Time/Date to school added successfully');

@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                     <div class="feature_header text-center">
                         <h2>About Us</h2>
-                        <h4 class="feature_sub">The NATO RRF is a strict military simulation unit which operates within ARMA III using a wide variety of combined arms elements.<br><br>The group is mainly modelled on a US Force, bearing US Army ranks, however its structure is not directly drawn from any real world force. It is instead modelled around what allows us to deploy the best quality of functional simulation in both the meta and game space that the game and circumstance of being a sim unit instead of a real job allow.</h4>
+                        <h4 class="feature_sub">The 1st RRF is a strict military simulation unit which operates within ARMA III using a wide variety of combined arms elements.<br><br>The group is mainly modelled on a US Force, bearing US Army ranks, however its structure is not directly drawn from any real world force. It is instead modelled around what allows us to deploy the best quality of functional simulation in both the meta and game space that the game and circumstance of being a sim unit instead of a real job allow.</h4>
                         <div class="divider"></div>
                     </div>
                 </div>  <!-- Col-md-12 End -->

@@ -60,7 +60,6 @@
                     <li> <a href="{{route('admin.forms.index')}}"><i class="fa fa-archive"></i> <span>Forms Manager</span></a></li>
                     <li> <a href="{{route('admin.qualifications.index')}}"><i class="fa fa-check-square-o"></i> <span>Qualifications</span></a></li>
                     <li> <a href="{{route('admin.ribbons.index')}}"><i class="fa fa-align-justify"></i> <span>Ribbons</span></a></li>
-                    <li> <a href="{{route('admin.operations.index')}}"><i class="fa fa-calendar"></i> <span>Operations</span></a></li>
                     <li> <a href="{{route('admin.schools.index')}}"><i class="fa fa-university"></i> <span>Schools</span></a></li>
                     <li> <a href="{{route('admin.loadouts.index')}}"><i class="fa fa-file-text"></i> <span>Loadout Items</span></a></li>
                 </ul>
@@ -73,7 +72,7 @@
                 <ul class="treeview-menu">
                     <li> <a href="{{route('admin.teamspeak.index')}}"><i class="fa fa-volume-up"></i> <span>Teamspeak Management</span></a></li>
                     <li> <a href="/admin/game-servers"><i class="fa fa-gamepad"></i> <span>Game Server Management</span></a></li>
-                    <li> <a href="{{route('admin.infil.index')}}"><i class="fa fa-gamepad"></i> <span>Infil - Launcher Annoucements</span></a></li>
+                    <li> <a href="{{route('admin.infil.index')}}"><i class="fa fa-newspaper-o"></i> <span>Infil - Launcher Annoucements</span></a></li>
                 </ul>
             </li>
             <li> <a href="/admin/log-viewer"><i class="fa fa-cogs"></i> <span>Log Viewer</span></a></li>

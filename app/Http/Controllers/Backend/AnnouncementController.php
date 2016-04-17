@@ -18,7 +18,7 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announce = UnitAnnouncements::all();
+        $announce = UnitAnnouncements::orderBy('created_at','desc')->get();
         return view('backend.announcements.index')
             ->with('announcements',$announce);
     }

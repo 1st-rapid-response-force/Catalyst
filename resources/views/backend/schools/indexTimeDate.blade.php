@@ -7,7 +7,7 @@
 @section('scripts-css-header')
     <meta name="csrf-param" content="_token">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/jquery-datetime/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('breadcrumbs')
@@ -22,7 +22,7 @@
     <h4>Administrative Options</h4>
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newDate">New Training Date</button>
     @if ($school->schoolDate->count() > 0)
-        @foreach($school->schoolDate as $date)
+        @foreach($school->schoolDate()->orderBy('date','desc')->limit(10)->get() as $date)
                 <h4>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}} - <a href="{{ route('admin.schools.timeDate.delete',array($school->id,$date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></h4>
                 @if($date->vpf->count() > 0)
                 <ol>
@@ -41,6 +41,7 @@
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
 
+
 @endsection
 
 @section('page-script-include')
@@ -57,15 +58,7 @@
                         <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">Training Date: &nbsp</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="date" name="date" placeholder="01/01/2000">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">Training Time: &nbsp</label>
-                            <div class="col-sm-10">
-                                <div class="bootstrap-timepicker">
-                                    <input id="timepicker" class="form-control" name="time" type="text" class="input-small">
-                                </div>
+                                <input type="datetime" class="form-control" name="date" id="date" placeholder="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -89,16 +82,14 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(function () {
-            $('#timepicker').timepicker({
-                template: 'dropdown',
-                showInputs: false,
-                minuteStep: 15
+    <script>
+        $( document ).ready(function() {
+            jQuery('#date').datetimepicker({
             });
         });
     </script>
     <script src="/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <script src="/plugins/jquery-datetime/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
 @endsection
 
 
