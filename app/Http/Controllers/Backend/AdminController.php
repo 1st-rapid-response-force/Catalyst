@@ -176,8 +176,14 @@ class AdminController extends Controller
             $trainings = collect();
             foreach (SchoolTrainingDate::all() as $date)
             {
+                if(isset($date->name))
+                {
+                    $title = $date->name;
+                } else {
+                    $title = $date->school->name;
+                }
                 $trainings->push(\Calendar::event(
-                    $date->school->name, //event title
+                    $title, //event title
                     false, //full day event?
                     $date->date,
                     $date->date->addHour(2),
