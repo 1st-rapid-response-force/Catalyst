@@ -23,7 +23,7 @@
     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newDate">New Training Date</button>
     @if ($school->schoolDate->count() > 0)
         @foreach($school->schoolDate()->orderBy('date','desc')->limit(10)->get() as $date)
-                <h4>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}} - <a href="{{ route('admin.schools.timeDate.delete',array($school->id,$date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></h4>
+                <h4>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}} - {{$date->name or $date->school->name}} <a href="{{ route('admin.schools.timeDate.delete',array($school->id,$date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a></h4>
                 @if($date->vpf->count() > 0)
                 <ol>
                     @foreach($date->vpf as $vpf)
@@ -55,6 +55,12 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" method="POST">
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Session Name: &nbsp</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Can be left blank for School Name Default">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="description" class="col-sm-2 control-label">Training Date: &nbsp</label>
                             <div class="col-sm-10">

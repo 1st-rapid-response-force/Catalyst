@@ -140,6 +140,8 @@ class SchoolsController extends Controller
         $time= new \Datetime($request->date.' '.$request->time);
         $test = new SchoolTrainingDate;
         $test->school_id = $id;
+        if(!empty($request->name))
+            $test->name = $request->name;
         $test->date = Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString();
         $test->responsible_id = $request->responsible_id;
         $test->save();

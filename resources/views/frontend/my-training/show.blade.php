@@ -63,11 +63,11 @@
                                 @if($dates->count() > 0)
                                     @foreach($dates as $date)
                                         @if(!$selected)
-                                            <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDateTimeString()}} - <a class="btn btn-success btn-sm" href="{{ route('training.date.signup',array($date->id)) }}" data-method="put" rel="nofollow" data-confirm="Are you sure you want to sign up to this class this?">Sign Up</a></p>
+                                            <p><strong>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDateTimeString()}}</strong> - {{$date->name or $date->school->name}} <a class="btn btn-success btn-xs" href="{{ route('training.date.signup',array($date->id)) }}" data-method="put" rel="nofollow" data-confirm="Are you sure you want to sign up to this class this?">Sign Up</a></p>
                                         @else
                                             <p>You have signed up for the following time.</p>
 
-                                            <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDateTimeString()}} - <a class="btn btn-danger btn-sm" href="{{ route('training.date.destroy',array($date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to cancel this?">Cancel</a></p>
+                                            <p><strong>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDateTimeString()}}</strong> - {{$date->name or $date->school->name}}  <a class="btn btn-danger btn-sm" href="{{ route('training.date.destroy',array($date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to cancel this?">Cancel</a></p>
                                         @endif
                                     @endforeach
                                 @else
