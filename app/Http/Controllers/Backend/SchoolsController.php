@@ -156,9 +156,14 @@ class SchoolsController extends Controller
     public function postTimeDate(Request $request, $id,$event_id)
     {
         $event = SchoolTrainingDate::find($event_id);
-        $date = ['date' => Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString()];
+        if($event->date != $request->date)
+        {
+            $date = ['date' => Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString()];
+            $event->update($date);
+        }
         $event->update($request->except(['csrf_token','date']));
-        $event->update($date);
+
+
         \Notification::success('Updated School event');
         return redirect('/admin/schools/time-date/' . $id);
     }
