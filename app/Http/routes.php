@@ -195,7 +195,8 @@ Route::group(['namespace' => 'Backend',
     Route::delete('schools/{id}/section/delete/{section_id}',['as'=>'admin.schools.section.delete','uses'=>'SchoolsController@deleteSection']);
     Route::post('schools/{id}/section/new/',['as'=>'admin.schools.section.store','uses'=>'SchoolsController@storeSection']);
     Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
-    Route::get('schools/time-date/{id}',['as'=>'admin.schools.timeDate.index','uses'=>'SchoolsController@indexTimeDate']);
+    Route::get('schools/time-date/{id}/{event_id}',['as'=>'admin.schools.timeDate.edit','uses'=>'SchoolsController@editTimeDate']);
+    Route::post('schools/time-date/{id}/{event_id}',['as'=>'admin.schools.timeDate.post','uses'=>'SchoolsController@postTimeDate']);
     Route::post('schools/time-date/{id}',['as'=>'admin.schools.timeDate.add','uses'=>'SchoolsController@addTimeDate']);
     Route::delete('schools/time-date/{school_id}/{id}',['as'=>'admin.schools.timeDate.delete','uses'=>'SchoolsController@deleteTimeDate']);\
     Route::resource('schools', 'SchoolsController');

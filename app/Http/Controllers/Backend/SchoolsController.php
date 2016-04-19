@@ -39,7 +39,7 @@ class SchoolsController extends Controller
     {
         $schools = School::all();
         return view('backend.schools.index')
-            ->with('schools',$schools);
+            ->with('schools', $schools);
     }
 
     /**
@@ -51,13 +51,13 @@ class SchoolsController extends Controller
     {
         $ranks = Rank::all();
         return view('backend.schools.create')
-            ->with('ranks',$ranks);
+            ->with('ranks', $ranks);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -78,14 +78,12 @@ class SchoolsController extends Controller
         $school->description = $request->description;
         $school->docs = '';
         $school->videos = '';
-        if(empty($request->prerequisites))
-        {
+        if (empty($request->prerequisites)) {
             $school->prerequisites = $request->prerequisites;
         } else {
             $school->prerequisites = null;
         }
-        if(empty($request->oneofcourses))
-        {
+        if (empty($request->oneofcourses)) {
             $school->oneofcourses = $request->oneofcourses;
         } else {
             $school->oneofcourses = null;
@@ -96,9 +94,8 @@ class SchoolsController extends Controller
         $school->save();
 
         // Call Save Image Method Controller to Upload Image if an image is uploaded
-        if($request->hasFile('img'))
-        {
-            if(!$this->image->store($school,$request->file('img'))) {
+        if ($request->hasFile('img')) {
+            if (!$this->image->store($school, $request->file('img'))) {
                 \Notification::error('Unable to upload school image, reverting changes');
                 School::destroy($school->id);
             }
@@ -116,14 +113,14 @@ class SchoolsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
     {
         $school = School::find($id);
         return view('backend.schools.show')
-            ->with('school',$school);
+            ->with('school', $school);
     }
 
     public function indexTimeDate($id)
@@ -131,22 +128,39 @@ class SchoolsController extends Controller
         $school = School::find($id);
         $vpfs = VPF::active()->get();
         return view('backend.schools.indexTimeDate')
-            ->with('school',$school)
-            ->with('vpfs',$vpfs);
+            ->with('school', $school)
+            ->with('vpfs', $vpfs);
     }
 
-    public function addTimeDate(Request $request,$id)
+    public function addTimeDate(Request $request, $id)
     {
-        $time= new \Datetime($request->date.' '.$request->time);
+        $time = new \Datetime($request->date . ' ' . $request->time);
         $test = new SchoolTrainingDate;
         $test->school_id = $id;
-        if(!empty($request->name))
+        if (!empty($request->name))
             $test->name = $request->name;
         $test->date = Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString();
         $test->responsible_id = $request->responsible_id;
         $test->save();
         \Notification::success('Time/Date to school added successfully');
-        return redirect('/admin/schools/time-date/'.$id);
+        return redirect('/admin/schools/time-date/' . $id);
+    }
+
+    public function editTimeDate($id,$event_id)
+    {
+        $event = SchoolTrainingDate::find($event_id);
+        $vpfs = VPF::active()->get();
+        return view('backend.schools.showTimeDate')->with('event', $event)->with('vpfs', $vpfs);
+    }
+
+    public function postTimeDate(Request $request, $id,$event_id)
+    {
+        $event = SchoolTrainingDate::find($event_id);
+        $date = ['date' => Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString()];
+        $event->update($request->except(['csrf_token','date']));
+        $event->update($date);
+        \Notification::success('Updated School event');
+        return redirect('/admin/schools/time-date/' . $id);
     }
 
     public function deleteTimeDate($school_id,$id)

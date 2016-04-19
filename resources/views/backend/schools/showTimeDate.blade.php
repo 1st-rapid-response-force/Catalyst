@@ -18,28 +18,31 @@
 @endsection
 
 @section('content')
-    <p>The following are the School Time/Date for this school.</p>
-    <h4>Administrative Options</h4>
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#newDate">New Training Date</button>
-    @if ($school->schoolDate->count() > 0)
-        @foreach($school->schoolDate()->orderBy('date','desc')->limit(10)->get() as $date)
-                <h4>
-                    {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}} - {{$date->name or $date->school->name}} <a href="{{ route('admin.schools.timeDate.edit',array($school->id,$date->id)) }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
-                    <a href="{{ route('admin.schools.timeDate.delete',array($school->id,$date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>
-                </h4>
-                @if($date->vpf->count() > 0)
-                <ol>
-                    @foreach($date->vpf as $vpf)
-                        <li>{{$vpf}}</li>
+    <p>You can edit the name, time and date, and instructor of the course here after is has been created.</p>
+    <h3>{{$event->school->name}}</h3>
+    <form action="{{route('admin.schools.timeDate.post',[$event->school->id,$event->id])}}" method="post">
+        {{csrf_field()}}
+        <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">Session Name: &nbsp</label>
+            <input type="text" class="form-control" name="name" id="name" value="{{$event->name}}" placeholder="Can be left blank for School Name Default">
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Training Date: &nbsp</label>
+                <input type="datetime" class="form-control" name="date" id="date" value="{{$event->date}}" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Responsible Member: &nbsp</label>
+                <select name="responsible_id" class="form-control">
+                    @foreach($vpfs as $vpf)
+                        <option value="{{$vpf->id}}" {{($event->responsible_id == $vpf->id) ? 'selected' : ''}}>{{$vpf}}</option>
                     @endforeach
-                </ol>
-                @else
-                    <p>No members have signed up to this session</p>
-                @endif
-        @endforeach
-    @else
-        <p>There is no Training Dates for this School.</p>
-    @endif
+                </select>
+        </div>
+        <div class="pull-right">
+            <button type="submit" class="btn btn-success">Save</button>
+        </div>
+    </form>
+
 @endsection
 @section('page-script')
     <script src="/backend/js/rails.js" type="text/javascript"></script>
