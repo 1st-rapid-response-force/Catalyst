@@ -161,9 +161,12 @@ class SchoolsController extends Controller
             $date = ['date' => Carbon::createFromFormat('Y/m/d H:i', $request->date)->toDateTimeString()];
             $event->update($date);
         }
-        $event->update($request->except(['csrf_token','date']));
-
-
+        if(!empty($request->name))
+        {
+            $date = ['name' => $request->name];
+            $event->update($date);
+        }
+        
         \Notification::success('Updated School event');
         return redirect('/admin/schools/time-date/' . $id);
     }

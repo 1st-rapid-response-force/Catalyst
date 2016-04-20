@@ -24,7 +24,7 @@
     @if ($school->schoolDate->count() > 0)
         @foreach($school->schoolDate()->orderBy('date','desc')->limit(10)->get() as $date)
                 <h4>
-                    {{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}} - {{$date->name or $date->school->name}} <a href="{{ route('admin.schools.timeDate.edit',array($school->id,$date->id)) }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
+                    <strong>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date->date)->toDayDateTimeString()}}</strong> - {{$date->instructor}} - {{$date->name or $date->school->name}} <a href="{{ route('admin.schools.timeDate.edit',array($school->id,$date->id)) }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i></a>
                     <a href="{{ route('admin.schools.timeDate.delete',array($school->id,$date->id)) }}" data-method="delete" rel="nofollow" data-confirm="Are you sure you want to delete this?" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete"></i></a>
                 </h4>
                 @if($date->vpf->count() > 0)
