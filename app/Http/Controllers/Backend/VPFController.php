@@ -212,6 +212,7 @@ class VPFController extends Controller
     {
         $vpf = VPF::find($vpf_id);
         $newRank = Rank::find($request->newRank);
+        $oldRank = $vpf->rank;
 
         $vpf->promotions()->create([
             'old_rank_id' => $vpf->rank->id,
@@ -229,6 +230,14 @@ class VPFController extends Controller
 
         $user = User::find($vpf->user->id);
         $this->ts->update($user);
+
+        // Email User
+        $data = [
+            'promotion_old' => $oldRank->name,
+            'promotion_new' => $newRank->name,
+            'name' => $vpf
+        ];
+        $this->emailPromotion($vpf->user, $data);
 
         \Notification::success('Member was promoted!');
         return redirect('/admin/vpf/'.$vpf_id);
@@ -565,7 +574,7 @@ class VPFController extends Controller
      */
     private function emailDischarge($user,$data)
     {
-        Mail::send('emails.discharge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+        Mail::queue('emails.discharge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
             $m->to($user->email, $user->vpf);
             $m->subject('1st RRF - Discharge');
             $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
@@ -580,11 +589,28 @@ class VPFController extends Controller
      */
     private function emailDishonorableDischarge($user,$data)
     {
-        Mail::send('emails.dishonorableDischarge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+        Mail::queue('emails.dishonorableDischarge', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
             $m->to($user->email, $user->vpf);
             $m->subject('1st RRF - Dishonorable Discharge');
             $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
             $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
         });
     }
+
+    /**
+     * Sends email to User regarding Promotion
+     * @param $user
+     * @param $data
+     */
+    private function emailPromotion($user,$data)
+    {
+        Mail::queue('emails.promotion', ['user' => $user,'data' =>$data], function ($m) use ($user,$data) {
+            $m->to($user->email, $user->vpf);
+            $m->subject('1st RRF - Promotion');
+            $m->from('no-reply@1st-rrf.com','1st Rapid Response Force');
+            $m->sender('no-reply@1st-rrf.com','1st Rapid Response Force');
+        });
+    }
+
+
 }
