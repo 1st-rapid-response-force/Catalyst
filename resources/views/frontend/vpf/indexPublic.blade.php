@@ -36,6 +36,8 @@
                                     <p>{{$user->vpf->assignment->name}} - {{$user->vpf->assignment->mos->mos}}</p>
                                     <h5>Group:</h5>
                                     {{$user->vpf->assignment->group->name}}
+                                    <h5>Military Identification Number (SteamID):</h5>
+                                    {{$user->steam_id}}
                                 </div>
 
                             </div>

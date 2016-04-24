@@ -42,7 +42,7 @@
                     <div data-row-span="3">
                         <div data-field-span="2">
                             <label>MILITARY IDENTIFICATION NUMBER</label>
-                            <input type="text" name="military_id" readonly value="{{$vpf->user->steam_id}}">
+                            <input type="text" name="military_id" readonly value="{{$dis->VPF->user->steam_id}}">
                         </div>
                         <div data-field-span="1">
                             <label>CURRENT DATE</label>
