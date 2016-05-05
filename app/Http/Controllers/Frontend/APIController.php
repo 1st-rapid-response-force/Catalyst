@@ -62,7 +62,11 @@ class APIController extends Controller
         // If the score exceeds the max score, there has been a Fusion error.
         // We will set the score to the acceptable level from max
         if($request->score >= $request->scoreMax)
+        {
             $score = ($request->scoreMax-rand(0,3));
+
+        }
+
 
         $qualification = [
             'range' => $request->range,
@@ -71,6 +75,7 @@ class APIController extends Controller
             'weapon' => $request->weapon,
         ];
 
+        \Log::warning('FUSION: The score that was saved was inaccurate, score modified and capped to max', ['request'=> $qualification]);
         $user->vpf->range_scores()->create($qualification);
         return response()->make("Success",200);
     }
