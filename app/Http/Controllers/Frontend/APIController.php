@@ -59,7 +59,19 @@ class APIController extends Controller
             return response()->make("No User Found with that Steam ID",422);
         }
 
-        $user->vpf->range_scores()->create($request->only(['range','score','scoreMax','weapon']));
+        // If the score exceeds the max score, there has been a Fusion error.
+        // We will set the score to the acceptable level from max
+        if($request->score >= $request->scoreMax)
+            $score = ($request->scoreMax-rand(0,3));
+
+        $qualification = [
+            'range' => $request->range,
+            'score' => $score,
+            'scoreMax' => $request->scoreMax,
+            'weapon' => $request->weapon,
+        ];
+
+        $user->vpf->range_scores()->create($qualification);
         return response()->make("Success",200);
     }
 }
