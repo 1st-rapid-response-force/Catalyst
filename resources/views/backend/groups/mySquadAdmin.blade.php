@@ -34,7 +34,7 @@
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    <h5 class="media-heading"><a href="/roster/{{$member->user->id}}">{{$member}}</a></h5>
+                                    <h5 class="media-heading"><a href="/roster/{{$member->id}}">{{$member}}</a></h5>
                                     <small>{{$member->assignment->name}}</small>
                                     <br>
                                     @if($member->hasReportedIn())
