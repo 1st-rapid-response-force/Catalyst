@@ -110,6 +110,11 @@ class PagesController extends Controller
             ->with('striker',$striker);
     }
 
+    public function disciplinary()
+    {
+        return view('frontend.policies.disciplinary');
+    }
+
     /**
      * Returns the Squad XML for the Unit
      */

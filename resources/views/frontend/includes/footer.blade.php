@@ -20,6 +20,7 @@
                     <div class="footer_menu">
                         <ul class="footer_list">
                             <li><a href="/enlistment">Enlistment</a></li>
+                            <li><a href="/policies/disciplinary">Disciplinary Policy</a></li>
                             <li><a href="https://forums.bistudio.com">Bohemia Interactive Forums</a></li>
                             <li><a href="http://arma3.com">ARMA 3</a></li>
                         </ul>

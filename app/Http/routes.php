@@ -40,6 +40,9 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('apply', 'PagesController@apply');
     Route::get('contact-us', 'PagesController@contact');
     Route::get('modpack', 'PagesController@modpack');
+    Route::get('policies/disciplinary', 'PagesController@disciplinary');
+
+
     Route::post('stripe/webhook', '\Laravel\Cashier\WebhookController@handleWebhook');
 
     Route::get('/roster/{id}', 'VPFController@publicView');
