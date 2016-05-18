@@ -32,11 +32,11 @@
         </ol>
         <h2>Member Conduct That Can Result in Disciplinary Action</h2>
         <p>1st Rapid Response Force has established general guidelines to govern the conduct of its members. No list of rules can include all instances of conduct that can result in discipline, and the examples below do not replace sound judgment or common-sense behavior.</p>
-        <p>Examples of member conduct that would lead to discipline and the usual course of disciplinary action have been separated into four groups, according to the usual severity and impact of the infraction. </p>
+        <p>Examples of member conduct that would lead to discipline and the usual course of disciplinary action have been separated into four classes, according to the usual severity and impact of the infraction. </p>
         <p>Different violations may be handled differently depending on the group they are in. 1st Rapid Response Force reserves the right to determine the appropriate level of discipline for any inappropriate conduct, including demotion, oral and written warnings, suspension, and discharge.</p>
         <h2>Class</h2>
         <h3>Class 1</h3>
-        <p>A group 1 offense typically relate to actions or behaviors that are considered disruptive, unprofessional, but are not serious enough to cause unit wide interference.</p>
+        <p>A class 1 offense typically relate to actions or behaviors that are considered disruptive, unprofessional, but are not serious enough to cause unit wide interference.</p>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -115,7 +115,7 @@
                 </tbody>
             </table>
             <h3>Class 2</h3>
-            <p>A group 2 offense typically relate to actions or behaviors that are considered very disruptive, immersion breaking, and cause small amounts of unit wide interference.</p>
+            <p>A class 2 offense typically relate to actions or behaviors that are considered very disruptive, immersion breaking, and cause small amounts of unit wide interference.</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -153,7 +153,7 @@
                 </table>
             </div>
             <h3>Class 3</h3>
-            <p>A group 3 offense typically relate to actions or behaviors that are considered extremely disruptive, disrespectful conduct towards members, and cause large amounts of unit wide interference.</p>
+            <p>A class 3 offense typically relate to actions or behaviors that are considered extremely disruptive, disrespectful conduct towards members, and cause large amounts of unit wide interference.</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -189,7 +189,7 @@
                 </table>
             </div>
             <h3>Class 4</h3>
-            <p>A group 4 offense typically relate to actions or behaviors that the unit has determined to be dishonorable actions which result in the most serious repercussion,  Dishonorable Discharge (complete and total ban from 1st RRF assets). All reported offenses require an emergency Command Hearing to be convened.</p>
+            <p>A class 4 offense typically relate to actions or behaviors that the unit has determined to be dishonorable actions which result in the most serious repercussion,  Dishonorable Discharge (complete and total ban from 1st RRF assets). All reported offenses require an emergency Command Hearing to be convened.</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -227,7 +227,7 @@
             </div>
             <h2>Appendix</h2>
             <h3>Command Hearing</h3>
-            <p>For group 3 (Fratricide without intent) and all group 4 offenses, a gathering of unit officials will be convened as soon as possible (within 48 hours of conduct). The member who has been accused of a group 3,4 offense will be notified of the meeting time and will be suspended from all 1st Rapid Response Force systems until the hearing.</p>
+            <p>For class 3 (Fratricide without intent) and all class 4 offenses, a gathering of unit officials will be convened as soon as possible (within 48 hours of conduct). The member who has been accused of a group 3,4 offense will be notified of the meeting time and will be suspended from all 1st Rapid Response Force systems until the hearing.</p>
             <p><strong>Command Attendance</strong><br>Command Level Meetings will consist of the following members:</p>
             <ol>
                 <li>Unit Commander</li>
