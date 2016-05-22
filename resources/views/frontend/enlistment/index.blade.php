@@ -27,7 +27,6 @@
                 <li>Members must own a legal copy of ARMA 3.</li>
                 <li>Members must have a clean Steam VAC and BattlEye Record</li>
                 <li>Members must be over the age of 16.</li>
-                <li>Members will be required to be citizens of a NATO member country to partake.</li>
                 <li>Members will need to be able to commit to a weekly operations and training schedule.</li>
                 <li>Members will need speak english in order to properly communicate with the unit.</li>
                 <li>Members will need to not be affiliated, enlisted, or active in any other MILSIM Unit/Community within ARMA.</li>
