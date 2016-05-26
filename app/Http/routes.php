@@ -49,6 +49,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
     // API
     Route::get('api/loadout/{steam_id}', 'APIController@getLoadout');
+    Route::get('api/qualifications/{steam_id}', 'APIController@getQualifications');
     Route::get('api/vpf/validate/{steam_id}', 'APIController@getIsMember');
     Route::post('api/training/ranges', 'APIController@postQualification');
 
