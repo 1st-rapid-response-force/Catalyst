@@ -40,7 +40,7 @@
                 <tr>
                     <td>{!! $assignment->id !!}</td>
                     <td>{!! $assignment->name !!}</td>
-                    <td>{!! $assignment->group->name !!}</td>
+                    <td>{!! $assignment->group->name or 'No Group'!!}</td>
                     <td><a href="{{route('admin.vpf.show',$assignment->id)}}">{{$assignment->member}}</a></td>
                     <td>{!!($assignment->entry_level == 1) ? 'True' : 'False' !!}</td>
                     <td>{!!($assignment->transfer_open == 1) ? 'True' : 'False' !!}</td>
