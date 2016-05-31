@@ -16,11 +16,12 @@
     <div class="container">
         <div class="row">
             <h1>Application</h1>
-            <p>Thank you for applying to the 1st Rapid Response Force.</p>
+            <p>Thank you for applying to the 1st Rapid Response Force. Before we can complete your application we would like to speak with you on the teamspeak. Please connect to ts.1st-rrf.com and message CPT. Rodriguez.G or 2LT Striker.A for an interview.</p>
             <p>While you wait for us to process your application why not:</p>
             <ul>
                 <li>Download the <a href="/modpack">modpack via Infil</a></li>
                 <li>Hop onto <a href="ts3server://ts.1st-rrf.com?port=9987&addbookmark=1st Rapid Response Force">Teamspeak Server</a> and get to know everyone</li>
+                <li>Complete your interview on the Teamspeak</li>
                 <li>Sign up to the <a href="http://steamcommunity.com/groups/1st-rrf">1st RRF Steam group</a> and get notifications when the public server is running an organized event.</li>
             </ul>
             <p>See you on the Battlefield.</p>
