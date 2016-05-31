@@ -58,9 +58,20 @@ class PagesController extends Controller
         $enlistedRanks = Rank::whereIn('id', array(2,3,4,5,6,7,8,9,10,11,12,13))->get();
         $warrantRanks = Rank::whereIn('id', array(14,15,16,17,18))->get();
         $officerRanks = Rank::whereIn('id', array(19,20,21,22,23,24))->get();
-        $groups1 = Group::whereBetween('id', [2,14])->get();
-        $groups2 = Group::whereBetween('id', [15, 25])->get();
-        $groups3 = Group::whereBetween('id', [26,42])->get();
+        $command = Group::whereBetween('id', [2,5])->get();
+        $alpha = Group::whereBetween('id', [8,10])->get();
+        $alphaViking = Group::whereBetween('id', [11,14])->get();
+        $alphaWolf = Group::whereBetween('id', [15,18])->get();
+        $bravo = Group::whereIn('id', [19,20,21,22,23,24,25])->get();
+        $bravo2nd = Group::whereBetween('id', [26,34])->get();
+        $bravo3rd = Group::whereBetween('id', [35,42])->get();
+        $charlie = Group::whereIn('id', [45,46,47,48,49,50])->get();
+        $charlie2nd = Group::whereBetween('id', [51,53])->get();
+        $charlie3rd = Group::whereBetween('id', [54,56])->get();
+        $delta = Group::whereIn('id', [57,58,59])->get();
+        $delta2nd = Group::whereBetween('id', [60,64])->get();
+        $delta3rd = Group::whereBetween('id', [65,66])->get();
+
         $recruits = VPF::where('assignment_id',156)->get();
         $discharges = VPF::discharged()->get();
 
@@ -68,9 +79,19 @@ class PagesController extends Controller
             ->with('enlistedRanks',$enlistedRanks)
             ->with('warrantRanks',$warrantRanks)
             ->with('officerRanks',$officerRanks)
-            ->with('group1', $groups1)
-            ->with('group2', $groups2)
-            ->with('group3', $groups3)
+            ->with('command', $command)
+            ->with('alphaCommand', $alpha)
+            ->with('alphaViking', $alphaViking)
+            ->with('alphaWolf', $alphaWolf)
+            ->with('bravo', $bravo)
+            ->with('bravo2nd', $bravo2nd)
+            ->with('bravo3rd', $bravo3rd)
+            ->with('charlie', $charlie)
+            ->with('charlie2nd', $charlie2nd)
+            ->with('charlie3rd', $charlie3rd)
+            ->with('delta', $delta)
+            ->with('delta2nd', $delta2nd)
+            ->with('delta3rd', $delta3rd)
             ->with('recruits', $recruits)
             ->with('discharges', $discharges);
 

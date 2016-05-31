@@ -75,22 +75,43 @@
             </table>
         </div>
         <div>
+            <h2>Assignments</h2>
+            <p>The NATO RRF is designed to scale to a maximum personnel allocation of 150 combat troops with several support elements. Every member of the unit will at all times hold a single assignment. Assignments are mutually exclusive positions which have required playtime, training and commitment attributes attached to them. On</p>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#assignments" aria-controls="assignments" role="tab" data-toggle="tab">Assignments</a></li>
+                <li role="presentation" class="active"><a href="#command" aria-controls="assignments" role="tab" data-toggle="tab">Command</a></li>
+                <li role="presentation"><a href="#alpha" aria-controls="structure" role="tab" data-toggle="tab">Alpha Company</a></li>
+                <li role="presentation"><a href="#bravo" aria-controls="structure" role="tab" data-toggle="tab">Bravo Company</a></li>
+                <li role="presentation"><a href="#charlie" aria-controls="structure" role="tab" data-toggle="tab">Charlie Company</a></li>
+                <li role="presentation"><a href="#delta" aria-controls="structure" role="tab" data-toggle="tab">Delta Company</a></li>
                 <li role="presentation"><a href="#recruits" aria-controls="structure" role="tab" data-toggle="tab">Recruits</a></li>
                 <li role="presentation"><a href="#discharges" aria-controls="structure" role="tab" data-toggle="tab">Discharges</a></li>
             </ul>
 
+
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="assignments">
-                    <h2>Assignments</h2>
-                    <p>The NATO RRF is designed to scale to a maximum personnel allocation of 150 combat troops with several support elements. Every member of the unit will at all times hold a single assignment. Assignments are mutually exclusive positions which have required playtime, training and commitment attributes attached to them. On</p>
-                    <h3>1st Rapid Response Force</h3>
+                <div role="tabpanel" class="tab-pane active" id="command">
+                    @foreach($command as $group)
+                        @if(!($group->assignments->count() == 0))
+                            <h5><strong>{{$group->name}}</strong></h5>
+                            @foreach($group->assignments as $assignment)
+                                @if(!is_null($assignment->member))
+                                    <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                @else
+                                    <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                @endif
+                            @endforeach
+                        @else
+                            <h4><strong>{{$group->name}}</strong></h4>
+                        @endif
+                    @endforeach
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="alpha">
                     <div class="row">
                         <div class="col-lg-4">
-                            @foreach($group1 as $group)
+                            @foreach($alphaCommand as $group)
                                 @if(!($group->assignments->count() == 0))
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
@@ -106,7 +127,7 @@
                             @endforeach
                         </div>
                         <div class="col-lg-4">
-                            @foreach($group2 as $group)
+                            @foreach($alphaViking as $group)
                                 @if(!($group->assignments->count() == 0))
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
@@ -122,7 +143,60 @@
                             @endforeach
                         </div>
                         <div class="col-lg-4">
-                            @foreach($group3 as $group)
+                            @foreach($alphaWolf as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="bravo">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            @foreach($bravo as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-lg-4">
+                            @foreach($bravo2nd as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-lg-4">
+                            @foreach($bravo3rd as $group)
                                 @if(!($group->assignments->count() == 0))
                                     <h5><strong>{{$group->name}}</strong></h5>
                                     @foreach($group->assignments as $assignment)
@@ -139,7 +213,115 @@
                         </div>
                     </div>
 
+
                 </div>
+
+                <div role="tabpanel" class="tab-pane" id="charlie">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            @foreach($charlie as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-lg-4">
+                            @foreach($charlie2nd as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-lg-4">
+                            @foreach($charlie3rd as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="delta">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            @foreach($delta as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-lg-4">
+                            @foreach($delta2nd as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="col-lg-4">
+                            @foreach($delta3rd as $group)
+                                @if(!($group->assignments->count() == 0))
+                                    <h5><strong>{{$group->name}}</strong></h5>
+                                    @foreach($group->assignments as $assignment)
+                                        @if(!is_null($assignment->member))
+                                            <img src="{{$assignment->member->avatar}}" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> <a href="/roster/{{$assignment->member->id}}">{{$assignment->member->user->vpf}} - {{$assignment->name}}</a></br>
+                                        @else
+                                            <img src="/frontend/images/avatars/background.png" class="img-circle" style="padding: 2px; height: 32px; width: 32px;"> {{$assignment->name}}</br>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <h4><strong>{{$group->name}}</strong></h4>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
                 <div role="tabpanel" class="tab-pane " id="recruits">
                     <h5><strong>Recruits</strong></h5>
                     @foreach($recruits as $recruit)
