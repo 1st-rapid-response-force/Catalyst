@@ -40,7 +40,7 @@
                             <label>Has this issue been reviewed/corrected?</label>
                             <select class="form-control" name="reviewed">
                                 <option value="1" {{($ir->reviewed == true) ? 'checked' : ''}}>Yes</option>
-                                <option value="0" {{($ir->reviewed == true) ? 'checked' : ''}}>No</option>
+                                <option value="0" {{($ir->reviewed == false) ? 'checked' : ''}}>No</option>
                             </select>
                         </div>
                         <br>

@@ -1,6 +1,6 @@
 @extends('backend.layout.main_layout')
 
-@section('title','VPF Correction')
+@section('title','Assignment Change')
 
 @section('sub-title','Forms')
 
@@ -39,15 +39,15 @@
                         <div class="form-group">
                             <label>Has this issue been reviewed/corrected?</label>
                             <select class="form-control" name="reviewed">
-                                <option value="1">Yes</option>
-                                <option value="0" selected>No</option>
+                                <option value="1" {{$ac->reviewed ? "selected" : ""}}>Yes</option>
+                                <option value="0" {{!$ac->reviewed ? "selected" : ""}}>No</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Is this request approved?</label>
                             <select class="form-control" name="approved">
-                                <option value="1">Yes</option>
-                                <option value="0" selected>No</option>
+                                <option value="1" {{$ac->approved ? "selected" : ""}}>Yes</option>
+                                <option value="0" {{!$ac->approved ? "selected" : ""}}>No</option>
                             </select>
                         </div>
                         <div class="form-group">

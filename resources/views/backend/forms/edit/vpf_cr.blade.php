@@ -35,8 +35,8 @@
                         <div class="form-group">
                             <label>Has this issue been reviewed/corrected?</label>
                             <select class="form-control" name="reviewed">
-                                <option value="1">Yes</option>
-                                <option value="0" selected>No</option>
+                                <option value="1" {{($vpf_cr->reviewed == true) ? 'checked' : ''}}>Yes</option>
+                                <option value="0" {{($vpf_cr->reviewed == true) ? 'checked' : ''}} selected>No</option>
                             </select>
                         </div>
                         <br>

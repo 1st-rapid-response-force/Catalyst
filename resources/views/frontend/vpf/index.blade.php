@@ -217,7 +217,6 @@
                             </div>
                             <div class="col-lg-6">
                                 <h3>Options</h3>
-                                <a class="btn btn-block btn-primary" href="{{route('vpf.donate')}}">Manage Donations</a>
                                 <a class="btn btn-block btn-primary" href="{{route('vpf.teamspeak')}}">Manage Teamspeak IDs</a>
                                 <a class="btn btn-block btn-primary" href="{{route('vpf.faces')}}">Edit Face</a>
                             </div>
